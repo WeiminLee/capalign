@@ -58,10 +58,21 @@ capalign 解决一个具体问题：
 
 ## 快速开始
 
-**1. 安装 —— 装进你的 agent 框架**
+**1. 安装 —— 一行命令**
 
-把 `SKILL.md` 与 `references/` 放进宿主框架的 skills 目录（例如 `.agents/skills/`），
-或直接在对话中指给 agent。没有依赖要装，没有脚本要跑。
+```bash
+npx skills add WeiminLee/capalign -g     # 全局安装；或 -p 装到当前项目
+```
+
+装好后 skill 出现在宿主框架 skills 目录（如 `.agents/skills/capability-align`），
+适用于 Claude Code / Cursor / Codex / GitHub Copilot 等。想先试用、不落盘：
+
+```bash
+npx skills use WeiminLee/capalign@capability-align
+```
+
+**手动安装**：也可直接把 `SKILL.md` 与 `references/` 拷入宿主框架的 skills 目录，
+或对话中指给 agent。没有依赖要装，没有脚本要跑。
 
 **2. 使用 —— 给 agent 一句话**
 
