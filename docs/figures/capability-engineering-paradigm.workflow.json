@@ -1,0 +1,57 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Capability Engineering Paradigm",
+    "quality_profile": "showcase",
+    "output": "docs/figures/capability-engineering-paradigm.html"
+  },
+  "lanes": [
+    { "id": "inputs", "label": "Knowledge Modalities" },
+    { "id": "eng", "label": "Capability Engineering Loop" },
+    { "id": "out", "label": "Deliverables" }
+  ],
+  "phases": [
+    { "id": "phase-ref", "label": "Reference", "fromCol": 0, "toCol": 0 },
+    { "id": "phase-rep", "label": "Represent", "fromCol": 1, "toCol": 1, "variant": "emphasis" },
+    { "id": "phase-align", "label": "Align", "fromCol": 2, "toCol": 2, "variant": "emphasis" },
+    { "id": "phase-verify", "label": "Verify", "fromCol": 3, "toCol": 3, "variant": "emphasis" },
+    { "id": "phase-report", "label": "Deliver", "fromCol": 4, "toCol": 4 }
+  ],
+  "groups": [
+    { "id": "loop", "label": "Self-referential closed loop", "lane": "eng", "fromCol": 1, "toCol": 3, "variant": "emphasis" }
+  ],
+  "mainPath": ["ref", "represent", "align", "verify", "report"],
+  "nodes": [
+    { "id": "ref", "lane": "inputs", "col": 0, "type": "external", "label": "repo · paper · blog", "sublabel": "code · methods · recipes", "width": 150 },
+    { "id": "represent", "lane": "eng", "col": 1, "type": "backend", "label": "Represent", "sublabel": "Capability IR · one lattice", "tag": "typed + evidence", "width": 150 },
+    { "id": "align", "lane": "eng", "col": 2, "type": "backend", "label": "Align", "sublabel": "5 gaps × 3 sources", "tag": "evidence-gated", "width": 150 },
+    { "id": "verify", "lane": "eng", "col": 3, "type": "security", "label": "Verify", "sublabel": "validate-before-classify", "tag": "self-check + fixtures", "width": 150 },
+    { "id": "report", "lane": "out", "col": 4, "type": "database", "label": "Alignment Report", "sublabel": "gaps + placement + metrics", "width": 150 }
+  ],
+  "edges": [
+    { "id": "ref-rep", "from": "ref", "to": "represent", "label": "three modalities", "variant": "default" },
+    { "id": "rep-align", "from": "represent", "to": "align", "label": "capability lattice", "variant": "emphasis" },
+    { "id": "align-verify", "from": "align", "to": "verify", "label": "recommendations", "variant": "default" },
+    { "id": "verify-report", "from": "verify", "to": "report", "label": "self-checked", "variant": "emphasis" },
+    { "id": "loop-reinventory", "from": "verify", "to": "ref", "label": "re-inventory", "variant": "dashed", "role": "return" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Core thesis",
+      "items": [
+        "Capability surfaces are first-class, computable objects",
+        "Claim drift is measured, real: 80% of skill declarations diverge"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Closed loop",
+      "items": [
+        "Assembly feeds re-inventory: represent - align - verify repeats",
+        "Library-level metrics: coverage@reference, promise-drift rate"
+      ]
+    }
+  ]
+}

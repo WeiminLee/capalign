@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Positioning: Capability Engineering vs. Neighboring Work",
+    "quality_profile": "showcase",
+    "output": "docs/figures/capability-engineering-positioning.html"
+  },
+  "components": [
+    { "id": "center", "type": "backend", "label": "Capability Engineering", "sublabel": "represent · align · verify (closed loop)", "pos": [430, 260], "size": [220, 84] },
+    { "id": "generation", "type": "cloud", "label": "SkillFoundry / SkillOps", "sublabel": "generation & ops", "pos": [90, 90], "size": [170, 66] },
+    { "id": "benchmarking", "type": "database", "label": "AutoMat · CompMat-Bench", "sublabel": "task benchmarking", "pos": [840, 90], "size": [170, 66] },
+    { "id": "auditing", "type": "security", "label": "BIV · Do-Desc-Tell-Truth", "sublabel": "single-modal audit", "pos": [90, 430], "size": [170, 66] },
+    { "id": "trust", "type": "messagebus", "label": "TessIndex · Lemons", "sublabel": "custody & trust", "pos": [840, 430], "size": [170, 66] },
+    { "id": "framework", "type": "external", "label": "Externalization · CDD", "sublabel": "capability frameworks", "pos": [430, 500], "size": [200, 60] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Neighboring work (no alignment layer)", "wraps": ["generation", "benchmarking", "auditing", "trust", "framework"] }
+  ],
+  "connections": [
+    { "id": "c-gen", "from": "center", "to": "generation", "label": "generates skills, no host alignment", "variant": "dashed" },
+    { "id": "c-bench", "from": "center", "to": "benchmarking", "label": "task success, not surface", "variant": "dashed" },
+    { "id": "c-audit", "from": "center", "to": "auditing", "label": "single-modal, unilateral", "variant": "dashed" },
+    { "id": "c-trust", "from": "center", "to": "trust", "label": "who signed, not whether true", "variant": "dashed" },
+    { "id": "c-fw", "from": "center", "to": "framework", "label": "no reference anchoring", "variant": "dashed", "fromSide": "bottom", "toSide": "top" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Positioning",
+      "items": [
+        "Neighbors produce skills, scores, audits, or trust — not gap tables",
+        "Our gap: closed-loop alignment of host surface vs. reference"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Promise Drift: Claimed vs. Verified Capability Surface",
+    "quality_profile": "showcase",
+    "output": "docs/figures/promise-drift.html"
+  },
+  "lanes": [
+    { "id": "declared", "label": "Declared Surface" },
+    { "id": "verify", "label": "Verification" },
+    { "id": "metrics", "label": "Metrics & Response" }
+  ],
+  "phases": [
+    { "id": "phase-declared", "label": "Declared", "fromCol": 0, "toCol": 0 },
+    { "id": "phase-verify", "label": "Verify", "fromCol": 1, "toCol": 2, "variant": "emphasis" },
+    { "id": "phase-measure", "label": "Measure & act", "fromCol": 3, "toCol": 4 }
+  ],
+  "mainPath": ["claim", "verify", "drift", "stale"],
+  "nodes": [
+    { "id": "claim", "lane": "declared", "col": 0, "type": "external", "label": "Documented Claim", "sublabel": "description · methods · recipes", "width": 180 },
+    { "id": "evidence", "lane": "verify", "col": 1, "type": "database", "label": "Verifiable Evidence", "sublabel": "code · artifacts · fixtures", "width": 165 },
+    { "id": "verify", "lane": "verify", "col": 2, "type": "security", "label": "Evidence-First Verify", "sublabel": "validate before classify", "tag": "8-point self-check", "width": 165 },
+    { "id": "drift", "lane": "metrics", "col": 3, "type": "backend", "label": "promise-drift rate", "sublabel": "|claimed − verified| / |claimed|", "width": 165 },
+    { "id": "stale", "lane": "metrics", "col": 4, "type": "messagebus", "label": "Stale / Drifted", "sublabel": "re-audit signal", "width": 165 }
+  ],
+  "edges": [
+    { "id": "claim-verify", "from": "claim", "to": "verify", "label": "claimed surface", "variant": "default" },
+    { "id": "evidence-verify", "from": "evidence", "to": "verify", "label": "grep-able evidence", "variant": "dashed", "role": "branch" },
+    { "id": "verify-drift", "from": "verify", "to": "drift", "label": "verified surface", "variant": "emphasis" },
+    { "id": "drift-stale", "from": "drift", "to": "stale", "label": "flag when gap grows", "variant": "default" },
+    { "id": "stale-claim", "from": "stale", "to": "claim", "label": "re-audit", "variant": "dashed", "role": "return" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Library-level metrics",
+      "items": [
+        "promise-drift rate: share of declared capabilities that fail verification",
+        "coverage@reference: validated share of a reference the host satisfies"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Discipline",
+      "items": [
+        "validate before classify — a claim is not a gap without evidence",
+        "the loop re-audits when the surface evolves (assembly, drift, expiry)"
+      ]
+    }
+  ]
+}
