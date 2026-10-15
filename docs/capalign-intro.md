@@ -30,7 +30,7 @@
 **可表示、可对齐、可验证、可治理**的一阶计算对象。本仓库的 skill 即是该范式的
 **首个完整实例化**（first complete instantiation）。
 
-![capalign 执行过程：三种参考物输入 → 八步工作流（盘点参考 → 盘点宿主 → 归一化 → 验证 → 分类 → 落点 → 报告 → 自检）→ 输出报告与 IR](images/capalign-overview.jpg)
+![capalign 执行过程：三种参考物输入 → 八步工作流（盘点参考 → 盘点宿主 → 归一化 → 验证 → 分类 → 落点 → 报告 → 自检）→ 输出报告与 IR。图为 archify 交互图](images/capalign-overview.png)
 
 ---
 

@@ -5,7 +5,7 @@
 
 **框架无关 · 可插拔 · 零捆绑** 的 agent skill。
 
-![capalign 执行过程：REPO / PAPER / BLOG 三种输入 → 八步工作流（盘点参考 → 盘点宿主 → 归一化 → 验证 → 分类 → 落点 → 报告 → 自检）→ OUTPUT](docs/images/capalign-overview.jpg)
+![capalign 执行过程：参考物（repo / paper / blog）→ 八步工作流（①盘点参考 ②盘点宿主 ③归一化 IR ④交叉验证 ⑤分类+来源 ⑥落点 ⑦报告 ⑧自检门）→ 输出报告与 IR。图为 archify 交互图（浅色主题）](docs/images/capalign-overview.png)
 
 ---
 
