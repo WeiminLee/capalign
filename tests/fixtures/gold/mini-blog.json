@@ -1,0 +1,29 @@
+{
+  "reference": "tests/fixtures/mini-blog.md",
+  "expected_inventory": [
+    {
+      "id": "vibcalc-kappa",
+      "type": "tool",
+      "confidence": "high",
+      "evidence": "named command `vibcalc kappa` (quote: 'I ran `vibcalc kappa` on my relaxed POSCAR')"
+    },
+    {
+      "id": "kappa-workflow",
+      "type": "workflow",
+      "confidence": "medium",
+      "evidence": "recipe: relax -> vibcalc kappa -> convergence check (5% between q-meshes) [porous: no explicit step count/params]"
+    },
+    {
+      "id": "mace-better-than-nep",
+      "type": "concept",
+      "confidence": "low",
+      "evidence": "opinion, no procedure (quote: 'MACE-based interatomic potentials are noticeably more faithful than NEP')"
+    }
+  ],
+  "traps_asserted": [
+    "named command -> tool with quote evidence",
+    "recipe -> workflow, medium confidence (porous, parameters unstated)",
+    "bare opinion -> concept low, never treated as a capability to align"
+  ],
+  "log": []
+}

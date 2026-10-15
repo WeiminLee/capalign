@@ -1,0 +1,6 @@
+{
+  "tools": [
+    {"name": "parse-structure", "description": "Parse a POSCAR into a structure dict."},
+    {"name": "fit-eos", "description": "Fit a 3rd-order Birch-Murnaghan EOS to E(V) points."}
+  ]
+}

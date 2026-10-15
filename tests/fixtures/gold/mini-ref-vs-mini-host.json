@@ -1,0 +1,59 @@
+{
+  "surfaces": {
+    "reference": "tests/fixtures/mini-ref",
+    "host": "tests/fixtures/mini-host",
+    "generated_at": "2026-10-15"
+  },
+  "gaps": [
+    {
+      "ref_id": "force-constants",
+      "class": "missing",
+      "source_kind": "reference-contrast",
+      "evidence_kinds": ["module"],
+      "note": "mini_ref.force_constants; no host counterpart; host AUDIT.md admits no FC pathway"
+    },
+    {
+      "ref_id": "dynamical-matrix",
+      "class": "missing",
+      "source_kind": "reference-contrast",
+      "evidence_kinds": ["module"],
+      "note": "mini_ref.dynamical_matrix"
+    },
+    {
+      "ref_id": "phonon-dos",
+      "class": "missing",
+      "source_kind": "reference-contrast",
+      "evidence_kinds": ["module", "doc"],
+      "note": "mini_ref.dos + docs/band.md"
+    },
+    {
+      "ref_id": "band-structure",
+      "class": "missing",
+      "source_kind": "reference-contrast",
+      "evidence_kinds": ["doc", "cli"],
+      "note": "docs/band.md + phon-vib band CLI"
+    },
+    {
+      "ref_id": "phonon-thermal-properties",
+      "class": "partial",
+      "source_kind": "host-self-audit",
+      "host_id": "heat-flow",
+      "note": "adjacent-but-different: host heat-flow covers lattice kappa (BTE), NOT Cv/F/S/ZPE; host AUDIT.md explicitly admits missing harmonic heat capacity. Must be partial, never equivalent, never missing-without-host-link"
+    },
+    {
+      "ref_id": "qha",
+      "class": "unknown",
+      "source_kind": "reference-contrast",
+      "evidence_kinds": ["doc"],
+      "note": "docs/qha.md claims the qha module which does NOT exist in source — evidence is low-confidence (doc-only, code absent); must NOT drive missing"
+    }
+  ],
+  "host_only": ["parse-structure", "fit-eos", "eos"],
+  "traps_asserted": [
+    "doc-claim-without-code -> unknown, not missing",
+    "adjacent thermal capability (heat-flow) -> partial with host link, not missing",
+    "host AUDIT.md admitted gap -> source_kind host-self-audit",
+    "dependency fingerprint: numpy/spglib alone does not imply force-constant families without module/docs evidence"
+  ],
+  "log": []
+}

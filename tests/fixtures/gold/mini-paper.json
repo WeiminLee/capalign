@@ -1,0 +1,65 @@
+{
+  "reference": "tests/fixtures/mini-paper.md",
+  "expected_inventory": [
+    {
+      "id": "finite-displacement-phonons",
+      "type": "workflow",
+      "confidence": "high",
+      "evidence": "Methods steps (1)-(6): displacements -> forces -> FC -> dynmat -> DOS -> Cv"
+    },
+    {
+      "id": "force-constant-assembly",
+      "type": "compute",
+      "confidence": "high",
+      "evidence": "step (3) assemble force-constant matrix"
+    },
+    {
+      "id": "vasp-calculator",
+      "type": "tool",
+      "confidence": "high",
+      "evidence": "forces evaluated with the ASE calculator interface to VASP (must-run dependency)"
+    },
+    {
+      "id": "dynamical-matrix-diagonalization",
+      "type": "compute",
+      "confidence": "high",
+      "evidence": "step (4)"
+    },
+    {
+      "id": "phonon-dos",
+      "type": "compute",
+      "confidence": "high",
+      "evidence": "step (5) Gaussian-broadened DOS"
+    },
+    {
+      "id": "heat-capacity",
+      "type": "compute",
+      "confidence": "high",
+      "evidence": "step (6) Cv from frequencies; Table 1"
+    },
+    {
+      "id": "phono3py-bte",
+      "type": "tool",
+      "confidence": "high",
+      "evidence": "phono3py RTA BTE solver (must-run dependency)"
+    },
+    {
+      "id": "thermal-conductivity-data",
+      "type": "data",
+      "confidence": "high",
+      "evidence": "Table 1 kappa = 2.31 W/mK (280-300 K); raw data published alongside"
+    },
+    {
+      "id": "tetrahedron-integration",
+      "type": "compute",
+      "confidence": "low",
+      "evidence": "single mention 'tetrahedron integration gives a slightly larger DOS' — must be low, not high"
+    }
+  ],
+  "traps_asserted": [
+    "single-mention method -> confidence low",
+    "software dependencies (ASE/VASP, phono3py) -> hard tool capabilities",
+    "published raw data -> data capability, not a figure"
+  ],
+  "log": []
+}

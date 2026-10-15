@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mini-ref"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.26", "spglib>=2.3"]
+
+[project.scripts]
+phon-vib = "mini_ref.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
