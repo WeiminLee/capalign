@@ -1,0 +1,19 @@
+{
+  "run_id": "E4-MINI-R1-SELF-2026-10-15",
+  "modality": "self-referential",
+  "host_surface_source": "inventory_host step D auto-scan of tests/fixtures/mini-host (skills/ + tools/tool-registry.json + AUDIT.md), agent-audited-itself",
+  "reference": "tests/fixtures/mini-ref",
+  "host": "tests/fixtures/mini-host",
+  "reference_ir_frozen": "6-cap capability table (see e4-run-mini.md \u00a7frozen-ir), identical to run 2",
+  "note": "application of inventory-heuristics \u00a7D.3: every gap mini-host's own AUDIT.md admits is source_kind=host-self-audit. Strict-subsume \u00a7F1: heat-flow (BTE lattice kappa) is adjacent to, not a subset of, phonon-thermal-properties (Cv/F/S/ZPE) -> missing with near-miss host_id.",
+  "gaps": [
+    {"ref_id": "force-constants", "class": "missing", "source_kind": "host-self-audit", "host_id": null, "evidence": "ref: src/mini_ref/cli.py (force_constants module); host grep force_const -> NONE; AUDIT.md:5-9 admits no force-constant pathway"},
+    {"ref_id": "dynamical-matrix", "class": "missing", "source_kind": "host-self-audit", "host_id": null, "evidence": "ref: src/mini_ref/cli.py (dynamical_matrix module); host grep dynamical -> only AUDIT.md (admission); AUDIT.md admits no pathway"},
+    {"ref_id": "phonon-dos", "class": "missing", "source_kind": "host-self-audit", "host_id": null, "evidence": "ref: src/mini_ref/cli.py (dos module) + docs/band.md; host grep dos -> only AUDIT.md; AUDIT.md admits no phonon DOS"},
+    {"ref_id": "band-structure", "class": "missing", "source_kind": "host-self-audit", "host_id": null, "evidence": "ref: docs/band.md (phon-vib band CLI); host grep band -> NONE; AUDIT.md admits no phonon dispersion"},
+    {"ref_id": "phonon-thermal-properties", "class": "missing", "source_kind": "host-self-audit", "host_id": "heat-flow", "evidence": "ref: src/mini_ref/cli.py (thermal_properties module); AUDIT.md:5-9 admits no Cv/F/S/ZPE; heat-flow (BTE lattice kappa) is adjacent-but-different, strict-subsume -> missing, near-miss recorded"},
+    {"ref_id": "qha", "class": "unknown", "source_kind": "reference-contrast", "host_id": null, "evidence": "ref: docs/qha.md only — qha module absent from src (ls shows __init__.py, cli.py only); host grep qha -> NONE; low-confidence doc claim must not drive missing"}
+  ],
+  "host_only": ["parse-structure", "fit-eos", "eos"],
+  "layer1_self_check": "pass (8/8: sections, validated evidence, no-low-driven-missing, rule citations, source kinds, host-only tracked, closing statement, determinism re-run identical)"
+}

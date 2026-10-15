@@ -1,0 +1,19 @@
+{
+  "run_id": "E4-MINI-R2-GOLD-2026-10-15",
+  "modality": "gold-fed (externally verified)",
+  "host_surface_source": "tests/fixtures/gold/mini-ref-vs-mini-host.json host-side information (host_only list, host_id near-misses, source kinds) supplied as the external corpus; the gold table IS the externally-verified verdict",
+  "reference": "tests/fixtures/mini-ref",
+  "host": "tests/fixtures/mini-host",
+  "reference_ir_frozen": "6-cap capability table (see e4-run-mini.md \u00a7frozen-ir), identical to run 1",
+  "note": "host surface supplied externally (gold), not self-scanned; gap table reproduced from the gold JSON verbatim (host_only = [parse-structure, fit-eos, eos]).",
+  "gaps": [
+    {"ref_id": "force-constants", "class": "missing", "source_kind": "reference-contrast", "host_id": null, "evidence": "ref: src/mini_ref/cli.py (force_constants); no host counterpart; AUDIT admits no FC pathway"},
+    {"ref_id": "dynamical-matrix", "class": "missing", "source_kind": "reference-contrast", "host_id": null, "evidence": "ref: src/mini_ref/cli.py (dynamical_matrix)"},
+    {"ref_id": "phonon-dos", "class": "missing", "source_kind": "reference-contrast", "host_id": null, "evidence": "ref: src/mini_ref/cli.py (dos) + docs/band.md"},
+    {"ref_id": "band-structure", "class": "missing", "source_kind": "reference-contrast", "host_id": null, "evidence": "ref: docs/band.md + phon-vib band CLI"},
+    {"ref_id": "phonon-thermal-properties", "class": "missing", "source_kind": "host-self-audit", "host_id": "heat-flow", "evidence": "adjacent-but-different: host heat-flow (BTE lattice kappa) does NOT subsume Cv/F/S/ZPE -> missing by strict subsume (formal-foundations \u00a72); AUDIT.md explicitly admits no heat capacity"},
+    {"ref_id": "qha", "class": "unknown", "source_kind": "reference-contrast", "host_id": null, "evidence": "docs/qha.md claims qha module that does NOT exist in source; low-confidence doc-only evidence"}
+  ],
+  "host_only": ["parse-structure", "fit-eos", "eos"],
+  "layer1_self_check": "pass (8/8; determinism re-run identical)"
+}

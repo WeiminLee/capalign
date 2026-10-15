@@ -1,0 +1,2046 @@
+{
+  "summary": {
+    "skills": 177,
+    "claims": 178,
+    "verified": 124,
+    "drift": 54,
+    "fabricated": 0,
+    "drift_by_source": {
+      "description": {
+        "claims": 0,
+        "verified": 0
+      },
+      "body": {
+        "claims": 178,
+        "verified": 124
+      }
+    }
+  },
+  "skills": [
+    {
+      "name": "13c-metabolic-flux",
+      "path": "/tmp/kdense/skills/13c-metabolic-flux/SKILL.md",
+      "claims": 1,
+      "verified": 1,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "adaptyv",
+      "path": "/tmp/kdense/skills/adaptyv/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "aeon",
+      "path": "/tmp/kdense/skills/aeon/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "alphagenome",
+      "path": "/tmp/kdense/skills/alphagenome/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "analytical-method-validation",
+      "path": "/tmp/kdense/skills/analytical-method-validation/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "anndata",
+      "path": "/tmp/kdense/skills/anndata/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "arbor",
+      "path": "/tmp/kdense/skills/arbor/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "arboreto",
+      "path": "/tmp/kdense/skills/arboreto/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "astropy",
+      "path": "/tmp/kdense/skills/astropy/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "autoskill",
+      "path": "/tmp/kdense/skills/autoskill/SKILL.md",
+      "claims": 2,
+      "verified": 2,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "benchling-integration",
+      "path": "/tmp/kdense/skills/benchling-integration/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "bgpt-paper-search",
+      "path": "/tmp/kdense/skills/bgpt-paper-search/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": false
+    },
+    {
+      "name": "bids",
+      "path": "/tmp/kdense/skills/bids/SKILL.md",
+      "claims": 2,
+      "verified": 0,
+      "drift": 2,
+      "fabricated": 0,
+      "drift_items": [
+        "dataset_description.json",
+        "BEPs/BEP032/schema.json"
+      ],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "biopython",
+      "path": "/tmp/kdense/skills/biopython/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "bioservices",
+      "path": "/tmp/kdense/skills/bioservices/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "bulk-rnaseq",
+      "path": "/tmp/kdense/skills/bulk-rnaseq/SKILL.md",
+      "claims": 4,
+      "verified": 3,
+      "drift": 1,
+      "fabricated": 0,
+      "drift_items": [
+        "metadata.csv"
+      ],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "cantera",
+      "path": "/tmp/kdense/skills/cantera/SKILL.md",
+      "claims": 7,
+      "verified": 2,
+      "drift": 5,
+      "fabricated": 0,
+      "drift_items": [
+        "h2o2.yaml",
+        "baseline.csv",
+        "finer_output.csv",
+        "tighter_solver.csv",
+        "longer_horizon.csv"
+      ],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "cellprofiler",
+      "path": "/tmp/kdense/skills/cellprofiler/SKILL.md",
+      "claims": 5,
+      "verified": 4,
+      "drift": 1,
+      "fabricated": 0,
+      "drift_items": [
+        "images.csv"
+      ],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "cellxgene-census",
+      "path": "/tmp/kdense/skills/cellxgene-census/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "cirq",
+      "path": "/tmp/kdense/skills/cirq/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "citation-management",
+      "path": "/tmp/kdense/skills/citation-management/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "clinical-decision-support",
+      "path": "/tmp/kdense/skills/clinical-decision-support/SKILL.md",
+      "claims": 7,
+      "verified": 7,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "clinical-reports",
+      "path": "/tmp/kdense/skills/clinical-reports/SKILL.md",
+      "claims": 15,
+      "verified": 15,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "cobrapy",
+      "path": "/tmp/kdense/skills/cobrapy/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "consciousness-council",
+      "path": "/tmp/kdense/skills/consciousness-council/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "dask",
+      "path": "/tmp/kdense/skills/dask/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "database-lookup",
+      "path": "/tmp/kdense/skills/database-lookup/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "datalad",
+      "path": "/tmp/kdense/skills/datalad/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "datamol",
+      "path": "/tmp/kdense/skills/datamol/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "deepchem",
+      "path": "/tmp/kdense/skills/deepchem/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "deepspot-m",
+      "path": "/tmp/kdense/skills/deepspot-m/SKILL.md",
+      "claims": 1,
+      "verified": 0,
+      "drift": 1,
+      "fabricated": 0,
+      "drift_items": [
+        "tokens.csv"
+      ],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "deeptools",
+      "path": "/tmp/kdense/skills/deeptools/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "depmap",
+      "path": "/tmp/kdense/skills/depmap/SKILL.md",
+      "claims": 18,
+      "verified": 0,
+      "drift": 18,
+      "fabricated": 0,
+      "drift_items": [
+        "CRISPRGeneEffect.csv",
+        "CRISPRGeneEffectUncorrected.csv",
+        "CRISPRGeneDependency.csv",
+        "Model.csv",
+        "ModelCondition.csv",
+        "ScreenGeneEffect.csv",
+        "ScreenSequenceMap.csv",
+        "CRISPRScreenMap.csv",
+        "OmicsExpressionTPMLogp1HumanProteinCodingGenes.csv",
+        "OmicsSomaticMutationsMatrixDamaging.csv",
+        "OmicsSomaticMutationsMatrixHotspot.csv",
+        "PortalOmicsCNGeneLog2.csv",
+        "OmicsProfiles.csv",
+        "Gene.csv",
+        "AchillesScreenQCReport.csv",
+        "AchillesSequenceQCReport.csv",
+        "sample_info.csv",
+        "primary-screen-replicate-collapsed-logfold-change.csv"
+      ],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "dhdna-profiler",
+      "path": "/tmp/kdense/skills/dhdna-profiler/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "diffdock",
+      "path": "/tmp/kdense/skills/diffdock/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "dnanexus-integration",
+      "path": "/tmp/kdense/skills/dnanexus-integration/SKILL.md",
+      "claims": 1,
+      "verified": 0,
+      "drift": 1,
+      "fabricated": 0,
+      "drift_items": [
+        "dxapp.json"
+      ],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "esm",
+      "path": "/tmp/kdense/skills/esm/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "etetoolkit",
+      "path": "/tmp/kdense/skills/etetoolkit/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "exa-search",
+      "path": "/tmp/kdense/skills/exa-search/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "experimental-design",
+      "path": "/tmp/kdense/skills/experimental-design/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "exploratory-data-analysis",
+      "path": "/tmp/kdense/skills/exploratory-data-analysis/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "fictiv",
+      "path": "/tmp/kdense/skills/fictiv/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "flowio",
+      "path": "/tmp/kdense/skills/flowio/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "flowkit",
+      "path": "/tmp/kdense/skills/flowkit/SKILL.md",
+      "claims": 2,
+      "verified": 2,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "fluidsim",
+      "path": "/tmp/kdense/skills/fluidsim/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "folklore-variant-evidence",
+      "path": "/tmp/kdense/skills/folklore-variant-evidence/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "generate-image",
+      "path": "/tmp/kdense/skills/generate-image/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "geniml",
+      "path": "/tmp/kdense/skills/geniml/SKILL.md",
+      "claims": 1,
+      "verified": 1,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "genomic-coordinates",
+      "path": "/tmp/kdense/skills/genomic-coordinates/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "genomic-intelligence",
+      "path": "/tmp/kdense/skills/genomic-intelligence/SKILL.md",
+      "claims": 1,
+      "verified": 0,
+      "drift": 1,
+      "fabricated": 0,
+      "drift_items": [
+        "/v1/openapi.json"
+      ],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "geomaster",
+      "path": "/tmp/kdense/skills/geomaster/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "geopandas",
+      "path": "/tmp/kdense/skills/geopandas/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "get-available-resources",
+      "path": "/tmp/kdense/skills/get-available-resources/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "gget",
+      "path": "/tmp/kdense/skills/gget/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "ginkgo-cloud-lab",
+      "path": "/tmp/kdense/skills/ginkgo-cloud-lab/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "glycoengineering",
+      "path": "/tmp/kdense/skills/glycoengineering/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "gtars",
+      "path": "/tmp/kdense/skills/gtars/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "histolab",
+      "path": "/tmp/kdense/skills/histolab/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "hugging-science",
+      "path": "/tmp/kdense/skills/hugging-science/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "hypogenic",
+      "path": "/tmp/kdense/skills/hypogenic/SKILL.md",
+      "claims": 1,
+      "verified": 1,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "hypothesis-generation",
+      "path": "/tmp/kdense/skills/hypothesis-generation/SKILL.md",
+      "claims": 7,
+      "verified": 7,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "imaging-data-commons",
+      "path": "/tmp/kdense/skills/imaging-data-commons/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "infographics",
+      "path": "/tmp/kdense/skills/infographics/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "iso-standards-readiness",
+      "path": "/tmp/kdense/skills/iso-standards-readiness/SKILL.md",
+      "claims": 9,
+      "verified": 9,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "lab-hardware-cad",
+      "path": "/tmp/kdense/skills/lab-hardware-cad/SKILL.md",
+      "claims": 1,
+      "verified": 0,
+      "drift": 1,
+      "fabricated": 0,
+      "drift_items": [
+        "carrier.manifest.json"
+      ],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "labarchive-integration",
+      "path": "/tmp/kdense/skills/labarchive-integration/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "lamindb",
+      "path": "/tmp/kdense/skills/lamindb/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "latchbio-integration",
+      "path": "/tmp/kdense/skills/latchbio-integration/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "latex-posters",
+      "path": "/tmp/kdense/skills/latex-posters/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "liteparse",
+      "path": "/tmp/kdense/skills/liteparse/SKILL.md",
+      "claims": 2,
+      "verified": 0,
+      "drift": 2,
+      "fabricated": 0,
+      "drift_items": [
+        "paper.pdf.json",
+        "paper.json"
+      ],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "literature-review",
+      "path": "/tmp/kdense/skills/literature-review/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "mageck",
+      "path": "/tmp/kdense/skills/mageck/SKILL.md",
+      "claims": 1,
+      "verified": 0,
+      "drift": 1,
+      "fabricated": 0,
+      "drift_items": [
+        "result/report.json"
+      ],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "marine-carbonate-chemistry",
+      "path": "/tmp/kdense/skills/marine-carbonate-chemistry/SKILL.md",
+      "claims": 3,
+      "verified": 2,
+      "drift": 1,
+      "fabricated": 0,
+      "drift_items": [
+        "samples.csv"
+      ],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "markdown-mermaid-writing",
+      "path": "/tmp/kdense/skills/markdown-mermaid-writing/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "market-research-reports",
+      "path": "/tmp/kdense/skills/market-research-reports/SKILL.md",
+      "claims": 1,
+      "verified": 1,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "markitdown",
+      "path": "/tmp/kdense/skills/markitdown/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "matchms",
+      "path": "/tmp/kdense/skills/matchms/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "matlab",
+      "path": "/tmp/kdense/skills/matlab/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "matplotlib",
+      "path": "/tmp/kdense/skills/matplotlib/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "medchem",
+      "path": "/tmp/kdense/skills/medchem/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "modal",
+      "path": "/tmp/kdense/skills/modal/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "molecular-dynamics",
+      "path": "/tmp/kdense/skills/molecular-dynamics/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "molfeat",
+      "path": "/tmp/kdense/skills/molfeat/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "ncats-arax",
+      "path": "/tmp/kdense/skills/ncats-arax/SKILL.md",
+      "claims": 2,
+      "verified": 2,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "networkx",
+      "path": "/tmp/kdense/skills/networkx/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "neurokit2",
+      "path": "/tmp/kdense/skills/neurokit2/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "neuropixels-analysis",
+      "path": "/tmp/kdense/skills/neuropixels-analysis/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "nextflow",
+      "path": "/tmp/kdense/skills/nextflow/SKILL.md",
+      "claims": 1,
+      "verified": 0,
+      "drift": 1,
+      "fabricated": 0,
+      "drift_items": [
+        "nextflow_schema.json"
+      ],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "nmrglue",
+      "path": "/tmp/kdense/skills/nmrglue/SKILL.md",
+      "claims": 3,
+      "verified": 3,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "nwb-conversion",
+      "path": "/tmp/kdense/skills/nwb-conversion/SKILL.md",
+      "claims": 1,
+      "verified": 0,
+      "drift": 1,
+      "fabricated": 0,
+      "drift_items": [
+        ".validation.json"
+      ],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "omero-integration",
+      "path": "/tmp/kdense/skills/omero-integration/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "onekgpd",
+      "path": "/tmp/kdense/skills/onekgpd/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "ontology-term-resolution",
+      "path": "/tmp/kdense/skills/ontology-term-resolution/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "open-notebook",
+      "path": "/tmp/kdense/skills/open-notebook/SKILL.md",
+      "claims": 1,
+      "verified": 1,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "openpiv",
+      "path": "/tmp/kdense/skills/openpiv/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "opentrons-integration",
+      "path": "/tmp/kdense/skills/opentrons-integration/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "optimize-for-gpu",
+      "path": "/tmp/kdense/skills/optimize-for-gpu/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "pacsomatic",
+      "path": "/tmp/kdense/skills/pacsomatic/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "paper-lookup",
+      "path": "/tmp/kdense/skills/paper-lookup/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "paperclip",
+      "path": "/tmp/kdense/skills/paperclip/SKILL.md",
+      "claims": 1,
+      "verified": 0,
+      "drift": 1,
+      "fabricated": 0,
+      "drift_items": [
+        "meta.json"
+      ],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "paperzilla",
+      "path": "/tmp/kdense/skills/paperzilla/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "parallel-web",
+      "path": "/tmp/kdense/skills/parallel-web/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "pathml",
+      "path": "/tmp/kdense/skills/pathml/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "pathogen-variant-surveillance",
+      "path": "/tmp/kdense/skills/pathogen-variant-surveillance/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "pathway-enrichment",
+      "path": "/tmp/kdense/skills/pathway-enrichment/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "peer-review",
+      "path": "/tmp/kdense/skills/peer-review/SKILL.md",
+      "claims": 5,
+      "verified": 5,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "pennylane",
+      "path": "/tmp/kdense/skills/pennylane/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "phylogenetics",
+      "path": "/tmp/kdense/skills/phylogenetics/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "pi-agent",
+      "path": "/tmp/kdense/skills/pi-agent/SKILL.md",
+      "claims": 1,
+      "verified": 0,
+      "drift": 1,
+      "fabricated": 0,
+      "drift_items": [
+        "mcp-adapter.json"
+      ],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "pkpd-modeling",
+      "path": "/tmp/kdense/skills/pkpd-modeling/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "polars",
+      "path": "/tmp/kdense/skills/polars/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "polars-bio",
+      "path": "/tmp/kdense/skills/polars-bio/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "pptx-posters",
+      "path": "/tmp/kdense/skills/pptx-posters/SKILL.md",
+      "claims": 1,
+      "verified": 1,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "primekg",
+      "path": "/tmp/kdense/skills/primekg/SKILL.md",
+      "claims": 3,
+      "verified": 1,
+      "drift": 2,
+      "fabricated": 0,
+      "drift_items": [
+        "kg.csv",
+        "kg_grouped.csv"
+      ],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "primer-design",
+      "path": "/tmp/kdense/skills/primer-design/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "protocolsio-integration",
+      "path": "/tmp/kdense/skills/protocolsio-integration/SKILL.md",
+      "claims": 1,
+      "verified": 1,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "pufferlib",
+      "path": "/tmp/kdense/skills/pufferlib/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "pybamm",
+      "path": "/tmp/kdense/skills/pybamm/SKILL.md",
+      "claims": 6,
+      "verified": 3,
+      "drift": 3,
+      "fabricated": 0,
+      "drift_items": [
+        "curve.csv",
+        "tight-tolerance.csv",
+        "refined-mesh.csv"
+      ],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "pycalphad",
+      "path": "/tmp/kdense/skills/pycalphad/SKILL.md",
+      "claims": 2,
+      "verified": 2,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "pydeseq2",
+      "path": "/tmp/kdense/skills/pydeseq2/SKILL.md",
+      "claims": 5,
+      "verified": 5,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "pydicom",
+      "path": "/tmp/kdense/skills/pydicom/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "pyhealth",
+      "path": "/tmp/kdense/skills/pyhealth/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "pylabrobot",
+      "path": "/tmp/kdense/skills/pylabrobot/SKILL.md",
+      "claims": 1,
+      "verified": 1,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "pymatgen",
+      "path": "/tmp/kdense/skills/pymatgen/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "pymc",
+      "path": "/tmp/kdense/skills/pymc/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "pymoo",
+      "path": "/tmp/kdense/skills/pymoo/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "pyopenms",
+      "path": "/tmp/kdense/skills/pyopenms/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "pysam",
+      "path": "/tmp/kdense/skills/pysam/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "pytdc",
+      "path": "/tmp/kdense/skills/pytdc/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "pytorch-lightning",
+      "path": "/tmp/kdense/skills/pytorch-lightning/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "pyzotero",
+      "path": "/tmp/kdense/skills/pyzotero/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "qiime2-amplicon",
+      "path": "/tmp/kdense/skills/qiime2-amplicon/SKILL.md",
+      "claims": 3,
+      "verified": 3,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "qiskit",
+      "path": "/tmp/kdense/skills/qiskit/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "qutip",
+      "path": "/tmp/kdense/skills/qutip/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "rdkit",
+      "path": "/tmp/kdense/skills/rdkit/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "relion",
+      "path": "/tmp/kdense/skills/relion/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "relsa-severity-assessment",
+      "path": "/tmp/kdense/skills/relsa-severity-assessment/SKILL.md",
+      "claims": 2,
+      "verified": 1,
+      "drift": 1,
+      "fabricated": 0,
+      "drift_items": [
+        "relsa_scores.csv"
+      ],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "research-grants",
+      "path": "/tmp/kdense/skills/research-grants/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "research-lookup",
+      "path": "/tmp/kdense/skills/research-lookup/SKILL.md",
+      "claims": 8,
+      "verified": 8,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "rowan",
+      "path": "/tmp/kdense/skills/rowan/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "scanpy",
+      "path": "/tmp/kdense/skills/scanpy/SKILL.md",
+      "claims": 3,
+      "verified": 3,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "scholar-evaluation",
+      "path": "/tmp/kdense/skills/scholar-evaluation/SKILL.md",
+      "claims": 5,
+      "verified": 5,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "scientific-brainstorming",
+      "path": "/tmp/kdense/skills/scientific-brainstorming/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "scientific-critical-thinking",
+      "path": "/tmp/kdense/skills/scientific-critical-thinking/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "scientific-schematics",
+      "path": "/tmp/kdense/skills/scientific-schematics/SKILL.md",
+      "claims": 1,
+      "verified": 0,
+      "drift": 1,
+      "fabricated": 0,
+      "drift_items": [
+        "name_review_log.json"
+      ],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "scientific-slides",
+      "path": "/tmp/kdense/skills/scientific-slides/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "scientific-visualization",
+      "path": "/tmp/kdense/skills/scientific-visualization/SKILL.md",
+      "claims": 1,
+      "verified": 1,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "scientific-writing",
+      "path": "/tmp/kdense/skills/scientific-writing/SKILL.md",
+      "claims": 10,
+      "verified": 10,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "scikit-bio",
+      "path": "/tmp/kdense/skills/scikit-bio/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "scikit-learn",
+      "path": "/tmp/kdense/skills/scikit-learn/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "scikit-survival",
+      "path": "/tmp/kdense/skills/scikit-survival/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "scvelo",
+      "path": "/tmp/kdense/skills/scvelo/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "scvi-tools",
+      "path": "/tmp/kdense/skills/scvi-tools/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "seaborn",
+      "path": "/tmp/kdense/skills/seaborn/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "shap",
+      "path": "/tmp/kdense/skills/shap/SKILL.md",
+      "claims": 4,
+      "verified": 4,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "simpy",
+      "path": "/tmp/kdense/skills/simpy/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "stable-baselines3",
+      "path": "/tmp/kdense/skills/stable-baselines3/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "statistical-analysis",
+      "path": "/tmp/kdense/skills/statistical-analysis/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "statistical-power",
+      "path": "/tmp/kdense/skills/statistical-power/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "statsmodels",
+      "path": "/tmp/kdense/skills/statsmodels/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "sympy",
+      "path": "/tmp/kdense/skills/sympy/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "tamarind",
+      "path": "/tmp/kdense/skills/tamarind/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "tellurium",
+      "path": "/tmp/kdense/skills/tellurium/SKILL.md",
+      "claims": 2,
+      "verified": 1,
+      "drift": 1,
+      "fabricated": 0,
+      "drift_items": [
+        "baseline.csv"
+      ],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "tiledbvcf",
+      "path": "/tmp/kdense/skills/tiledbvcf/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "timesfm-forecasting",
+      "path": "/tmp/kdense/skills/timesfm-forecasting/SKILL.md",
+      "claims": 1,
+      "verified": 0,
+      "drift": 1,
+      "fabricated": 0,
+      "drift_items": [
+        ".metadata.json"
+      ],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "torch-geometric",
+      "path": "/tmp/kdense/skills/torch-geometric/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "torchdrug",
+      "path": "/tmp/kdense/skills/torchdrug/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "transformers",
+      "path": "/tmp/kdense/skills/transformers/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "treatment-plans",
+      "path": "/tmp/kdense/skills/treatment-plans/SKILL.md",
+      "claims": 6,
+      "verified": 6,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "umap-learn",
+      "path": "/tmp/kdense/skills/umap-learn/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "uncertainty-and-units",
+      "path": "/tmp/kdense/skills/uncertainty-and-units/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "usfiscaldata",
+      "path": "/tmp/kdense/skills/usfiscaldata/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "vaex",
+      "path": "/tmp/kdense/skills/vaex/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "venue-templates",
+      "path": "/tmp/kdense/skills/venue-templates/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "waypoint-bio",
+      "path": "/tmp/kdense/skills/waypoint-bio/SKILL.md",
+      "claims": 6,
+      "verified": 0,
+      "drift": 6,
+      "fabricated": 0,
+      "drift_items": [
+        "test_metrics.json",
+        "finetune_results.json",
+        "training_log.csv",
+        "benchmark_results.json",
+        "gpt2-6m.yaml",
+        "gpt2-170m.yaml"
+      ],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "what-if-oracle",
+      "path": "/tmp/kdense/skills/what-if-oracle/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    },
+    {
+      "name": "zarr-python",
+      "path": "/tmp/kdense/skills/zarr-python/SKILL.md",
+      "claims": 0,
+      "verified": 0,
+      "drift": 0,
+      "fabricated": 0,
+      "drift_items": [],
+      "fabricated_items": [],
+      "has_evidence": true
+    }
+  ],
+  "registry_loaded": true
+}

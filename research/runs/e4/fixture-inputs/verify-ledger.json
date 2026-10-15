@@ -1,0 +1,21 @@
+{
+  "run_ids": ["E4-MINI-R1-SELF-2026-10-15", "E4-MINI-R2-GOLD-2026-10-15"],
+  "scope": "capability-level ledger over the host claim surface; identical artifact tree in both runs (input freeze). Mini-scale, non-conclusive.",
+  "tiers": {
+    "t1_claim_resolution": "verified = declared capability has a carrier artifact AND its input contract is satisfiable from the host's own surface (drift-meter semantics lifted to capability level)",
+    "t2_witness_test": "verified = confl >= medium AND a reproducible witness test exists (formal-foundations definition; mini-host has NO executables, so the tier saturates)"
+  },
+  "positive_claims": [
+    {"id": "heat-flow", "claim": "lattice thermal conductivity kappa via phonon BTE", "conf_label": "high", "carrier": "skills/heat-flow/SKILL.md", "verified_t1": 0, "verified_t2": 0, "fail_reason": "input contract unsatisfiable: requires phonon frequencies from an upstream capability; no host capability produces frequencies (AUDIT.md admits no force-constant/dynamical-matrix/DOS pathway; grep: force_const/dynamical/dos absent except AUDIT admission)"},
+    {"id": "eos", "claim": "3rd-order Birch-Murnaghan EOS fit / E-V curve, V0 + B0", "conf_label": "high", "carrier": "skills/eos/SKILL.md", "verified_t1": 1, "verified_t2": 0, "fail_reason": null},
+    {"id": "parse-structure", "claim": "parse POSCAR into a structure dict", "conf_label": "high", "carrier": "tools/tool-registry.json", "verified_t1": 1, "verified_t2": 0, "fail_reason": null},
+    {"id": "fit-eos", "claim": "fit 3rd-order Birch-Murnaghan EOS to E(V) points", "conf_label": "high", "carrier": "tools/tool-registry.json", "verified_t1": 1, "verified_t2": 0, "fail_reason": null}
+  ],
+  "negative_reports": {
+    "note": "self-audit admissions (AUDIT.md) checked by host-tree grep",
+    "total": 5,
+    "accurate": 5,
+    "items": ["phonon-thermal-properties (Cv/F/S/ZPE)", "phonon-dos", "band-structure/dispersion", "force-constants", "dynamical-matrix"]
+  },
+  "conf_labels_present": ["high"]
+}

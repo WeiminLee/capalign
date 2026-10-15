@@ -1,0 +1,123 @@
+{
+  "runs": {
+    "self": "E4-MINI-R1-SELF-2026-10-15",
+    "gold": "E4-MINI-R2-GOLD-2026-10-15"
+  },
+  "drift": {
+    "t1_claim_resolution": {
+      "self": {
+        "claims": 4,
+        "verified": 3,
+        "unverified": 1,
+        "drift": 0.25
+      },
+      "gold": {
+        "claims": 4,
+        "verified": 3,
+        "unverified": 1,
+        "drift": 0.25
+      }
+    },
+    "t2_witness_test": {
+      "self": {
+        "claims": 4,
+        "verified": 0,
+        "unverified": 4,
+        "drift": 1.0
+      },
+      "gold": {
+        "claims": 4,
+        "verified": 0,
+        "unverified": 4,
+        "drift": 1.0
+      }
+    }
+  },
+  "bias": {
+    "t1_claim_resolution": 0.0,
+    "t2_witness_test": 0.0
+  },
+  "cal": {
+    "t1_claim_resolution": {
+      "high": {
+        "n": 4,
+        "verified": 3,
+        "pass_rate": 0.75
+      }
+    },
+    "t2_witness_test": {
+      "high": {
+        "n": 4,
+        "verified": 0,
+        "pass_rate": 0.0
+      }
+    }
+  },
+  "gap_agreement": {
+    "class": {
+      "compared": 6,
+      "agree": 6,
+      "agreement": 1.0
+    },
+    "source_kind": {
+      "compared": 6,
+      "agree": 2,
+      "agreement": 0.3333333333333333
+    },
+    "host_id": {
+      "compared": 6,
+      "agree": 6,
+      "agreement": 1.0
+    }
+  },
+  "negative_reports": {
+    "total": 5,
+    "accurate": 5,
+    "accuracy": 1.0
+  },
+  "unverified_self_reported": [
+    {
+      "id": "heat-flow",
+      "claim": "lattice thermal conductivity kappa via phonon BTE",
+      "conf_label": "high",
+      "evidence": "skills/heat-flow/SKILL.md",
+      "tier1_verdict": false,
+      "tier2_verdict": false,
+      "fail_reason": "input contract unsatisfiable: requires phonon frequencies from an upstream capability; no host capability produces frequencies (AUDIT.md admits no force-constant/dynamical-matrix/DOS pathway; grep: force_const/dynamical/dos absent except AUDIT admission)"
+    }
+  ],
+  "ledger_rows": [
+    {
+      "id": "heat-flow",
+      "claim": "lattice thermal conductivity kappa via phonon BTE",
+      "conf_label": "high",
+      "verified_t1": false,
+      "verified_t2": false
+    },
+    {
+      "id": "eos",
+      "claim": "3rd-order Birch-Murnaghan EOS fit / E-V curve, V0 + B0",
+      "conf_label": "high",
+      "verified_t1": true,
+      "verified_t2": false
+    },
+    {
+      "id": "parse-structure",
+      "claim": "parse POSCAR into a structure dict",
+      "conf_label": "high",
+      "verified_t1": true,
+      "verified_t2": false
+    },
+    {
+      "id": "fit-eos",
+      "claim": "fit 3rd-order Birch-Murnaghan EOS to E(V) points",
+      "conf_label": "high",
+      "verified_t1": true,
+      "verified_t2": false
+    }
+  ],
+  "conf_labels_present": [
+    "high"
+  ],
+  "caveats": "mini-scale, non-conclusive: n=4 host claims, single conf label, fixture seeds honest AUDIT admissions; no claim-source diversity"
+}

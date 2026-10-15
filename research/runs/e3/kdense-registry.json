@@ -1,0 +1,537 @@
+{
+ "tools": [],
+ "artifacts": [
+  "/openapi.json",
+  "FILE.json",
+  "Image.csv",
+  "Nuclei.csv",
+  "_citation_report.json",
+  "adverse_event_aggregate_input_template.csv",
+  "analysis_manifest.json",
+  "assay_qc.json",
+  "assets/protocol-snapshot.schema.json",
+  "assumptions.csv",
+  "authorship.json",
+  "authorship_template.json",
+  "bids_schema.json",
+  "carbonate.csv",
+  "case_report_template.json",
+  "catalog.json",
+  "cellprofiler.log",
+  "claim-source-map.json",
+  "claim_evidence_template.csv",
+  "claims.csv",
+  "clinical_trial_csr_template.json",
+  "clinical_trial_results_template.json",
+  "clinical_trial_safety_aggregate_template.json",
+  "clinician_authored_intervention.json",
+  "clinician_authored_intervention_template.json",
+  "command.json",
+  "commands.json",
+  "competitor_feature_matrix.csv",
+  "config.json",
+  "config.yaml",
+  "consistency_input.csv",
+  "consistency_manifest.json",
+  "consistency_manifest_template.json",
+  "counts.csv",
+  "counts_provenance.json",
+  "coverage.json",
+  "curation_labels.json",
+  "data/PrimeKG/kg.csv",
+  "default_inference_args.yaml",
+  "deidentification_process_checklist.json",
+  "deseq2_results.csv",
+  "deseq2_results_unshrunken.csv",
+  "diffdock_batch_template.csv",
+  "evidence-matrix.json",
+  "execution.log",
+  "feature_importance.csv",
+  "first_row_contributions.csv",
+  "forecast_sensitivity.json",
+  "forecasts.csv",
+  "gate_report.csv",
+  "goals_monitoring_checkpoint.json",
+  "goals_monitoring_checkpoint_template.json",
+  "informed_preference_shared_decision.json",
+  "informed_preference_shared_decision_template.json",
+  "input-qc.json",
+  "intended_use_handoff.json",
+  "intended_use_handoff_template.json",
+  "kgpe.json",
+  "lab_report_template.json",
+  "load_data.csv",
+  "manifest.json",
+  "manuscript_manifest.json",
+  "manuscript_manifest_template.json",
+  "mapping_results.csv",
+  "markers_all.csv",
+  "market_sizing.json",
+  "measurement-residuals.csv",
+  "mechanism.yaml",
+  "metadata.json",
+  "metadata_template.csv",
+  "packet.json",
+  "pacsomatic.params.generated.yaml",
+  "pango_designation/alias_key.json",
+  "parameters.json",
+  "pathology_report_template.json",
+  "pathway_summary.csv",
+  "phase-equilibria.csv",
+  "prediction_reconstruction.csv",
+  "probe.json",
+  "provenance.json",
+  "provenance_manifest_template.json",
+  "publisher_profiles.json",
+  "python_compatibility_r2026a.json",
+  "quality_metrics.csv",
+  "quality_review_checklist.json",
+  "radiology_report_template.json",
+  "references.json",
+  "report.json",
+  "reporting_coverage.json",
+  "reporting_coverage_template.json",
+  "reporting_guidelines.json",
+  "request.json",
+  "research_summary_template.json",
+  "response.json",
+  "results_sorted_by_padj.csv",
+  "retention-qc.json",
+  "run.json",
+  "run.log",
+  "samplesheet.csv",
+  "search-ledger.json",
+  "section-briefs.json",
+  "significant_genes.csv",
+  "source_fact_manifest.json",
+  "source_fact_manifest_template.json",
+  "source_ledger.csv",
+  "source_manifest.json",
+  "source_manifest_template.json",
+  "spatial_means.json",
+  "spectrum.csv",
+  "standards.json",
+  "stdin.csv",
+  "summary.json",
+  "summary_statistics.csv",
+  "synthesis.json",
+  "terminology_manifest_template.json",
+  "tokenizer_config.json",
+  "transition_reconciliation.json",
+  "transition_reconciliation_template.json",
+  "tree.json",
+  "trial_protocol_reporting_checklist.json",
+  "workflow.log"
+ ],
+ "_provenance": {
+  "tree.json": [
+   "/tmp/kdense/skills/arbor/scripts/tree.py"
+  ],
+  "run.json": [
+   "/tmp/kdense/skills/arbor/scripts/tree.py"
+  ],
+  "config.yaml": [
+   "/tmp/kdense/skills/autoskill/scripts/run.py",
+   "/tmp/kdense/skills/geniml/scripts/embedding_plan.py",
+   "/tmp/kdense/skills/geniml/scripts/model_artifact_inspector.py",
+   "/tmp/kdense/skills/geniml/scripts/model_artifact_inspector.py",
+   "/tmp/kdense/skills/geniml/scripts/model_artifact_inspector.py",
+   "/tmp/kdense/skills/geniml/scripts/tokenizer_compatibility.py"
+  ],
+  "bids_schema.json": [
+   "/tmp/kdense/skills/bids/scripts/update_schema.py"
+  ],
+  "mapping_results.csv": [
+   "/tmp/kdense/skills/bioservices/scripts/batch_id_converter.py"
+  ],
+  "pathway_summary.csv": [
+   "/tmp/kdense/skills/bioservices/scripts/pathway_analysis.py"
+  ],
+  "counts.csv": [
+   "/tmp/kdense/skills/bulk-rnaseq/scripts/build_counts_matrix.py"
+  ],
+  "metadata_template.csv": [
+   "/tmp/kdense/skills/bulk-rnaseq/scripts/build_counts_matrix.py"
+  ],
+  "counts_provenance.json": [
+   "/tmp/kdense/skills/bulk-rnaseq/scripts/build_counts_matrix.py"
+  ],
+  "mechanism.yaml": [
+   "/tmp/kdense/skills/cantera/scripts/ignition_delay.py"
+  ],
+  "report.json": [
+   "/tmp/kdense/skills/cantera/scripts/ignition_delay.py",
+   "/tmp/kdense/skills/mageck/scripts/screen_analysis.py",
+   "/tmp/kdense/skills/nmrglue/scripts/process_1d.py",
+   "/tmp/kdense/skills/pybamm/scripts/simulate_battery.py",
+   "/tmp/kdense/skills/pycalphad/scripts/equilibrate.py",
+   "/tmp/kdense/skills/tellurium/scripts/kinetic_experiment.py"
+  ],
+  "Image.csv": [
+   "/tmp/kdense/skills/cellprofiler/scripts/nuclei_assay.py"
+  ],
+  "Nuclei.csv": [
+   "/tmp/kdense/skills/cellprofiler/scripts/nuclei_assay.py"
+  ],
+  "load_data.csv": [
+   "/tmp/kdense/skills/cellprofiler/scripts/nuclei_assay.py",
+   "/tmp/kdense/skills/cellprofiler/scripts/nuclei_assay.py"
+  ],
+  "assay_qc.json": [
+   "/tmp/kdense/skills/cellprofiler/scripts/nuclei_assay.py"
+  ],
+  "cellprofiler.log": [
+   "/tmp/kdense/skills/cellprofiler/scripts/nuclei_assay.py"
+  ],
+  "case_report_template.json": [
+   "/tmp/kdense/skills/clinical-reports/scripts/generate_report_template.py"
+  ],
+  "radiology_report_template.json": [
+   "/tmp/kdense/skills/clinical-reports/scripts/generate_report_template.py"
+  ],
+  "pathology_report_template.json": [
+   "/tmp/kdense/skills/clinical-reports/scripts/generate_report_template.py"
+  ],
+  "lab_report_template.json": [
+   "/tmp/kdense/skills/clinical-reports/scripts/generate_report_template.py"
+  ],
+  "clinical_trial_csr_template.json": [
+   "/tmp/kdense/skills/clinical-reports/scripts/generate_report_template.py"
+  ],
+  "clinical_trial_results_template.json": [
+   "/tmp/kdense/skills/clinical-reports/scripts/generate_report_template.py"
+  ],
+  "trial_protocol_reporting_checklist.json": [
+   "/tmp/kdense/skills/clinical-reports/scripts/generate_report_template.py"
+  ],
+  "clinical_trial_safety_aggregate_template.json": [
+   "/tmp/kdense/skills/clinical-reports/scripts/generate_report_template.py"
+  ],
+  "adverse_event_aggregate_input_template.csv": [
+   "/tmp/kdense/skills/clinical-reports/scripts/generate_report_template.py"
+  ],
+  "research_summary_template.json": [
+   "/tmp/kdense/skills/clinical-reports/scripts/generate_report_template.py"
+  ],
+  "deidentification_process_checklist.json": [
+   "/tmp/kdense/skills/clinical-reports/scripts/generate_report_template.py"
+  ],
+  "quality_review_checklist.json": [
+   "/tmp/kdense/skills/clinical-reports/scripts/generate_report_template.py"
+  ],
+  "provenance_manifest_template.json": [
+   "/tmp/kdense/skills/clinical-reports/scripts/generate_report_template.py"
+  ],
+  "terminology_manifest_template.json": [
+   "/tmp/kdense/skills/clinical-reports/scripts/generate_report_template.py"
+  ],
+  "consistency_manifest_template.json": [
+   "/tmp/kdense/skills/clinical-reports/scripts/generate_report_template.py",
+   "/tmp/kdense/skills/scientific-writing/scripts/scaffold_manuscript.py"
+  ],
+  "diffdock_batch_template.csv": [
+   "/tmp/kdense/skills/diffdock/scripts/prepare_batch_csv.py"
+  ],
+  "default_inference_args.yaml": [
+   "/tmp/kdense/skills/diffdock/scripts/setup_check.py"
+  ],
+  "gate_report.csv": [
+   "/tmp/kdense/skills/flowkit/scripts/analyze_gates.py",
+   "/tmp/kdense/skills/flowkit/scripts/analyze_gates.py",
+   "/tmp/kdense/skills/flowkit/scripts/analyze_gates.py"
+  ],
+  "provenance.json": [
+   "/tmp/kdense/skills/flowkit/scripts/analyze_gates.py",
+   "/tmp/kdense/skills/marine-carbonate-chemistry/scripts/solve_carbonate.py"
+  ],
+  "spatial_means.json": [
+   "/tmp/kdense/skills/fluidsim/scripts/budget_summary.py"
+  ],
+  "config.json": [
+   "/tmp/kdense/skills/geniml/scripts/model_artifact_inspector.py"
+  ],
+  "tokenizer_config.json": [
+   "/tmp/kdense/skills/geniml/scripts/model_artifact_inspector.py"
+  ],
+  "FILE.json": [
+   "/tmp/kdense/skills/get-available-resources/scripts/accelerator_diagnostics.py",
+   "/tmp/kdense/skills/get-available-resources/scripts/detect_resources.py",
+   "/tmp/kdense/skills/get-available-resources/scripts/plan_workload.py",
+   "/tmp/kdense/skills/get-available-resources/scripts/snapshot_tools.py"
+  ],
+  "standards.json": [
+   "/tmp/kdense/skills/lab-hardware-cad/scripts/_common.py"
+  ],
+  "_citation_report.json": [
+   "/tmp/kdense/skills/literature-review/scripts/verify_citations.py"
+  ],
+  "execution.log": [
+   "/tmp/kdense/skills/mageck/scripts/screen_analysis.py",
+   "/tmp/kdense/skills/mageck/scripts/screen_analysis.py"
+  ],
+  "carbonate.csv": [
+   "/tmp/kdense/skills/marine-carbonate-chemistry/scripts/solve_carbonate.py",
+   "/tmp/kdense/skills/marine-carbonate-chemistry/scripts/solve_carbonate.py"
+  ],
+  "manifest.json": [
+   "/tmp/kdense/skills/market-research-reports/scripts/generate_report_scaffold.py",
+   "/tmp/kdense/skills/ncats-arax/scripts/arax_client.py",
+   "/tmp/kdense/skills/ncats-arax/scripts/arax_client.py"
+  ],
+  "source_ledger.csv": [
+   "/tmp/kdense/skills/market-research-reports/scripts/generate_report_scaffold.py"
+  ],
+  "claims.csv": [
+   "/tmp/kdense/skills/market-research-reports/scripts/generate_report_scaffold.py",
+   "/tmp/kdense/skills/scientific-writing/scripts/scaffold_manuscript.py"
+  ],
+  "competitor_feature_matrix.csv": [
+   "/tmp/kdense/skills/market-research-reports/scripts/generate_report_scaffold.py"
+  ],
+  "consistency_input.csv": [
+   "/tmp/kdense/skills/market-research-reports/scripts/generate_report_scaffold.py"
+  ],
+  "assumptions.csv": [
+   "/tmp/kdense/skills/market-research-reports/scripts/generate_report_scaffold.py"
+  ],
+  "market_sizing.json": [
+   "/tmp/kdense/skills/market-research-reports/scripts/generate_report_scaffold.py"
+  ],
+  "forecast_sensitivity.json": [
+   "/tmp/kdense/skills/market-research-reports/scripts/generate_report_scaffold.py"
+  ],
+  "catalog.json": [
+   "/tmp/kdense/skills/markitdown/scripts/convert_literature.py"
+  ],
+  "python_compatibility_r2026a.json": [
+   "/tmp/kdense/skills/matlab/scripts/plan_python_compatibility.py"
+  ],
+  "/openapi.json": [
+   "/tmp/kdense/skills/ncats-arax/scripts/arax_client.py",
+   "/tmp/kdense/skills/ncats-arax/scripts/arax_client.py",
+   "/tmp/kdense/skills/ncats-arax/scripts/arax_client.py"
+  ],
+  "summary.json": [
+   "/tmp/kdense/skills/ncats-arax/scripts/arax_client.py",
+   "/tmp/kdense/skills/ncats-arax/scripts/arax_client.py",
+   "/tmp/kdense/skills/ncats-arax/scripts/arax_client.py",
+   "/tmp/kdense/skills/ncats-arax/scripts/arax_client.py",
+   "/tmp/kdense/skills/ncats-arax/scripts/arax_client.py",
+   "/tmp/kdense/skills/ncats-arax/scripts/arax_client.py",
+   "/tmp/kdense/skills/ncats-arax/scripts/arax_client.py",
+   "/tmp/kdense/skills/ncats-arax/scripts/arax_client.py"
+  ],
+  "response.json": [
+   "/tmp/kdense/skills/ncats-arax/scripts/arax_client.py",
+   "/tmp/kdense/skills/ncats-arax/scripts/arax_client.py",
+   "/tmp/kdense/skills/ncats-arax/scripts/arax_client.py",
+   "/tmp/kdense/skills/ncats-arax/scripts/arax_client.py",
+   "/tmp/kdense/skills/ncats-arax/scripts/arax_client.py",
+   "/tmp/kdense/skills/ncats-arax/scripts/arax_client.py",
+   "/tmp/kdense/skills/ncats-arax/scripts/arax_client.py",
+   "/tmp/kdense/skills/ncats-arax/scripts/arax_client.py"
+  ],
+  "request.json": [
+   "/tmp/kdense/skills/ncats-arax/scripts/arax_client.py",
+   "/tmp/kdense/skills/ncats-arax/scripts/arax_client.py",
+   "/tmp/kdense/skills/ncats-arax/scripts/arax_client.py"
+  ],
+  "quality_metrics.csv": [
+   "/tmp/kdense/skills/neuropixels-analysis/scripts/compute_metrics.py",
+   "/tmp/kdense/skills/neuropixels-analysis/scripts/compute_metrics.py"
+  ],
+  "curation_labels.json": [
+   "/tmp/kdense/skills/neuropixels-analysis/scripts/compute_metrics.py"
+  ],
+  "probe.json": [
+   "/tmp/kdense/skills/neuropixels-analysis/scripts/preprocess_recording.py"
+  ],
+  "spectrum.csv": [
+   "/tmp/kdense/skills/nmrglue/scripts/process_1d.py"
+  ],
+  "kgpe.json": [
+   "/tmp/kdense/skills/onekgpd/scripts/onekgpd_meta.py"
+  ],
+  "pacsomatic.params.generated.yaml": [
+   "/tmp/kdense/skills/pacsomatic/scripts/run_pacsomatic.py"
+  ],
+  "samplesheet.csv": [
+   "/tmp/kdense/skills/pacsomatic/scripts/run_pacsomatic.py"
+  ],
+  "pango_designation/alias_key.json": [
+   "/tmp/kdense/skills/pathogen-variant-surveillance/scripts/lapis_client.py"
+  ],
+  "reporting_guidelines.json": [
+   "/tmp/kdense/skills/peer-review/scripts/select_reporting_guidelines.py",
+   "/tmp/kdense/skills/scientific-writing/scripts/select_reporting_guidelines.py"
+  ],
+  "stdin.csv": [
+   "/tmp/kdense/skills/pkpd-modeling/scripts/_common.py"
+  ],
+  "data/PrimeKG/kg.csv": [
+   "/tmp/kdense/skills/primekg/scripts/query_primekg.py"
+  ],
+  "assets/protocol-snapshot.schema.json": [
+   "/tmp/kdense/skills/protocolsio-integration/scripts/validate_protocol_json.py"
+  ],
+  "parameters.json": [
+   "/tmp/kdense/skills/pybamm/scripts/simulate_battery.py"
+  ],
+  "measurement-residuals.csv": [
+   "/tmp/kdense/skills/pybamm/scripts/simulate_battery.py"
+  ],
+  "phase-equilibria.csv": [
+   "/tmp/kdense/skills/pycalphad/scripts/equilibrate.py"
+  ],
+  "deseq2_results.csv": [
+   "/tmp/kdense/skills/pydeseq2/scripts/run_deseq2_analysis.py"
+  ],
+  "deseq2_results_unshrunken.csv": [
+   "/tmp/kdense/skills/pydeseq2/scripts/run_deseq2_analysis.py"
+  ],
+  "significant_genes.csv": [
+   "/tmp/kdense/skills/pydeseq2/scripts/run_deseq2_analysis.py"
+  ],
+  "results_sorted_by_padj.csv": [
+   "/tmp/kdense/skills/pydeseq2/scripts/run_deseq2_analysis.py"
+  ],
+  "analysis_manifest.json": [
+   "/tmp/kdense/skills/pydeseq2/scripts/run_deseq2_analysis.py"
+  ],
+  "summary_statistics.csv": [
+   "/tmp/kdense/skills/pymc/scripts/model_diagnostics.py"
+  ],
+  "input-qc.json": [
+   "/tmp/kdense/skills/qiime2-amplicon/scripts/amplicon_workflow.py"
+  ],
+  "commands.json": [
+   "/tmp/kdense/skills/qiime2-amplicon/scripts/amplicon_workflow.py"
+  ],
+  "workflow.log": [
+   "/tmp/kdense/skills/qiime2-amplicon/scripts/amplicon_workflow.py"
+  ],
+  "retention-qc.json": [
+   "/tmp/kdense/skills/qiime2-amplicon/scripts/amplicon_workflow.py"
+  ],
+  "command.json": [
+   "/tmp/kdense/skills/relion/scripts/spa_workflow.py"
+  ],
+  "run.log": [
+   "/tmp/kdense/skills/relion/scripts/spa_workflow.py",
+   "/tmp/kdense/skills/relion/scripts/spa_workflow.py"
+  ],
+  "packet.json": [
+   "/tmp/kdense/skills/research-lookup/scripts/manuscript_packet.py"
+  ],
+  "references.json": [
+   "/tmp/kdense/skills/research-lookup/scripts/manuscript_packet.py"
+  ],
+  "evidence-matrix.json": [
+   "/tmp/kdense/skills/research-lookup/scripts/manuscript_packet.py"
+  ],
+  "claim-source-map.json": [
+   "/tmp/kdense/skills/research-lookup/scripts/manuscript_packet.py"
+  ],
+  "synthesis.json": [
+   "/tmp/kdense/skills/research-lookup/scripts/manuscript_packet.py"
+  ],
+  "section-briefs.json": [
+   "/tmp/kdense/skills/research-lookup/scripts/manuscript_packet.py"
+  ],
+  "coverage.json": [
+   "/tmp/kdense/skills/research-lookup/scripts/manuscript_packet.py"
+  ],
+  "search-ledger.json": [
+   "/tmp/kdense/skills/research-lookup/scripts/manuscript_packet.py"
+  ],
+  "markers_all.csv": [
+   "/tmp/kdense/skills/scanpy/scripts/run_pipeline.py"
+  ],
+  "publisher_profiles.json": [
+   "/tmp/kdense/skills/scientific-visualization/scripts/export_plan.py",
+   "/tmp/kdense/skills/scientific-visualization/scripts/figure_export.py",
+   "/tmp/kdense/skills/scientific-visualization/scripts/style_presets.py"
+  ],
+  "claim_evidence_template.csv": [
+   "/tmp/kdense/skills/scientific-writing/scripts/scaffold_manuscript.py"
+  ],
+  "source_manifest.json": [
+   "/tmp/kdense/skills/scientific-writing/scripts/scaffold_manuscript.py"
+  ],
+  "source_manifest_template.json": [
+   "/tmp/kdense/skills/scientific-writing/scripts/scaffold_manuscript.py"
+  ],
+  "consistency_manifest.json": [
+   "/tmp/kdense/skills/scientific-writing/scripts/scaffold_manuscript.py"
+  ],
+  "authorship.json": [
+   "/tmp/kdense/skills/scientific-writing/scripts/scaffold_manuscript.py"
+  ],
+  "authorship_template.json": [
+   "/tmp/kdense/skills/scientific-writing/scripts/scaffold_manuscript.py"
+  ],
+  "manuscript_manifest_template.json": [
+   "/tmp/kdense/skills/scientific-writing/scripts/scaffold_manuscript.py"
+  ],
+  "reporting_coverage_template.json": [
+   "/tmp/kdense/skills/scientific-writing/scripts/scaffold_manuscript.py"
+  ],
+  "manuscript_manifest.json": [
+   "/tmp/kdense/skills/scientific-writing/scripts/scaffold_manuscript.py"
+  ],
+  "reporting_coverage.json": [
+   "/tmp/kdense/skills/scientific-writing/scripts/scaffold_manuscript.py"
+  ],
+  "feature_importance.csv": [
+   "/tmp/kdense/skills/shap/scripts/tabular_report.py"
+  ],
+  "first_row_contributions.csv": [
+   "/tmp/kdense/skills/shap/scripts/tabular_report.py"
+  ],
+  "prediction_reconstruction.csv": [
+   "/tmp/kdense/skills/shap/scripts/tabular_report.py"
+  ],
+  "metadata.json": [
+   "/tmp/kdense/skills/shap/scripts/tabular_report.py"
+  ],
+  "forecasts.csv": [
+   "/tmp/kdense/skills/timesfm-forecasting/scripts/forecast_csv.py"
+  ],
+  "source_fact_manifest_template.json": [
+   "/tmp/kdense/skills/treatment-plans/scripts/_common.py"
+  ],
+  "source_fact_manifest.json": [
+   "/tmp/kdense/skills/treatment-plans/scripts/_common.py"
+  ],
+  "clinician_authored_intervention_template.json": [
+   "/tmp/kdense/skills/treatment-plans/scripts/_common.py"
+  ],
+  "clinician_authored_intervention.json": [
+   "/tmp/kdense/skills/treatment-plans/scripts/_common.py"
+  ],
+  "goals_monitoring_checkpoint_template.json": [
+   "/tmp/kdense/skills/treatment-plans/scripts/_common.py"
+  ],
+  "goals_monitoring_checkpoint.json": [
+   "/tmp/kdense/skills/treatment-plans/scripts/_common.py"
+  ],
+  "informed_preference_shared_decision_template.json": [
+   "/tmp/kdense/skills/treatment-plans/scripts/_common.py"
+  ],
+  "informed_preference_shared_decision.json": [
+   "/tmp/kdense/skills/treatment-plans/scripts/_common.py"
+  ],
+  "transition_reconciliation_template.json": [
+   "/tmp/kdense/skills/treatment-plans/scripts/_common.py"
+  ],
+  "transition_reconciliation.json": [
+   "/tmp/kdense/skills/treatment-plans/scripts/_common.py"
+  ],
+  "intended_use_handoff_template.json": [
+   "/tmp/kdense/skills/treatment-plans/scripts/_common.py"
+  ],
+  "intended_use_handoff.json": [
+   "/tmp/kdense/skills/treatment-plans/scripts/_common.py"
+  ]
+ }
+}
