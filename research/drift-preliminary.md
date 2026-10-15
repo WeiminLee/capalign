@@ -1,9 +1,9 @@
 # Promise drift — preliminary measurement (MatDiscovery, 37 skills)
 
-First run of the drift meter (assertion C seed). Honest numbers with the v0
+First run of the drift meter (assertion C seed). Honest numbers with the v0/v1
 measurement caveats spelled out — this is a pilot, not the paper's table.
 
-## Method (drift-meter v0)
+## Method (drift-meter v1)
 
 - Corpus: MatDiscovery `plugins/matdiscovery/skills` (37 SKILL.md).
 - Claims: backticked tool names (`mcp__*` / `fieldmat_*` / `mat_*_*`) and artifact
@@ -11,8 +11,11 @@ measurement caveats spelled out — this is a pilot, not the paper's table.
   negated sentences excluded (do not / never / no registered tool / not produced…).
 - Verification surface (registry, from `build-registry.py` over the MatDiscovery
   code tree): 71 tool names (`@mcp.tool()` defs, TS `name:` literals, fieldmat/mcp
-  literals) + 99 artifact filenames (fieldmat-runners literals) + **files present
-  in the skill's own directory** (examples/ etc.).
+  literals) + **129 artifact filenames** — v0's fieldmat-runners literals, plus
+  v1's host-side TS `*_FILENAME` constants (e.g. STRUCTURE_SUMMARY_FILENAME,
+  FORMATION_ENERGY_FILENAME) and tool-side python literals (e.g. local-compute's
+  thermal_expansion.json) + **files present in the skill's own directory**
+  (examples/ etc.).
 - Classes: verified = claim resolves in the registry or locally; drift = declared
   but unverified; fabricated = drift with no evidence directory/link at all.
 
@@ -22,14 +25,19 @@ measurement caveats spelled out — this is a pilot, not the paper's table.
 |---|---|
 | skills | 37 |
 | claims | 134 |
-| verified | 119 |
-| **drift (declared, unverified)** | **15 (11.2%)** |
+| verified | 121 |
+| **drift (declared, unverified)** | **13 (9.7%)** |
 | **fabricated (no evidence at all)** | **3 (2.2%)** |
 | description-layer claims verified | 100% (1/1) |
-| body-layer claims verified | 88.8% |
+| body-layer claims verified | 90.3% |
 
-## Drift inventory (all 8 skills; every item is an **agent-assembled or tool-written
-artifact with no runner/registry carrier**)
+v0 → v1 delta: drift 15 → 13. Two items gained a verified producer when the host
+surface was added — `thermal_expansion.json` (local-compute tool) and
+`structure_summary.json` (TS persistence hook). The six other runner-less items
+were re-checked: **no producer exists in TS or tools source** (see inventory).
+
+## Drift inventory (all 6 skills; every item is an **agent-assembled artifact with
+no runner/registry/producer carrier**)
 
 | skill | drift | items |
 |---|---|---|
@@ -38,17 +46,14 @@ artifact with no runner/registry carrier**)
 | mat-dynamic-stability | 2 | dynamic_stability_2d_summary.json, report.json |
 | mat-md-trajectory-descriptor | 3 | trajectory_descriptor_summary.json, trajectory_manifest.json, analysis/md_quality.json |
 | mat-melting-point | 1 | melting_point_summary.json |
-| mat-qha-thermal-expansion | 1 | thermal_expansion.json (local tool output, not a runner product) |
-| mat-relax-analysis | 1 | structure_summary.json (host TS persistence hook, not in runner registry) |
 
 ## Reading (what the pilot already shows)
 
-1. **The drift is not random — it has one cause class.** 15/15 items are
-   agent-assembled or host-tool-written artifacts. The *verification carrier* for
-   these (a runner spec or a host-side artifact registry) does not exist in
-   MatDiscovery, exactly as SKILLS-AUDIT described qualitatively; this is that
-   debt, measured. Fabricated tier is 3 (2.2%) — alloy scenario's self-authored
-   files with no evidence at all.
+1. **The drift is not random — it has one cause class.** 13/13 items are
+   agent-assembled artifacts. The *verification carrier* for these (a runner spec
+   or a host-side artifact registry) does not exist in MatDiscovery, exactly as
+   SKILLS-AUDIT described qualitatively; this is that debt, measured. Fabricated
+   tier is 3 (2.2%) — alloy scenario's self-authored files with no evidence at all.
 2. **Description layer is clean (100%).** Routing triggers are not the drift
    source; body-produced artifact promises are. Drift-by-source decomposition
    (assertion C) already separates.
@@ -57,12 +62,14 @@ artifact with no runner/registry carrier**)
    check-skill-artifacts misses (89) overlap this drift set but are a different
    unit (runner-tuple membership vs claim resolution) — noted for the paper.
 
-## Caveats (v0, must not be over-read)
+## Caveats (v0/v1, must not be over-read)
 
-- Registry is code-scraped; a host-side artifact registry (TS constants like
-  FORMATION_ENERGY_FILENAME) is **not** yet in the verification surface — 2 of the
-  15 items (structure_summary.json, thermal_expansion.json) are known to have an
-  actual producer outside the runner; including the host surface is v1.
+- Registry is code-scraped. v1 adds the host-side artifact surface (TS constants,
+  tool python literals); a **dedicated in-repo artifact manifest** is still not
+  required by the host, so 'verified' here means 'has a producer somewhere in
+  code', not 'host guarantees it on every run'. The verification surface is a
+  heuristic until a human-adjudicated gold sample bounds its own error (E1-style
+  IRR for the meter itself).
 - Negation exclusion is lexical; the paper's measurement must add human-adjudicated
   gold on a sample to bound extraction error itself (E1-style IRR for the meter).
 - `fabricated` uses "skill has references/ or scripts/" as the evidence test; it is
@@ -70,7 +77,6 @@ artifact with no runner/registry carrier**)
 
 ## Next (E3 path)
 
-- v1 registry: add host-side artifact constants + TS persistence hooks.
 - Extend corpus: public skill libraries (K-Dense scientific-agent-skills, skill
   marketplaces) — drift distribution across libraries is the E3 table.
 - Predictors (assertion C): evidence density, description length, update recency,

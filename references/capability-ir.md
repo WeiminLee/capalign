@@ -46,3 +46,22 @@ this one shape. This is what makes alignment possible across heterogeneous sourc
 4. Duplicate mentions collapse into one capability with multiple `evidence` entries.
 5. Host inventory additionally records where each capability came from
    (skill dir, tool registry, scripts) so recommendations can point at a concrete host location.
+
+## Granularity boundary (codified from E1 pilot finding F3)
+
+1. A capability is a **user-reachable semantic unit** — something a user can get done
+   through the inventoried subject — never a file, function, class, or config count.
+2. **CLI / API entry points**: an entry point that merely executes an already-inventoried
+   capability merges into that capability's evidence (`kind: cli` / `interface`); an
+   entry point that exposes a distinct user-reachable deliverable not otherwise
+   documented becomes its own capability.
+3. **Dependency fingerprints** are derivation clues, not capabilities: they may suggest
+   implied families (marked `medium` until confirmed), never stand as `high` items on
+   their own, and never drive a `missing` verdict alone.
+4. **Meta-level items** (packaging, dependency lists, the framework a CLI is built on)
+   are not inventoried.
+5. **Bounded size**: a typical repo normalizes to ~10–30 capabilities; a larger
+   inventory signals over-splitting, a far smaller one signals over-collapsing.
+6. **Default at dispute**: an item whose semantics or evidence are genuinely ambiguous
+   is kept as `confidence: low` — low-preserve beats high-pollution; `low` never drives
+   a gap class.

@@ -6,7 +6,10 @@ Zero-dependency. Scans a MatDiscovery-style repo for the verification surface:
                 plugins/*/src/*-tools.ts, fieldmat_* literals, mcp__server__tool
                 literals in plugins/matdiscovery/src
   - artifacts:  filename literals (*.json/csv/vasp/traj/log/yaml) in
-                plugins/matdiscovery/fieldmat-runners/*.py
+                plugins/matdiscovery/fieldmat-runners/*.py (v0),
+                host-side TS `*_FILENAME` constants in plugins/matdiscovery/src
+                (v1), and tool-side python literals in tools/*/src (v1: e.g.
+                local-compute's thermal_expansion.json).
 
 Usage:
   python3 build-registry.py <repo-root> [--out registry.json]
@@ -39,7 +42,21 @@ def scrape(root: pathlib.Path) -> dict:
         tools.update(re.findall(r"'(fieldmat_\w+)'", text))
         tools.update(m.strip("'") for m in re.findall(r"'mcp__[\w.]+__[\w.]+'", text))
 
+    # v1: host-side artifact constants in TS (FORMATION_ENERGY_FILENAME = '...' etc.)
+    for p in root.joinpath("plugins/matdiscovery/src").glob("*.ts"):
+        text = p.read_text(encoding="utf-8", errors="ignore")
+        artifacts.update(re.findall(r"FILENAME\s*=\s*'([\w./-]+\.(?:json|csv))'", text))
+
     for p in root.joinpath("plugins/matdiscovery/fieldmat-runners").glob("*.py"):
+        text = p.read_text(encoding="utf-8", errors="ignore")
+        artifacts.update(
+            re.findall(r"[\"']([\w./-]+\.(?:json|csv|vasp|traj|log|yaml))[\"']", text)
+        )
+
+    # v1: tool-side python artifact literals (local-compute etc. write these by name)
+    for p in root.joinpath("tools").rglob("*.py"):
+        if "site-packages" in str(p) or "test" in str(p) or "__pycache__" in str(p):
+            continue
         text = p.read_text(encoding="utf-8", errors="ignore")
         artifacts.update(
             re.findall(r"[\"']([\w./-]+\.(?:json|csv|vasp|traj|log|yaml))[\"']", text)
