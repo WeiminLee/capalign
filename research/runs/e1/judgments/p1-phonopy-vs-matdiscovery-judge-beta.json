@@ -1,0 +1,99 @@
+{
+  "run_id": "e1-phonopy-vs-matdiscovery-judge-beta-20261015",
+  "judge": "phonopy-vs-matdiscovery judge-beta",
+  "generated_at": "2026-10-15",
+  "pair_id": "p1",
+  "classifications": [
+    {
+      "ref_id": "fc-assembly",
+      "class": "equivalent",
+      "source_kind": "reference-contrast",
+      "confidence": "medium",
+      "evidence_note": "Finite-displacement FC from displacement+forces with symprec symmetry is covered end-to-end by the host: mat-phonon SKILL.md (remote FieldMat 'phonon' task, 'finite-displacement second-order force constants') and mat-lattice-thermal-conductivity SKILL.md:14,38 with the mounted bte_controller MCP server (index.ts:172-176; bte-controller/src/bte_controller/core.py:490-504 Phonopy(...).produce_force_constants(), fc2/fc3 persisted and reused across mesh densification). Nuance: the raw FC matrix is never a standalone artifact-only deliverable (mat-phonon outputs list no FORCE_CONSTANTS file), so FC is reachable only inside the phonon/BTE pipelines; assembly semantics itself is fully covered."
+    },
+    {
+      "ref_id": "phonon-dos",
+      "class": "equivalent",
+      "source_kind": "reference-contrast",
+      "confidence": "high",
+      "evidence_note": "mat-phonon SKILL.md:29 lists authoritative artifacts phonon/total_dos.dat and phonon/projected_dos.csv (per requested property); SKILLS-AUDIT-2026-09-24.md §6.2 independently confirms projected_dos.csv is really produced by the runner when requested. Host id: mat-phonon (tools/direct-tools fieldmat tasks; plugin skills/mat-phonon)."
+    },
+    {
+      "ref_id": "band-structure",
+      "class": "equivalent",
+      "source_kind": "reference-contrast",
+      "confidence": "high",
+      "evidence_note": "mat-phonon SKILL.md:14,29 covers phonon dispersion with authoritative artifact phonon/band.yaml; the reference's phonopy-bandplot CLI is a rendering convenience that merges into the capability evidence per granularity rule #2 (not a separate user-reachable deliverable the host must mirror). Host id: mat-phonon."
+    },
+    {
+      "ref_id": "group-velocity",
+      "class": "equivalent",
+      "source_kind": "reference-contrast",
+      "confidence": "high",
+      "evidence_note": "mat-phonon SKILL.md:14,29 covers group velocity with authoritative artifact phonon/group_velocity.csv (harmonically derived from fc2, same semantics as phonopy's group_velocity.py). Host id: mat-phonon."
+    },
+    {
+      "ref_id": "thermal-properties-harmonic",
+      "class": "equivalent",
+      "source_kind": "reference-contrast",
+      "confidence": "high",
+      "evidence_note": "mat-phonon SKILL.md:14,30 covers ZPE, vibrational free energy, vibrational entropy and Cv versus T via phonon/thermal_properties.csv plus phonon_summary.json thermal_properties.zero_point_energy_eV_per_cell (T=0 row); Cv-not-Cp boundary explicitly stated (Cp belongs to QHA). Host id: mat-phonon."
+    },
+    {
+      "ref_id": "mode-gruneisen",
+      "class": "partial",
+      "source_kind": "reference-contrast",
+      "confidence": "medium",
+      "evidence_note": "Host computes per-mode Grueneisen parameters (gruneisen.csv columns q_index/band_index/frequency_THz/mode_gruneisen/reference_deformation_percent/lower+upper_volume_A3) but ONLY on the QHA explicit-request path: plugins/matdiscovery/src/validate-parameters.ts:234 whitelist entry 'gruneisen', fieldmat-runners/simple_mattersim_qha_muxi.py:543,583-665,848-869 (if 'gruneisen' in config.requested_properties → write_mode_gruneisen), and mat-qha-thermal-expansion SKILL.md:33. There is no standalone mode-Grueneisen entry point or plot route (reference has phonopy-gruneisen + -gruneisenplot CLIs), so it is a strict subset: the computation exists, the standalone capability and plotting do not."
+    },
+    {
+      "ref_id": "qha-thermodynamics",
+      "class": "partial",
+      "source_kind": "reference-contrast",
+      "confidence": "medium",
+      "evidence_note": "mat-qha-thermal-expansion (status ga) covers Cp, Gibbs free energy, entropy, enthalpy, equilibrium volume vs T and P (per-pressure tables e_v/volume_temperature/gibbs/cp/entropy_at_veq/enthalpy_at_veq). The one gap vs reference: thermal expansion alpha is delivered only by the local mat_thermal_expansion tool applied to volume_temperature.csv at INTERIOR temperatures (three-point central slope, never endpoints — tools/mat-local-compute/src/mat_local_compute/thermo.py:300-312, server.py:202-212; skill SKILL.md:21,29,34), and 'thermal_expansion' remains a default-listed property with no runner-side table (SKILLS-AUDIT-2026-09-24.md §1.4 admitted alpha unimplemented; tool was added 2026-10-15 per CAPABILITY-SURFACE.md §3.1). Interior-points-only alpha + no full-range alpha table keeps it a strict subset → partial, not equivalent."
+    },
+    {
+      "ref_id": "nac-lo-to",
+      "class": "missing",
+      "source_kind": "reference-contrast",
+      "confidence": "high",
+      "evidence_note": "Cross-validated absent: zero hits for nac_params / Born effective charge / LO-TO / LEPSILON / DFPT across plugins/matdiscovery, tools/ (incl. bte-controller core.py:490 Phonopy instance never given nac_params despite phonopy being installed), and fieldmat-runners. The only 'Born' in the host is mechanical Born stability = eigenvalues of the 6x6 stiffness tensor (mat-elasticity SKILL.md:29 'all eigenvalues of the stiffness tensor are positive') — adjacent concept, does not subsume Born effective charges. mat-vasp-calculation is a generic single-point/relax VASP route (vasp-calculation-spec-2026-10-09.md D3: energy/SCF/relax parsing only, no DFPT scope)."
+    },
+    {
+      "ref_id": "electronic-thermal",
+      "class": "missing",
+      "source_kind": "host-self-audit",
+      "confidence": "high",
+      "evidence_note": "The host's own skill reference admits non-coverage: thermal-router.md (vendored into mat-phonon/mat-qha-thermal-expansion/mat-lattice-thermal-conductivity) line 31 'Ask whether an electronic contribution is required for metallic systems' and line 7-8 'a method that no skill here describes is not available'. Cross-validated: no electronic-DOS / tetrahedron integration / electronic thermal Ce(T) anywhere in the plugin or tools (only static electronic_energies in QHA E-V and OUTCAR n_electrons parsing)."
+    },
+    {
+      "ref_id": "irreps-symmetry",
+      "class": "missing",
+      "source_kind": "reference-contrast",
+      "confidence": "high",
+      "evidence_note": "Cross-validated absent: zero matches for irrep / irregular-representation / character table / symmetry-adapted modes in the plugin. Adjacent near-misses that do NOT subsume mode irreps: space-group reporting in mat_analyze_structure (tools/mat-local-compute/src/mat_local_compute/structure.py:86-102 space_group_number/symbol/hall) and mode selection by frequency/imaginary depth in mat-soft-mode — neither assigns irreducible representations or produces character tables for phonon modes."
+    },
+    {
+      "ref_id": "mlp-sscha",
+      "class": "missing",
+      "source_kind": "reference-contrast",
+      "confidence": "high",
+      "evidence_note": "Cross-validated absent: no sscha/SSCHA anywhere in the host (skills, tools, runners, docs). Host MatterSim force-field singlepoint/MD surfaces (mat-singlepoint-energy, mat-nve-md, mat-nvt-heating, materials-structure-modeling scripts) are adjacent but have a different input contract (FF singlepoint/trajectory vs MLP-interfaced self-consistent phonon sampling over the Bose occupation) — adjacent-but-different, so missing, not partial."
+    },
+    {
+      "ref_id": "dynamic-structure-factor",
+      "class": "missing",
+      "source_kind": "reference-contrast",
+      "confidence": "high",
+      "evidence_note": "Host static structure factor exists: mat_compute_structure_factor is a static S(q) = sinc transform of RDF rows over a q-mesh with no frequency resolution (mat-structure-descriptor SKILL.md:32-34; mat-trajectory-descriptor uses the same tool on time-averaged RDF). Reference capability is dynamic S(q,omega) from the phonon velocity spectrum (phonopy/spectrum/dynamic_structure_factor.py + velocity.py) — adjacent-but-different, does not subsume; no dynamic structure factor / velocity spectrum anywhere in the host."
+    },
+    {
+      "ref_id": "site-mixture-vca",
+      "class": "unknown",
+      "source_kind": "reference-contrast",
+      "confidence": "low",
+      "evidence_note": "Reference evidence is a single experimental CLI-only surface (phonopy --site-mixture / --split-site-mixture marked [Experimental], inventory confidence low). Per alignment-rules.md §Never and capability-ir.md granularity rule #6 (low never drives a gap class), this cannot be classified missing; host has no VCA/site-mixture surface to contrast (no hits), but the reference side lacks validated high/medium evidence, so unknown."
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "task": "t-mr-02-phonon-dos",
+  "mode": "gold",
+  "verdict": "pass",
+  "reasons": [
+    "gold compare OK (1 file(s))"
+  ],
+  "exit_code": 0,
+  "stdout_tail": "OK dos.json 61 points\n"
+}

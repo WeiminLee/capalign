@@ -1,0 +1,69 @@
+{
+  "run_id": "e1-p2-mini-paper-vs-mini-host-judge-beta-2026-10-15",
+  "judge": "judge-beta",
+  "classifications": [
+    {
+      "ref_id": "finite-displacement-phonons",
+      "class": "missing",
+      "source_kind": "host-self-audit",
+      "confidence": "medium",
+      "evidence_note": "No host path computes phonons by finite displacement: heat-flow (skills/heat-flow/SKILL.md:8) explicitly requires phonon frequencies 'from an upstream capability' that no host component produces (tools = parse-structure, fit-eos only); AUDIT.md:9 admits 'No force-constant / dynamical-matrix pathway for any structure', and :8 admits no DOS. Admission covers the pathway core (FC/dynmat/DOS/Cv stages); the displacement-supercell + VASP-forces front-end (ref steps 1-2) is only implicitly admitted, hence medium."
+    },
+    {
+      "ref_id": "force-constant-assembly",
+      "class": "missing",
+      "source_kind": "host-self-audit",
+      "confidence": "high",
+      "evidence_note": "AUDIT.md:9 'No force-constant / dynamical-matrix pathway for any structure' is an explicit self-admission; nothing in skills/ or tools/ assembles force constants (tool-registry.json has only parse-structure and fit-eos)."
+    },
+    {
+      "ref_id": "vasp-calculator",
+      "class": "missing",
+      "source_kind": "reference-contrast",
+      "confidence": "high",
+      "evidence_note": "Host has no DFT/forces surface at all: complete surface = 2 tools (parse-structure, fit-eos) + 2 skills (heat-flow, eos); no VASP/ASE/DFT anywhere, heat-flow consumes but never evaluates forces, and AUDIT.md is silent on DFT. Reference has the must-run VASP dependency; neither side documents a host DFT path."
+    },
+    {
+      "ref_id": "dynamical-matrix-diagonalization",
+      "class": "missing",
+      "source_kind": "host-self-audit",
+      "confidence": "high",
+      "evidence_note": "AUDIT.md:9 'No force-constant / dynamical-matrix pathway for any structure' explicitly admits it; no host component builds or diagonalizes a dynamical matrix."
+    },
+    {
+      "ref_id": "phonon-dos",
+      "class": "missing",
+      "source_kind": "host-self-audit",
+      "confidence": "high",
+      "evidence_note": "AUDIT.md:8 'No phonon DOS or dispersion' is an explicit self-admission; host has no DOS computation (heat-flow consumes frequencies but produces none)."
+    },
+    {
+      "ref_id": "heat-capacity",
+      "class": "missing",
+      "source_kind": "host-self-audit",
+      "confidence": "high",
+      "evidence_note": "AUDIT.md:5-7 admits 'No harmonic heat capacity / specific heat (Cv) or phonon thermal properties (free energy F, entropy S, zero-point energy)'. Adjacent host capability heat-flow (skills/heat-flow/SKILL.md:8) solves BTE for lattice kappa only and does NOT subsume Cv/F/S/ZPE (strict-subset fails), so this is missing with heat-flow recorded as the near-miss, not partial."
+    },
+    {
+      "ref_id": "phono3py-bte",
+      "class": "equivalent",
+      "source_kind": "not-a-gap",
+      "confidence": "high",
+      "evidence_note": "heat-flow skill (skills/heat-flow/SKILL.md:8) 'Solve the phonon BTE for lattice thermal conductivity ... produces kappa(T)' matches the reference phono3py RTA BTE solver semantic (lattice kappa from BTE); AUDIT.md:12 boundary statement confirms BTE lattice-kappa coverage. Caveat: heat-flow needs an upstream frequency producer the host currently lacks -- that is a pipeline gap (rows force-constant-assembly / finite-displacement-phonons), not a gap in the BTE solver capability itself."
+    },
+    {
+      "ref_id": "thermal-conductivity-data",
+      "class": "equivalent",
+      "source_kind": "not-a-gap",
+      "confidence": "high",
+      "evidence_note": "Host heat-flow produces kappa(T) (skills/heat-flow/SKILL.md:8); the reference kappa = 2.31 W/mK (280-300 K) + published raw data differs only in provenance (measured/published vs host-produced), which is not a capability difference. No host deliverable the reference data capability represents is missing."
+    },
+    {
+      "ref_id": "tetrahedron-integration",
+      "class": "unknown",
+      "source_kind": "not-a-gap",
+      "confidence": "high",
+      "evidence_note": "Reference-side evidence is a single passing mention at confidence low (pair input evidence: 'single mention tetrahedron integration...'); low-confidence reference evidence never drives a missing verdict (no-low-driven-missing; capability-ir default-at-dispute). Host has no DOS path to further cross-validate against."
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+ "surfaces": {
+  "reference": "tests/fixtures/mini-paper.md (inventory contract: tests/fixtures/gold/mini-paper.json)",
+  "host": "tests/fixtures/mini-host (skills: heat-flow, eos; tools: parse-structure, fit-eos; AUDIT.md self-audit)",
+  "generated_at": "2026-10-15",
+  "status": "DRAFT — not judge-validated yet; schema extends gold/mini-ref-vs-mini-host.json with per-row 'confidence', top-level 'reference_inventory' and 'equivalent' (both logged); reference_inventory reproduced verbatim from the verified gold/mini-paper.json contract"
+ },
+ "reference_inventory": [
+  {
+   "id": "finite-displacement-phonons",
+   "type": "workflow",
+   "confidence": "high",
+   "evidence": [
+    "Methods steps (1)-(6): displacements -> forces -> FC -> dynmat -> DOS -> Cv"
+   ]
+  },
+  {
+   "id": "force-constant-assembly",
+   "type": "compute",
+   "confidence": "high",
+   "evidence": [
+    "step (3) assemble force-constant matrix"
+   ]
+  },
+  {
+   "id": "vasp-calculator",
+   "type": "tool",
+   "confidence": "high",
+   "evidence": [
+    "forces evaluated with the ASE calculator interface to VASP (must-run dependency)"
+   ]
+  },
+  {
+   "id": "dynamical-matrix-diagonalization",
+   "type": "compute",
+   "confidence": "high",
+   "evidence": [
+    "step (4)"
+   ]
+  },
+  {
+   "id": "phonon-dos",
+   "type": "compute",
+   "confidence": "high",
+   "evidence": [
+    "step (5) Gaussian-broadened DOS"
+   ]
+  },
+  {
+   "id": "heat-capacity",
+   "type": "compute",
+   "confidence": "high",
+   "evidence": [
+    "step (6) Cv from frequencies; Table 1"
+   ]
+  },
+  {
+   "id": "phono3py-bte",
+   "type": "tool",
+   "confidence": "high",
+   "evidence": [
+    "phono3py RTA BTE solver (must-run dependency)"
+   ]
+  },
+  {
+   "id": "thermal-conductivity-data",
+   "type": "data",
+   "confidence": "high",
+   "evidence": [
+    "Table 1 kappa = 2.31 W/mK (280-300 K); raw data published alongside"
+   ]
+  },
+  {
+   "id": "tetrahedron-integration",
+   "type": "compute",
+   "confidence": "low",
+   "evidence": [
+    "single mention 'tetrahedron integration gives a slightly larger DOS' — must be low, not high"
+   ]
+  }
+ ],
+ "traps_asserted": [
+  "must-run software dependencies (VASP, phono3py) become hard TOOL capabilities — they are still classified: VASP missing (host has no DFT surface), phono3py-BTE covered via heat-flow (equivalent); tool-kind caps are not automatically gaps",
+  "data capability (kappa product, Table 1 + raw data) vs host heat-flow producing kappa(T): reference-data vs host-produced-data is a provenance difference, not a capability difference -> equivalent; judges arguing partial must show a deliverable the host cannot produce",
+  "AUDIT.md admissions (FC / dynmat / DOS / Cv) -> source host-self-audit for those rows, NOT reference-contrast (pilot F2 explicitly enforces the AUDIT-scan rule)",
+  "adjacent host heat-flow (lattice kappa) vs reference heat-capacity (Cv/F/S/ZPE): adjacent-but-different is MISSING with the host near-miss recorded, not partial (strict subsume, pilot F1)",
+  "tetrahedron-integration is single-mention/low -> unknown, never missing (no-low-driven-missing)"
+ ]
+}

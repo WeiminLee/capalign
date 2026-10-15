@@ -1,0 +1,10 @@
+{
+  "task": "t-mr-03-thermal-properties",
+  "mode": "gold",
+  "verdict": "fail",
+  "reasons": [
+    "thermo.json: gold mismatch \u2014 $.free_energies[0]: -0.8356387322579195 vs 1.2856816113017233 (out of tol 1e-06)"
+  ],
+  "exit_code": 0,
+  "stdout_tail": "OK thermo.json 9 temperatures\n"
+}

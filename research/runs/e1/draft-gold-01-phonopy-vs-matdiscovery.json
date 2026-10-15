@@ -1,0 +1,140 @@
+{
+  "surfaces": {
+    "reference": "/Users/lwm/code/phonopy (repo; doc/ + phonopy/harmonic, phonon, gruneisen, qha, electron, spectrum, sscha; CLI per pyproject.toml [project.scripts])",
+    "host": "MatDiscovery plugins/matdiscovery (37 skills; doctrine docs/CAPABILITY-SURFACE.md; 13 local compute tools + 3 remote submit tools per CAPABILITY-SURFACE.md, 2026-10-15)",
+    "generated_at": "2026-10-15",
+    "status": "DRAFT — not judge-validated yet; schema extends gold/mini-ref-vs-mini-host.json with per-row 'confidence', top-level 'reference_inventory' and 'equivalent' (both logged)"
+  },
+  "reference_inventory": [
+    {"id": "fc-assembly", "type": "compute", "confidence": "high", "evidence": ["phonopy/harmonic/force_constants.py", "phonopy/harmonic/displacement.py", "doc/workflow.md (finite-displacement FC from displacement+forces, space-group symmetry)"]},
+    {"id": "phonon-dos", "type": "compute", "confidence": "high", "evidence": ["phonopy/phonon/dos.py", "CLI 'phonopy' DOS/PDOS modes", "doc/phonopy.md"]},
+    {"id": "band-structure", "type": "workflow", "confidence": "high", "evidence": ["phonopy/phonon/band_structure.py", "CLI 'phonopy' BAND + phonopy-bandplot (pyproject [project.scripts])"]},
+    {"id": "group-velocity", "type": "compute", "confidence": "high", "evidence": ["phonopy/phonon/group_velocity.py", "doc/output-files.md"]},
+    {"id": "thermal-properties-harmonic", "type": "compute", "confidence": "high", "evidence": ["phonopy/phonon/thermal_properties.py (F, S, Cv, ZPE vs T)", "doc/phonopy.md"]},
+    {"id": "mode-gruneisen", "type": "compute", "confidence": "medium", "evidence": ["phonopy/gruneisen/core.py", "CLI phonopy-gruneisen, phonopy-gruneisenplot", "doc/gruneisen.md"]},
+    {"id": "qha-thermodynamics", "type": "workflow", "confidence": "high", "evidence": ["phonopy/qha/core.py + qha/eos.py", "CLI phonopy-qha, phonopy-anisotropic-qha", "doc/aniso-thermal-expansion.md"]},
+    {"id": "nac-lo-to", "type": "compute", "confidence": "high", "evidence": ["phonopy/harmonic/dynamical_matrix.py (nac_params)", "CLI phonopy-vasp-born / phonopy-crystal-born / phonopy-qe-born / phonopy-octopus-born (pyproject [project.scripts])", "doc/vasp-dfpt.md (Born charges + LO-TO correction)"]},
+    {"id": "electronic-thermal", "type": "compute", "confidence": "high", "evidence": ["phonopy/electron/ (states.py, kpoint_sum.py, tetrahedron.py)", "doc/electronic-thermal-properties.md"]},
+    {"id": "irreps-symmetry", "type": "compute", "confidence": "high", "evidence": ["phonopy/phonon/irreps.py", "phonopy/phonon/symmetry_adapted_modes.py", "CLI 'phonopy' --irreps (phonopy/cui/phonopy_argparse.py:618)"]},
+    {"id": "mlp-sscha", "type": "workflow", "confidence": "medium", "evidence": ["phonopy/sscha/core.py", "phonopy/interface/mlp.py", "CLI phonopy-mlpsscha, phonopy-vasp-mlp-dataset", "doc/polymlp-sscha.md, doc/qlm.md"]},
+    {"id": "dynamic-structure-factor", "type": "compute", "confidence": "medium", "evidence": ["phonopy/spectrum/dynamic_structure_factor.py + spectrum/velocity.py", "doc/dynamic-structure-factor.md"]},
+    {"id": "site-mixture-vca", "type": "compute", "confidence": "low", "evidence": ["CLI 'phonopy' --site-mixture / --split-site-mixture (phonopy/cui/phonopy_argparse.py; marked [Experimental] in help text)"]}
+  ],
+  "gaps": [
+    {
+      "ref_id": "fc-assembly",
+      "class": "partial",
+      "source_kind": "reference-contrast",
+      "confidence": "medium",
+      "evidence_kinds": ["module", "cli"],
+      "note": "REVISED from missing (E1 judge run 2026-10-15). Host performs real FC assembly on two routes: bte_controller core.py:490-504 (displacement -> forces -> symprec symmetrization -> fc2/fc3 persisted) and simple_mattersim_qha_muxi.py:529-539. But no standalone FORCE_CONSTANTS-style deliverable is user-reachable (mat-phonon outputs: phonon_summary.json, band.yaml, total_dos.dat, projected_dos.csv, thermal_properties.csv, group_velocity.csv, phonon_modes.json) — the capability is performed, the standalone delivery form is absent → strict subset → partial, not missing, and not equivalent (2/3 judges argued equivalent; rejected on granularity rule #1: user-reachable deliverable missing)."
+    },
+    {
+      "ref_id": "mode-gruneisen",
+      "class": "partial",
+      "source_kind": "reference-contrast",
+      "confidence": "medium",
+      "evidence_kinds": ["doc", "module"],
+      "note": "instance recorded 'mode Grüneisen existed in the host' (methodology.md §3 grep kill). Host evidence: the QHA route lists gruneisen.csv as an authoritative artifact only when Grüneisen data are explicitly requested (mat-qha-thermal-expansion outputs). Strict subset: host provides Grüneisen data on the volume/QHA path, but the harmonic per-mode Grüneisen family + phonopy-gruneisen/gruneisenplot surface is not exposed → partial, not missing. Judge check: read gruneisen.csv row semantics on the QHA route; if it is only the volume-thermal gamma, per-mode gamma remains absent and partial still holds (subset); only a per-mode product would argue equivalent."
+    },
+    {
+      "ref_id": "qha-thermodynamics",
+      "class": "partial",
+      "source_kind": "host-self-audit",
+      "confidence": "medium",
+      "evidence_kinds": ["doc", "cli"],
+      "note": "host mat-qha-thermal-expansion covers Cp, Gibbs, entropy, enthalpy, Veq(T,P) via remote qha_simple — but the α(T) sub-deliverable has no runner-side table and is derived locally interior-points-only (mcp__local_compute__mat_thermal_expansion on volume_temperature.csv, endpoints excluded). SKILL-DESIGN §9-type roadmap (per methodology.md §3 source tagging) admitted the thermal-expansion deficiency → source host-self-audit. Strict-subset reading of the full reference semantics (qha + full-range α) → partial. 2026-10-15 host added mat_thermal_expansion; the instance documented α as 'partial (default listed, no table)'."
+    },
+    {
+      "ref_id": "nac-lo-to",
+      "class": "missing",
+      "source_kind": "reference-contrast",
+      "confidence": "high",
+      "evidence_kinds": ["module", "cli", "doc"],
+      "note": "validated absent: grep of 37 skills + tool sources for nac / lo-to / born-effective-charge returns only mat-elasticity's 'Born stability' (mechanical eigenvalues of the stiffness tensor — an adjacent, unrelated concept). No dielectric-tensor / Born-charge / LO-TO transport anywhere in the host. Instance explicitly confirms 'NAC/LO-TO confirmed truly absent' (methodology.md §3)."
+    },
+    {
+      "ref_id": "electronic-thermal",
+      "class": "missing",
+      "source_kind": "reference-contrast",
+      "confidence": "high",
+      "evidence_kinds": ["module", "doc"],
+      "note": "no electron-phonon coupling / electronic-transport surface in the host (zero hits for electronic thermal; host thermal surface is phononic: harmonic + QHA + BTE lattice). Instance records electronic thermal as a reference-contrast gap; methodology.md §3 also notes the domain-inference sibling (metal κ_e) — recorded here, not rated."
+    },
+    {
+      "ref_id": "irreps-symmetry",
+      "class": "missing",
+      "source_kind": "reference-contrast",
+      "confidence": "medium",
+      "evidence_kinds": ["module", "doc"],
+      "note": "host symmetry capability is limited to reporting the space group of a relaxed cell (mat-relax-analysis) — adjacent-but-different, does not subsume mode irreducible representations / character tables / symmetry-adapted modes. No ir-reps surface found in skills/tools. Instance lists irreps among reference-contrast gaps."
+    },
+    {
+      "ref_id": "mlp-sscha",
+      "class": "missing",
+      "source_kind": "reference-contrast",
+      "confidence": "medium",
+      "evidence_kinds": ["module", "cli"],
+      "note": "host has MatterSim force-field surfaces (singlepoint, MD, relax) but no SSCHA route and no ML-potential-interfaced phonon sampling; adjacent FF capabilities are near-misses, not subsets (strict subsume)."
+    },
+    {
+      "ref_id": "dynamic-structure-factor",
+      "class": "missing",
+      "source_kind": "reference-contrast",
+      "confidence": "medium",
+      "evidence_kinds": ["module", "doc"],
+      "note": "host descriptors are the static family only: RDF/ADF/S(q) over one frame or a trajectory (mat-structure/mat-trajectory-descriptor) — no S(q,ω), no velocity-resolution/window products. Static S(q) is adjacent-but-different from the dynamic structure factor."
+    },
+    {
+      "ref_id": "site-mixture-vca",
+      "class": "unknown",
+      "source_kind": "reference-contrast",
+      "confidence": "low",
+      "evidence_kinds": ["cli"],
+      "note": "reference evidence is the experimental --site-mixture flag only (capability-ir.md rule 6: ambiguous+single-source → low). Low evidence can never drive missing (no-low-driven-missing, formal-foundations §2); the VCA capability is genuinely ambiguous against the host's disorder/MD routes → unknown."
+    }
+  ],
+  "equivalent": ["phonon-dos", "band-structure", "group-velocity", "thermal-properties-harmonic"],
+  "host_only": [
+    "mat-melting-point", "mat-formation-energy", "mat-cohesive-energy", "mat-mixing-enthalpy",
+    "mat-convex-hull", "mat-phase-stability", "mat-chemical-potential-window", "mat-phase-transition-pressure",
+    "mat-nve-md", "mat-nvt-heating", "mat-npt-compression", "mat-diffusion-analysis", "mat-ionic-conductivity",
+    "mat-elasticity", "mat-equation-of-state", "mat-neb-barrier", "mat-singlepoint-energy",
+    "mat-vasp-calculation", "mat-relax-analysis", "mat-pressure-relaxation",
+    "mat-structure-descriptor", "mat-trajectory-descriptor", "mat-md-trajectory-descriptor",
+    "mat-structure-retrieval", "materials-structure-modeling",
+    "mat-soft-mode", "mat-soft-mode-scan", "mat-dynamic-stability", "mat-lattice-thermal-conductivity",
+    "bte-thermal-conductivity-scenario", "mat-force-equivariance", "mat-active-learning",
+    "alloy-property-predict", "alloy-design-scenario", "materials-discovery-scenario"
+  ],
+  "traps_asserted": [
+    "dependency fingerprint: MatDiscovery venv INSTALLS phonopy 4.8.1 (tools/bte-controller Requires-Dist: phonopy) — a host dependency fingerprint is not a host capability (capability-ir.md #3) and never by itself covers a reference capability or flips a class",
+    "host 'Born' hits in mat-elasticity are mechanical Born stability (eigenvalues of the 6x6 stiffness tensor), NOT Born effective charges — adjacent concept; nac-lo-to missing stands",
+    "mode-gruneisen: instance kill ('existed in the host') must not be over-applied to equivalent — host has gruneisen.csv only on the QHA explicit-request path; read its semantics before touching the class; draft keeps partial (strict subset)",
+    "qha α: 'instance documented partial (default listed, no table)' + host built mat_thermal_expansion on 2026-10-15; interior-points-only derivation keeps it a strict subset → partial, not equivalent",
+    "sscha/MLP route: host MatterSim FF singlepoint/MD is adjacent to MLP-interfaced phonon sampling (different input contract) → missing, not partial",
+    "static S(q) (host descriptors) does NOT subsume dynamic structure factor S(q,ω) — adjacent-but-different → missing",
+    "site-mixture VCA: experimental CLI-only evidence (low) → unknown, never missing",
+    "irreps: space-group reporting (mat-relax-analysis) does not subsume mode irreps/character tables — adjacent → missing"
+  ],
+  "log": [
+    {
+      "date": "2026-10-15",
+      "what": "DRAFT gold created (not judge-validated). Schema extensions vs gold/mini-ref-vs-mini-host.json: (1) per-gap 'confidence' field; (2) top-level 'reference_inventory' (fixed reference surface judges classify against); (3) top-level 'equivalent' (covered reference caps, kept out of gaps per mini-gold convention).",
+      "why": "E1 task: judges need a fixed reference inventory as input + explicit confidence for the κ cell design; extensions are additive, existing rows unchanged",
+      "trigger": "corpus-design task (research/runs/e1/)"
+    },
+    {
+      "date": "2026-10-15",
+      "what": "gap count is 9 (6 missing, 2 partial, 1 unknown) + 4 equivalent on a 13-capability reference; the instance is documented as '19 gaps' with 4 host-admitted items (α, FF sanity, collective conductivity, melting-point runner)",
+      "why": "the original 19-gap table is not preserved in capalign; strict phonopy-only reference inventory cannot host host-only admissions (melting/collective/FF-sanity have no phonopy counterpart under granularity rules, so they are recorded in host_only/notes instead of gap rows)",
+      "trigger": "honest-accounting discipline — draft is a strict re-derivation for judges to re-run; widening the reference to a family-level surface is a main-agent decision (see corpus-design.md §6)"
+    },
+    {
+      "date": "2026-10-15",
+      "what": "fc-assembly class changed missing -> partial (confidence medium)",
+      "why": "E1 three-judge run (alpha/beta/gamma, isolated) supplied positive host evidence the drafter missed: real FC assembly executes on the host (bte_controller core.py:490-504; simple_mattersim_qha_muxi.py:529-539) with fc2/fc3 persisted on the BTE route. The capability is performed; only the standalone FORCE_CONSTANTS-style deliverable is absent -> strict subset -> partial. 2/3 judges argued equivalent; rejected on granularity rule #1 (user-reachable deliverable still missing).",
+      "trigger": "E1 IRR run 2026-10-15 — evidence-driven gold revision, recorded per evaluation.md Layer-2 discipline"
+    }
+  ]
+}

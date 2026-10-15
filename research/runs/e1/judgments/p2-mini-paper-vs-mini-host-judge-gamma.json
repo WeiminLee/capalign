@@ -1,0 +1,70 @@
+{
+  "run_id": "e1-p2-mini-paper-vs-mini-host-judge-gamma-2026-10-15",
+  "judge": "judge-gamma",
+  "pair_id": "p2-mini-paper-vs-mini-host",
+  "classifications": [
+    {
+      "ref_id": "finite-displacement-phonons",
+      "class": "missing",
+      "source_kind": "host-self-audit",
+      "confidence": "high",
+      "evidence_note": "No displacements->forces->FC->dynmat->DOS->Cv pipeline anywhere in host: heat-flow only CONSUMES phonon frequencies 'from an upstream capability' (skills/heat-flow/SKILL.md:9) and produces kappa(T); AUDIT.md:9 admits no force-constant/dynamical-matrix pathway, AUDIT.md:8 admits no phonon DOS/dispersion, AUDIT.md:5-7 admit no Cv/F/S/ZPE. The workflow as a user-reachable unit is absent and its absence is audit-admitted step by step -> host-self-audit."
+    },
+    {
+      "ref_id": "force-constant-assembly",
+      "class": "missing",
+      "source_kind": "host-self-audit",
+      "confidence": "high",
+      "evidence_note": "No force-constant assembly in host: grep for force-const/FC across mini-host hits only the AUDIT admission; no module or tool computes force constants; tools are parse-structure/fit-eos only (tools/tool-registry.json). AUDIT.md:9 'No force-constant / dynamical-matrix pathway for any structure.'"
+    },
+    {
+      "ref_id": "vasp-calculator",
+      "class": "missing",
+      "source_kind": "reference-contrast",
+      "confidence": "high",
+      "evidence_note": "Host has no DFT/forces surface at all: grep vasp|ase|dft over mini-host -> zero hits; tool registry exposes only parse-structure and fit-eos; eos consumes E(V) points 'supplied by the user', heat-flow consumes frequencies from upstream. No host doc admits a VASP/DFT gap, so the source is reference-contrast, not host-self-audit. Dependency-fingerprint rule noted: absent VASP is judged from the absence of ANY forces/flags surface, not from a fingerprint mismatch."
+    },
+    {
+      "ref_id": "dynamical-matrix-diagonalization",
+      "class": "missing",
+      "source_kind": "host-self-audit",
+      "confidence": "high",
+      "evidence_note": "No dynamical-matrix computation in host (grep dynmat -> only AUDIT.md:9). AUDIT.md:9 'No force-constant / dynamical-matrix pathway for any structure.'"
+    },
+    {
+      "ref_id": "phonon-dos",
+      "class": "missing",
+      "source_kind": "host-self-audit",
+      "confidence": "high",
+      "evidence_note": "No phonon DOS/dispersion in host; grep dos -> hits only the AUDIT admission. AUDIT.md:8 'No phonon DOS or dispersion.'"
+    },
+    {
+      "ref_id": "heat-capacity",
+      "class": "missing",
+      "source_kind": "host-self-audit",
+      "confidence": "high",
+      "evidence_note": "AUDIT.md:5-7: 'No harmonic heat capacity / specific heat (Cv) or phonon thermal properties (free energy F, entropy S, zero-point energy) - a user asking for Cv today gets no result.' Near-miss recorded: heat-flow (skills/heat-flow/SKILL.md:3) covers lattice kappa via BTE, but lattice kappa does NOT subsume Cv/F/S/ZPE semantics -> adjacent-but-different, so missing, not partial (strict-subset rule)."
+    },
+    {
+      "ref_id": "phono3py-bte",
+      "class": "equivalent",
+      "source_kind": "reference-contrast",
+      "confidence": "high",
+      "evidence_note": "heat-flow skill's own routing trigger is 'lattice thermal conductivity kappa from the phonon Boltzmann transport equation' (skills/heat-flow/SKILL.md:3) and body says 'Solve the phonon BTE for lattice thermal conductivity ... produces kappa(T)' (:8-9) - the same user-reachable semantic unit as the reference's 'phono3py RTA BTE solver'. The solver identity (phono3py versus an unnamed BTE implementation) is implementation plating; the host skill also mirrors phono3py's conditioning (needs frequencies/FCs upstream)."
+    },
+    {
+      "ref_id": "thermal-conductivity-data",
+      "class": "equivalent",
+      "source_kind": "reference-contrast",
+      "confidence": "high",
+      "evidence_note": "heat-flow produces kappa(T) as its stated deliverable (skills/heat-flow/SKILL.md:9). Reference row is a published data product (Table 1 kappa + raw data); published versus host-produced is a provenance difference, not a capability difference - the user-reachable unit 'get lattice kappa data for a bulk material' is covered. No deliverable shown that the host cannot produce given upstream frequencies; the missing-frequencies gap is attributed to the pipeline rows (finite-displacement-phonons et al.), not to this row."
+    },
+    {
+      "ref_id": "tetrahedron-integration",
+      "class": "unknown",
+      "source_kind": "reference-contrast",
+      "confidence": "low",
+      "evidence_note": "Single passing mention in the reference ('tetrahedron integration gives a slightly larger DOS'), evidence carries confidence low by the inventory contract. Per methodology/IR rules a low-confidence item never drives missing, and the semantics (DOS integration scheme vs a user-reachable capability) cannot be characterized -> unknown. Host grep 'tetrahedron' zero hits, informational only; it cannot upgrade the class."
+    }
+  ]
+}

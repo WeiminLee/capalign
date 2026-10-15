@@ -1,0 +1,36 @@
+{
+  "source": "mini fixture gold (tests/fixtures/gold/mini-ref-vs-mini-host.json)",
+  "priority_judgment": "host-self-audit > reference-contrast (fix-wrongness > honor-promise > extend-surface), then documented order",
+  "gaps": [
+    {
+      "id": "force-constants",
+      "class": "missing",
+      "source_kind": "host-self-audit",
+      "priority": 1
+    },
+    {
+      "id": "dynamical-matrix",
+      "class": "missing",
+      "source_kind": "host-self-audit",
+      "priority": 2
+    },
+    {
+      "id": "phonon-dos",
+      "class": "missing",
+      "source_kind": "host-self-audit",
+      "priority": 3
+    },
+    {
+      "id": "band-structure",
+      "class": "missing",
+      "source_kind": "host-self-audit",
+      "priority": 4
+    },
+    {
+      "id": "phonon-thermal-properties",
+      "class": "missing",
+      "source_kind": "host-self-audit",
+      "priority": 5
+    }
+  ]
+}

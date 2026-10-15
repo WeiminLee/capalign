@@ -1,0 +1,33 @@
+{
+  "_meta": {
+    "task": "t-mr-01-band-structure",
+    "generated_by": "e2-scripts/run_feasibility.py (zero-bundle)",
+    "provenance": "mini-tier gold: implemented from the reference docs feature surface (docs/band.md + harmonic formulation); F direct, S/Cv by central finite difference of F \u2014 independent of the staged artifacts' analytic formulas. Real-tier golds (E2 full run) come from the reference executable, per e2-protocol Phase 6."
+  },
+  "band.json": {
+    "qpoints": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.5,
+        0.0,
+        0.0
+      ]
+    ],
+    "frequencies": [
+      [
+        1.4142135623730951,
+        1.4142135623730951,
+        1.4142135623730951
+      ],
+      [
+        1.4142135623730951,
+        1.4142135623730951,
+        1.4142135623730951
+      ]
+    ]
+  }
+}

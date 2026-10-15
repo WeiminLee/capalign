@@ -140,17 +140,11 @@ def main():
 
     if args.mode == "cmd":
         pattern = args.cmd_pattern or "OK"
-        if base["verdict"] == "skip" and not base.get("reasons"):
-            base["verdict"] = "pass" if re.search(pattern, stdout) else "fail"
-            base["reasons"].append(
-                f"cmd-pattern {pattern!r} {'matched' if base['verdict'] == 'pass' else 'not found'}"
-            )
-        else:
-            if re.search(pattern, stdout):
-                base["reasons"].append(f"cmd-pattern {pattern!r} matched")
-            else:
-                base["verdict"] = "fail"
-                base["reasons"].append(f"cmd-pattern {pattern!r} not found in stdout")
+        matched = re.search(pattern, stdout) is not None
+        base["reasons"].append(
+            f"cmd-pattern {pattern!r} {'matched' if matched else 'not found'}"
+        )
+        base["verdict"] = "pass" if (base["verdict"] != "fail" and matched) else "fail"
     else:  # gold
         expected = [x for x in args.output_files.split(",") if x]
         missing = [x for x in expected if not os.path.exists(os.path.join(sandbox, x))]
@@ -183,6 +177,8 @@ def main():
             if all_pass:
                 base["verdict"] = "pass"
                 base["reasons"].append(f"gold compare OK ({len(expected)} file(s))")
+            else:
+                base["verdict"] = "fail"
 
     _write(base, stdout=stdout, stderr=stderr, exit_code=exit_code, args=args)
     return 0

@@ -1,0 +1,70 @@
+{
+  "run_id": "e1-p2-mini-paper-vs-mini-host-judge-alpha-2026-10-15",
+  "judge": "judge-alpha",
+  "pair_id": "p2-mini-paper-vs-mini-host",
+  "classifications": [
+    {
+      "ref_id": "finite-displacement-phonons",
+      "class": "missing",
+      "source_kind": "host-self-audit",
+      "confidence": "high",
+      "evidence_note": "No part of the displacement->forces->FC->dynmat->DOS->Cv chain exists in host; AUDIT.md lines 5-9 admit no FC/dynmat pathway, no DOS/dispersion, no Cv/thermal props—the chain's constitutive steps are each self-admitted absent, and heat-flow/SKILL.md:8 explicitly requires phonon frequencies 'from an upstream capability' (i.e., not producible in-host)."
+    },
+    {
+      "ref_id": "force-constant-assembly",
+      "class": "missing",
+      "source_kind": "host-self-audit",
+      "confidence": "high",
+      "evidence_note": "AUDIT.md line 9: 'No force-constant / dynamical-matrix pathway for any structure'—direct host admission; no FC assembly code/module found in skills/ or tools/."
+    },
+    {
+      "ref_id": "vasp-calculator",
+      "class": "missing",
+      "source_kind": "reference-contrast",
+      "confidence": "high",
+      "evidence_note": "Host has no DFT/electronic-structure surface at all (tools are parse-structure/fit-eos only; skills heat-flow/eos); AUDIT.md is silent on any DFT engine, so not host-self-audit. Verified by full scan of mini-host: no VASP/ASE reference anywhere."
+    },
+    {
+      "ref_id": "dynamical-matrix-diagonalization",
+      "class": "missing",
+      "source_kind": "host-self-audit",
+      "confidence": "high",
+      "evidence_note": "AUDIT.md line 9: 'No force-constant / dynamical-matrix pathway for any structure'—direct host admission; no dynmat code/module in host."
+    },
+    {
+      "ref_id": "phonon-dos",
+      "class": "missing",
+      "source_kind": "host-self-audit",
+      "confidence": "high",
+      "evidence_note": "AUDIT.md line 8: 'No phonon DOS or dispersion'—direct host admission; heat-flow requires pre-computed frequencies and yields kappa only, not DOS."
+    },
+    {
+      "ref_id": "heat-capacity",
+      "class": "missing",
+      "source_kind": "host-self-audit",
+      "confidence": "high",
+      "evidence_note": "AUDIT.md line 5-7: 'No harmonic heat capacity / specific heat (Cv) or phonon thermal properties (F, S, ZPE)'—direct host admission with user-impact statement. heat-flow (lattice kappa) is adjacent-but-different, not a strict subset of Cv, so per strict-subsume semantics this is missing with the near-miss recorded."
+    },
+    {
+      "ref_id": "phono3py-bte",
+      "class": "equivalent",
+      "source_kind": "reference-contrast",
+      "confidence": "high",
+      "evidence_note": "host skill heat-flow (skills/heat-flow/SKILL.md:3,8) solves the phonon BTE for lattice thermal conductivity and produces kappa(T)—same semantics as the reference's phono3py RTA BTE solver. Dependency fingerprint (running phono3py itself) is not the capability; AUDIT.md line 11-12 confirms lattice kappa is covered in-host."
+    },
+    {
+      "ref_id": "thermal-conductivity-data",
+      "class": "equivalent",
+      "source_kind": "reference-contrast",
+      "confidence": "high",
+      "evidence_note": "Reference delivers published kappa(T) table (2.31 W/mK) + raw data; host heat-flow produces kappa(T) on demand. Provenance (reference=published/presolved vs host=host-produced) is not a capability difference; no deliverable identified that the host cannot produce (given upstream frequencies, which both sides assume)."
+    },
+    {
+      "ref_id": "tetrahedron-integration",
+      "class": "unknown",
+      "source_kind": "reference-contrast",
+      "confidence": "low",
+      "evidence_note": "Inventory evidence is a single passing mention at confidence low; per no-low-driven-missing (capability-ir.md granularity boundary #6, alignment-rules.md 'never') this must stay unknown, never missing. Host silent on the technique; cannot be cross-validated either way."
+    }
+  ]
+}

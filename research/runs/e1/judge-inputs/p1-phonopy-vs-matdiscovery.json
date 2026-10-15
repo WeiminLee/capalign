@@ -1,0 +1,144 @@
+{
+ "surfaces": {
+  "reference": "/Users/lwm/code/phonopy (repo; doc/ + phonopy/harmonic, phonon, gruneisen, qha, electron, spectrum, sscha; CLI per pyproject.toml [project.scripts])",
+  "host": "MatDiscovery plugins/matdiscovery (37 skills; doctrine docs/CAPABILITY-SURFACE.md; 13 local compute tools + 3 remote submit tools per CAPABILITY-SURFACE.md, 2026-10-15)",
+  "generated_at": "2026-10-15",
+  "status": "DRAFT — not judge-validated yet; schema extends gold/mini-ref-vs-mini-host.json with per-row 'confidence', top-level 'reference_inventory' and 'equivalent' (both logged)"
+ },
+ "reference_inventory": [
+  {
+   "id": "fc-assembly",
+   "type": "compute",
+   "confidence": "high",
+   "evidence": [
+    "phonopy/harmonic/force_constants.py",
+    "phonopy/harmonic/displacement.py",
+    "doc/workflow.md (finite-displacement FC from displacement+forces, space-group symmetry)"
+   ]
+  },
+  {
+   "id": "phonon-dos",
+   "type": "compute",
+   "confidence": "high",
+   "evidence": [
+    "phonopy/phonon/dos.py",
+    "CLI 'phonopy' DOS/PDOS modes",
+    "doc/phonopy.md"
+   ]
+  },
+  {
+   "id": "band-structure",
+   "type": "workflow",
+   "confidence": "high",
+   "evidence": [
+    "phonopy/phonon/band_structure.py",
+    "CLI 'phonopy' BAND + phonopy-bandplot (pyproject [project.scripts])"
+   ]
+  },
+  {
+   "id": "group-velocity",
+   "type": "compute",
+   "confidence": "high",
+   "evidence": [
+    "phonopy/phonon/group_velocity.py",
+    "doc/output-files.md"
+   ]
+  },
+  {
+   "id": "thermal-properties-harmonic",
+   "type": "compute",
+   "confidence": "high",
+   "evidence": [
+    "phonopy/phonon/thermal_properties.py (F, S, Cv, ZPE vs T)",
+    "doc/phonopy.md"
+   ]
+  },
+  {
+   "id": "mode-gruneisen",
+   "type": "compute",
+   "confidence": "medium",
+   "evidence": [
+    "phonopy/gruneisen/core.py",
+    "CLI phonopy-gruneisen, phonopy-gruneisenplot",
+    "doc/gruneisen.md"
+   ]
+  },
+  {
+   "id": "qha-thermodynamics",
+   "type": "workflow",
+   "confidence": "high",
+   "evidence": [
+    "phonopy/qha/core.py + qha/eos.py",
+    "CLI phonopy-qha, phonopy-anisotropic-qha",
+    "doc/aniso-thermal-expansion.md"
+   ]
+  },
+  {
+   "id": "nac-lo-to",
+   "type": "compute",
+   "confidence": "high",
+   "evidence": [
+    "phonopy/harmonic/dynamical_matrix.py (nac_params)",
+    "CLI phonopy-vasp-born / phonopy-crystal-born / phonopy-qe-born / phonopy-octopus-born (pyproject [project.scripts])",
+    "doc/vasp-dfpt.md (Born charges + LO-TO correction)"
+   ]
+  },
+  {
+   "id": "electronic-thermal",
+   "type": "compute",
+   "confidence": "high",
+   "evidence": [
+    "phonopy/electron/ (states.py, kpoint_sum.py, tetrahedron.py)",
+    "doc/electronic-thermal-properties.md"
+   ]
+  },
+  {
+   "id": "irreps-symmetry",
+   "type": "compute",
+   "confidence": "high",
+   "evidence": [
+    "phonopy/phonon/irreps.py",
+    "phonopy/phonon/symmetry_adapted_modes.py",
+    "CLI 'phonopy' --irreps (phonopy/cui/phonopy_argparse.py:618)"
+   ]
+  },
+  {
+   "id": "mlp-sscha",
+   "type": "workflow",
+   "confidence": "medium",
+   "evidence": [
+    "phonopy/sscha/core.py",
+    "phonopy/interface/mlp.py",
+    "CLI phonopy-mlpsscha, phonopy-vasp-mlp-dataset",
+    "doc/polymlp-sscha.md, doc/qlm.md"
+   ]
+  },
+  {
+   "id": "dynamic-structure-factor",
+   "type": "compute",
+   "confidence": "medium",
+   "evidence": [
+    "phonopy/spectrum/dynamic_structure_factor.py + spectrum/velocity.py",
+    "doc/dynamic-structure-factor.md"
+   ]
+  },
+  {
+   "id": "site-mixture-vca",
+   "type": "compute",
+   "confidence": "low",
+   "evidence": [
+    "CLI 'phonopy' --site-mixture / --split-site-mixture (phonopy/cui/phonopy_argparse.py; marked [Experimental] in help text)"
+   ]
+  }
+ ],
+ "traps_asserted": [
+  "dependency fingerprint: MatDiscovery venv INSTALLS phonopy 4.8.1 (tools/bte-controller Requires-Dist: phonopy) — a host dependency fingerprint is not a host capability (capability-ir.md #3) and never by itself covers a reference capability or flips a class",
+  "host 'Born' hits in mat-elasticity are mechanical Born stability (eigenvalues of the 6x6 stiffness tensor), NOT Born effective charges — adjacent concept; nac-lo-to missing stands",
+  "mode-gruneisen: instance kill ('existed in the host') must not be over-applied to equivalent — host has gruneisen.csv only on the QHA explicit-request path; read its semantics before touching the class; draft keeps partial (strict subset)",
+  "qha α: 'instance documented partial (default listed, no table)' + host built mat_thermal_expansion on 2026-10-15; interior-points-only derivation keeps it a strict subset → partial, not equivalent",
+  "sscha/MLP route: host MatterSim FF singlepoint/MD is adjacent to MLP-interfaced phonon sampling (different input contract) → missing, not partial",
+  "static S(q) (host descriptors) does NOT subsume dynamic structure factor S(q,ω) — adjacent-but-different → missing",
+  "site-mixture VCA: experimental CLI-only evidence (low) → unknown, never missing",
+  "irreps: space-group reporting (mat-relax-analysis) does not subsume mode irreps/character tables — adjacent → missing"
+ ]
+}

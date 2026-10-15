@@ -1,0 +1,45 @@
+# E1 P1 judgment — phonopy-vs-matdiscovery judge-beta
+
+- run_id: `e1-phonopy-vs-matdiscovery-judge-beta-20261015`
+- generated_at: 2026-10-15
+- reference: `/Users/lwm/code/phonopy` (frozen surface `judge-inputs/p1-phonopy-vs-matdiscovery.json`)
+- host: MatDiscovery `plugins/matdiscovery` (read-only scan; doctrine `docs/CAPABILITY-SURFACE.md`)
+- rules consulted: alignment-rules.md, capability-ir.md (granularity boundary), inventory-heuristics.md §D (incl. §D.3 host self-audit scan), methodology.md §0–§2 & §4. methodology §3 and all gold fixtures NOT read.
+
+Classification counts: **13 total — equivalent 5 · partial 2 · missing 5 · unknown 1**
+
+## Per-capability rows
+
+| ref_id | class | source_kind | confidence | note |
+|---|---|---|---|---|
+| fc-assembly | equivalent | reference-contrast | medium | Host finite-displacement FC (displacement+forces, symprec) covered end-to-end: mat-phonon remote 'phonon' task + mounted bte_controller MCP server (`bte-controller/src/bte_controller/core.py:490-504` `Phonopy(...).produce_force_constants()`; fc2/fc3 persisted & reused, mat-lattice-thermal-conductivity SKILL.md:38). Nuance: raw FC is never a standalone artifact-only deliverable — reachable only inside the phonon/BTE pipelines. |
+| phonon-dos | equivalent | reference-contrast | high | mat-phonon SKILL.md:29 authoritative artifacts `phonon/total_dos.dat` + `phonon/projected_dos.csv`; SKILLS-AUDIT-2026-09-24 §6.2 confirms projected_dos.csv really produced when requested. |
+| band-structure | equivalent | reference-contrast | high | mat-phonon delivers dispersion via `phonon/band.yaml`; reference's phonopy-bandplot CLI merges into the capability per granularity rule #2 (rendering convenience). |
+| group-velocity | equivalent | reference-contrast | high | mat-phonon SKILL.md:14,29 deliverable `phonon/group_velocity.csv`, harmonically derived from fc2. |
+| thermal-properties-harmonic | equivalent | reference-contrast | high | mat-phonon: Cv, vibrational F/S, ZPE vs T via `phonon/thermal_properties.csv` + `phonon_summary.json` ZPE field; Cv-vs-Cp boundary explicitly handled. |
+| mode-gruneisen | partial | reference-contrast | medium | Per-mode Grueneisen parameters computed but ONLY on the QHA explicit-request path: `validate-parameters.ts:234` whitelist, `simple_mattersim_qha_muxi.py:543,583-665,848-869` (`if "gruneisen" in requested_properties` → `write_mode_gruneisen`), mat-qha-thermal-expansion SKILL.md:33. No standalone entry/plot (reference has `phonopy-gruneisen`/`-gruneisenplot`) → strict subset. |
+| qha-thermodynamics | partial | reference-contrast | medium | mat-qha-thermal-expansion (ga): Cp, G, S, H, Veq vs T/P per pressure. Gap: alpha delivered only by local `mat_thermal_expansion` on `volume_temperature.csv` at interior temperatures (three-point central slope, never endpoints — `thermo.py:300-312`, `server.py:202-212`); `thermal_expansion` is a default-listed property with no runner-side table (audit §1.4 admitted α unimplemented; tool added 2026-10-15). Interior-only + no full-range α table → strict subset. |
+| nac-lo-to | missing | reference-contrast | high | Zero hits for nac_params / Born effective charge / LO-TO / LEPSILON / DFPT across plugins/matdiscovery, tools/, fieldmat-runners. phonopy-installed bte_controller never sets nac_params (core.py:490). Only 'Born' in host = mechanical stiffness-eigenvalue stability (mat-elasticity SKILL.md:29). mat-vasp-calculation is generic SCF/relax only (vasp-calculation-spec D3). |
+| electronic-thermal | missing | host-self-audit | high | Host's own reference admits it: shared `thermal-router.md:31` "Ask whether an electronic contribution is required for metallic systems" and `:8` "a method that no skill here describes is not available". No eDOS / tetrahedron integration / electronic Ce(T) anywhere. |
+| irreps-symmetry | missing | reference-contrast | high | Zero irrep / character-table / symmetry-adapted hits. Adjacent near-misses that do NOT subsume: space-group reporting (`structure.py:86-102`) and mode selection in mat-soft-mode — neither assigns irreps. |
+| mlp-sscha | missing | reference-contrast | high | No sscha anywhere. Host MatterSim FF singlepoint/MD (mat-singlepoint-energy, mat-nve-md…) is adjacent but a different input contract (FF singlepoint/trajectory vs MLP-interfaced self-consistent phonon sampling) → missing, not partial. |
+| dynamic-structure-factor | missing | reference-contrast | high | Host static S(q) = sinc transform of RDF rows with no ω resolution (`mat_compute_structure_factor`; mat-structure-descriptor SKILL.md:32-34). Reference is dynamic S(q,ω) from the velocity spectrum — adjacent-but-different, not subsumed; no velocity-spectrum/dynamic S(q,ω) anywhere. |
+| site-mixture-vca | unknown | reference-contrast | low | Reference evidence is a single experimental CLI-only surface (confidence low per frozen inventory). Per alignment-rules §"Never" + granularity rule #6, low never drives missing; host has no VCA/site-mixture surface. |
+
+## Trap response (each asserted trap, explicitly)
+
+1. **Dependency fingerprint ≠ capability.** Verified: bte-controller genuinely `import phonopy`/`phono3py` (`core.py:14-17`) and uses `Phonopy(...)`/`Phono3py(...)` for fc2/fc3/BTE — but I did not treat "phonopy 4.8.1 installed" as coverage of any reference capability. The install supports the host's **BTE kappa** surface (not in this reference inventory); for the 13 inventoried capabilities it flipped nothing. Notably it makes the nac-lo-to gap *more* conclusive: phonopy is installed yet `nac_params` is never used anywhere.
+2. **Born stability ≠ Born effective charge.** Verified mechanical Born = positive eigenvalues of the 6×6 stiffness tensor (mat-elasticity SKILL.md:29; elastic runner emits `minimum_elastic_eigenvalue_GPa`/`mechanically_stable`). `nac-lo-to` stays **missing** (high).
+3. **mode-gruneisen semantics.** Read before classifying: `gruneisen.csv` is per-mode (q_index, band_index, frequency_THz, mode_gruneisen, deformation/volume columns), produced only when `gruneisen ∈ requested_properties` on the QHA path (`simple_mattersim_qha_muxi.py:543,850-856`). It does not make mode-Grueneisen a standalone capability (no phonopy-gruneisen-like entry, no plotting) → **partial (strict subset)**, not equivalent, and not missing.
+4. **qha α interior-points.** Verified the 2026-10-15 tool: `mat_thermal_expansion` reports alpha at interior temperatures only via local linear slope (`thermo.py:300-312` "at every interior temperature", `server.py:202-212`); QHA skill mandates never reporting endpoints (SKILL.md:21,29,34). Host built the tool (audit §1.4 admission closed) but interior-points-only + no runner-side α table keeps it a strict subset → **partial**, not equivalent (and NOT missing — Cp/G/S/H/Veq are genuinely delivered).
+5. **sscha/MLP adjacency.** Host MatterSim FF MD/singlepoint (mat-nve-md, mat-singlepoint-energy, structure-modeling) is not MLP-interfaced phonon/sscha sampling — different input contract → **missing**, not partial.
+6. **Static S(q) ≠ dynamic S(q,ω).** `mat_compute_structure_factor` is a static RDF sinc transform (mat-structure-descriptor SKILL.md:32-34) — no frequency dependence; reference is the phonon velocity-spectrum S(q,ω) → **missing**.
+7. **site-mixture VCA low evidence.** Reference side is an `[Experimental]` CLI-only hint at low confidence → **unknown**, never missing (alignment-rules §"Never", granularity #6).
+8. **irreps vs space-group.** Verified the host's only symmetry-adjacent outputs are space-group labels in `mat_analyze_structure` (`structure.py:86-102`) and frequency-based mode selection (mat-soft-mode) — neither subsume mode irreps/character tables → **missing**.
+
+## Verification discipline
+
+- All host-side conclusions were cross-validated by grep/read of the host at the exact paths cited in each note; no classification rests on the comparison table alone.
+- Host self-audit scan (inventory-heuristics §D.3): reviewed `docs/SKILLS-AUDIT-2026-09-24.md` (historical snapshot; admits α unimplemented — since closed by `mat_thermal_expansion`, and S(q) static validity — different capability), shared `thermal-router.md` (admission used for `electronic-thermal` → host-self-audit), `docs/CAPABILITY-SURFACE.md`, `docs/bte-kappa-capability-{spec,plan}-2026-10-09.md`, `docs/vasp-calculation-{spec,plan}-2026-10-09.md` (VASP: explicit non-goals, no DFPT/NAC).
+- Sources NOT consulted (methodology §4.3): host failure statistics / user-request logs; reference docs beyond the frozen inventory evidence.
+- Hardest calls: (1) fc-assembly equivalent-vs-partial (raw FC never a standalone deliverable; kept equivalent at medium with the nuance stated); (2) qha-thermodynamics partial-vs-equivalent after the 2026-10-15 α tool landed (interior-only + no runner table decides partial); (3) electronic-thermal source_kind host-self-audit vs reference-contrast (thermal-router.md's "ask whether an electronic contribution is required" is a genuine self-admission of non-coverage, so host-self-audit, and it may move priority).

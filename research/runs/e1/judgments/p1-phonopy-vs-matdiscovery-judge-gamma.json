@@ -1,0 +1,100 @@
+{
+  "run_id": "e1-p1-phonopy-vs-matdiscovery-judge-gamma-2026-10-15",
+  "judge": "judge-gamma",
+  "pair": "p1-phonopy-vs-matdiscovery",
+  "surface_reference": "/Users/lwm/code/phonopy",
+  "surface_host": "MatDiscovery plugins/matdiscovery (/Users/lwm/code/MatDiscovery)",
+  "classifications": [
+    {
+      "ref_id": "fc-assembly",
+      "class": "equivalent",
+      "source_kind": "reference-contrast",
+      "confidence": "medium",
+      "evidence_note": "Host mat-phonon route assembles finite-displacement harmonic force constants (PhononWorkflow from mattersim.applications.phonon with supercell_matrix/amplitude/max_atoms, remote_mattersim_runner.py:2702-2711) and drives the phonopy object downstream (run_mesh/run_thermal_properties/run_projected_dos); repository .venv ships phonopy 4.8.1 + spglib 2.7.0 and the qha muxi imports PhononWorkflow's phonopy directly (from phonopy import PhonopyQHA, simple_mattersim_qha_muxi.py:768). User reaches it through mat-phonon (SKILL.md:14); no standalone FC-only deliverable is listed, phonon/ work dir ships FORCE_CONSTANTS. Confidence medium because mattersim internals are not installed locally and could not be read; the phonopy API chain + artifact contracts corroborate."
+    },
+    {
+      "ref_id": "phonon-dos",
+      "class": "equivalent",
+      "source_kind": "reference-contrast",
+      "confidence": "high",
+      "evidence_note": "Host produces phonon/total_dos.dat (when 'dos' requested) and phonon/projected_dos.csv (when 'projected_dos' requested) from the same FCs: artifact contract remote_mattersim_runner.py:494-511, workflow-phonon-thermal.md file list; envelope self-check demands phonon/total_dos.dat (test_stdout_result_envelope.py:353-379); host audit SKILLS-AUDIT-2026-09-24.md §6.2 confirms projected DOS is produced by the runner."
+    },
+    {
+      "ref_id": "band-structure",
+      "class": "partial",
+      "source_kind": "reference-contrast",
+      "confidence": "medium",
+      "evidence_note": "Host delivers phonon/band.yaml (dispersion data) when 'dispersion' requested (workflow-phonon-thermal.md:32; artifact_index.py:66) via the workflow's internal default band path, with NO user-facing band-path parameters anywhere in mat-phonon references and NO bandplot-equivalent rendering (no plotting surface in mat-phonon). Reference semantics include phonopy BAND CLI on a user-specified path plus phonopy-bandplot. Dispersion data is therefore a strict subset: computed, but path control and bandplot render missing."
+    },
+    {
+      "ref_id": "group-velocity",
+      "class": "equivalent",
+      "source_kind": "reference-contrast",
+      "confidence": "high",
+      "evidence_note": "phonon/group_velocity.csv with per-q/per-band v_x/v_y/v_z/norm (THz*A) computed via phonon.run_mesh(with_group_velocities=True) at remote_mattersim_runner.py:2636-2686, gated on 'group_velocity' request (line 500); listed as authoritative artifact in mat-phonon SKILL.md:29."
+    },
+    {
+      "ref_id": "thermal-properties-harmonic",
+      "class": "equivalent",
+      "source_kind": "reference-contrast",
+      "confidence": "high",
+      "evidence_note": "phonon/thermal_properties.csv + thermal_properties.yaml (F, S, Cv vs T, per primitive cell and per atom) via phonon.run_thermal_properties(t_min/t_max/t_step/cutoff_frequency) at remote_mattersim_runner.py:2544-2608; ZPE in phonon_summary.json thermal_properties.zero_point_energy_eV_per_cell and T=0 row; 'stability'-only requests auto-append 'zpe' so thermal_properties.csv is always produced (line 2512-2514)."
+    },
+    {
+      "ref_id": "mode-gruneisen",
+      "class": "partial",
+      "source_kind": "reference-contrast",
+      "confidence": "high",
+      "evidence_note": "Host DOES compute mode-resolved gamma(q,band) = -(dln omega)/(dln V) via write_mode_gruneisen (simple_mattersim_qha_muxi.py:583-678) but ONLY inside the QHA volume-grid workflow when 'gruneisen' is in the explicitly-requested property list (lines 543, 850-868; help text line 134), using just 2 adjacent volumes and a q-mesh (no band path, no full volume dependence). mat-qha-thermal-expansion SKILL.md:33 declares gruneisen.csv 'only when Gruneisen data were explicitly requested'; shared derived-properties refs state 'Gruneisen is reported only when the run's output already provides it' (workflow_derived_properties.md:172). Reference phonopy-gruneisen is a standalone CLI (mesh and band paths). Host subset = QHA-gated q-mesh gamma only: strict subset, NOT equivalent (instance kill 'existed in the host' must not be over-applied)."
+    },
+    {
+      "ref_id": "qha-thermodynamics",
+      "class": "partial",
+      "source_kind": "reference-contrast",
+      "confidence": "medium",
+      "evidence_note": "mat-qha-thermal-expansion runs PhonopyQHA over a volume grid per pressure (simple_mattersim_qha_muxi.py:768) delivering Cp/Gibbs/S/H/veq vs T,P tables; alpha(T) is derived locally from the delivered volume_temperature.csv by mcp tool mat_thermal_expansion (tools/mat-local-compute/src/mat_local_compute/server.py:202; thermo.py:300) at INTERIOR temperatures only — endpoints explicitly carry no alpha (mat-qha SKILL.md:21,33-34). Zero 'anisotropic' hits anywhere in host code/docs: the reference's phonopy-anisotropic-qha / aniso-thermal-expansion (anisotropic expansion tensor) has no counterpart. Strict subset (isotropic QHA + interior-point alpha). Note: SKILLS-AUDIT-2026-09-24 §1.4 admitted alpha entirely missing; the 2026-10-15 mat_thermal_expansion tool closed the interior-points part, so this is no longer the audit-admitted gap it once was."
+    },
+    {
+      "ref_id": "nac-lo-to",
+      "class": "missing",
+      "source_kind": "reference-contrast",
+      "confidence": "high",
+      "evidence_note": "Zero host hits for Born effective charges / nac_params / LO-TO / polar correction across plugins/matdiscovery, tools/ and docs/ (including the 2026-10-09 BTE spec, where NAC would be most consequential), verified by sweeping 'lo-to|lo_to|nac|born.*charge|effective.charge|nac_params'. The only 'Born' in mat-elasticity is mechanical Born STABILITY (positive eigenvalues of the 6x6 stiffness tensor; mat-elasticity/SKILL.md:29 'A Born check means all eigenvalues of the stiffness tensor are positive') — an adjacent concept that does not subsume NAC (trap). Reference evidence is high (nac_params in phonopy/harmonic/dynamical_matrix.py, four *-born CLIs, doc/vasp-dfpt.md)."
+    },
+    {
+      "ref_id": "electronic-thermal",
+      "class": "missing",
+      "source_kind": "reference-contrast",
+      "confidence": "high",
+      "evidence_note": "Zero host hits for electronic thermal properties / Fermi / tetrahedron across all host code and docs (sweep: 'electronic.thermal|electron.*thermal|fermi|tetrahedron'). Reference phonopy/electron (states.py, kpoint_sum.py, tetrahedron.py) plus doc/electronic-thermal-properties.md is a documented, distinct deliverable class the host has no counterpart for."
+    },
+    {
+      "ref_id": "irreps-symmetry",
+      "class": "missing",
+      "source_kind": "reference-contrast",
+      "confidence": "high",
+      "evidence_note": "No irrep / character-table / symmetry-adapted-mode capability in the host (sweep: 'irrep|character.table|symmetry.adapted'). Nearest neighbor is space-group LABEL reporting by mat_analyze_structure (tools/mat-local-compute/src/mat_local_compute/structure.py:86-103 returns space_group_number/symbol/hall), which is a structural label, not phonon-mode irreducible representations — adjacent, does not subsume mode irreps (trap)."
+    },
+    {
+      "ref_id": "mlp-sscha",
+      "class": "missing",
+      "source_kind": "reference-contrast",
+      "confidence": "medium",
+      "evidence_note": "No sscha / stochastic self-consistent harmonic approximation anywhere in the host (sweep: 'sscha|stochastic.self|self.consistent.harmonic|anharmonic'). The host's ML potential (MatterSim FF) is used for singlepoint / MD / BTE force batches (bte-thermal-conductivity-scenario SKILL.md:14; mattersim_md_custom.py) — a different input contract (FF force evaluation) from MLP-interfaced phonon sampling / renormalized SSCHA; phono3py BTE is perturbative 3-phonon transport, not SSCHA. Adjacent-but-different input contract => missing, not partial (trap)."
+    },
+    {
+      "ref_id": "dynamic-structure-factor",
+      "class": "missing",
+      "source_kind": "reference-contrast",
+      "confidence": "medium",
+      "evidence_note": "Host has only STATIC S(q) (mat_compute_structure_factor consuming RDF rows, tools/mat-local-compute descriptors.py; trajectory descriptor skills) — static, no frequency axis. No dynamic structure factor S(q,omega) / phonon-spectrum anywhere (sweep: 'dynamic.structure|spectrum|S(q'); host docs explicitly warn against deriving structure factor from generic MD diagnostics (workflow-md-thermal-diagnostics.md:37) and disclose the static-S(q) boundary (SKILL-DESIGN.md §5.5). Static S(q) is adjacent-but-different from 1-phonon S(q,omega): missing, not partial (trap)."
+    },
+    {
+      "ref_id": "site-mixture-vca",
+      "class": "unknown",
+      "source_kind": "reference-contrast",
+      "confidence": "low",
+      "evidence_note": "Reference evidence is low: the capability rests on an [Experimental]-marked CLI switch (--site-mixture / --split-site-mixture in phonopy_argparse.py). Zero host hits for virtual-crystal approximation / site-mixture / disorder (sweep: 'virtual.crystal|site.mixture|split.site|vca'). Per capability-ir.md #3 and placement rule 5, low-confidence reference evidence never drives a 'missing' verdict => class unknown, never missing (trap)."
+    }
+  ]
+}
