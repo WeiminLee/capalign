@@ -35,10 +35,10 @@
     },
     {
       "ref_id": "phonon-thermal-properties",
-      "class": "partial",
+      "class": "missing",
       "source_kind": "host-self-audit",
       "host_id": "heat-flow",
-      "note": "adjacent-but-different: host heat-flow covers lattice kappa (BTE), NOT Cv/F/S/ZPE; host AUDIT.md explicitly admits missing harmonic heat capacity. Must be partial, never equivalent, never missing-without-host-link"
+      "note": "adjacent-but-different: host heat-flow (BTE lattice kappa) does NOT subsume Cv/F/S/ZPE — by strict subsume semantics (formal-foundations §2) this is missing, with the adjacent host capability recorded here; AUDIT.md explicitly admits no heat capacity"
     },
     {
       "ref_id": "qha",
@@ -51,9 +51,16 @@
   "host_only": ["parse-structure", "fit-eos", "eos"],
   "traps_asserted": [
     "doc-claim-without-code -> unknown, not missing",
-    "adjacent thermal capability (heat-flow) -> partial with host link, not missing",
+    "adjacent thermal capability (heat-flow): adjacent-but-different is MISSING with a host note, not partial — partial requires strict subset coverage (subsume)",
     "host AUDIT.md admitted gap -> source_kind host-self-audit",
     "dependency fingerprint: numpy/spglib alone does not imply force-constant families without module/docs evidence"
   ],
-  "log": []
+  "log": [
+    {
+      "date": "2026-10-15",
+      "what": "phonon-thermal-properties class changed partial -> missing; source_kind unchanged (host-self-audit)",
+      "why": "E1 pilot F1: strict subsume semantics (formal-foundations §2) — heat-flow does not cover a strict subset of Cv/F/S/ZPE, so adjacent-but-different is missing + note, not partial",
+      "trigger": "judge-2 independent run disagreed; judge-1 and gold both used the loose adjacent=partial intuition"
+    }
+  ]
 }

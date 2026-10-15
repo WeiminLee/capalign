@@ -67,7 +67,16 @@ IR (see `capability-ir.md`).
    trigger) → capability of type `skill`, evidence `skill: <path>`.
    For each tool definition: the registered tool name + one-line purpose →
    capability of type `tool`, evidence `tool: <path>`, provenance recorded.
-2. **Ask-fallback** — a gap that scanning cannot close (proprietary host,
+3. **Host self-audit scan (mandatory, drives source kind).** Look for a host-side
+   audit/roadmap/known-gaps artifact (e.g. `AUDIT.md`, `docs/*-audit*`,
+   `SKILLS-*.md`, issues/roadmap text): a capability the host itself admits lacking
+   **must** be tagged `source_kind: host-self-audit` (highest priority) — the
+   reference merely confirms what the host already owes. This is an inventory step,
+   not an afterthought: run it before classification and let it override the
+   default `reference-contrast` for every admitted gap. (E1 pilot F2: judge-1
+   missed 4 AUDIT-admitted gaps and mis-tagged them reference-contrast; judge-2
+   followed this rule.)
+4. **Ask-fallback** — a gap that scanning cannot close (proprietary host,
    credentials-only surface, registry without source) is asked of the caller in
    plain text; the caller's reply is ingested as the authoritative host IR
    (`confidence: high`, evidence `caller-supplied`).

@@ -61,19 +61,27 @@ blog ──┘    (typed+evidence)      ref surface      /unknown ×3 sources   
   layer — "does the claim have mandatory, machine-checkable evidence" — is
   **unsystematized**.
 
-## 3. Contributions
+## 3. Contributions (re-ranked: empirics first, tool as carrier)
 
-| # | Contribution | Empty where | Theory anchor |
+The paper's value is **new, falsifiable knowledge** — measured, not built. capalign
+(the repo this brief anchors) is the *implementation carrier* of the measurements,
+not the contribution itself. Formal definitions are pinned in
+`formal-foundations.md`; each contribution carries its assertion (A–E) and experiment
+(E1–E3).
+
+| # | Contribution (what we find/establish) | Assertion | Experiment |
 |---|---|---|---|
-| 1 | Cross-modal unified capability lattice (repo/paper/blog → one IR) | BIV single-modal; ChatExtract data-only; MatPROV no software nodes; blog side empty | CORA types + DL concept lattice |
-| 2 | **Epistemic graded subsumption**: gap classification = semantic matching ∧ evidence thresholds (two-predicate decision) | Paolucci four-way is purely semantic; RE states are purely semantic | Paolucci (ISWC'02) × test-adequacy theory (Zhu 1997) |
-| 3 | **Evidence-obligation layer for capability claims** (claim-as-contract + lifecycle: assert → verify → expire → re-audit) | KYA/TessIndex/LEGIT manage custody; drift papers only measure; nobody defines validity/re-verify/revoke semantics | BetterBench × ClaimReceipt × reproducibility obligation |
-| 4 | **coverage@reference / promise-drift rate**: library-level metrics | existing metrics are all task-side success rates; nothing demand-side | Test sufficiency (coverage≠adequacy) × FCA/Galois connection |
+| 1 | **Promise drift is a measured distribution, not a headline number.** BIV reported one aggregate (80%); we decompose drift by claim source (paper-methods / blog-recipes / repo-docs), isolate a `fabricated` tier (no evidence at all), and test whether drift is *predictable* from cheap surface features. | C | E1/E3 |
+| 2 | **Alignment-driven assembly beats the baselines, with an "enoughness" threshold.** Acting on the report's gaps improves task success more than random / no / retrieval-based assembly — and gains plateau at `coverage* < 1` (diminishing returns, a counter-intuitive shape no one has measured for capability surfaces). | B | E2 |
+| 3 | **Self-referential alignment is systematically biased but calibratable.** The host auditing its own surface over-claims (bias ≥ 0) yet the bias is stable per source and correctable; if it is not, the closed-loop governance claim explicitly weakens to external-audit-only. First measurement of the "no external auditor" regime. | D | E4 |
+| 4 | **Formal objects + metrics:** capability IR as typed corpus; `coverage@reference` (raw vs adequacy-gated, Zhu 1997); `promise-drift rate` decomposed; gap classification as epistemic graded subsumption (semantic match ∧ evidence threshold). Definitions are checkable; Galois-connection view deliberately not over-claimed. | A | E1 |
+| 5 | **Scientific-software-asset → agent-capability paradigm + governance loop.** Materials software is half a century of community-verified assets (Lejaeghere cross-validation); the closed represent–align–verify loop with stale-skill recall is its first capability-engineering instantiation. capalign is the carrier; phonopy↔MatDiscovery (19 gaps, 3 false-gap catches) is the case study. | E | E3 |
 
 **Defensive thesis** (against "matching is old"): not "first capability matching" —
-that loses to Paolucci/RE — but **"first capability engineering that closes the
-represent–align–verify loop onto a self-referential agent"**. Each layer reuses a
-named community's formalism; the closure is the novelty.
+that loses to Paolucci/RE — but **"first measurement of capability-surface
+phenomena (drift distribution, assembly gain with threshold, self-audit bias) on
+top of a formally defined alignment"**. The tools are the instruments; the findings
+are the paper.
 
 ## 4. Positioning vs. neighbors (system layer)
 

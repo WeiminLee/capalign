@@ -23,7 +23,7 @@ cannot be validated is `unknown`, not `missing`.
 | class | definition | evidence required |
 |---|---|---|
 | `equivalent` | host capability covers the reference semantics | host id is named in the report line |
-| `partial` | host covers part (parameter/geometry/route) | what is and is not covered, stated |
+| `partial` | host covers a **strict subset** of the reference semantics; adjacent-but-different is NOT partial — an adjacent host capability that does not subsume the reference belongs in the gap's note as a near-miss, and the gap is `missing` (strict subsume semantics, cf. `formal-foundations.md` §2) | host id + what is / is not covered, stated |
 | `missing` | reference capability with no host counterpart | **validated** reference evidence entries, ≥1 high/medium |
 | `host-only` | host capability with no reference counterpart | host evidence (informational) |
 | `unknown` | cannot be characterized from the inputs | never classified as `missing` |
