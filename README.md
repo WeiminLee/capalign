@@ -5,7 +5,7 @@
 
 **框架无关 · 可插拔 · 零捆绑** 的 agent skill。
 
-![capalign 一览：repo / paper / blog 三种参考物 → 统一能力记录 → 与宿主 agent 能力面对齐 → 清单 + 差距 + 落点](docs/images/capalign-overview.jpg)
+![capalign 执行过程：REPO / PAPER / BLOG 三种输入 → 八步工作流（盘点参考 → 盘点宿主 → 归一化 → 验证 → 分类 → 落点 → 报告 → 自检）→ OUTPUT](docs/images/capalign-overview.jpg)
 
 ---
 
