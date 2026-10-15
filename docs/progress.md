@@ -1,7 +1,7 @@
 # 项目进展 — capalign（能力对齐 skill + 论文实证）
 
 > 更新：2026-10-15。本文记录到当日为止的项目状态、已完成实证、开放边界与下一阶段计划。
-> 仓库当前 8 个 commit，工作区干净（HEAD `466997f`）。
+> 仓库当前 8 个 commit，工作区干净（HEAD `bea0c8b`）。
 
 ## 1. 项目是什么
 
@@ -19,7 +19,7 @@
 | 研究工具（drift-meter / build-registry，纯 stdlib） | `research/tools/` | v1 已含 host TS 产物面 |
 | 论文中文核心稿 + 三张 archify 正稿（图1–3） | `docs/paper-core.md`, `docs/figures/` | 已交付 |
 
-## 3. 第一轮实证结果（1→2→4→3 全部落地，commit 466997f）
+## 3. 第一轮实证结果（1→2→4→3 全部落地，commit bea0c8b）
 
 | 实验 | 问的问题 | 结果 | 断言 |
 |---|---|---|---|
