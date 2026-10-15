@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="drawio" version="26.0.0">
+  <diagram id="overview" name="capalign overview">
+    <mxGraphModel dx="1600" dy="900" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0" background="#f8fafc">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="t1" value="capalign · 能力对齐原理" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontStyle=1;fontSize=28;fontColor=#0f172a;" vertex="1" parent="1">
+          <mxGeometry x="40" y="24" width="520" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" value="把宿主 agent 的能力面对齐到参考物（repo / paper / blog）→ 清单 · 差距表 · 落点建议" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=14;fontColor=#475569;" vertex="1" parent="1">
+          <mxGeometry x="40" y="64" width="900" height="24" as="geometry" />
+        </mxCell>
+
+        <mxCell id="in" value="输入 · 参考物" style="swimlane;startSize=32;html=1;rounded=1;arcSize=10;fillColor=#1e3a5f;strokeColor=#16304f;fontColor=#ffffff;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="110" width="200" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="in1" value="REPO&#xa;代码仓库" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#3b82f6;fontColor=#1e3a5f;fontStyle=1;fontSize=14;" vertex="1" parent="in">
+          <mxGeometry x="18" y="50" width="164" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="in2" value="PAPER&#xa;方法论文" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#3b82f6;fontColor=#1e3a5f;fontStyle=1;fontSize=14;" vertex="1" parent="in">
+          <mxGeometry x="18" y="136" width="164" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="in3" value="BLOG&#xa;实操文稿" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#3b82f6;fontColor=#1e3a5f;fontStyle=1;fontSize=14;" vertex="1" parent="in">
+          <mxGeometry x="18" y="222" width="164" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pipe" value="八步工作流（验证先于分类 · 只建议不实现）" style="swimlane;startSize=36;html=1;rounded=1;arcSize=10;fillColor=#0f766e;strokeColor=#115e59;fontColor=#ffffff;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="280" y="110" width="1000" height="320" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s1" value="1 · 盘点参考物&#xa;CLI / 模块 / 文档 / 指纹" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ccfbf1;strokeColor=#14b8a6;fontColor=#134e4a;fontSize=12;fontStyle=1;" vertex="1" parent="pipe">
+          <mxGeometry x="20" y="56" width="180" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="s2" value="2 · 盘点宿主面&#xa;扫描 + 自审 + 询问" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ccfbf1;strokeColor=#14b8a6;fontColor=#134e4a;fontSize=12;fontStyle=1;" vertex="1" parent="pipe">
+          <mxGeometry x="220" y="56" width="180" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="s3" value="3 · 归一化 IR&#xa;type + evidence + conf" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ccfbf1;strokeColor=#14b8a6;fontColor=#134e4a;fontSize=12;fontStyle=1;" vertex="1" parent="pipe">
+          <mxGeometry x="420" y="56" width="180" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="s4" value="4 · 交叉验证&#xa;grep / 读产物 spec" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#f59e0b;fontColor=#92400e;fontSize=12;fontStyle=1;" vertex="1" parent="pipe">
+          <mxGeometry x="620" y="56" width="180" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="s5" value="5 · 差距分类&#xa;五态 × 三来源" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ccfbf1;strokeColor=#14b8a6;fontColor=#134e4a;fontSize=12;fontStyle=1;" vertex="1" parent="pipe">
+          <mxGeometry x="820" y="56" width="160" height="72" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s6" value="6 · 落点建议&#xa;skill / tool / 扩既有 / runner / 跳过" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ccfbf1;strokeColor=#14b8a6;fontColor=#134e4a;fontSize=12;fontStyle=1;" vertex="1" parent="pipe">
+          <mxGeometry x="820" y="180" width="160" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="s7" value="7 · 撰写报告&#xa;必需章节 + 固定结语" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ccfbf1;strokeColor=#14b8a6;fontColor=#134e4a;fontSize=12;fontStyle=1;" vertex="1" parent="pipe">
+          <mxGeometry x="620" y="180" width="180" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="s8" value="8 · 自检门&#xa;8 项 · 任一 fail 回炉" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fee2e2;strokeColor=#ef4444;fontColor=#991b1b;fontSize=12;fontStyle=1;" vertex="1" parent="pipe">
+          <mxGeometry x="420" y="180" width="180" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="note" value="双盘点互不参照  ·  低置信永不判 missing  ·  落点必引规则号" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=12;fontColor=#0f766e;fontStyle=1;" vertex="1" parent="pipe">
+          <mxGeometry x="20" y="270" width="760" height="28" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=blockThin;endFill=1;strokeColor=#0f766e;strokeWidth=2;" edge="1" parent="pipe" source="s1" target="s2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=blockThin;endFill=1;strokeColor=#0f766e;strokeWidth=2;" edge="1" parent="pipe" source="s2" target="s3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=blockThin;endFill=1;strokeColor=#0f766e;strokeWidth=2;" edge="1" parent="pipe" source="s3" target="s4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=blockThin;endFill=1;strokeColor=#0f766e;strokeWidth=2;" edge="1" parent="pipe" source="s4" target="s5"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e56" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=blockThin;endFill=1;strokeColor=#0f766e;strokeWidth=2;" edge="1" parent="pipe" source="s5" target="s6"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e67" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=blockThin;endFill=1;strokeColor=#0f766e;strokeWidth=2;" edge="1" parent="pipe" source="s6" target="s7"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e78" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=blockThin;endFill=1;strokeColor=#0f766e;strokeWidth=2;" edge="1" parent="pipe" source="s7" target="s8"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="out" value="输出" style="swimlane;startSize=32;html=1;rounded=1;arcSize=10;fillColor=#7c3aed;strokeColor=#6d28d9;fontColor=#ffffff;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="1320" y="110" width="240" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="o1" value="能力清单&#xa;inventory" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede9fe;strokeColor=#8b5cf6;fontColor=#4c1d95;fontStyle=1;fontSize=13;" vertex="1" parent="out">
+          <mxGeometry x="20" y="50" width="200" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="o2" value="差距表&#xa;五态 gap table" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede9fe;strokeColor=#8b5cf6;fontColor=#4c1d95;fontStyle=1;fontSize=13;" vertex="1" parent="out">
+          <mxGeometry x="20" y="130" width="200" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="o3" value="落点建议&#xa;+ report.md / .json" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede9fe;strokeColor=#8b5cf6;fontColor=#4c1d95;fontStyle=1;fontSize=13;" vertex="1" parent="out">
+          <mxGeometry x="20" y="210" width="200" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ein" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=blockThin;endFill=1;strokeColor=#3b82f6;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.35;entryDx=0;entryDy=0;" edge="1" parent="1" source="in" target="pipe">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eout" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=blockThin;endFill=1;strokeColor=#7c3aed;strokeWidth=2;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="pipe" target="out">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="card1" value="框架无关 · 可插拔 · 零捆绑" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e2e8f0;strokeColor=#94a3b8;fontColor=#1e293b;fontStyle=1;fontSize=14;align=center;" vertex="1" parent="1">
+          <mxGeometry x="40" y="470" width="360" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="card2" value="五态：equivalent / partial / missing / host-only / unknown" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e2e8f0;strokeColor=#94a3b8;fontColor=#1e293b;fontStyle=1;fontSize=14;align=center;" vertex="1" parent="1">
+          <mxGeometry x="420" y="470" width="560" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="card3" value="终点是推荐，不是实现" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e2e8f0;strokeColor=#94a3b8;fontColor=#1e293b;fontStyle=1;fontSize=14;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="470" width="560" height="48" as="geometry" />
+        </mxCell>
+
+        <mxCell id="gap" value="差距五态" style="swimlane;startSize=30;html=1;rounded=1;arcSize=10;fillColor=#334155;strokeColor=#1e293b;fontColor=#ffffff;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="40" y="550" width="1520" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="g1" value="equivalent&#xa;已对齐" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;fontColor=#14532d;fontStyle=1;fontSize=13;" vertex="1" parent="gap">
+          <mxGeometry x="24" y="48" width="270" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="g2" value="partial&#xa;部分覆盖" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef9c3;strokeColor=#eab308;fontColor=#713f12;fontStyle=1;fontSize=13;" vertex="1" parent="gap">
+          <mxGeometry x="314" y="48" width="270" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="g3" value="missing&#xa;需补齐（须验证）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fee2e2;strokeColor=#ef4444;fontColor=#7f1d1d;fontStyle=1;fontSize=13;" vertex="1" parent="gap">
+          <mxGeometry x="604" y="48" width="270" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="g4" value="host-only&#xa;宿主独有" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e0e7ff;strokeColor=#6366f1;fontColor=#312e81;fontStyle=1;fontSize=13;" vertex="1" parent="gap">
+          <mxGeometry x="894" y="48" width="270" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="g5" value="unknown&#xa;证据不足" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#94a3b8;fontColor=#334155;fontStyle=1;fontSize=13;" vertex="1" parent="gap">
+          <mxGeometry x="1184" y="48" width="300" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="foot" value="框架无关 SKILL.md  ·  零捆绑（宿主 bash/python3）  ·  Layer-1 自检 + Layer-2 fixture 金标" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=13;fontColor=#64748b;" vertex="1" parent="1">
+          <mxGeometry x="40" y="720" width="1200" height="28" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
