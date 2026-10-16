@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>cap-align principle</title>
+<style>
+  html, body { margin: 0; padding: 0; width: 1920px; height: 1080px; overflow: hidden; background: #f7f9fc; }
+  body { font-family: "IBM Plex Sans", "Avenir Next", "PingFang SC", sans-serif; color: #1e2a4a; }
+  .stage { position: relative; width: 1920px; height: 1080px; background:
+    linear-gradient(#eef2f8 1px, transparent 1px),
+    linear-gradient(90deg, #eef2f8 1px, transparent 1px),
+    #f7f9fc;
+    background-size: 32px 32px;
+  }
+  h1 { position: absolute; left: 72px; top: 40px; margin: 0; font-size: 44px; font-weight: 750; letter-spacing: -.03em; color: #1b2a6b; }
+  .sub { position: absolute; left: 72px; top: 96px; font-size: 18px; color: #5b6b88; }
+  .col-label { position: absolute; font-size: 15px; font-weight: 700; letter-spacing: .14em; color: #3d4d8f; }
+  .col-label.in { left: 72px; top: 148px; }
+  .col-label.mid { left: 520px; top: 148px; }
+  .col-label.out { left: 1548px; top: 148px; }
+  .card { position: absolute; border-radius: 16px; border: 1.5px solid #d5def0; background: #fff; box-shadow: 0 8px 24px #1b2a6b0c; }
+  .in1 { left: 72px; top: 184px; width: 360px; height: 168px; }
+  .in2 { left: 72px; top: 368px; width: 360px; height: 112px; }
+  .in3 { left: 72px; top: 496px; width: 360px; height: 112px; }
+  .rec { left: 72px; top: 624px; width: 360px; height: 196px; border-color: #c9a15b; background: #fffaf0; }
+  .step { width: 200px; height: 86px; display: flex; flex-direction: column; justify-content: center; padding: 0 16px; }
+  .s1 { left: 520px; top: 184px; } .s2 { left: 752px; top: 184px; } .s3 { left: 984px; top: 184px; } .s4 { left: 1216px; top: 184px; background: #fff7d6; border-color: #e0c35a; }
+  .s5 { left: 520px; top: 320px; } .s6 { left: 752px; top: 320px; } .s7 { left: 984px; top: 320px; } .s8 { left: 1216px; top: 320px; background: #fde8e8; border-color: #e08a8a; }
+  .out1 { left: 1548px; top: 184px; width: 300px; height: 112px; background: #f3eefe; border-color: #c8b7ee; }
+  .out2 { left: 1548px; top: 312px; width: 300px; height: 112px; background: #f3eefe; border-color: #c8b7ee; }
+  .out3 { left: 1548px; top: 440px; width: 300px; height: 132px; background: #f3eefe; border-color: #c8b7ee; }
+  .k { font-size: 13px; font-weight: 700; letter-spacing: .08em; color: #5b6b88; }
+  .t { font-size: 20px; font-weight: 650; margin-top: 4px; }
+  .p { font-size: 14px; color: #5b6b88; margin-top: 6px; line-height: 1.35; }
+  .num { font-size: 13px; color: #3d4d8f; font-weight: 700; }
+  .foot { position: absolute; left: 72px; right: 72px; bottom: 48px; height: 88px; border-radius: 16px; background: #fff; border: 1.5px solid #d5def0; display: flex; align-items: center; justify-content: space-around; font-size: 16px; color: #3d4d8f; }
+  .arrow { position: absolute; height: 3px; background: #3aa37a; }
+  .arrow::after { content: ""; position: absolute; right: -8px; top: -5px; border: 7px solid transparent; border-left-color: #3aa37a; }
+  .a1 { left: 432px; top: 264px; width: 88px; }
+  .a2 { left: 720px; top: 226px; width: 32px; }
+  .a3 { left: 952px; top: 226px; width: 32px; }
+  .a4 { left: 1184px; top: 226px; width: 32px; }
+  .a5 { left: 1416px; top: 226px; width: 132px; }
+  .a6 { left: 432px; top: 710px; width: 88px; background: #c9a15b; }
+  .a6::after { border-left-color: #c9a15b; }
+  .v1 { position: absolute; left: 520px; top: 270px; width: 3px; height: 440px; background: #c9a15b; }
+  .hwrap { position: absolute; left: 1316px; top: 270px; width: 3px; height: 93px; background: #3aa37a; }
+  .hwrap2 { position: absolute; left: 720px; top: 360px; width: 599px; height: 3px; background: #3aa37a; }
+  .hwrap2::after { content: ""; position: absolute; left: -1px; top: 0; width: 3px; height: 0; }
+  .note { position: absolute; left: 520px; top: 430px; right: 400px; font-size: 16px; color: #3aa37a; font-weight: 600; }
+  .n2 { position: absolute; left: 520px; top: 470px; right: 400px; font-size: 15px; color: #5b6b88; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <h1>capalign · 能力对齐</h1>
+  <div class="sub">参考物 → 回收配套编码与有界邻域 → 八步审计 → 清单 · 差距 · 落点建议</div>
+  <div class="col-label in">输入</div>
+  <div class="col-label mid">八步审计流水线</div>
+  <div class="col-label out">输出</div>
+
+  <div class="card in1">
+    <div class="k" style="padding:18px 20px 0">REPO 代码仓库</div>
+    <div class="p" style="padding:0 20px">CLI · 模块 · 本地 docs</div>
+    <div class="p" style="padding:8px 20px 0; color:#8a6a32; font-weight:650">给 repo 时先走 §E 回收</div>
+  </div>
+  <div class="card in2">
+    <div class="k" style="padding:18px 20px 0">PAPER 方法论文</div>
+    <div class="p" style="padding:0 20px">Methods · 有效性 · 产物</div>
+  </div>
+  <div class="card in3">
+    <div class="k" style="padding:18px 20px 0">BLOG 实操文稿</div>
+    <div class="p" style="padding:0 20px">声称 + recipe</div>
+  </div>
+  <div class="card rec">
+    <div class="k" style="padding:16px 20px 0; color:#8a6a32">§E 回收（repo 输入）</div>
+    <div class="t" style="padding:4px 20px 0; font-size:18px">核心 W + 邻域 N</div>
+    <div class="p" style="padding:8px 20px 0">本地种子 → 主页 → 必要时 web-search</div>
+    <div class="p" style="padding:4px 20px 0">身份门 · ≤3 次检索 · 邻域最多 5 项</div>
+  </div>
+
+  <div class="card step s1"><div class="num">① 盘点参考</div><div class="p">含配套论文</div></div>
+  <div class="card step s2"><div class="num">② 盘点宿主</div><div class="p">强制自审扫描</div></div>
+  <div class="card step s3"><div class="num">③ 归一化 IR</div><div class="p">双侧同一 schema</div></div>
+  <div class="card step s4"><div class="num">④ 交叉验证</div><div class="p">验证先于分类</div></div>
+  <div class="card step s5"><div class="num">⑤ 差距分类</div><div class="p">五态 × 三来源</div></div>
+  <div class="card step s6"><div class="num">⑥ 落点建议</div><div class="p">停在建议</div></div>
+  <div class="card step s7"><div class="num">⑦ 撰写报告</div><div class="p">核心表 + 邻域节</div></div>
+  <div class="card step s8"><div class="num">⑧ 自检门</div><div class="p">9 项全绿才有效</div></div>
+
+  <div class="card out1"><div class="k" style="padding:16px 20px 0">能力清单</div><div class="p" style="padding:0 20px">inventory · 两投影</div></div>
+  <div class="card out2"><div class="k" style="padding:16px 20px 0">差距表</div><div class="p" style="padding:0 20px">五态 gap · 核心 W</div></div>
+  <div class="card out3"><div class="k" style="padding:16px 20px 0">落点 + 邻域</div><div class="p" style="padding:0 20px">report.md / .json<br>N 单独成节</div></div>
+
+  <div class="arrow a1"></div>
+  <div class="arrow a2"></div>
+  <div class="arrow a3"></div>
+  <div class="arrow a4"></div>
+  <div class="arrow a5"></div>
+  <div class="v1"></div>
+  <div class="arrow a6"></div>
+  <div class="hwrap"></div>
+  <div class="hwrap2"></div>
+  <div class="note">验证先于分类 · 只建议不实现 · 邻域不混入核心表</div>
+  <div class="n2">C1–C3 钉用户给的那篇工作 W。邻域是仪器把「只给一个 repo」收全：配套论文进核心，兄弟包 / 点名工具进 N。</div>
+
+  <div class="foot">
+    <span>● 等效 Equivalent</span>
+    <span>● 部分 Partial</span>
+    <span>● 缺失 Missing</span>
+    <span>● 宿主独有 Host-only</span>
+    <span>● 未知 Unknown</span>
+  </div>
+</div>
+</body>
+</html>

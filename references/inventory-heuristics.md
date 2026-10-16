@@ -15,7 +15,14 @@ IR (see `capability-ir.md`).
    find <repo> -maxdepth 2 -name "*.py" -path "*/src/*" | head; find <repo> -maxdepth 2 -type d -not -path "*/node_modules*" -not -path "*/.git*"
    ```
    Capability boundaries = package top-level modules + CLI entry points +
-   documented user commands. **One CLI/tool per capability; nothing finer.**
+   documented user commands + **reference-side `skills/*/SKILL.md`** when the
+   repo ships an agent skill pack. Merge a skill with the CLI/docs verb it
+   wraps (oh-my-mlip `skills/run` ≡ `oh_my_mlip.run` ≡ howto/use-a-model — one
+   capability, several evidence pointers). **One user-reachable verb per
+   capability; nothing finer.** A registry/roster of N models or frameworks is
+   **one** domain-agent `interface` at most, not N capabilities (F7; a 20-model
+   hub → one selection interface). Hub install of that roster is plumbing, not
+   a verb.
 2. **Dependency fingerprint** — read the manifest dependencies; map the
    domain-relevant ones to implied capability families (e.g., a phonon code →
    force-constants / dynamical-matrix / DOS / thermal-properties / QHA families;
@@ -23,11 +30,20 @@ IR (see `capability-ir.md`).
    `confidence: medium` unless confirmed in docs/code (`high`).
 3. **Docs feature surface** — when `docs/` exists, list feature pages; each page
    that documents a user-facing capability adds one capability (evidence
-   `doc: <path>`) unless it duplicates an entry surface item.
+   `doc: <path>`) unless it duplicates an entry surface item. Pages that only
+   declare related projects, citations, or see-also lists are **§E seeds**, not
+   capabilities.
 4. **Tests as sanity** — test file names reflect capability boundaries; use them
    only to confirm an inventory item exists, never to invent one.
 5. **Exclude** — vendored deps, build artifacts, examples (unless they are the
-   documented capability), CI config.
+   documented capability), CI config, and **generic agent plumbing** (plugin
+   marketplace, extra MCP server, lockfile replay, per-env bootstrap, token
+   login, calculator codegen). Plumbing is not a capability
+   (`capability-ir.md` granularity 4; `alignment-rules.md` §Scope).
+6. **Same observable, one compute** — energy / forces / relax / MD with a
+   different calculator merge into one `compute`. Hub install of a model
+   roster is plumbing. Domain-agent verbs (benchmark protocol, fine-tune,
+   distill) stay separate `workflow`s (granularity 6 and 8).
 
 ## B. Paper inventory (`inventory_paper`)
 
@@ -55,11 +71,22 @@ IR (see `capability-ir.md`).
 
 ## D. Host-agent inventory (`inventory_host`)
 
-1. **Auto-scan** (in order, until gaps close; all read-only):
+0. **Scope the tree before scanning (F4).** Read the host doctrine if present
+   (`CAPABILITY-SURFACE.md`, `AGENTS.md`, `ARCHITECTURE.md`): the declared
+   skill root and tool root **are** the inventory surface. Default-exclude
+   `node_modules`, `.git`, `.venv`, `vendor`, `dist`, `.claude/worktrees`,
+   `*.worktrees`, plugin caches. A naive `find -name SKILL.md` on MatDiscovery
+   counted 174 files; the doctrine root `plugins/matdiscovery/skills/` has 37.
+   If doctrine and naive scan disagree by >2×, **stop and use the doctrine
+   root** — do not classify on the inflated set.
+
+1. **Auto-scan** (in order, until gaps close; all read-only; already scoped):
    ```bash
-   # skill dirs (common framework roots)
-   find . -maxdepth 3 -type d \( -name ".agents" -o -name "skills" -o -name ".dsh" \) -not -path "*/node_modules*" 2>/dev/null
-   find . -maxdepth 4 -name "SKILL.md" -not -path "*/node_modules*" 2>/dev/null
+   # skill dirs (common framework roots) — exclude worktrees and package stores
+   find . -maxdepth 3 -type d \( -name ".agents" -o -name "skills" -o -name ".dsh" \) \
+     -not -path "*/node_modules*" -not -path "*/.git*" -not -path "*worktrees*" 2>/dev/null
+   find . -maxdepth 4 -name "SKILL.md" \
+     -not -path "*/node_modules*" -not -path "*worktrees*" -not -path "*/.git*" 2>/dev/null
    # tool registries / named entry points
    ls tools/ 2>/dev/null; grep -rln "defineTool\|@mcp.tool\|name: '" --include="*.ts" --include="*.py" . 2>/dev/null | head -20
    ```
@@ -83,3 +110,126 @@ IR (see `capability-ir.md`).
 3. **Host-only marker** — every host capability records where it came from
    (skill dir / tool registry / scripts / caller), so placement recommendations
    can point at a concrete host location.
+
+---
+
+## E. Companion encodings & neighborhood (`recover_reference`)
+
+The caller may hand a **repo path**, a **homepage/docs URL**, or **both**. They
+are encodings of one work \(W\), not two references (F5). If both are given,
+treat homepage as `official-docs` on the core repo projection and **do not**
+search for a homepage. If only a homepage is given, recover the repo from
+CITATION / GitHub link on that page, then continue as a repo run.
+
+When the given reference is a **repo** (or a homepage that resolved to one),
+the local tree is only \(W_{\mathrm{repo}}\). Recover the rest of the work, then
+a bounded neighborhood, **before** classifying gaps. This step observes the
+reference; it does not look at the host.
+
+Paper/blog inputs skip this section (report an empty Neighborhood). Reverse
+recovery (paper → companion repo) is allowed by the same identity gate when the
+paper names a code URL; it is not required on paper-only runs.
+
+Live network is **never required** for a valid run. Homepage fetch and web-search
+are best-effort using whatever fetch/search the **host agent already has**. No
+search client is bundled. If they are unavailable, record `unresolved` and
+continue with the local core.
+
+### E.1 Two strata (do not mix)
+
+| stratum | what it is | gap table |
+|---|---|---|
+| **core** \(W\) | the given repo + its own companion paper / official docs / CITATION | \(\mathrm{Gap}(H,W)\); C1 / C3 live here. Paper arm and repo arm stay separate projections. |
+| **neighborhood** \(N\) | related papers, sibling packages, declared related tools | a second table; items tagged `layer: neighborhood` |
+
+Neighborhood rows must not appear in the core repo gap table. The companion
+paper is core, never neighborhood.
+
+### E.2 Pipeline (in order, stop early)
+
+**1. Seed extract (local, no network).** Read, if present:
+
+- `CITATION.cff` preferred-citation (DOI, title, authors)
+- `pyproject.toml` / `package.json` / `setup.cfg` `[project.urls]` (Homepage, Documentation, Repository)
+- top-level `README*` see-also / related / "please cite" links
+- `docs/` pages that declare related projects
+- local `papers/` / `paper/` / `*.pdf` excerpts
+- named-but-unlinked entities ("Companion solver: mini-3ph")
+
+Each seed is a candidate with a provisional `relation`.
+
+**2. Homepage fetch (if a Homepage/Documentation URL exists and the host can fetch).**
+Parse publication lists, related-projects, documentation index. Add candidates.
+Skip live fetch when the host is `example.invalid` / `localhost`, or when the
+repo contains `neighborhood-search-double.json` (fixture mode).
+
+**3. Web-search only when necessary.** Necessary iff, after (1)–(2):
+
+- a seed is named but has no URL, **or**
+- Homepage/Documentation URL exists but fetch failed and local docs do not substitute, **or**
+- the work **claims a paper** (README "please cite the paper", docs/publications) that is still unresolved.
+
+Not necessary when the caller already gave the homepage, or when
+`CITATION.cff` is `type: software` with **no** `preferred-citation` article/DOI
+and no docs claim a paper — companion paper is then **absent**, not missing-to-search
+(F6). At most **one** optional identity-gated query for a software-only citation;
+keyword collisions (other papers titled "MLIP") are rejected.
+
+Not necessary when local + homepage already closed the companion paper and
+every named seed has a URL or a local docs declaration.
+
+Budget: **≤ 3 queries**, **≤ 5 neighborhood items kept**. Queries resolve named
+seeds or the companion paper; at most **one** propose query of the form
+`"{package} related packages OR companion code"` (same identity gate).
+
+If `neighborhood-search-double.json` sits at the repo root, use it as the frozen
+search response and do **not** hit the network (fixture contract). If search is
+necessary, no double exists, and the host has no search: leave those seeds in
+`unresolved` with reason `search-required-offline`. Do not invent packages.
+
+**4. Identity / relation gate.** Keep a candidate only if it has a `relation`
+from this closed set **and** the match is evidenced:
+
+| relation | keep when |
+|---|---|
+| `companion-paper` | DOI, title, or authors match `CITATION.cff` / "please cite"; or local `papers/` is that article |
+| `official-docs` | Homepage / Documentation URL of the same project |
+| `sibling` | named by the core README/docs as a related package, **or** search hit for a named-unlinked seed whose authors overlap CITATION authors and whose kind is software/paper |
+| `cited-method` | the repo cites it as its method paper |
+| `declared-related` | listed on the homepage or `docs/` as a related project |
+
+Reject: listicles / roundups / "top N tools"; hits that share only domain
+keywords; anything without DOI / author overlap / declared name; **roster
+payload** of a registry (the N models a hub *drives* are not neighborhood
+works — F7). Rejected candidates are listed with a one-line reason, not
+inventoried.
+
+**5. Inventory.**
+
+- Companion paper (kept, `layer: core`): run §B on local text if present; if
+  only a DOI/URL was recovered, fetch the abstract/HTML **once** when the host
+  can, else inventory the citation record at `confidence: medium` and put the
+  full text in `unresolved`.
+- Official docs site: treat feature pages as §A.3 evidence on the **repo**
+  projection; do not duplicate them as neighborhood.
+- Each kept neighborhood item: **lightweight** — title/abstract/README one-pager
+  if cheap (one fetch), otherwise the mentioning sentence in the core repo.
+  Do not clone the neighbor. All neighborhood capabilities start at
+  `confidence: medium` at most; a search snippet with no neighbor document is
+  `low`.
+
+### E.3 Evidence gate (neighborhood)
+
+- `low` (search snippet only) never drives `missing` — class is `unknown`.
+- Neighborhood `missing` requires ≥1 high/medium evidence entry **from the
+  neighbor's own abstract/README/docs**, then the same validation-before-classify
+  rule as core.
+- Neighborhood source kind is `reference-contrast` unless the host audit already
+  admits the gap (`host-self-audit`).
+
+### E.4 Determinism
+
+Same repo, same seeds, same budget, same search-double (or the same three
+queries on a live host) → the same `(core, kept, rejected)` triple. Live search
+ranking may vary; the identity gate, not the rank, decides membership. Fixture
+runs pin the double and must match `tests/fixtures/gold/mini-neighborhood.json`.

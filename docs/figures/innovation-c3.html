@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>C3 — reference-conditioned coverage</title>
+<style>
+  html, body {
+    margin: 0; padding: 0; width: 1920px; height: 1080px; overflow: hidden;
+    background: #f3eee4;
+    font-family: "IBM Plex Sans", "Avenir Next", "PingFang SC", sans-serif;
+    color: #243038;
+  }
+  .stage {
+    position: relative; width: 1920px; height: 1080px;
+    background:
+      radial-gradient(1000px 640px at 80% 18%, rgba(201,161,91,.12), transparent 55%),
+      #f3eee4;
+  }
+  header {
+    position: absolute; left: 72px; top: 44px; right: 72px;
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .kicker { font-size: 15px; letter-spacing: .22em; color: #8a6a32; font-weight: 600; }
+  h1 {
+    margin: 10px 0 0; font-size: 42px; font-weight: 650;
+    font-family: "Iowan Old Style", "Palatino Linotype", "Songti SC", serif;
+    letter-spacing: -.02em;
+  }
+  .formula {
+    font-family: "IBM Plex Mono", Menlo, monospace;
+    font-size: 17px; color: #5b6770;
+  }
+  .lane {
+    position: absolute; left: 72px; right: 72px; height: 340px;
+    border: 1px solid #d7cbb6; background: #fbf8f2;
+  }
+  .lane.a { top: 168px; }
+  .lane.b { top: 536px; background: #2c3842; color: #e8eef2; border-color: #1d272e; }
+  .lane-label {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 54px;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; letter-spacing: .42em; font-size: 16px;
+    background: #c9a15b; color: #243038;
+  }
+  .lane.b .lane-label { background: #7dcfb6; }
+  .cols {
+    margin-left: 54px; height: 100%;
+    display: grid; grid-template-columns: 1.05fr 1.35fr 1.2fr 1.15fr;
+    gap: 0;
+  }
+  .col {
+    padding: 28px 28px 24px;
+    border-right: 1px dashed #d7cbb6;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .lane.b .col { border-right-color: #3d4d58; }
+  .col:last-child { border-right: none; }
+  .h {
+    font-size: 13px; letter-spacing: .14em; color: #8a6a32; font-weight: 700; margin-bottom: 10px;
+  }
+  .lane.b .h { color: #7dcfb6; }
+  .t {
+    font-family: "Iowan Old Style", "Palatino Linotype", "Songti SC", serif;
+    font-size: 26px; line-height: 1.25; margin: 0 0 10px;
+  }
+  .p { margin: 0; font-size: 16px; line-height: 1.45; color: #5b6770; }
+  .lane.b .p { color: #b7c5cd; }
+  .bar {
+    margin-top: 18px; height: 10px; background: #eadfcb; position: relative;
+  }
+  .lane.b .bar { background: #1d272e; }
+  .fill { position: absolute; left: 0; top: 0; bottom: 0; background: #c9a15b; }
+  .lane.b .fill { background: #7dcfb6; }
+  .fill.hi { width: 82%; }
+  .fill.lo { width: 38%; background: #b08948; }
+  .lane.b .fill.lo { width: 40%; background: #4aa88f; }
+  .cap {
+    font-family: "IBM Plex Mono", Menlo, monospace;
+    font-size: 13px; margin-top: 8px;
+  }
+  .host-pill {
+    display: inline-block; padding: 8px 14px; background: #243038; color: #f3eee4;
+    font-family: "IBM Plex Mono", Menlo, monospace; font-size: 15px;
+  }
+  .lane.b .host-pill { background: #e8c27a; color: #243038; }
+  .delta {
+    position: absolute; left: 50%; top: 508px; transform: translate(-50%, -50%);
+    background: #243038; color: #f3eee4;
+    padding: 10px 22px;
+    font-family: "IBM Plex Mono", Menlo, monospace; font-size: 16px;
+    z-index: 2;
+  }
+  footer {
+    position: absolute; left: 72px; right: 72px; bottom: 36px;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;
+  }
+  .card {
+    background: #fffdf8; border-top: 4px solid #c9a15b;
+    padding: 16px 18px; font-size: 15px; line-height: 1.45;
+  }
+  .card b { font-family: "IBM Plex Mono", Menlo, monospace; }
+  .card.mute { border-top-color: #243038; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <header>
+    <div>
+      <div class="kicker">CAP-ALIGN · C3</div>
+      <h1>覆盖随选取哪一份编码而分叉</h1>
+    </div>
+    <div class="formula">coverage(H, W<sub>paper</sub>)&nbsp;≠&nbsp;coverage(H, W<sub>repo</sub>)</div>
+  </header>
+
+  <div class="lane a">
+    <div class="lane-label">论文面</div>
+    <div class="cols">
+      <div class="col">
+        <div class="h">参考投影</div>
+        <p class="t">对齐到论文面</p>
+        <p class="p">方法步骤、有效性、声称产物</p>
+      </div>
+      <div class="col">
+        <div class="h">同一宿主</div>
+        <p class="t">H<span class="host-pill" style="margin-left:10px;font-size:14px;vertical-align:middle">材料 agent</span></p>
+        <p class="p">能力面不变，变的是当作需求的那张表</p>
+      </div>
+      <div class="col">
+        <div class="h">覆盖</div>
+        <p class="t">方法高 · 接口低</p>
+        <div class="bar"><div class="fill hi"></div></div>
+        <div class="cap">方法义务被讲到</div>
+        <div class="bar" style="margin-top:10px"><div class="fill lo"></div></div>
+        <div class="cap">接口覆盖低</div>
+      </div>
+      <div class="col">
+        <div class="h">缺口形态</div>
+        <p class="t">会讲方法<br>对不上接口</p>
+        <p class="p">落点偏向 runner / 新 tool</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="delta">Δ(W<sub>paper</sub>, W<sub>repo</sub>) 残差 · 可测 · 可分类</div>
+
+  <div class="lane b">
+    <div class="lane-label">仓库面</div>
+    <div class="cols">
+      <div class="col">
+        <div class="h">参考投影</div>
+        <p class="t">对齐到仓库面</p>
+        <p class="p">CLI、模块、可执行路径</p>
+      </div>
+      <div class="col">
+        <div class="h">同一宿主</div>
+        <p class="t">同一个 H</p>
+        <p class="p">AutoMat 最差工况：只从论文正文重建，等于只用了上一路</p>
+      </div>
+      <div class="col">
+        <div class="h">覆盖</div>
+        <p class="t">接口高 · 方法低</p>
+        <div class="bar"><div class="fill hi"></div></div>
+        <div class="cap">工具接口被接到</div>
+        <div class="bar" style="margin-top:10px"><div class="fill lo"></div></div>
+        <div class="cap">方法合同覆盖低</div>
+      </div>
+      <div class="col">
+        <div class="h">缺口形态</div>
+        <p class="t">会调工具<br>兑现不了方法</p>
+        <p class="p">落点偏向扩既有 skill / 新 skill</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="card"><b>C3</b>　coverage 不是一个数。选 paper 或 repo，缺口集合不同。</div>
+    <div class="card"><b>为何双对齐</b>　只对 paper 漏接口；只对 repo 漏方法合同。</div>
+    <div class="card mute"><b>邻居</b>　Skill Coverage 量 skill 自身；这里的轴是外来工作 W。</div>
+  </footer>
+</div>
+</body>
+</html>

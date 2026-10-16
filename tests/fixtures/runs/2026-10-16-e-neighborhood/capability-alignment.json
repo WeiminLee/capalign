@@ -1,0 +1,73 @@
+{
+  "surfaces": {
+    "reference": "tests/fixtures/mini-ref",
+    "host": "tests/fixtures/mini-host",
+    "generated_at": "2026-10-16",
+    "companion_paper": "tests/fixtures/mini-ref/papers/qha-mini-ref-2015.md",
+    "companion_paper_doi": "10.1234/mini-ref.2015",
+    "search_used": true,
+    "search_source": "tests/fixtures/mini-ref/neighborhood-search-double.json",
+    "live_network": false
+  },
+  "reference_inventory_repo": [
+    {"id": "force-constants", "type": "compute", "confidence": "high", "layer": "core", "evidence": ["src/mini_ref/cli.py:force_constants"]},
+    {"id": "dynamical-matrix", "type": "compute", "confidence": "high", "layer": "core", "evidence": ["src/mini_ref/cli.py:dynamical_matrix"]},
+    {"id": "phonon-dos", "type": "compute", "confidence": "high", "layer": "core", "evidence": ["src/mini_ref/cli.py:dos", "docs/band.md"]},
+    {"id": "band-structure", "type": "workflow", "confidence": "medium", "layer": "core", "evidence": ["docs/band.md", "cli:phon-vib band"]},
+    {"id": "phonon-thermal-properties", "type": "compute", "confidence": "high", "layer": "core", "evidence": ["src/mini_ref/cli.py:thermal_properties"]},
+    {"id": "qha", "type": "workflow", "confidence": "low", "layer": "core", "evidence": ["docs/qha.md"]}
+  ],
+  "reference_inventory_paper": [
+    {"id": "qha-protocol", "type": "workflow", "confidence": "high", "layer": "core", "relation": "companion-paper", "evidence": ["papers/qha-mini-ref-2015.md:Methods F(V,T)"]},
+    {"id": "thermal-expansion", "type": "compute", "confidence": "high", "layer": "core", "relation": "companion-paper", "evidence": ["papers/qha-mini-ref-2015.md:Methods thermal expansion"]},
+    {"id": "harmonic-validity", "type": "concept", "confidence": "high", "layer": "core", "relation": "companion-paper", "evidence": ["papers/qha-mini-ref-2015.md:Validity"]},
+    {"id": "mini-ref-package", "type": "tool", "confidence": "high", "layer": "core", "relation": "companion-paper", "evidence": ["papers/qha-mini-ref-2015.md:Software"]}
+  ],
+  "host_inventory": [
+    {"id": "heat-flow", "type": "skill", "provenance": "skills/heat-flow/SKILL.md"},
+    {"id": "eos", "type": "skill", "provenance": "skills/eos/SKILL.md"},
+    {"id": "parse-structure", "type": "tool", "provenance": "tools/tool-registry.json"},
+    {"id": "fit-eos", "type": "tool", "provenance": "tools/tool-registry.json"}
+  ],
+  "gaps": [
+    {"ref_id": "force-constants", "class": "missing", "source_kind": "host-self-audit", "host_id": null, "rule": "1", "layer": "core"},
+    {"ref_id": "dynamical-matrix", "class": "missing", "source_kind": "host-self-audit", "host_id": null, "rule": "1", "layer": "core"},
+    {"ref_id": "phonon-dos", "class": "missing", "source_kind": "host-self-audit", "host_id": null, "rule": "1", "layer": "core"},
+    {"ref_id": "band-structure", "class": "missing", "source_kind": "host-self-audit", "host_id": null, "rule": "1", "layer": "core"},
+    {"ref_id": "phonon-thermal-properties", "class": "missing", "source_kind": "host-self-audit", "host_id": "heat-flow", "rule": "1", "layer": "core"},
+    {"ref_id": "qha", "class": "unknown", "source_kind": "reference-contrast", "host_id": null, "rule": "5", "layer": "core"}
+  ],
+  "paper_projection_gaps": [
+    {"ref_id": "qha-protocol", "class": "missing", "source_kind": "reference-contrast", "host_id": null, "rule": "3", "layer": "core"},
+    {"ref_id": "thermal-expansion", "class": "missing", "source_kind": "reference-contrast", "host_id": "eos", "rule": "1", "layer": "core"},
+    {"ref_id": "harmonic-validity", "class": "missing", "source_kind": "reference-contrast", "host_id": null, "rule": "4", "layer": "core"},
+    {"ref_id": "mini-ref-package", "class": "missing", "source_kind": "reference-contrast", "host_id": null, "rule": "1", "layer": "core"}
+  ],
+  "neighborhood": {
+    "kept": [
+      {"id": "mini-thermal-kit", "relation": "sibling", "class": "equivalent", "host_id": "heat-flow", "confidence": "medium"},
+      {"id": "mini-3ph", "relation": "sibling", "class": "unknown", "host_id": null, "confidence": "medium"}
+    ],
+    "rejected": [
+      {"id": "top-10-phonon-codes-2024", "reason": "keyword-only listicle; no DOI/author/declared-related match"}
+    ],
+    "unresolved": []
+  },
+  "recommendations": [
+    {"ref_id": "force-constants", "placement": "new-tool", "rule": "1"},
+    {"ref_id": "dynamical-matrix", "placement": "new-tool", "rule": "1"},
+    {"ref_id": "phonon-dos", "placement": "new-tool", "rule": "1"},
+    {"ref_id": "band-structure", "placement": "new-tool", "rule": "1"},
+    {"ref_id": "phonon-thermal-properties", "placement": "new-tool", "rule": "1"},
+    {"ref_id": "qha-protocol", "placement": "new-skill", "rule": "3"},
+    {"ref_id": "thermal-expansion", "placement": "new-tool", "rule": "1"},
+    {"ref_id": "harmonic-validity", "placement": "skip", "rule": "4"},
+    {"ref_id": "mini-ref-package", "placement": "new-tool", "rule": "1"}
+  ],
+  "host_only": ["parse-structure", "fit-eos", "eos"],
+  "unresolved": [
+    {"ref_id": "qha", "reason": "docs-claim-without-code"},
+    {"ref_id": "mini-3ph", "reason": "no neighbor-owned docs; search snippet cannot drive missing"},
+    {"ref_id": "homepage", "reason": "example.invalid skipped; local docs/ substituted"}
+  ]
+}

@@ -127,7 +127,7 @@
     {
       "date": "2026-10-15",
       "what": "gap count is 9 (6 missing, 2 partial, 1 unknown) + 4 equivalent on a 13-capability reference; the instance is documented as '19 gaps' with 4 host-admitted items (α, FF sanity, collective conductivity, melting-point runner)",
-      "why": "the original 19-gap table is not preserved in capalign; strict phonopy-only reference inventory cannot host host-only admissions (melting/collective/FF-sanity have no phonopy counterpart under granularity rules, so they are recorded in host_only/notes instead of gap rows)",
+      "why": "the original 19-gap table is not preserved in cap-align; strict phonopy-only reference inventory cannot host host-only admissions (melting/collective/FF-sanity have no phonopy counterpart under granularity rules, so they are recorded in host_only/notes instead of gap rows)",
       "trigger": "honest-accounting discipline — draft is a strict re-derivation for judges to re-run; widening the reference to a family-level surface is a main-agent decision (see corpus-design.md §6)"
     },
     {

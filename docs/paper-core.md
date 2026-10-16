@@ -1,117 +1,160 @@
-# 论文核心：Material Capability Engineering —— 能力工程范式
+# 论文核心：把外来科学工作对齐到已有材料 agent
 
 > 本稿是论文核心创新与思想的凝练（团队沉淀版，中文为主）。论文工作语言稿见
-> `research/`（brief / abstract / related-work / experiments）；本稿聚焦"讲清楚
-> 我们主张什么、为什么新、怎么成体系"，并引用 `images/` 下的说明图。
+> `research/`（brief / abstract / related-work / experiments）。本稿讲清楚
+> **主张什么、为什么新、怎么成体系**。配图仍用 `figures/` 的 archify 正稿；
+> 图注已按新身份改写，图面邻居集待重绘。
 
 ---
 
 ## 1. 一句话主张
 
-**材料（计算）软件是半个世纪社区验证的"科学能力资产"；材料 agent 的能力面本质
-是这些资产的接口层。我们提出把"表示 → 对齐 → 验证"做成一个自指闭环的
-**能力工程（Capability Engineering）范式**，让 agent 的能力面第一次成为可表示、
-可对齐、可验证、可治理的一阶计算对象。**
+**材料领域同时堆积两类对象：已部署的材料 agent，以及不断发表的「论文 + 配套
+仓库」。缺的不是再包一层工具，而是把一篇外来科学工作当成能力规格，相对于用户
+自己的 agent 做证据门控对齐。** 科学工作 \(W=(\text{paper},\text{repo})\) 是双编码
+规格；宿主相对对齐 \(\mathrm{Gap}(H,W)\) 是静态判定过程（不跑参考工具、不实现
+缺口）；覆盖是参考条件化的——选 paper 面还是 repo 面，缺口集合不同。cap-align
+是该判定过程的测量仪器，不是贡献本身。给 repo 时仪器会回收配套论文，并按身份门
+纳入有界邻域（主页优先，必要时 web-search）；邻域是产品完备性，C1–C3 仍钉用户
+给的那篇工作 \(W\)。
+
+对齐的对象是**材料能力**：核心是能模拟什么；上限是材料 agent 该暴露的方法
+（评测势、微调、蒸馏）。plugin / MCP / 装环境不是缺口。对齐完成的判据是宿主
+**自己的**能力面拥有这些动词——可以调用上游科学引擎，不能把参考 agent 嵌进宿主
+当运行时。
 
 ## 2. 背景与要解决的科学问题
 
-三个被证据支撑的现象：
+现场里同时发生三件事：
 
-1. **碎片化重复接线。** 每个材料 agent（MatDiscovery / El Agente Sólido / PolyJarvis /
-   Catalyst-Agent…）都在手工重接同一批资产（phonopy / ASE / pymatgen / VASP / QE）。
-   MCP 只解决传输层，不解决"能力语义层"——范式上是"每个 agent 重新发明一遍接线"。
-2. **承诺漂移（claim drift）是普遍、被实测的问题。** BIV 审计 49,943 个技能：
-   **80.0% 的声明与实现偏离**；Lejaeghere 等（Science 2016）证明 40+ 个代码可以
-   互验同一物理量；而 AutoMat（2026）证明 agent 复现论文声称仅 ~53%。**"代码之间
-   可以互验"与"agent 兑现不了声称"这两条线，隔了十年，从未被接起来。**
-3. **三种知识形态无法统一。** 同一个能力（"算热容"）以三种形态存在：**代码**
-   （phonopy 的实现）、**论文**（methods 的方法描述）、**经验**（博客的 recipe）。
-   现有工作各做各的：BIV 只审 skill、ChatExtract 只抽数据、MatPROV 工序图里没有
-   软件节点、博客侧完全空白。
+1. **材料 agent 在增殖，接线仍是手工。** MatDiscovery / El Agente Sólido /
+   PolyJarvis / Catalyst-Agent 各自重接同一批资产（phonopy / ASE / pymatgen /
+   VASP / QE）。MCP 解决传输，不解决「这篇新工作相对我的 agent 覆盖了什么」。
+2. **论文与配套仓库成对出现。** 一篇材料计算论文通常带着方法规格；配套 repo
+   带着可执行接口。用户拿到的是一对 \(W\)，要问的是：论文里的能力，我的 agent
+   已经有哪些、缺哪些、缺的落在哪一层。
+3. **复现与生成都没有回答这个问题。** AutoMat（2026）测 agent 能否把一条
+   claim 跑通（最好约 53%）；SkillFoundry 从异构科学资源编出新 skill；SciCoQA
+   / paper–code consistency 查一篇论文是否匹配**它自己的**代码。BIV 在
+   49,943 个 skill 上测包内声明–实现漂移（80%）。没有任何一项把 **已有宿主**
+   相对 **外来科学工作** 做成判定对象。
 
-**科学问题**：agent 的能力面能否作为一种一阶计算对象被工程化管理——而非一次次
-手工装配的产物？对齐的"有效性"本身又能否被验证？
+**科学问题**：一篇已发表的科学工作能否作为能力规格，相对于已部署的科学 agent
+被对齐——并且 paper 编码与 repo 编码是否给出同一张规格？
 
-## 3. 核心思想：三层闭环的能力工程范式
+「快速」是该判定过程的操作推论：静态、证据分级、不执行参考、不实现缺口。它
+坐在生成（SkillFoundry）和复现（AutoMat）之前。
 
-![能力工程范式：表示→对齐→验证 三层闭环](figures/capability-engineering-paradigm.html)
+## 3. 核心思想：双编码规格上的宿主相对对齐
 
-> 上图是 archify 生成的正稿（可交互浏览、可导出 SVG/PNG；定稿时直接作为论文 Figure 1）。
-> 概念渲染版见 [images/capability-engineering-paradigm.jpg](images/capability-engineering-paradigm.jpg)（汇报/宣传用途）。
+![判定过程的仪器：表示 → 对齐 → 验证](figures/capability-engineering-paradigm.html)
 
-**Represent（表示）** —— 把"能力"从散落在代码/论文/经验里的隐含性质，变成显式的
-**能力中间表示（Capability IR）**：typed（compute / tool / workflow / data /
-interface / concept）+ evidence（可 grep 的指向）+ confidence + source kind。
-三种知识形态经统一抽取算子归一进同一个**能力格**（语义锚点：CORA/IEEE 1872
-能力本体 + OWL-S/WSMO 契约）。
+> archify 正稿（可交互、可导 SVG/PNG）。此图描述的是**仪器**——如何把 \(W\) 与
+> \(H\) 收进同一 IR 并做证据门控判定——不是「闭环本身即贡献」。概念渲染版见
+> [images/capability-engineering-paradigm.jpg](images/capability-engineering-paradigm.jpg)。
 
-**Align（对齐）** —— 宿主能力面与参考能力面的**双边对齐**：产出五态差距
-（equivalent / partial / missing / host-only / unknown）× 三来源
-（宿主自审 / 参考物对比 / 领域推断）+ 落点建议。匹配维度有成熟先例（Paolucci
-ISWC'02 四档匹配、RE 追踪五态），我们的增量是**自指 + 跨源 + 证据门控**：
-agent 审计自己的面，差距判定叠加证据阈值（epistemic graded subsumption）。
+**规格（Specification）。** 一篇科学工作 \(W=(W_{\mathrm{paper}},W_{\mathrm{repo}})\)
+诱导两张能力面：paper 编码方法步骤、有效性条件、声称产物；repo 编码 CLI /
+模块 / 接口 / 可执行路径。能力 \(C=(\mathrm{id},\tau,\text{契约},E,\mathrm{conf})\)
+是与载体无关的对象。两份编码上的同一性用同一谓词：语义匹配 \(\in\{\mathrm{exact},
+\mathrm{plugin},\mathrm{subsume}\}\) 且证据强度 \(\ge\theta\)。
 
-**Verify（验证）** —— **验证先于分类**：每个疑缺口先 grep 宿主代码/查产物 spec
-再定性；每跑强制 8 项自检、合成 fixture 金标验收、同输入重跑确定性。产出两个
-**库级度量**：`coverage@reference`（对参考物的能力覆盖，区分 coverage 与
-adequacy）与 `promise-drift rate`（|声称 − 已验证| / |声称|）。
+**判定（Decision procedure）。** 对象是 \(\mathrm{Gap}(H,W)\)：已有宿主面 \(H\)
+相对外来工作 \(W\) 的五态差距（equivalent / partial / missing / host-only /
+unknown），带来源、带已验证证据、带落点（新 skill / 新 tool / 扩既有 /
+runner 契约 / 跳过）。三条使它成为理论对象：
 
-三环闭环：装配后**再盘点 → 再对齐 → 再验证**，让能力面**可治理**（入库准入 /
-漂移检测 / 修剪依据）。
+1. 证据先于分类：低置信参考条目不能单独判 `missing`；
+2. 单调性：加证据只允许 `unknown → missing`，无宿主产物不能把 `missing` 翻成
+   `covered`；
+3. 可复现：同一 \((H,W)\) 上分类有 IRR。
 
-## 4. 四大创新点
+输出停在建议。SkillFoundry 的输出是新 skill；这里的输出是对**这个**宿主的差距
+与落点。
 
-| # | 创新 | "空在哪" | 理论锚点 |
+**覆盖（Coverage）。** \(\mathrm{coverage}(H,W)\) 依赖于选取哪一份编码：
+
+- \(\mathrm{coverage}(H,W_{\mathrm{paper}})\) 高、\(\mathrm{coverage}(H,W_{\mathrm{repo}})\)
+  低：会讲方法，对不上接口；
+- 反过来：会调工具，兑现不了论文方法义务。
+
+残差 \(\Delta(W_{\mathrm{paper}},W_{\mathrm{repo}})\) 可测。它解释 AutoMat 最差
+工况——只从论文正文重建流程：agent 拿到 \(W_{\mathrm{paper}}\)，工具提供的是
+\(W_{\mathrm{repo}}\)。blog 是第三种编码，主文钉 paper / repo，blog 进附录。
+
+## 4. 三点创新
+
+| # | 创新 | 空在哪 | 可证伪点 |
 |---|---|---|---|
-| 1 | **跨形态统一能力格**（repo/paper/blog → 同一 IR） | BIV 单形态；ChatExtract 只抽数据；MatPROV 无软件节点；博客侧空白 | CORA 类型 + DL 概念格 |
-| 2 | **Epistemic graded subsumption**：差距判定 = 语义匹配 ∧ 证据阈值（双谓词判定） | Paolucci 四档纯语义；RE 五态纯语义 | Paolucci × 测试充分性（Zhu 1997） |
-| 3 | **能力声明的证据义务层**（claim-as-contract + 生命周期：断言→验证→过期→复审） | 凭证/注册表层管"谁签的"；行为验证层管"代码对不对"；中间的"声明↔证据对质"无人系统化；漂移只有测量无机制 | BetterBench × ClaimReceipt × 复现性义务 |
-| 4 | **coverage@reference / promise-drift rate**：需求侧库级度量 | 现有度量全是任务侧成功率 | 测试充分性 × FCA/Galois 连接 |
+| **C1** | **科学工作是双编码能力规格。** \(W=(\mathrm{paper},\mathrm{repo})\) 两份编码共用同一性谓词；只认其中一份，规格不完整。 | BIV / SkillConsist / DCI 比的是**同一个包**内部的声明与实现；SciCoQA / paper–code 比的是论文与**它自己的**代码（句/函数级错误）。这里比的是外来工作的两份**能力面**编码。 | 同一资产上 \(W_{\mathrm{paper}}\neq W_{\mathrm{repo}}\)（残差非空、可分类） |
+| **C2** | **宿主相对对齐是判定问题。** \(\mathrm{Gap}(H,W)\) 是静态、证据门控、可复现的决策过程：五态 × 三来源 + 落点，不执行 \(W\)、不实现缺口。 | AutoMat 问能否复现一条 claim；SkillFoundry 问资源能否编成 skill。都没有问已有 \(H\) 相对新 \(W\) 覆盖了什么。 | 断言 A（证据单调）+ E1 IRR（同一谓词在 repo 臂与 paper 臂上都可复现） |
+| **C3** | **覆盖是参考条件化的。** \(\mathrm{coverage}(H,W_{\mathrm{paper}})\) 与 \(\mathrm{coverage}(H,W_{\mathrm{repo}})\) 系统分叉；残差类型决定落点是「包接口」还是「兑现方法合同」。 | Skill Coverage（2606.20659）量的是轨迹是否跑过 **skill 自己的**约束。这里的轴是外部科学工作。BIV 的 80% 是包内漂移，不作头条去比规模。 | 按 paper 规格装配 vs 按 repo 规格装配，任务增益形状不同（E2）；paper-only 失败与 \(\Delta\) 相关 |
 
-**防守性命题**（防"匹配不新"的质疑）：主张不是"首次能力匹配"——那是 Paolucci/
-RE 的地盘——而是**"首次把表示-对齐-验证三环节闭环到自指 agent 上的能力工程"**。
-每一层复用既有社群的形式主义，**闭合成环才是新贡献**。
+形式主义（Paolucci 匹配、Zhu 测试充分性、CORA 类型）是判定过程的零件，写进
+`research/formal-foundations.md`，不进贡献表。Galois / 「能力格」/ 「首次闭环」
+不再作为创新点。
 
-## 5. 差异化定位（系统层，不是 skill 层）
+**防守性命题。** 匹配本身是旧的（Paolucci / RE）。新的是：**外来科学工作作为
+双编码规格，相对于已有宿主的证据门控判定，以及覆盖随编码选择而分叉。** 仪器
+是 cap-align；发现是残差与参考条件化覆盖。
+
+## 5. 差异化定位（系统层）
 
 ![与系统层邻居的差异定位](figures/capability-engineering-positioning.html)
 
-> archify 正稿（可导 SVG）；概念渲染版见 [images/capability-engineering-positioning.jpg](images/capability-engineering-positioning.jpg)。
+> archify 正稿。图面邻居集停在 2026-05 前后，正文下表为当前准绳；图待重绘。
+> 概念渲染版见 [images/capability-engineering-positioning.jpg](images/capability-engineering-positioning.jpg)。
 
-| 邻居 | 系统层定位 | 我们的差异 |
+| 邻居 | 他们的问题 | 我们的问题 |
 |---|---|---|
-| Externalization (2604.08224) | "能力外置=基础设施"最成熟论述 | 无科学软件、无参考锚定；我们给它材料领域完整实例化 |
-| SkillOps / SkillFoundry | 技能库=软件生态治理；异构资源→技能生成 | 我们做对齐/差距/落点，不做生成/运维 |
-| AutoMat (2605.00803) | 论文→流程→验证，53% 复现率 | 只评测不表示/对齐；我们把它与 Lejaeghere"代码互验"接起来 |
-| CDD（企业能力工程） | 表示+对齐+验证三环节齐的唯一先例 | 面向组织流程，不面向自指 agent |
-| TessIndex / LEGIT / Lemons | 能力验证进身份/凭证/信任（机制层） | 我们做内容级证据验证 |
+| AutoMat (2605.00803) | agent 能否复现这条 claim（最好 ~53%） | 宿主已经覆盖这篇工作的哪些能力 |
+| SkillFoundry (2604.03964) | 异构科学资源能否编成新 skill | 缺口相对**这个**宿主落在哪；停在建议 |
+| SciCoQA (2601.12910) / Do Papers Match Code? (2603.22018) | 论文是否匹配它自己的代码（句/函数） | 论文+repo 作为规格，相对**另一个** agent 差在哪（能力面粒度） |
+| BIV (2605.11770) / SkillConsist (2608.07639) / DCI (2606.04769) | skill 或 MCP 工具是否匹配自己的实现 | 外来工作是否被宿主覆盖 |
+| Skill Coverage (2606.20659) | 轨迹是否跑过 skill 自己的约束 | 宿主对外部科学工作的覆盖 |
+| SkillOps (2605.13716) | 库内 merge / repair / retire | 需求侧：新工作相对已有面 |
+| ClaimReceipt / TessIndex / Lemons | 声称的凭证、身份、市场机制 | 内容级、宿主相对的证据门控 |
+| Externalization (2604.08224) / CDD | 能力外置 / 组织流程上的表示–对齐–验证 | 科学工作 → 已部署科学 agent |
 
-**材料锚定**：材料领域拥有最集中、最标准化、被社区互验最深的软件资产池
-（Lejaeghere 40 代码互验）——能力工程闭环实例化的最优试验场。
+**材料是实例。** agent 多、paper–repo 对多、软件资产被社区互验最深（Lejaeghere
+40 代码互验）。方法层零宿主词汇；phonopy ↔ MatDiscovery 是验证实例，不是方法
+内容。
 
-## 6. 承诺漂移：为什么这件事重要（核心洞察）
+## 6. 为什么必须同时对齐 paper 与 repo
 
-![承诺漂移：声称能力面 vs 可验证能力面](figures/promise-drift.html)
+![包内声称 vs 已验证（动机图，非头条度量）](figures/promise-drift.html)
 
-> archify 正稿（可导 SVG）；概念渲染版见 [images/promise-drift.jpg](images/promise-drift.jpg)。
+> 此图原叙述「承诺漂移」为治理招牌。BIV / DCI / SKILLSCOPE 已把包内声明–实现
+> 漂移做成主场。现用作**动机**：声称需要证据门。我们的头条度量是参考条件化的
+> `coverage(H,W)`，`promise-drift` 降为相对某一投影的未兑现声称。概念渲染版见
+> [images/promise-drift.jpg](images/promise-drift.jpg)。
 
-核心洞察：**在一个能力无法被验证的世界里，技能的"市场"会劣币驱逐良币**（Lemons
-理论），而**在一个材料计算工具已经互验了半世纪的世界里，"验证能力真值"的资源是
-现成的**——只是从未被架到 agent 能力治理上来。capalign 把 BIV 的 80% 漂移率、
-Lejaeghere 的代码互验、AutoMat 的 53% 复现率缝合进同一条治理闭环：**声称必须带
-证据，证据必须可重跑，重跑必须确定性。**
+核心洞察有两层：
+
+1. **用户的问题是宿主相对的。** 读到一篇新材料论文时，要的是「我的 agent 差在
+   哪」，不是「把论文编成 skill」或「把 claim 跑通」。
+2. **两份编码不是同一张表。** 只对齐 paper 会漏接口；只对齐 repo 会漏方法合同。
+   双对齐是测量结论，不是两种输入开关。
+
+Lejaeghere 证明代码之间可以互验；AutoMat 证明 agent 兑现不了论文声称。中间缺的
+一层是：论文规格与软件规格在能力面粒度上的残差，以及该残差如何投射到已有宿主。
 
 ## 7. 证据计划（见 research/experiments.md）
 
-- E1 差距/来源分类的人工一致性（IRR，κ）
-- E2 按报告装配 vs 随机装配 vs 原库的任务增益（对标 SoK curated +16.2pp）
-- E3 coverage@reference / promise-drift 在真实库演化的时序曲线 + stale-skill 召回
-- E4 自指审计的可靠性校准（自报面 vs 验证面的校准——理论空白）
+| 实验 | 服务哪条创新 | 现状 |
+|---|---|---|
+| **E1** IRR（P1 repo 臂 + P2 paper 臂） | C2：同一谓词跨编码可复现 | P1 κ=0.853，P2 κ=1.000；仍是同模型三 judge |
+| **EΔ** 同一工作的 \(W_{\mathrm{paper}}\bowtie W_{\mathrm{repo}}\) | C1 / C3 的命门 | **未跑**；phonopy 论文 methods vs phonopy 仓库是现成一对 |
+| **E2** 按 paper 规格补 vs 按 repo 规格补 vs 随机 / 不补 | C3：参考条件化覆盖的任务后果 | 协议就绪；真实层 gold pending |
+| **E3** 库级 `coverage(H,W)` 分布 | C3 的库级形状；包内 drift 降为分解项 | 2 个库的包内 drift 已测，需求侧覆盖分布未立 |
+| **E4** 自报面相对外来 \(W\) 的偏差 | C2 能否被宿主自审代替 | mini 上 bias=0.0，不可证伪 |
 
-案例资产已在手：phonopy↔MatDiscovery 全程记录（19 缺口、A–E 分档、三次防伪缺口
-教训），真实 37-skill 库，SKILLS-AUDIT 作为承诺漂移真实语料。
+案例资产已在手：phonopy↔MatDiscovery（19 缺口、A–E 分档、三次防伪缺口教训），
+37-skill 宿主库。EΔ 需要把 phonopy 的 methods 论文提成 \(W_{\mathrm{paper}}\)，
+与已有 \(W_{\mathrm{repo}}\) 对齐。
 
 ---
 
-*三张图均有 archify 正稿（`figures/*.html`，可导 SVG 作论文 Figure 1–3）；三份 SVG 已提取到
-`figures/*.svg` 可直接进排版。image-gen 概念渲染版保留在 `images/` 供汇报/宣传。*
+*三张图均有 archify 正稿（`figures/*.html` / `*.svg`）。图 1 改为仪器说明，
+图 3 降为动机；图 2 邻居集待按上表重绘。image-gen 概念渲染留在 `images/` 供
+汇报。*

@@ -28,8 +28,8 @@ import sys
 import time
 
 E2 = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # .../runs/e2
-CAPALIGN = os.path.dirname(os.path.dirname(os.path.dirname(E2)))
-GOLD_FIXTURE = os.path.join(CAPALIGN, "tests/fixtures/gold/mini-ref-vs-mini-host.json")
+CAP_ALIGN = os.path.dirname(os.path.dirname(os.path.dirname(E2)))
+GOLD_FIXTURE = os.path.join(CAP_ALIGN, "tests/fixtures/gold/mini-ref-vs-mini-host.json")
 FIX_DIR = os.path.join(E2, "e2-assets/fixtures/mini")
 GOLD_DIR = os.path.join(E2, "e2-assets/gold/mini")
 POOL_PATH = os.path.join(E2, "e2-assets/gap-pool-mini.json")
@@ -37,7 +37,7 @@ RUNS_DIR = os.path.join(E2, "e2-runs")
 ARM_SELECT = os.path.join(E2, "e2-scripts", "arm_select.py")
 JUDGE = os.path.join(E2, "e2-scripts", "judge_task.py")
 DERIVE = os.path.join(E2, "e2-scripts", "derive_tasks.py")
-PHONOPY_DOC = os.path.join(CAPALIGN, "..", "phonopy", "doc")  # symlink-free read root
+PHONOPY_DOC = os.path.join(CAP_ALIGN, "..", "phonopy", "doc")  # symlink-free read root
 PHONOPY_DOC = os.path.realpath(PHONOPY_DOC)
 
 # ---------------------------------------------------------------- fixtures --

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>C1 C2 — dual-encoded spec, host-relative gap</title>
+<style>
+  @font-face { font-family: "Plex"; src: local("IBM Plex Sans"), local("Avenir Next"), local("PingFang SC"); }
+  html, body {
+    margin: 0; padding: 0; width: 1920px; height: 1080px; overflow: hidden;
+    background: #f3eee4;
+    font-family: "IBM Plex Sans", "Avenir Next", "PingFang SC", sans-serif;
+    color: #243038;
+  }
+  .stage {
+    position: relative; width: 1920px; height: 1080px;
+    background:
+      radial-gradient(1200px 700px at 18% 12%, rgba(201,161,91,.14), transparent 55%),
+      radial-gradient(900px 600px at 88% 88%, rgba(54,74,86,.08), transparent 50%),
+      #f3eee4;
+  }
+  .lattice {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(#c9a15b22 1.1px, transparent 1.2px);
+    background-size: 28px 24px;
+    mask-image: radial-gradient(ellipse at 50% 48%, #000 38%, transparent 78%);
+  }
+  header {
+    position: absolute; left: 72px; top: 48px; right: 72px;
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .kicker {
+    font-size: 15px; letter-spacing: .22em; color: #8a6a32; font-weight: 600;
+  }
+  h1 {
+    margin: 10px 0 0; font-size: 42px; font-weight: 650;
+    font-family: "Iowan Old Style", "Palatino Linotype", "Songti SC", serif;
+    letter-spacing: -.02em; line-height: 1.15;
+  }
+  .formula {
+    font-family: "IBM Plex Mono", "Menlo", monospace;
+    font-size: 18px; color: #5b6770; font-weight: 500;
+  }
+  .rail {
+    position: absolute; left: 72px; top: 168px; width: 6px; height: 820px;
+    background: linear-gradient(#c9a15b, #8d6b2e);
+    border-radius: 3px;
+  }
+  .sheet {
+    position: absolute; border: 1px solid #d7cbb6; background: #fbf8f2;
+  }
+  .paper {
+    left: 110px; top: 196px; width: 430px; height: 520px;
+    transform: rotate(-1.1deg);
+    box-shadow: 12px 18px 0 #e8dfcf, 0 24px 40px rgba(36,48,56,.08);
+  }
+  .paper::before {
+    content: ""; position: absolute; left: 48px; top: 0; bottom: 0; width: 1px;
+    background: #e3b4b0;
+  }
+  .repo {
+    left: 430px; top: 248px; width: 430px; height: 500px;
+    background: #2c3842; color: #e8eef2; border-color: #1d272e;
+    box-shadow: 0 28px 50px rgba(28,38,46,.28);
+  }
+  .spec {
+    left: 900px; top: 220px; width: 400px; height: 280px;
+    background: #fffdf8; border: 2px solid #c9a15b;
+    box-shadow: 0 18px 36px rgba(201,161,91,.16);
+  }
+  .host {
+    left: 1360px; top: 248px; width: 460px; height: 620px;
+    background: #f7f3ea;
+    box-shadow: 0 22px 44px rgba(36,48,56,.1);
+  }
+  .gap {
+    left: 900px; top: 530px; width: 400px; height: 338px;
+    background: #243038; color: #f4eee4; border: none;
+  }
+  .tag {
+    position: absolute; top: -16px; left: 22px;
+    background: #c9a15b; color: #243038;
+    font-size: 13px; font-weight: 700; letter-spacing: .08em;
+    padding: 6px 12px;
+  }
+  .tag.dark { background: #e8c27a; }
+  .tag.ink { background: #243038; color: #f3eee4; }
+  .pad { padding: 44px 36px 32px; }
+  .name {
+    font-family: "Iowan Old Style", "Palatino Linotype", "Songti SC", serif;
+    font-size: 30px; margin: 0 0 8px;
+  }
+  .sub { font-size: 15px; color: #6b757c; margin: 0 0 22px; }
+  .repo .sub { color: #9aadb8; }
+  .gap .sub { color: #c5d0d6; }
+  ul { margin: 0; padding: 0; list-style: none; }
+  li {
+    display: flex; gap: 12px; align-items: center;
+    font-size: 17px; line-height: 1.55; margin: 0 0 10px;
+  }
+  .dot {
+    width: 9px; height: 9px; border-radius: 50%; background: #c9a15b; flex: none;
+  }
+  .repo li .dot { background: #7dcfb6; }
+  .code {
+    font-family: "IBM Plex Mono", Menlo, monospace;
+    font-size: 14px; opacity: .85; margin-top: 18px;
+  }
+  .rules {
+    margin-top: 28px; height: 168px;
+    background-image: repeating-linear-gradient(
+      to bottom, transparent 0 27px, #e6dcc8 27px 28px
+    );
+  }
+  .join {
+    position: absolute; left: 848px; top: 418px; width: 52px; height: 4px;
+    background: #c9a15b; z-index: 5;
+  }
+  .join::after {
+    content: ""; position: absolute; right: -10px; top: -6px;
+    border: 8px solid transparent; border-left-color: #c9a15b;
+  }
+  .join-h {
+    position: absolute; left: 1298px; top: 356px; width: 62px; height: 4px;
+    background: #c9a15b; z-index: 5;
+  }
+  .join-h::after {
+    content: ""; position: absolute; right: -10px; top: -6px;
+    border: 8px solid transparent; border-left-color: #c9a15b;
+  }
+  .classes {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; margin-top: 8px;
+  }
+  .classes span {
+    font-family: "IBM Plex Mono", Menlo, monospace;
+    font-size: 14px; padding: 7px 10px; background: #31404a;
+  }
+  .host .classes span {
+    background: #ebe4d6; color: #243038;
+  }
+  .snippet {
+    margin-top: 22px;
+    font-family: "IBM Plex Mono", Menlo, monospace;
+    font-size: 13px; color: #7dcfb6; line-height: 1.7;
+  }
+  footer {
+    position: absolute; left: 110px; right: 100px; bottom: 42px;
+    display: flex; gap: 28px; align-items: stretch;
+  }
+  .note {
+    flex: 1; background: #fffdf8; border-left: 5px solid #c9a15b;
+    padding: 16px 20px; font-size: 16px; line-height: 1.45;
+  }
+  .note b { font-family: "IBM Plex Mono", Menlo, monospace; font-size: 15px; }
+  .note.ink { border-left-color: #243038; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="lattice"></div>
+  <header>
+    <div>
+      <div class="kicker">CAP-ALIGN · C1 + C2</div>
+      <h1>外来科学工作，对齐到已有宿主</h1>
+    </div>
+    <div class="formula">W = (paper, repo)&nbsp;&nbsp;→&nbsp;&nbsp;Gap(H, W)</div>
+  </header>
+  <div class="rail"></div>
+
+  <div class="sheet paper">
+    <div class="tag">C1 · PAPER</div>
+    <div class="pad">
+      <p class="name">论文面 W<sub>paper</sub></p>
+      <p class="sub">方法规格 · Methods 编码</p>
+      <ul>
+        <li><i class="dot"></i>方法步骤</li>
+        <li><i class="dot"></i>有效性条件</li>
+        <li><i class="dot"></i>声称产物</li>
+        <li><i class="dot"></i>硬软件依赖</li>
+      </ul>
+      <p class="code">identity: match ∧ evidence ≥ θ</p>
+      <div class="rules" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <div class="sheet repo">
+    <div class="tag dark">C1 · REPO</div>
+    <div class="pad">
+      <p class="name" style="color:#f4eee4">仓库面 W<sub>repo</sub></p>
+      <p class="sub">可执行规格 · 接口编码</p>
+      <ul>
+        <li><i class="dot"></i>CLI 入口</li>
+        <li><i class="dot"></i>顶层模块</li>
+        <li><i class="dot"></i>可执行路径</li>
+        <li><i class="dot"></i>依赖指纹</li>
+      </ul>
+      <p class="code">同一谓词，两份编码</p>
+      <p class="snippet">entry: cli + api<br>path: src/** · tests/**</p>
+    </div>
+  </div>
+
+  <div class="join"></div>
+  <div class="join-h"></div>
+
+  <div class="sheet spec">
+    <div class="tag">规格 W</div>
+    <div class="pad">
+      <p class="name">双编码能力规格</p>
+      <p class="sub">只认一份，规格不完整</p>
+      <ul>
+        <li><i class="dot"></i>paper 给方法合同</li>
+        <li><i class="dot"></i>repo 给软件接口</li>
+        <li><i class="dot"></i>残差 Δ 可测、可分类</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sheet gap">
+    <div class="tag dark">C2 · 判定</div>
+    <div class="pad">
+      <p class="name">Gap(H, W)</p>
+      <p class="sub">静态 · 证据门控 · 不执行 · 不实现</p>
+      <div class="classes">
+        <span>equivalent</span>
+        <span>partial</span>
+        <span>missing</span>
+        <span>host-only</span>
+        <span>unknown</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet host">
+    <div class="tag ink">HOST H</div>
+    <div class="pad">
+      <p class="name">用户自己的材料 agent</p>
+      <p class="sub">已部署能力面，被对齐的对象</p>
+      <ul>
+        <li><i class="dot"></i>已有 skill / tool / runner</li>
+        <li><i class="dot"></i>强制宿主自审扫描</li>
+      </ul>
+      <p class="sub" style="margin:22px 0 8px">落点（停在建议）</p>
+      <div class="classes">
+        <span>新 skill</span>
+        <span>新 tool</span>
+        <span>扩既有</span>
+        <span>runner</span>
+        <span>跳过</span>
+      </div>
+      <p class="code" style="margin-top:22px">建不建是产品决策</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="note"><b>C1</b>　科学工作是双编码规格。论文与配套仓库共用同一性谓词；BIV / SciCoQA 比的是包内部或论文与它自己的代码。</div>
+    <div class="note ink"><b>C2</b>　宿主相对对齐是判定问题。问的是已有 H 覆盖了这篇 W 的哪些能力，不是把论文编成 skill，也不是把 claim 跑通。</div>
+  </footer>
+</div>
+</body>
+</html>

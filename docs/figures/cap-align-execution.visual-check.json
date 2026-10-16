@@ -6,9 +6,9 @@
   "status": "pass",
   "visualReview": "pending",
   "artifact": {
-    "path": "/Users/lwm/code/capalign/docs/figures/capalign-execution.html",
-    "sha256": "db31229a031a4eea932f7401ab6301e3e9fa94e0211e8f0ad595841fe3762c7c",
-    "bytes": 809878
+    "path": "/Users/lwm/code/cap-align/docs/figures/cap-align-execution.html",
+    "sha256": "0e8878f12306568195cd2879b2bc4f349f2281d967bbbefbfaa956c0f0b35c20",
+    "bytes": 809881
   },
   "state": {
     "detail": "read",
@@ -440,7 +440,7 @@
         "viewerChromeActive": true,
         "viewerChromeOk": true,
         "resolvedTheme": "light",
-        "file": "capalign-execution.visual-check.1440x900.light.png"
+        "file": "cap-align-execution.visual-check.1440x900.light.png"
       },
       {
         "width": 1440,
@@ -472,7 +472,7 @@
         "viewerChromeActive": true,
         "viewerChromeOk": true,
         "resolvedTheme": "dark",
-        "file": "capalign-execution.visual-check.1440x900.dark.png"
+        "file": "cap-align-execution.visual-check.1440x900.dark.png"
       },
       {
         "width": 2048,
@@ -504,7 +504,7 @@
         "viewerChromeActive": true,
         "viewerChromeOk": true,
         "resolvedTheme": "light",
-        "file": "capalign-execution.visual-check.2048x1320.light.png"
+        "file": "cap-align-execution.visual-check.2048x1320.light.png"
       },
       {
         "width": 2048,
@@ -536,13 +536,13 @@
         "viewerChromeActive": true,
         "viewerChromeOk": true,
         "resolvedTheme": "dark",
-        "file": "capalign-execution.visual-check.2048x1320.dark.png"
+        "file": "cap-align-execution.visual-check.2048x1320.dark.png"
       }
     ],
-    "contactSheet": "capalign-execution.visual-check.html"
+    "contactSheet": "cap-align-execution.visual-check.html"
   },
   "sidecars": {
-    "receipt": "capalign-execution.visual-check.json",
-    "contactSheet": "capalign-execution.visual-check.html"
+    "receipt": "cap-align-execution.visual-check.json",
+    "contactSheet": "cap-align-execution.visual-check.html"
   }
 }

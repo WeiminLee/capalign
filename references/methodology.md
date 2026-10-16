@@ -21,15 +21,32 @@ adaptation layer.
 
 ### Phase 0 — Frame the target
 Decide before any scan: what is the reference, what is the host surface, and what is
-the deliverable (inventory / gap table / placement / all). The deliverable fixes how
-deep each inventory must go; it may legitimately evolve as the work proceeds, and then
-the report says so.
+the deliverable (inventory / gap table / placement / all). The deliverable is
+**domain-capability gaps**: simulation/analysis first, domain-agent methods at
+most (`alignment-rules.md` §Scope). Generic agent packaging is out of scope.
+The deliverable fixes how deep each inventory must go; it may legitimately evolve
+as the work proceeds, and then the report says so. A homepage URL and a git clone
+of the same project are **one** reference \(W\), not two runs. Scope the host to
+its declared skill/tool root before scanning (worktrees and `node_modules` are
+not the host surface).
+
+### Phase 0.5 — Observe the reference fully (repo input)
+A repo tree is \(W_{\mathrm{repo}}\). Before building inventories, recover the
+companion encoding and a **bounded neighborhood** (`inventory-heuristics.md` §E):
+local seeds, then homepage, then web-search only when a named seed or the
+companion paper is still missing. Identity-gate membership. Split **core** \(W\)
+(given work: repo + its paper/docs) from **neighborhood** \(N\) (siblings /
+cited methods / declared-related). \(N\) is an instrument completeness layer;
+C1/C3 stay defined on \(W\). Live network is never required for a valid run.
 
 ### Phase 1 — Dual independent inventories
 Build the reference inventory and the host inventory **separately, without looking at
 each other**. Two lists built while contaminated by each other produce a list of
 differences, not of gaps. Inventories are of *capabilities* (semantic units: things a
-user can get done), not of files or functions.
+user can get done), not of files or functions. Core paper-arm and repo-arm are
+two projections of \(W\), inventoried independently of the host and of each
+other. Neighborhood items are additional reference surfaces, also built without
+looking at the host.
 
 ### Phase 2 — Cross-validate suspected gaps
 Never classify from the comparison table alone. Every candidate `missing` / `partial`
@@ -52,6 +69,8 @@ Source kind drives priority, so it is recorded, not implied.
 ### Phase 4 — Cost-tier the placement
 For each gap, estimate what the **host** must change to close it. The tier question is
 always about the host's own architecture, never about the size of the reference side.
+Never cost-tier "add the reference agent as a nested runtime"; that is not a
+host change (`alignment-rules.md` §Placement 6).
 A sensible default ladder (names and examples are the adaptation layer's job):
 A) pure local (data already on hand, a host-side computation closes it);
 B) probe-gated local (locally closeable once one unknown is confirmed);
@@ -86,9 +105,11 @@ and its human; the report says so in a fixed closing statement.
 - **Domain lexicon**: mapping dependency fingerprints → implied capability families is
   domain knowledge, not method. For materials simulation, a phonon engine implies
   force-constants / dynamical-matrix / DOS / thermal-properties / QHA families, a DFT
-  engine implies SCF / relax / bands / response. Another domain swaps this table. The
-  method provides the *action* (derive implied families from dependencies, mark them
-  medium confidence until confirmed), not the table.
+  engine implies SCF / relax / bands / response. The same lexicon also names which
+  verbs are domain-agent methods (benchmark a potential, fine-tune, distill) versus
+  generic packaging (plugin, extra MCP, lockfiles). Another domain swaps this table.
+  The method provides the *action* (derive implied families from dependencies, mark
+  them medium confidence until confirmed; drop packaging), not the table.
 - **Report dialect**: what the report is called, where it lands, and the JSON schema
   are host conventions. The generic contract (required sections, validity rules in
   `report-contract.md`) stays; names and locations adapt.

@@ -8,6 +8,8 @@ this one shape. This is what makes alignment possible across heterogeneous sourc
   "surface": {
     "label": "to-label",            // repo path / paper title / blog title / host name
     "source_kind": "repo|paper|blog|host",
+    "layer": "core|neighborhood",  // default core; neighborhood = identity-gated related work
+    "relation": "null|companion-paper|official-docs|sibling|cited-method|declared-related",
     "generated_at": "ISO-8601"
   },
   "capabilities": [
@@ -19,7 +21,8 @@ this one shape. This is what makes alignment possible across heterogeneous sourc
       "evidence": [
         {"kind": "cli|module|doc|code|method|claim|tool-mention", "location": "path:line | section | URL | quote"}
       ],
-      "confidence": "high|medium|low"     // low = inferred, must be flagged in the report
+      "confidence": "high|medium|low",    // low = inferred, must be flagged in the report
+      "layer": "core|neighborhood"        // inherit surface.layer if omitted
     }
   ]
 }
@@ -46,6 +49,12 @@ this one shape. This is what makes alignment possible across heterogeneous sourc
 4. Duplicate mentions collapse into one capability with multiple `evidence` entries.
 5. Host inventory additionally records where each capability came from
    (skill dir, tool registry, scripts) so recommendations can point at a concrete host location.
+6. Recovered companion paper is a second core surface (`relation: companion-paper`);
+   neighborhood items are separate surfaces (`layer: neighborhood`). Do not collapse
+   paper-arm and repo-arm capabilities into one row — coverage is reference-conditioned
+   (`formal-foundations.md` C3).
+7. Neighborhood capabilities are `medium` at most; search-snippet-only evidence is
+   `low` and never drives `missing`.
 
 ## Granularity boundary (codified from E1 pilot finding F3)
 
@@ -58,10 +67,23 @@ this one shape. This is what makes alignment possible across heterogeneous sourc
 3. **Dependency fingerprints** are derivation clues, not capabilities: they may suggest
    implied families (marked `medium` until confirmed), never stand as `high` items on
    their own, and never drive a `missing` verdict alone.
-4. **Meta-level items** (packaging, dependency lists, the framework a CLI is built on)
-   are not inventoried.
+4. **Meta-level items** are not inventoried: packaging, dependency lists, the
+   framework a CLI is built on, and **generic agent plumbing** (plugin
+   marketplace, extra MCP server, lockfile replay, per-environment bootstrap,
+   token login, calculator codegen). See `alignment-rules.md` §Scope.
 5. **Bounded size**: a typical repo normalizes to ~10–30 capabilities; a larger
    inventory signals over-splitting, a far smaller one signals over-collapsing.
-6. **Default at dispute**: an item whose semantics or evidence are genuinely ambiguous
+6. **Registry / roster**: a catalog of N models, frameworks, or datasets is one
+   `interface` (or `data`) capability when model selection is a domain-agent
+   method. Hub install/bootstrap of that catalog is plumbing (rule 4), not a
+   verb. Domain-agent verbs on the catalog (benchmark protocol, fine-tune,
+   distill) are separate `workflow` capabilities. Roster entries are not
+   themselves capabilities and are not neighborhood items.
+7. **Default at dispute**: an item whose semantics or evidence are genuinely ambiguous
    is kept as `confidence: low` — low-preserve beats high-pollution; `low` never drives
    a gap class.
+8. **Same observable, one compute.** Energy, forces, stress, relaxation, or MD
+   produced by a different calculator or Hamiltonian merge into the existing
+   `compute` capability. Class `equivalent` if the host already produces that
+   quantity. A distinct domain method on top of that quantity (adsorption-energy
+   protocol, fine-tune, distill) stays its own `workflow`.

@@ -1,0 +1,35 @@
+{
+  "reference": "tests/fixtures/mini-ref/papers/qha-mini-ref-2015.md",
+  "recovered_from": "tests/fixtures/mini-ref/CITATION.cff",
+  "layer": "core",
+  "relation": "companion-paper",
+  "expected_inventory": [
+    {
+      "id": "qha-protocol",
+      "type": "workflow",
+      "confidence": "high",
+      "evidence": "Methods: Helmholtz F on a volume grid, then minimize F(V,T)"
+    },
+    {
+      "id": "thermal-expansion",
+      "type": "compute",
+      "confidence": "high",
+      "evidence": "Methods: minimizing F(V,T) gives thermal expansion"
+    },
+    {
+      "id": "harmonic-validity",
+      "type": "concept",
+      "confidence": "high",
+      "evidence": "Validity: harmonic approximation must hold; imaginary modes invalidate QHA"
+    },
+    {
+      "id": "mini-ref-package",
+      "type": "tool",
+      "confidence": "high",
+      "evidence": "Software: implemented in the mini-ref package"
+    }
+  ],
+  "traps_asserted": [
+    "paper-arm qha-protocol is high — repo-arm qha stays unknown (doc without code); do not collapse the two encodings into one gap row"
+  ]
+}

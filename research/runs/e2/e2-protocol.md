@@ -95,7 +95,7 @@ find "$REF/doc" -maxdepth 1 \( -name "*.md" -o -name "*.rst" \) ! -name conf.py 
 
 ### Phase 2 — Alignment report (the input arm (a) acts on)
 
-Run the capalign workflow (SKILL.md steps 1–7) on reference = phonopy repo,
+Run the cap-align workflow (SKILL.md steps 1–7) on reference = phonopy repo,
 host = MatDiscovery surface *or* pin the existing case-study record
 (`references/methodology.md` §3 records the first instance: 19 gaps, 3 false
 catches; the full record lives outside this repo and its location is pinned

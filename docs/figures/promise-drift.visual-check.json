@@ -6,7 +6,7 @@
   "status": "pass",
   "visualReview": "pending",
   "artifact": {
-    "path": "/Users/lwm/code/capalign/docs/figures/promise-drift.html",
+    "path": "/Users/lwm/code/cap-align/docs/figures/promise-drift.html",
     "sha256": "dfe758743b1f9cffdf350d1655d8b2567a21e6eb0dc506f0d75eefbd19a7c7ae",
     "bytes": 805223
   },

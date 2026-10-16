@@ -1,0 +1,25 @@
+{
+  "_comment": "Fixture-only search double. Production repos must not ship this file; the skill uses host web-search instead. Live network is never required for a valid run.",
+  "necessary_because": "README names mini-3ph with no URL",
+  "hits": [
+    {
+      "title": "mini-3ph: anharmonic phonon solver",
+      "url": "https://example.invalid/mini-3ph",
+      "authors": ["Fixture, Ada"],
+      "kind": "software"
+    },
+    {
+      "title": "Top 10 phonon codes 2024",
+      "url": "https://example.invalid/roundup",
+      "authors": [],
+      "kind": "listicle"
+    },
+    {
+      "title": "Quasi-harmonic approximation with mini-ref",
+      "url": "https://example.invalid/papers/qha-mini-ref-2015",
+      "doi": "10.1234/mini-ref.2015",
+      "authors": ["Fixture, Ada"],
+      "kind": "paper"
+    }
+  ]
+}

@@ -67,6 +67,12 @@
       "what": "force-constants / dynamical-matrix / phonon-dos / band-structure source_kind changed reference-contrast -> host-self-audit",
       "why": "E1 pilot F2 doc'd the rule (inventory-heuristics §D.3: AUDIT-admitted gap must be tagged host-self-audit) but the gold was not amended for the four AUDIT-visible gaps — a golden-vs-rule residue that kept source-agreement at 2/6 (0.33) for judge-2; E4 mini-run independently reproduced the 0.33 and flagged it",
       "trigger": "gold re-audit against AUDIT.md: it admits no Cv/F/S/ZPE, no phonon DOS/dispersion, no force-constant / dynamical-matrix pathway — all four reference capabilities are admitted by the host itself"
+    },
+    {
+      "date": "2026-10-16",
+      "what": "repo-arm gap rows unchanged; companion-paper + neighborhood live in gold/mini-companion-paper.json and gold/mini-neighborhood.json",
+      "why": "C3: paper-arm qha-protocol is high, repo-arm qha stays unknown (doc-claim-without-code). Neighborhood must not be merged into this table.",
+      "trigger": "recover_reference (§E) added to inventory_repo"
     }
   ]
 }

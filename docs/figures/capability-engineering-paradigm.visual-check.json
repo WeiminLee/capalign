@@ -6,7 +6,7 @@
   "status": "pass",
   "visualReview": "pending",
   "artifact": {
-    "path": "/Users/lwm/code/capalign/docs/figures/capability-engineering-paradigm.html",
+    "path": "/Users/lwm/code/cap-align/docs/figures/capability-engineering-paradigm.html",
     "sha256": "c5fe23ce75a233a1668c9208e605e30fb0666abe9485ddde55b424f8e49a469f",
     "bytes": 805759
   },

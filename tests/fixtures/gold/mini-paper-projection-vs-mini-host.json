@@ -1,0 +1,48 @@
+{
+  "surfaces": {
+    "reference": "tests/fixtures/mini-ref/papers/qha-mini-ref-2015.md",
+    "host": "tests/fixtures/mini-host",
+    "generated_at": "2026-10-16",
+    "layer": "core",
+    "relation": "companion-paper"
+  },
+  "gaps": [
+    {
+      "ref_id": "qha-protocol",
+      "class": "missing",
+      "source_kind": "reference-contrast",
+      "note": "Methods F(V,T) protocol is high; host has no QHA workflow; AUDIT.md does not name QHA"
+    },
+    {
+      "ref_id": "thermal-expansion",
+      "class": "missing",
+      "source_kind": "reference-contrast",
+      "host_id": "eos",
+      "note": "adjacent-but-different: eos Birch-Murnaghan E(V) does not subsume alpha(T) from F(V,T)"
+    },
+    {
+      "ref_id": "harmonic-validity",
+      "class": "missing",
+      "source_kind": "reference-contrast",
+      "note": "paper validity condition; placement skip (scientific soundness is out of scope)"
+    },
+    {
+      "ref_id": "mini-ref-package",
+      "class": "missing",
+      "source_kind": "reference-contrast",
+      "note": "companion package; same placement family as repo-arm tools"
+    }
+  ],
+  "traps_asserted": [
+    "paper-arm qha-protocol missing/high vs repo-arm qha unknown/low — C3 fork, do not merge",
+    "paper projection rows must not appear in the repo-arm gap table"
+  ],
+  "log": [
+    {
+      "date": "2026-10-16",
+      "what": "new gold: paper projection of recovered companion vs mini-host",
+      "why": "§E recovers W_paper into core; Gap(H, W_paper) is a second table",
+      "trigger": "recover_reference on mini-ref"
+    }
+  ]
+}

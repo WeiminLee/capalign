@@ -5,6 +5,36 @@ Strict definitions for the objects the paper measures. Grounded in capability IR
 CSUR 1997 — coverage ≠ adequacy). Notation is chosen to be checkable, not clever;
 each definition ends with the falsifiable assertion the experiments target.
 
+Identity of the paper (2026-10-16): a published scientific work is a dual-encoded
+specification; host-relative alignment is a decision procedure; coverage is
+reference-conditioned. Matching vocabulary (Paolucci) and evidence gates are
+parts of the procedure, not contributions. Galois / “capability lattice” views
+stay in the open-formalism note at the end.
+
+---
+
+## 0. Scientific work as a dual-encoded specification
+
+A **scientific work** is a pair \(W = (W_{\mathrm{paper}}, W_{\mathrm{repo}})\),
+where each component is a capability surface (defined in §1):
+
+- \(W_{\mathrm{paper}}\) is extracted from Methods / claimed products / hard
+  software dependencies;
+- \(W_{\mathrm{repo}}\) is extracted from CLI entry points, top-level modules,
+  documented features, and dependency fingerprints.
+
+A third encoding (blog/recipe) exists in the instrument; the paper pins paper
+and repo. **Identity** of a capability across encodings is the same `covers`
+predicate as §2 (semantic match ∧ evidence threshold). The **residual** is
+```
+Δ(W) := (W_paper \ W_repo,  W_repo \ W_paper)
+```
+taken after identity has been applied (exact/plugin count as the same cell).
+
+**Assertion C1 (non-empty residual).** For a paired computational-science work,
+\(\Delta(W)\) is non-empty and classifiable into method-obligation-only vs
+interface-only cells. (Empirical check: EΔ, phonopy Methods vs phonopy repo.)
+
 ---
 
 ## 1. Capability IR as a typed corpus
@@ -39,8 +69,10 @@ covers(h, r) := match(h, r) ∈ {exact, plugin}          ∧  confl-align(h, r) 
 ```
 where `confl-align` is the strength of the *comparison* evidence (there is a
 grep-verified trace between the host artifact and the reference capability), and
-`θ` is a gate threshold. This is **epistemic graded subsumption**: the semantic
-verdict and the evidence threshold are a two-predicate conjunction.
+`θ` is a gate threshold. The semantic verdict and the evidence threshold are a
+two-predicate conjunction (Paolucci-style match gated by Zhu-style evidence;
+the name is a description, not a contribution). The same predicate is used
+whether \(r\) was drawn from \(W_{\mathrm{paper}}\) or \(W_{\mathrm{repo}}\).
 
 Gap classes follow:
 - `r` is **covered** iff `∃ h : covers(h, r)`,
@@ -77,11 +109,23 @@ coverage@reference(R, H) := |{r ∈ R_med : ∃ h, r ∈ Prov(h)}| / |R_med|
 `coverage_raw − coverage@reference ≥ 0`; the gap is exactly the **unproven claim
 mass** of the host.
 
+When the reference is a scientific work \(W\), coverage is **reference-conditioned**:
+```
+coverage_paper(H, W) := coverage@reference(W_paper, H)
+coverage_repo(H, W)  := coverage@reference(W_repo,  H)
+```
+The two numbers are not assumed equal.
+
 **Assertion B (anchor to task outcome).** coverage@reference predicts task success
-on a suite derived from `R` better than (i) coverage_raw, (ii) host skill count,
-(iii) no signal. Predicted shape: a gain plateau ("enoughness threshold") —
-success rises with coverage@ref up to some `coverage* < 1`, then flattens.
-(Empirical check: E2 before/after across a hull of host libraries.)
+on a suite derived from the chosen projection better than (i) coverage_raw,
+(ii) host skill count, (iii) no signal. Predicted shape: a gain plateau
+("enoughness threshold") — success rises with coverage@ref up to some
+`coverage* < 1`, then flattens. (Empirical check: E2.)
+
+**Assertion C3 (fork).** `coverage_paper(H,W)` and `coverage_repo(H,W)` diverge
+on real paired works; assembling along the paper spec vs the repo spec yields
+different task-gain shapes. (Empirical check: E2 split by projection; EΔ
+supplies the residual that predicts the fork.)
 
 ## 4. promise-drift rate
 
@@ -96,15 +140,14 @@ fabricated(H) := |{c ∈ Claim(H) : E(c) = ∅}| / |Claim(H)|  (no evidence at a
 `drift(H) = Σ_{s ∈ src} share(s) · drift_s(H)` where `share(s)` is the fraction of
 claims born from source `s`.
 
-**Assertion C (predictive drift).** `drift_s` is systematically ordered by source —
-starting hypothesis: `drift(paper-methods) > drift(blog-recipes) > drift(repo-docs)` —
-and `drift(H)` is predictable from cheap surface features (skill count, description
-length, evidence density, update recency) with AUROC ≥ threshold on held-out
-libraries. (Empirical check: E1/E3 on public skill libraries + materials assets.)
+**Assertion C-intra (predictive intra-package drift).** Demoted: BIV / DCI /
+SKILLSCOPE already measure declaration–implementation drift at scale. We may
+still decompose `drift` by source as an appendix signal; it is not a headline
+contribution. Starting hypothesis if reported: `drift(paper-methods) > drift(blog-recipes) > drift(repo-docs)`.
 
 ## 5. Self-referential alignment (calibration, not assumption)
 
-All prior mechanisms assume an **external** auditor. capalign audits the host with
+All prior mechanisms assume an **external** auditor. cap-align audits the host with
 the host. Define the self-audit bias
 ```
 bias := drift(H_self-reported) − drift(H_externally-verified)
@@ -142,8 +185,12 @@ history + tool-version history.)
 ## Open formalism (stated, not over-claimed)
 
 Alignment as a **Galois connection** between the reference lattice and the host
-lattice is an organizing view (coverage@ref = extent-inclusion ratio), not a theorem
-we need — flagged here so the paper does not overstate. The three falsifiable
-assertions above (B, C, D) carry the empirical weight; A and E carry method
-soundness. If any fails, the framework's boundary shifts, which is the point of
-writing them down.
+lattice is an organizing view (coverage@ref = extent-inclusion ratio), not a
+theorem and not a contribution. “Epistemic graded subsumption” is a description
+of the two-predicate gate in §2, not an innovation name.
+
+Headline assertions: **C1** (residual, §0), **A** (gates, §2), **C2** via E1 IRR,
+**B / C3** (reference-conditioned coverage, §3), **D** (self-audit, §5).
+Intra-package drift (old C) and stale recall (E) are follow-ons. If C1 fails
+(\(\Delta(W)=\emptyset\) on paired works), dual-encoding collapses to a product
+feature and the paper identity weakens to C2 alone.

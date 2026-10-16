@@ -8,6 +8,10 @@ version = "0.1.0"
 requires-python = ">=3.10"
 dependencies = ["numpy>=1.26", "spglib>=2.3"]
 
+[project.urls]
+Homepage = "https://example.invalid/mini-ref"
+Documentation = "https://example.invalid/mini-ref/docs"
+
 [project.scripts]
 phon-vib = "mini_ref.cli:main"
 

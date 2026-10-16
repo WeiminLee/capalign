@@ -1,0 +1,62 @@
+{
+  "surfaces": {
+    "reference": "/Users/lwm/code/oh-my-mlip",
+    "reference_homepage": "https://oh-my-mlip.org/",
+    "host": "/Users/lwm/code/MatDiscovery",
+    "generated_at": "2026-10-16",
+    "companion_paper": null,
+    "search_used": true,
+    "search_note": "optional paper query; 0 kept. homepage already supplied"
+  },
+  "host_scan": {
+    "skill_root": "plugins/matdiscovery/skills",
+    "skill_count": 37,
+    "naive_find_skill_md": 174,
+    "excluded": [".claude/worktrees", "node_modules", "dsh/.agents"]
+  },
+  "gaps": [
+    {"ref_id": "mlip-registry", "class": "missing", "source_kind": "reference-contrast", "host_id": null, "rule": "3", "layer": "core"},
+    {"ref_id": "per-env-install", "class": "missing", "source_kind": "reference-contrast", "host_id": null, "rule": "1", "layer": "core"},
+    {"ref_id": "mlip-single-point", "class": "missing", "source_kind": "reference-contrast", "host_id": "mat-singlepoint-energy", "rule": "3", "layer": "core"},
+    {"ref_id": "mlip-relax", "class": "missing", "source_kind": "reference-contrast", "host_id": "mat-relax-analysis", "rule": "3", "layer": "core"},
+    {"ref_id": "calculator-codegen", "class": "missing", "source_kind": "reference-contrast", "host_id": null, "rule": "1", "layer": "core"},
+    {"ref_id": "catbench-adsorption", "class": "missing", "source_kind": "reference-contrast", "host_id": null, "rule": "3", "layer": "core"},
+    {"ref_id": "vasp-to-catbench", "class": "missing", "source_kind": "reference-contrast", "host_id": "mat-vasp-calculation", "rule": "3", "layer": "core"},
+    {"ref_id": "mlip-finetune", "class": "missing", "source_kind": "reference-contrast", "host_id": "mat-active-learning", "rule": "3", "layer": "core"},
+    {"ref_id": "mlip-distill-nnmtp", "class": "missing", "source_kind": "reference-contrast", "host_id": null, "rule": "3", "layer": "core"},
+    {"ref_id": "gated-hf-weights", "class": "missing", "source_kind": "reference-contrast", "host_id": null, "rule": "3", "layer": "core"},
+    {"ref_id": "lockfile-replay", "class": "missing", "source_kind": "reference-contrast", "host_id": null, "rule": "3", "layer": "core"},
+    {"ref_id": "mcp-job-server", "class": "missing", "source_kind": "reference-contrast", "host_id": "fieldmat-mcp-server", "rule": "1", "layer": "core"}
+  ],
+  "paper_projection_gaps": [],
+  "neighborhood": {
+    "kept": [
+      {"id": "onthefly-distill", "relation": "sibling", "class": "missing", "host_id": null},
+      {"id": "catbench", "relation": "sibling", "class": "missing", "host_id": null}
+    ],
+    "rejected": [
+      {"id": "roster-frameworks", "reason": "MACE/SevenNet/… are registry payload, not related works"},
+      {"id": "arxiv-2610.09644", "reason": "keyword collision; authors ≠ Moon"}
+    ],
+    "unresolved": []
+  },
+  "recommendations": [
+    {"ref_id": "mlip-registry", "placement": "new-skill", "name": "mat-mlip-hub", "rule": "3"},
+    {"ref_id": "per-env-install", "placement": "skill-scripts", "name": "mat-mlip-hub", "rule": "1"},
+    {"ref_id": "mlip-single-point", "placement": "new-skill", "name": "mat-mlip-hub", "rule": "3"},
+    {"ref_id": "mlip-relax", "placement": "new-skill", "name": "mat-mlip-hub", "rule": "3"},
+    {"ref_id": "calculator-codegen", "placement": "new-skill", "name": "mat-mlip-hub", "rule": "1"},
+    {"ref_id": "catbench-adsorption", "placement": "new-skill", "rule": "3"},
+    {"ref_id": "vasp-to-catbench", "placement": "extend", "rule": "3"},
+    {"ref_id": "mlip-finetune", "placement": "new-skill", "rule": "3"},
+    {"ref_id": "mlip-distill-nnmtp", "placement": "new-skill", "rule": "3"},
+    {"ref_id": "gated-hf-weights", "placement": "extend", "rule": "3"},
+    {"ref_id": "lockfile-replay", "placement": "extend", "rule": "3"},
+    {"ref_id": "mcp-job-server", "placement": "skip", "rule": "1"}
+  ],
+  "host_only": ["mat-phonon", "mat-qha-thermal-expansion", "mat-lattice-thermal-conductivity", "mat-equation-of-state", "mat-melting-point", "mat-convex-hull", "mat-neb-barrier", "materials-structure-modeling"],
+  "unresolved": [
+    {"ref_id": "companion-paper", "reason": "CITATION.cff type software; no preferred-citation"},
+    {"ref_id": "mattersim-identity", "reason": "FieldMat MatterSim vs registry MatterSim-v1-5M not live-verified"}
+  ]
+}

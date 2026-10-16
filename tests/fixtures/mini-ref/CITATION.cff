@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: If you use mini-ref, please cite this paper.
+title: mini-ref
+authors:
+  - family-names: Fixture
+    given-names: Ada
+doi: 10.1234/mini-ref.2015
+url: https://example.invalid/papers/qha-mini-ref-2015
+preferred-citation:
+  type: article
+  title: "Quasi-harmonic approximation with mini-ref"
+  authors:
+    - family-names: Fixture
+      given-names: Ada
+  year: 2015
+  doi: 10.1234/mini-ref.2015

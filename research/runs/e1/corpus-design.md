@@ -86,7 +86,7 @@ moved during promotion logs the reason (evaluation.md Layer-2 discipline).
 
 - **P1 gap-count mismatch**: the instance is described as 19 gaps, this draft
   derives 9 gap rows on a 13-capability reference. The original 19-gap table
-  is not preserved anywhere in capalign; three instance-recorded
+  is not preserved anywhere in cap-align; three instance-recorded
   host-admitted items (melting-point runner, collective conductivity, FF
   sanity) have **no phonopy reference capability** on a strict reading — they
   only enter a gap table if the reference inventory is broader than phonopy's

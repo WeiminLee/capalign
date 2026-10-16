@@ -1,0 +1,77 @@
+{
+  "surfaces": {
+    "reference": "tests/fixtures/mini-ref",
+    "host": "tests/fixtures/mini-host",
+    "generated_at": "2026-10-16"
+  },
+  "core": {
+    "given": {"kind": "repo", "label": "mini-ref", "layer": "core", "relation": null},
+    "companion_paper": {
+      "id": "qha-mini-ref-2015",
+      "title": "Quasi-harmonic approximation with mini-ref",
+      "relation": "companion-paper",
+      "layer": "core",
+      "doi": "10.1234/mini-ref.2015",
+      "evidence": "CITATION.cff preferred-citation; local papers/qha-mini-ref-2015.md",
+      "inventory_gold": "mini-companion-paper.json"
+    }
+  },
+  "neighborhood": {
+    "kept": [
+      {
+        "id": "mini-thermal-kit",
+        "relation": "sibling",
+        "layer": "neighborhood",
+        "confidence": "medium",
+        "class": "equivalent",
+        "host_id": "heat-flow",
+        "evidence": "docs/related.md; README see-also",
+        "note": "lightweight: BTE companion named by the core work; do not clone"
+      },
+      {
+        "id": "mini-3ph",
+        "relation": "sibling",
+        "layer": "neighborhood",
+        "confidence": "medium",
+        "class": "unknown",
+        "evidence": "README named-unlinked; search-double same author Ada Fixture",
+        "note": "search was necessary; identity gate keeps same-author software; no neighbor-owned docs so not missing"
+      }
+    ],
+    "rejected": [
+      {
+        "id": "top-10-phonon-codes-2024",
+        "reason": "keyword-only listicle; no DOI/author/declared-related match"
+      }
+    ]
+  },
+  "search": {
+    "necessary": true,
+    "reason": "mini-3ph named in README with no URL",
+    "queries_used_max": 3,
+    "kept_neighborhood_max": 5,
+    "source": "tests/fixtures/mini-ref/neighborhood-search-double.json",
+    "live_network": false
+  },
+  "projection_split": {
+    "repo_arm": "gold-mini-ref-vs-mini-host.json — qha remains unknown (doc-claim-without-code)",
+    "paper_arm": "mini-companion-paper.json — qha-protocol is high (Methods statement)",
+    "do_not_merge": "C3: coverage forks; neighborhood rows must not appear in the core repo gap table"
+  },
+  "traps_asserted": [
+    "CITATION.cff companion paper is core, not neighborhood",
+    "declared sibling mini-thermal-kit kept at medium",
+    "named-unlinked mini-3ph triggers search; same-author hit kept",
+    "keyword lure Top 10 phonon codes 2024 rejected",
+    "search snippet alone cannot drive missing",
+    "repo-projection gold unchanged: qha still unknown on the repo arm"
+  ],
+  "log": [
+    {
+      "date": "2026-10-16",
+      "what": "new gold: companion-paper recovery + bounded neighborhood gate on mini-ref",
+      "why": "repo input now recovers W_paper (core) and a budgeted neighborhood N; identity gate and two-stratum report are the traps",
+      "trigger": "product completeness: homepage / web-search for further alignment materials"
+    }
+  ]
+}

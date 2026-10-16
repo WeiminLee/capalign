@@ -1,120 +1,124 @@
-# Research brief — Material Capability Engineering
+# Research brief — Host-relative alignment of dual-encoded scientific works
 
-**Working title:** *From Scientific Software Assets to Agent Capabilities: Representing, Aligning, and Verifying Capability Surfaces for Materials Agents*
+**Working title:** *From Scientific Works to Agent Capabilities: Host-Relative Alignment of Dual-Encoded Specifications*
 
-**Status:** research brief v0.1 (2026-10-15). Anchor for the paper; capalign (this repo) is the first complete instantiation of the proposed paradigm.
+**Status:** research brief v0.2 (2026-10-16). Identity revised: the object is an
+incoming scientific work \(W=(\mathrm{paper},\mathrm{repo})\) aligned to an
+existing host agent \(H\). cap-align is the measurement instrument, not the
+contribution. Canonical Chinese statement: `docs/paper-core.md`.
 
 ---
 
 ## 1. Problem
 
-Materials (computational) software — phonopy, ASE, pymatgen, VASP, QE — is a
-half-century pool of *community-verified scientific capability assets*. A materials
-agent's capability surface is essentially the interface layer over those assets.
-Three observed phenomena, one research question:
+Materials science now accumulates two piles at once: deployed materials agents
+(MatDiscovery, El Agente Sólido, PolyJarvis, Catalyst-Agent, …) and published
+works that arrive as a **paper plus a companion repository**. A user holding
+their own agent and a new paper needs a decision, not a re-implementation:
 
-1. **Fragmented re-wiring.** Every materials agent (MatDiscovery, El Agente Sólido,
-   PolyJarvis, Catalyst-Agent, …) manually rewires the same asset pool. MCP solves the
-   transport layer, not the capability-semantics layer.
-2. **Claim drift is a real, measured problem.** BIV audited 49,943 skills and found
-   **80.0% of declarations diverge from implementation**; Lejaeghere et al. (Science
-   2016) showed codes can be cross-validated against each other; AutoMat (2026) showed
-   agents reproduce paper claims only ~53% of the time. **These two threads — "codes
-   are mutually verifiable" and "agents cannot reproduce claims" — have never been
-   joined.**
-3. **Three knowledge modalities cannot be unified.** The same capability ("compute
-   heat capacity") exists as code (phonopy), method (paper), and recipe (blog). Existing
-   work treats each separately: BIV audits skills only, ChatExtract extracts data only,
-   MatPROV builds process graphs without software nodes, blog-side is empty.
+> Which capabilities of this paper does my agent already have, which are missing,
+> and where should each gap land on my architecture?
 
-**Research question.** Can an agent's capability surface be managed as a
-first-class, computable object — representable, alignable, verifiable — instead of a
-one-off, hand-assembled artifact?
+Three neighbouring questions are already occupied:
 
-## 2. Methodology — a three-layer closed loop
+1. **Reproduction.** AutoMat (2026) asks whether an agent can run a paper claim
+   to completion (best setting ~53%). That is task success, not host coverage.
+2. **Generation.** SkillFoundry compiles heterogeneous scientific resources into
+   new skills. The output is a skill package, not a gap table against *this* host.
+3. **Intra-artifact audit.** BIV / SkillConsist / DCI compare a skill (or MCP
+   tool) with *its own* implementation. SciCoQA / paper–code consistency compare
+   a paper with *its own* code at sentence–function grain.
+
+**Research question.** Can a published scientific work be treated as a capability
+specification and aligned, evidence-gated, to an already-deployed scientific
+agent — and do the paper encoding and the repo encoding specify the same surface?
+
+“Quick” is the operational corollary of a **static decision procedure**: no
+execution of the reference, no implementation of the gap. It sits *before*
+generation and *before* reproduction.
+
+## 2. Methodology — a decision procedure (instrument, not contribution)
 
 ```
-      Represent                          Align                          Verify
-repo ──┐                           ┌─ equivalent/partial/            ┌─ evidence-first protocol
-paper ─┼─→ Capability IR ──→  host surface ──→ missing/host-only ───→ recommendations
-blog ──┘    (typed+evidence)      ref surface      /unknown ×3 sources   (5 questions)
-                                                                    └─ fixture gold + determinism
-                                       ↑                                      │
-                                       └────────── loop: re-inventory ←────────┘
+W_paper ──┐
+          ├──→ Capability IR ──→ Gap(H, W) ──→ placement (5 questions)
+W_repo  ──┤     (typed+evidence)   five-way × 3 sources
+H_host  ──┘                        evidence-gated
+                 │
+                 └── coverage(H, W_paper)  vs  coverage(H, W_repo)
 ```
 
-- **Represent.** Capability IR: typed capabilities (`compute/tool/workflow/data/interface/concept`)
-  + evidence (path:line / quote) + confidence + source kind. Semantic anchors: CORA /
-  IEEE 1872 capability ontology (capability-as-conditional-enablement), OWL-S / WSMO
-  contracts (IOPE / PAPE).
-- **Align.** Five-gap classification (`equivalent/partial/missing/host-only/unknown`)
-  × three source kinds (`host-self-audit / reference-contrast / domain-inference`) +
-  five-question placement. The matching dimension has mature ancestors — Paolucci's
-  four-way service matching (ISWC 2002) and requirements-traceability states (Gotel &
-  Finkelstein 1994) — so the claims are *not* "first matching": they are **self-referential,
-  cross-source, evidence-gated alignment** on an agent auditing itself.
-- **Verify.** Validate-before-classify (every suspected gap is grep-verified against
-  host code/artifacts), per-run 8-point self-check, synthetic-fixture gold acceptance,
-  same-input determinism re-run. Anchors: BetterBench meta-evaluation × ClaimReceipt
-  evidence receipts × reproducibility obligations. Position: registries/credentials
-  manage *who signed*, behavioral verification manages *is the code right*; the middle
-  layer — "does the claim have mandatory, machine-checkable evidence" — is
-  **unsystematized**.
+- **Specification.** \(W=(W_{\mathrm{paper}}, W_{\mathrm{repo}})\) induces two
+  surfaces. Identity across encodings uses one predicate: semantic match
+  \(\in\{\mathrm{exact},\mathrm{plugin},\mathrm{subsume}\}\) and evidence
+  strength \(\ge\theta\). Blog is a third encoding; the paper pins paper/repo.
+- **Decision procedure.** \(\mathrm{Gap}(H,W)\): five-way class × three source
+  kinds + placement. Validate-before-classify; low-confidence evidence cannot
+  alone yield `missing`; adding evidence may turn `unknown→missing` and never
+  the reverse without a host artifact. Output stops at recommendations.
+- **Coverage.** \(\mathrm{coverage}(H,W)\) is reference-conditioned: the paper
+  projection and the repo projection can (and, we claim, do) fork. Intra-artifact
+  `promise-drift` is a decomposition term, not the headline metric.
 
-## 3. Contributions (re-ranked: empirics first, tool as carrier)
+Represent / align / verify is the *shape of the instrument*. Closed loops are
+common in 2026 skill systems; they are not a contribution.
 
-The paper's value is **new, falsifiable knowledge** — measured, not built. capalign
-(the repo this brief anchors) is the *implementation carrier* of the measurements,
-not the contribution itself. Formal definitions are pinned in
-`formal-foundations.md`; each contribution carries its assertion (A–E) and experiment
-(E1–E3).
+## 3. Contributions
 
-| # | Contribution (what we find/establish) | Assertion | Experiment |
+| # | Contribution | Assertion | Experiment |
 |---|---|---|---|
-| 1 | **Promise drift is a measured distribution, not a headline number.** BIV reported one aggregate (80%); we decompose drift by claim source (paper-methods / blog-recipes / repo-docs), isolate a `fabricated` tier (no evidence at all), and test whether drift is *predictable* from cheap surface features. | C | E1/E3 |
-| 2 | **Alignment-driven assembly beats the baselines, with an "enoughness" threshold.** Acting on the report's gaps improves task success more than random / no / retrieval-based assembly — and gains plateau at `coverage* < 1` (diminishing returns, a counter-intuitive shape no one has measured for capability surfaces). | B | E2 |
-| 3 | **Self-referential alignment is systematically biased but calibratable.** The host auditing its own surface over-claims (bias ≥ 0) yet the bias is stable per source and correctable; if it is not, the closed-loop governance claim explicitly weakens to external-audit-only. First measurement of the "no external auditor" regime. | D | E4 |
-| 4 | **Formal objects + metrics:** capability IR as typed corpus; `coverage@reference` (raw vs adequacy-gated, Zhu 1997); `promise-drift rate` decomposed; gap classification as epistemic graded subsumption (semantic match ∧ evidence threshold). Definitions are checkable; Galois-connection view deliberately not over-claimed. | A | E1 |
-| 5 | **Scientific-software-asset → agent-capability paradigm + governance loop.** Materials software is half a century of community-verified assets (Lejaeghere cross-validation); the closed represent–align–verify loop with stale-skill recall is its first capability-engineering instantiation. capalign is the carrier; phonopy↔MatDiscovery (19 gaps, 3 false-gap catches) is the case study. | E | E3 |
+| **C1** | **A scientific work is a dual-encoded capability specification.** Paper methods and companion-repo interfaces share an identity predicate; taking only one encoding leaves the specification incomplete. Distinct from intra-package declaration–implementation audit and from sentence–function paper–code discrepancy. | Residual \(\Delta(W_{\mathrm{paper}},W_{\mathrm{repo}})\) is non-empty and classifiable | **EΔ** (unrun; phonopy paper vs phonopy repo) |
+| **C2** | **Host-relative alignment is a decision problem.** \(\mathrm{Gap}(H,W)\) is static, evidence-gated, reproducible, and stops at placement. Distinct from reproducing a claim (AutoMat) and from compiling skills (SkillFoundry). | A (evidence monotonicity); IRR on both the repo arm and the paper arm | E1 (P1 κ=0.853, P2 κ=1.000; same-model judges) |
+| **C3** | **Coverage is reference-conditioned.** \(\mathrm{coverage}(H,W_{\mathrm{paper}})\) and \(\mathrm{coverage}(H,W_{\mathrm{repo}})\) diverge; residual type tells wrap-the-interface from honour-the-method. Distinct from Skill Coverage (trajectory vs a skill’s own constraints) and from BIV’s 80% intra-package drift. | Assembly along the paper spec vs the repo spec yields different task-gain shapes | E2 (protocol ready; gold pending) |
 
-**Defensive thesis** (against "matching is old"): not "first capability matching" —
-that loses to Paolucci/RE — but **"first measurement of capability-surface
-phenomena (drift distribution, assembly gain with threshold, self-audit bias) on
-top of a formally defined alignment"**. The tools are the instruments; the findings
-are the paper.
+Self-audit bias (E4) hangs off C2: whether the host can stand in for an external
+alignment against incoming \(W\). Stale-skill recall (old assertion E) is
+governance follow-on, not a headline contribution.
 
-## 4. Positioning vs. neighbors (system layer)
+**Defensive thesis.** Matching is old (Paolucci / RE). The claim is host-relative
+alignment of a dual-encoded scientific work, plus the finding that coverage forks
+with the encoding. The skill is the instrument; the residual and the
+reference-conditioned coverage are the paper.
 
-| Neighbor | System-layer position | Our difference |
+## 4. Positioning vs. neighbours
+
+| Neighbour | Their question | Ours |
 |---|---|---|
-| Externalization (2604.08224) — capabilities externalized into memory/skills/protocols/harness | most mature "capability engineering" account | no scientific software, no reference anchoring — we instantiate it in materials |
-| SkillOps (2605.13716) / SkillFoundry (2604.03964) | skill libs as software ecosystems; heterogeneous resources → skill generation | we produce alignment/gaps/placement, not generation/ops |
-| AutoMat (2605.00803) | paper → workflow → verify; 53% reproduction | evaluation only, no representation/alignment; we join it with Lejaeghere's code cross-validation |
-| CDD (Capability Driven Development, BISE 2015) | the one complete represent-align-verify framework | organizational processes, not self-referential agents |
-| TessIndex / LEGIT / Market-for-Lemons | capability verification into identity/credentials/trust | mechanism layer; we do content-level evidence verification |
+| AutoMat (2605.00803) | Can the agent reproduce this claim? | Which capabilities of this work does the host already cover? |
+| SkillFoundry (2604.03964) | Can resources be compiled into skills? | Where does each gap land on *this* host? Stop at advice. |
+| SciCoQA (2601.12910) / Do Papers Match Code? (2603.22018) | Does this paper match *its own* code? | Does this paper+repo, as a spec, sit relative to *another* agent? |
+| BIV (2605.11770) / SkillConsist (2608.07639) / DCI (2606.04769) | Does a skill/tool match its own implementation? | Does an incoming work get covered by the host? |
+| Skill Coverage (2606.20659) | Did the trajectory exercise the skill’s own constraints? | Did the host cover the external scientific work? |
+| SkillOps (2605.13716) | Library-internal merge / repair / retire | Demand-side: a new work against an existing surface |
+| ClaimReceipt / TessIndex / Lemons | Credentials, identity, market mechanisms | Content-level, host-relative evidence gates |
+| Externalization (2604.08224) / CDD | Capability-as-infrastructure / organisational processes | Scientific work → deployed scientific agent |
 
-Materials anchoring: the field has the most centralized, standardized, community
-cross-verified software asset pool (Lejaeghere: 40 codes cross-validated) — the best
-testbed for capability engineering.
+Materials is the instance: many agents, many paper–repo pairs, the deepest
+community-verified software pool (Lejaeghere). The generic method names no host
+file and no domain lexicon.
 
 ## 5. Evidence plan (see `experiments.md`)
 
-E1 inter-rater reliability of gap/source classification (κ); E2 before/after task gain
-from report-driven capability assembly; E3 coverage@reference / promise-drift evolution
-on real libraries incl. stale-skill recall; E4 self-referential alignment reliability
-(calibration of self-reported vs verified surface — a theoretical gap).
+- **E1** IRR of \(\mathrm{Gap}(H,W)\) on a repo arm and a paper arm (C2).
+- **EΔ** residual \(W_{\mathrm{paper}}\bowtie W_{\mathrm{repo}}\) on a paired
+  work (C1/C3 lifeline; unrun).
+- **E2** assembly along paper spec vs repo spec vs random / none (C3).
+- **E3** library-level distribution of \(\mathrm{coverage}(H,W)\); intra-package
+  drift demoted to an appendix decomposition.
+- **E4** self-report vs externally verified surface against incoming \(W\) (C2).
 
-Case study assets already in hand: phonopy↔MatDiscovery full record (19 gaps, A–E
-tiers, three false-gap catches), the real 37-skill MatDiscovery library, and
-SKILLS-AUDIT as real claimed-vs-actual drift corpus.
+Seed corpus: phonopy↔MatDiscovery (19 gaps, A–E tiers, three false-gap catches)
+and the 37-skill host library.
 
 ## 6. Risks & defense
 
-- Crowded 2026 field → differentiate on three words: **materials-anchored · evidence-graded ·
-  bilateral reference alignment** (not trust layers, not capability-representation
-  theory, not skill generation).
-- "Matching is not new" → theory pillar = reuse-not-invent (ontology/DL lattice for
-  representation; contract/behavioral subtyping for verification; Galois connection for
-  metrics); every layer has a named community.
-- "Skill-scope too narrow" → frame at the system layer: scientific software assets →
-  agent capabilities, with the closed loop as the methodology system.
+- Crowded 2026 skill-audit field → differentiate on **host-relative · dual-encoded
+  scientific work · reference-conditioned coverage**. Intra-package drift, skill
+  generation, and claim reproduction are occupied.
+- “Matching is not new” → grant Paolucci/RE; the object is \(W\) against \(H\),
+  with a residual between encodings.
+- “Two input adapters” → the paper must lead with the residual (C1/C3), or
+  dual-modality collapses to a product feature. EΔ is therefore first priority.
+- Empirics currently cannot carry a findings-first paper (EΔ unrun, E2 gold
+  pending, E4 unfalsifiable on mini). Method+phenomenon identity (C1–C3 as
+  definitions plus a residual measurement) is the honest present tense.

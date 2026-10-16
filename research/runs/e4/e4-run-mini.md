@@ -1,6 +1,6 @@
 # E4 feasibility run — mini fixtures, two passes (measured)
 
-Run date: 2026-10-15. Host agent: capalign host (this agent), running the skill
+Run date: 2026-10-15. Host agent: cap-align host (this agent), running the skill
 workflow itself. **Mini-scale, non-conclusive** — a feasibility signal, not a
 verdict (see protocol §7.4).
 

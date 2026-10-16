@@ -1,32 +1,29 @@
-# Abstract (draft v0.1)
+# Abstract (draft v0.2)
 
-Materials (computational) software — phonopy, ASE, pymatgen, VASP, QE — represents a
-half-century pool of community-verified scientific capability assets. Yet the agents
-now being built on top of them re-wire the same asset pool by hand, claim
-capabilities they do not verifiably possess, and manage their capability surfaces as
-one-off artifacts rather than as engineered objects. We propose **capability
-engineering for scientific agents**: a three-layer method — *represent, align,
-verify* — closed into a self-referential loop. (1) **Represent**: a cross-modal
-capability intermediate representation (IR) that normalizes the same capability as it
-appears in three knowledge modalities — software repositories (CLI entry points,
-modules, dependency fingerprints), papers (method steps, software dependencies,
-products), and experience write-ups (commands, recipes, claims) — into one typed
-lattice with evidence, confidence, and provenance. (2) **Align**: bilateral alignment
-of a host agent's capability surface against any reference, producing a five-way gap
-classification (equivalent / partial / missing / host-only / unknown) tagged with
-three source kinds (host self-audit / reference-contrast / domain inference), and
-placement recommendations. Gap classification is *evidence-gated*: a candidate gap is
-classified only after code-level validation against the host, and never from
-low-confidence evidence. (3) **Verify**: per-run self-checks, synthetic-fixture gold
-acceptance, and same-input determinism make the alignment itself auditable, and
-define library-level metrics — coverage@reference and promise-drift rate — for
-capability-surface governance. We instantiate the method with the first complete
-reproduction of the paradigm: aligning a materials agent with 37 skills against
-phonopy, demonstrating the discovery of 19 capability gaps, three false-gap catches,
-and a prioritized assembly plan. Unlike skill-generation (SkillFoundry) and
-skill-auditing (BIV) work, our contribution is the closed represent–align–verify loop
-on a self-referential agent, anchored in the community-verified software assets of
-materials science.
+Materials science now accumulates deployed agents and published works that arrive
+as a paper plus a companion repository. A user who already has an agent, facing a
+new paper, needs to know which of the paper’s capabilities the agent already
+covers, which are missing, and where each gap should land — before anyone
+reproduces a claim or compiles a new skill. We treat a published scientific work
+\(W=(\mathrm{paper},\mathrm{repo})\) as a **dual-encoded capability
+specification**: the paper encodes method steps, validity conditions, and claimed
+products; the repository encodes interfaces, modules, and executable paths.
+Identity across encodings is a single evidence-gated predicate (semantic match
+and an evidence threshold). We then define **host-relative alignment** as a
+static decision procedure \(\mathrm{Gap}(H,W)\): a five-way gap class, a source
+kind, and a placement recommendation, produced without executing the reference
+and without implementing the gap. Coverage is **reference-conditioned**:
+\(\mathrm{coverage}(H,W_{\mathrm{paper}})\) and
+\(\mathrm{coverage}(H,W_{\mathrm{repo}})\) can fork, so aligning to only one
+encoding under-specifies either method obligations or software interfaces. We
+instantiate the procedure on materials agents, including a 37-skill host aligned
+to phonopy (19 gaps, three false-gap catches). Unlike claim reproduction
+(AutoMat), skill compilation (SkillFoundry), intra-artifact declaration–
+implementation audit (BIV, SkillConsist), and paper–code discrepancy detection
+(SciCoQA), the object is an incoming scientific work against an already-deployed
+host. The skill that runs the procedure is the instrument; the contributions are
+the dual-encoded specification, the host-relative decision procedure, and
+reference-conditioned coverage.
 
-**Keywords:** agent capabilities; capability alignment; scientific software assets;
-materials agents; claim verification; skill engineering.
+**Keywords:** agent capabilities; capability alignment; scientific software;
+materials agents; paper–repository specifications; host-relative coverage.
