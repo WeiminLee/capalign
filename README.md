@@ -6,7 +6,7 @@
 
 **框架无关 · 可插拔 · 零捆绑** 的 agent skill。
 
-![cap-align 执行过程：参考物（repo 先回收配套论文与有界邻域）→ 八步工作流 → 核心差距表、邻域节、落点建议](docs/images/cap-align-principle.png)
+![cap-align 执行过程：参考物（repo / paper / blog）→ 八步工作流（①盘点参考 ②盘点宿主 ③归一化 IR ④交叉验证 ⑤分类+来源 ⑥落点 ⑦报告 ⑧自检门）→ 输出报告与 IR](docs/images/cap-align-principle.png)
 
 ---
 
@@ -65,14 +65,13 @@ cap-align 解决一个具体问题：
 **1. 安装 —— 一行命令**
 
 ```bash
-npx skills add WeiminLee/cap-align -g     # 全局安装；或 -p 装到当前项目
+npx skills add WeiminLee/capalign -g     # 全局安装；或 -p 装到当前项目
 ```
 
-装好后 skill 出现在宿主框架 skills 目录（如 `.agents/skills/capability-align`），
-适用于 Claude Code / Cursor / Codex / GitHub Copilot 等。想先试用、不落盘：
+GitHub 仓库名是 `capalign`（无连字符）。装好后 skill 出现在宿主框架 skills 目录（如 `.agents/skills/capability-align`），适用于 Claude Code / Cursor / Codex / GitHub Copilot 等。想先试用、不落盘：
 
 ```bash
-npx skills use WeiminLee/cap-align@capability-align
+npx skills use WeiminLee/capalign@capability-align
 ```
 
 **手动安装**：也可直接把 `SKILL.md` 与 `references/` 拷入宿主框架的 skills 目录，
