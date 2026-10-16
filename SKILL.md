@@ -92,7 +92,9 @@ appear in the gap table.
 For every `missing` / `partial` gap, apply the placement decision
 (`references/alignment-rules.md` §Placement): axis → tool-vs-script →
 new-skill-vs-extend → constraint ownership → never-low-evidence →
-**host-owned (rule 6)**. A recommendation names a host skill/tool/script/extend
+**host-owned (rule 6)**. Apply §Skill boundary and tool duty: do not put a
+second scientific argument in an existing skill body, and do not open a skill
+for a single-consumer postprocess or a render. A recommendation names a host skill/tool/script/extend
 the host would own; it may call an upstream scientific engine; it must not
 clone, wrap, or MCP-mount the reference agent/hub. Order the recommendations
 with the stated priority judgment (`methodology.md` Phase 5: fix-wrongness >

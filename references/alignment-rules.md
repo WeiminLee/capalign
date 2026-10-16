@@ -80,10 +80,13 @@ source kind informs priority (host self-audit first). Then ask, in order:
 2. **Tool vs script** — change-count test: a capability that one place computes and
    several consume is a shared tool; something only one skill consumes belongs in that
    skill's own companion scripts. Gate/render/audit/parallelism needs push it to a tool.
+   Duty: the skill decides whether to call and how to read the result; the tool does
+   not own the scientific argument. See §Skill boundary and tool duty.
 3. **New skill vs extend** — same input contract + adjacent problem class → extend the
-   existing skill (minimal body addition + a dedicated reference page); an independent
-   routing trigger or a different input contract → new skill. Naming/prefixes are the
-   host's convention.
+   existing skill (three body lines plus a reference page); an independent routing
+   trigger or a different input contract → new skill. A second argument inside an
+   existing body is bloat; a new skill for an adjacent postprocess is fragmentation.
+   Naming/prefixes are the host's convention. See §Skill boundary and tool duty.
 4. **Constraint ownership** — state which layer owns each validity constraint:
    static-checkable → linter/gate; runtime-known → hook/runner self-report;
    never-mechanical → agent judgment in the skill body. The recommendation names the
@@ -103,6 +106,61 @@ source kind informs priority (host self-audit first). Then ask, in order:
    Invalid: "new skill wrapping a clone of the reference." Valid: "new host
    skill that runs this protocol on host compute / an upstream scientific
    library." License of a sibling engine is reported, not decided.
+
+## Skill boundary and tool duty
+
+A skill is one argument the catalog can select. A tool is one deterministic
+callable. Bloat and fragmentation are the two failures of the same test
+(placement rule 3). Line count is not the test.
+
+### One skill
+
+- **One catalog trigger.** The description matches one question a user would
+  ask. A second question asked under a different name is a different skill.
+- **One input contract.** Extend only when the new observable uses an input
+  the skill already accepts.
+- **One validity argument.** The body states when the number must not be
+  believed. A second regime (a second grid, a second Hamiltonian, a second
+  "do not conclude") does not belong in that body.
+- **Three lines, then a reference.** An extension adds one toolbox line, one
+  outputs line, and one references line. The method lives in that skill's
+  reference page, not in a second method section.
+- **A handoff is one line.** Rendering a figure, or emitting a structure for
+  another skill, is a pointer. It is not a method chapter.
+
+Bloat is that second argument appearing in the body. It is not "this skill
+name now covers several adjacent observables," and it is not a long reference
+page. Fragmentation is the opposite: a new skill whose description overlaps
+an existing one, so the model cannot choose.
+
+A variant of the same question (an opt-in correction, an extra term, an
+explicit-intent mode) stays in the skill only while each variant is three
+lines plus a reference. When the goal states two procedures side by side,
+split.
+
+### One tool
+
+- A tool computes or renders a deterministic result that more than one skill
+  calls, or that needs a gate, a render path, an audit, or parallelism.
+- A postprocess with a single consumer is that skill's script. It is not a
+  new tool and not a new skill.
+- The skill owns the decision and the reading of the result. The tool owns
+  the calculation.
+- Do not mint one tool per calculator or file format when the observable is
+  the same. Calculator breadth is one interface, not N tools.
+
+### Validating instance
+
+Not the rule. Phonopy against MatDiscovery (2026-10-16) is the instance that
+forced the wording. Harmonic LO–TO stayed on the phonon skill: same
+finite-displacement contract. NAC on the quasi-harmonic grid, the electronic
+free-energy term, and anisotropic expansion stay on the quasi-harmonic skill
+under the three-line cap; a second method section would split them. Thermal
+displacements and mode irreps are scripts on the skill that already holds the
+modes. Band and DOS plots are a visualizer tool. Animation is a one-line
+handoff to that viewer. Infrared and Raman intensities are a new skill: the
+question is a spectrum. SSCHA is a new skill: the input is an iterative
+finite-temperature force constant, not one harmonic task.
 
 ## Host doctrine adaptation
 If the host documents its own capability surface (axis definitions, skill shape,

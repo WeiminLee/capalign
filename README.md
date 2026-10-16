@@ -124,7 +124,7 @@ python3 research/tools/drift-meter.py <skills_dir> --registry reg.json --table
 | 归一化 | 三种知识形态 → 统一 IR：`type（compute/tool/workflow/data/interface/concept）+ evidence + confidence + source` |
 | 验证门 | 每个疑缺口先 grep 宿主代码、读产物 spec、查既有部分路径；首跑 ~25 个候选中 grep 干掉 4 个假缺口 |
 | 双谓词判定 | 覆盖 = 语义匹配 ∧ 证据强度 ≥ 阈值；`partial` 是严格子集语义；`low` 置信证据永远推不出 `missing` |
-| 落点六问 | axis（skill / tool / plugin）→ tool vs script → 新 skill vs 扩既有 → 约束归属 → never → 宿主自有（不 wrap 参考 agent） |
+| 落点六问 | axis（skill / tool / plugin）→ tool vs script → 新 skill vs 扩既有 → 约束归属 → never → 宿主自有（不 wrap 参考 agent）。一个 skill 是一条 catalog 问法、一份输入、一套「何时不能信」；臃肿是正文里的第二套论证，不是能力条数。tool 做确定性计算或渲染，单消费者后处理留在该 skill 的脚本 |
 | 报告 + 自检 | 报告头块 10 项自检（含邻域分层、宿主自有落点）；同输入重跑必须产出相同差距表 |
 
 三个设计纪律（`references/methodology.md`）：
