@@ -79,7 +79,13 @@ the comparison table alone — the first instance produced false candidates this
 way (see `methodology.md` §2/§3). Record the validation evidence per candidate.
 
 ### 5. Classify & source-tag
-Assign each reference capability a class from `references/alignment-rules.md`
+Apply §Alignment boundary before a row becomes `missing`. Alignment is whether
+the host's existing question still stands, not whether the reference menu is
+copied. A different question, or the same observable through another code or
+file, is a boundary unless the host already offers that question. An honest
+refusal closes a boundary; labeling the other quantity as this one does not.
+
+Assign each in-bound reference capability a class from `references/alignment-rules.md`
 §Gap classification: `equivalent | partial | missing | host-only | unknown`, and
 tag it with a source kind: `host self-audit | reference-contrast | domain
 inference` (`methodology.md` Phase 3). Same domain observable on a different
@@ -92,7 +98,8 @@ appear in the gap table.
 For every `missing` / `partial` gap, apply the placement decision
 (`references/alignment-rules.md` §Placement): axis → tool-vs-script →
 new-skill-vs-extend → constraint ownership → never-low-evidence →
-**host-owned (rule 6)**. Apply §Skill boundary and tool duty: do not put a
+**host-owned (rule 6)**. Apply §Alignment boundary again: do not recommend a
+reference menu item the host has not offered. Apply §Skill boundary and tool duty: do not put a
 second scientific argument in an existing skill body, and do not open a skill
 for a single-consumer postprocess or a render. A recommendation names a host skill/tool/script/extend
 the host would own; it may call an upstream scientific engine; it must not

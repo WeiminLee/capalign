@@ -87,8 +87,8 @@ question classes). The judgment must be stated in the report so it can be argued
 ### Phase 6 — Granularity against the host's authority
 Placement uses the host's own decision boundaries where it has any (its capability
 doctrine: what a skill is, what a tool is, naming, where scripts live). Where the host
-has no doctrine, fall back to `alignment-rules.md` §Placement and §Skill boundary
-and tool duty. Never invent host rules for the occasion; never apply another
+has no doctrine, fall back to `alignment-rules.md` §Alignment boundary,
+§Placement, and §Skill boundary and tool duty. Never invent host rules for the occasion; never apply another
 host's doctrine as law.
 
 ### Phase 7 — Advice, stopping at advice

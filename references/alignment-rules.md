@@ -107,6 +107,43 @@ source kind informs priority (host self-audit first). Then ask, in order:
    skill that runs this protocol on host compute / an upstream scientific
    library." License of a sibling engine is reported, not decided.
 
+## Alignment boundary
+
+Alignment stops at the question the host already answers. It does not extend
+to the reference's menu. A reference command, file format, or calculator is
+not a gap by itself.
+
+Ask, in order, before a row becomes `missing` or a recommendation:
+
+1. **Is this a question the host catalog already answers?** If no, it is not
+   alignment debt. It is a decision to open a new question. Leave it outside
+   the gap table, or record it as a boundary the host has not offered.
+2. **If yes, is the host's number silently wrong where the reference requires
+   a correction?** If yes, the row is inside the boundary (`partial` or
+   `missing`). Fix-wrongness outranks a new question.
+3. **Is the hole the same observable through another code or file, or a
+   different observable?** Another code or file is `equivalent` or a recorded
+   boundary, not `missing`. A different observable is a gap only when the host
+   has already chosen to answer that question. An honest refusal closes the
+   boundary. A run that computes the other quantity and labels it as this one
+   does not.
+
+### Validating instance
+
+Not the rule. Phonopy against MatDiscovery, after the 2026-10-16 passes.
+Harmonic dispersion is a host question, and polar bands without LO–TO were
+silently wrong, so NAC on that task is inside the boundary. Quasi-harmonic
+Cp and expansion are also a host question; polar volumes that never receive
+NAC stay inside the boundary until that correction exists. Anisotropic
+expansion is the same family with a different validity regime: refusing it is
+a closed boundary, and running the isotropic grid under that name is not.
+SSCHA is a different question; a record that can be reported as converged is
+worse than not offering it. Raman is the rest of an opened spectra question,
+blocked on a missing polarizability derivative, not on an unported phonopy
+command. Dynamic structure factor S(Q,ω), band unfolding, an MLP training
+dump, and extra DFT calculators are other questions or other engines. They
+stay outside.
+
 ## Skill boundary and tool duty
 
 A skill is one argument the catalog can select. A tool is one deterministic
