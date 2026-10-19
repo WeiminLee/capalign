@@ -48,6 +48,11 @@ IR (see `capability-ir.md`).
 
 ## B. Paper inventory (`inventory_paper`)
 
+0. **Blindness (mandatory on dual-encoded works).** Run this pass without having
+   read the repo arm in the same pass; finish every slot's `span`/`quote` here
+   before §A output is consulted. Merge by product identity happens only after
+   both arms are frozen (SKILL.md step 1).
+
 1. **Methods → Steps** — decompose the Methods section into steps; a step that
    computes something → `compute`; that orchestrates steps → `workflow`;
    that the authors say must be run (software, solver, dataset) → `tool`/`data`.
@@ -71,6 +76,18 @@ IR (see `capability-ir.md`).
    is `concept`/`low` at most, and often not a capability at all.
 
 ## D. Host-agent inventory (`inventory_host`)
+
+0a. **Sync before scope (mandatory when git + remote exist).**
+   ```bash
+   git -C <host> remote -v 2>/dev/null || echo not-a-git-repo
+   git -C <host> fetch && git -C <host> pull --ff-only
+   git -C <host> status --porcelain; git -C <host> rev-parse HEAD
+   ```
+   Non-fast-forward, uncommitted changes, or any conflict → **stop**, show the
+   caller the status, and wait for their decision (stash / commit / discard /
+   proceed-dirty). Never auto-stash, auto-merge, or auto-resolve. Record the
+   synced commit hash (or `not-a-git-repo` / `paused-user-decision`) for the
+   report; the frozen host list is taken from this synced state.
 
 0. **Scope the tree before scanning (F4).** Read the host doctrine if present
    (`CAPABILITY-SURFACE.md`, `AGENTS.md`, `ARCHITECTURE.md`): the declared

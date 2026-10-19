@@ -1,5 +1,36 @@
 # 项目进展 — cap-align（能力对齐 skill + 论文实证）
 
+> 更新：2026-10-19（五）。宿主同步前置：对齐前先对宿主 `git pull --ff-only`，
+> 拉不动（未提交改动 / 分叉 / 冲突）就停跑并把 `git status` 交给用户裁决
+> （stash / commit / discard / proceed-dirty），skill 永不自动解决；
+> 同步结果（commit 哈希或暂停原因）进报告 `surfaces.host_sync`，冻结的宿主清单
+> 取自同步后的状态。落点：`SKILL.md` step 2、heuristics §D.0a、report-contract
+> surfaces/第 1 节、Layer-1 第 1 项。
+>
+> 更新：2026-10-19（四）。验证诚实性落码：卡片新增 `verification` 块
+> （三拍 `fail_before` / `pass_after` / `destroy` 各自 `pass|fail|not-run` + 证据），
+> 状态三态 `e2e-verified | contract-only | failed`；报告契约新增必含节
+> **Verification ledger**（逐卡状态 + 计数），contract-only 的产物禁止被声称已交付；
+> 结语改为明示"contract-only 卡片的测试从未执行"。Layer-1 加第 14 项（验证诚实性）。
+> 金标 6 卡全部标 `contract-only` 并记 log。
+>
+> 更新：2026-10-19（三）。skill 硬化 P0–P2 落码：盲盘纪律进 `SKILL.md` step 1 与
+> heuristics §B（两侧槽位冻结后才按产物合并）；κ 判断步骤进 step 6（仅 s=e=1 时问，
+> 判不了为 0）；卡片槽位升级为 `{filled, span, quote}` 对象；卡片新增
+> `prescribed` / `forbidden_primitives`（Adm(λ) 审计锚点，`introduction-card.md` 新小节）；
+> 报告契约加 `fork` 摘要块（paper_gaps / repo_gaps / intersection / jaccard，由两张投影表算出）；
+> Layer-1 加第 13 项（槽位证据 + λ 重算 + fork 一致）。金标 `mini-introduction-cards.json`
+> 已同步新 schema 并记 log。
+>
+> 更新：2026-10-19（二）。讨论沉淀三处：λ 的「四次提问」简化呈现进
+> [`typed-introduction.md`](typed-introduction.md) §6.1；动作细化（Act = bind/impl/check/record/nop、
+> 许用补丁集 Adm(λ)、Faithful 变为可静态审计）进 `../research/introduction-operator.md` §4.1；
+> 审稿质疑答辩进 [`acl-paper-design.md`](acl-paper-design.md) §1.4。新工具
+> `../research/tools/slot-model.py`：λ 标签校验、宿主投影、覆盖分叉（Jaccard）、
+> 四算子模拟、Adm(λ) 补丁审计。mini-ref 与 phonopy 两份记录全部跑通，输出与
+> typed-introduction §11.1/§11.2 的手算理论值逐项一致（mini-ref：fork Jaccard=0；
+> phonopy：I 的 FI=0/Miss=0、W_rap FI=2/Miss=1、VG 单元 t_v=1）。
+>
 > 更新：2026-10-19。技能落点改为引入卡片：`references/introduction-card.md`，
 > 金标 `tests/fixtures/gold/mini-introduction-cards.json`。五态投影金标的 `class`
 > 未改。论文稿未动。Layer-1 现为 12 项。
@@ -26,11 +57,11 @@
 
 | 资产 | 位置 | 状态 |
 |---|---|---|
-| skill 本体（8 步工作流 + 自检门） | `SKILL.md` | 已定；§E + 材料范围 + 引入卡片（规则 7 拒绝）+ 宿主自有落点（规则 6）；Layer-1 现为 12 项 |
+| skill 本体（8 步工作流 + 自检门） | `SKILL.md` | 已定；§E + 材料范围 + 引入卡片（规则 7 拒绝）+ 宿主自有落点（规则 6）+ 盲盘纪律与 κ 步骤（2026-10-19 三）+ 验证账本（2026-10-19 四）；Layer-1 现为 14 项 |
 | 方法论 / 评估 / IR / 对齐规则 / 报告契约 | `references/` | F1/F2/F3 三条 pilot 缺陷已全部落码 |
 | 验收 fixtures（mini-ref/host/paper/blog + 邻域 gold） | `tests/fixtures/` | gold 与规则同步；有效跑例 `runs/2026-10-16-e-neighborhood/` |
 | 真实跑：oh-my-mlip × MatDiscovery | `research/runs/oh-my-mlip-vs-matdiscovery/` | 暴露 F4–F9 并回写规则。F10（wrap 参考 hub 不是对齐）在该跑之后钉进 skill；该报告的 wrap 建议视为历史，不回写 |
-| 研究工具（drift-meter / build-registry，纯 stdlib） | `research/tools/` | v1 已含 host TS 产物面 |
+| 研究工具（drift-meter / build-registry / slot-model，纯 stdlib） | `research/tools/` | v1 已含 host TS 产物面；slot-model 把 λ/投影/四算子/Adm 审计落成可执行 |
 | 论文中文核心稿 + 三张 archify 正稿（图1–3） | `docs/paper-core.md`, `docs/figures/` | 文案已按新身份改写；图面邻居集待重绘 |
 | ACL 写作包 + typed Method 主图 | `docs/acl-paper-design.md`, `docs/figures/typed-introduction/` | 2026-10-18：贡献/对照表/实验协议/Limitation/Figure X；实验数字未发明 |
 | ACL 英文全稿草稿 | `docs/acl-draft/paper.md` | 2026-10-18：typed introduction 主张 + 洞察段；实验表 TODO；与 brief/abstract v0.3 对齐 |

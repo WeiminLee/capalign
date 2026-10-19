@@ -12,7 +12,7 @@ silently fixed.
 
 | # | check | assertion |
 |---|---|---|
-| 1 | sections | report contains all required sections (see `report-contract.md`): surfaces, reference inventory, host inventory, gap table, introduction cards, host-only, neighborhood, unresolved |
+| 1 | sections | report contains all required sections (see `report-contract.md`): surfaces (including `host_sync` — the synced host commit, or why sync was skipped / paused for the caller), reference inventory, host inventory, gap table, introduction cards, verification ledger, host-only, neighborhood, unresolved |
 | 2 | validated evidence | every `missing` row has ≥1 high/medium evidence entry that came from **validation** (cross-validation step), not the raw comparison — assert by the evidence pointers pointing at host/reference artifacts (paths/quotes), not at "comparison" |
 | 3 | no low-driven missing | no `missing` row's evidence is all `confidence: low`; such gaps are `unknown` |
 | 4 | rule citations | every install card cites a placement-rule number from `alignment-rules.md`; every refuse card cites rule 7; a card without a rule is a stub |
@@ -24,6 +24,8 @@ silently fixed.
 | 10 | host-owned placement | Every install `target` is a host skill/tool/script/extend/runner. None prescribe the reference repo, plugin, hub clone, or MCP as a nested runtime. A host tool that calls a **scientific engine** named by the reference is allowed. Plumbing items did not appear as `missing`. Refuse cards name no target. |
 | 11 | card routing | Each joined product has exactly one card. `lambda` matches the slot function in `introduction-card.md`. `ignore` is absent. An `install` card has the five placement fields. A `refuse` card has `placement: null` and names no new skill or tool. |
 | 12 | test contract | An `install` card has `fail_before`, `pass_after`, and `destroy`. A `refuse` card has `destroy: n/a` and a `pass_after` that states the host is unchanged. No `confidence: low` span drove an `install`. |
+| 13 | slot evidence & fork | Every card slot is `{filled, span, quote}`; `filled: 1` implies a non-empty verbatim quote; `kappa: 1` only with both `s` and `e` filled. `lambda` recomputed from the slots matches the card. `prescribed` / `forbidden_primitives` match the card-label table. The `fork` block is consistent with the two projection tables (`intersection`, `jaccard` recomputed, not hand-written). |
+| 14 | verification honesty | The Verification ledger exists and counts every card exactly once. Every card has a `verification` block; beats marked `pass` carry evidence. No `contract-only` or `failed` card's product is claimed as delivered anywhere in the report. |
 
 Layer-1 failures mean the run is **not valid**, not "mostly done".
 
@@ -72,7 +74,7 @@ placement rule legitimately changes — amendments are recorded in the gold file
 Pass criteria: zero unlogged mismatches on all four fixtures **plus**
 `gold/mini-neighborhood.json`, `gold/mini-companion-paper.json`, and
 `gold/mini-introduction-cards.json`; Layer-1 self-check green on the mini-ref
-run (12 checks, including neighborhood stratified, host-owned placement,
+run (14 checks, including neighborhood stratified, host-owned placement,
 card routing, and test contract). Projection gap classes stay on their own
 gold files; the card gold does not replace them. That card gold is one
 instance. It exercises two of the six labels. `validity-gap`, `both-aligned`,

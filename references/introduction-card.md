@@ -19,7 +19,12 @@ validity sentence, and a second name for the same product do not open rows.
 Record them in `dropped`, or hang the validity sentence on `validity_slot`.
 
 Fill slots from cited text. Do not fill `s` or `e` from a `confidence: low`
-span.
+span. Each slot is an object `{filled, span, quote}`: `span` is
+`path:start-end` (or section), `quote` is the verbatim原文, never paraphrased.
+A slot that cannot be cited is `filled: false` with an empty quote; a doc
+claim that names a missing module keeps the span and quote and records
+`why_empty`. The paper arm's slots are filled before the repo arm is read
+(blind dual inventory, SKILL.md step 1).
 
 | slot | 1 when |
 |---|---|
@@ -88,6 +93,44 @@ The contract is text on the card. This run does not execute it.
 |---|---|
 | `install` | `fail_before`, `pass_after`, and `destroy` are each one clause. `destroy` names which prescribed piece is removed: the entry binding, the paper procedure, or the invalidation check |
 | `refuse` | `pass_after` states that the host is unchanged and that the product is absent from the paper's test set. `destroy` is `n/a` |
+
+### Prescribed primitive (audit anchor)
+
+So that a later patch can be audited statically (`π ∈ Adm(λ)`), every card
+names one prescribed primitive and the primitives it forbids:
+
+| `lambda` | `prescribed` | `forbidden_primitives` |
+|---|---|---|
+| `both-aligned` | `bind` (plus `check` when `v_p=v_r=1`) | `impl` |
+| `obligation-sans-entry` | `impl` | `bind` (a forged repo entry id is a violation, not a style) |
+| `validity-gap` | `check` (with `bind`) | — |
+| `entry-sans-obligation` | `none` | `bind`, `impl` |
+| `procedure-conflict` | `record` | `bind`, `impl` |
+
+`destroy` removes exactly the `prescribed` primitive; after removal the test
+must fail again. A patch on a `refuse` card that contains a forbidden
+primitive is invalid regardless of its text.
+
+### Verification status
+
+A written contract is not a passed test. Every card carries a `verification`
+block so that any later report can state, per product, what was actually
+executed:
+
+| field | values |
+|---|---|
+| `beats.fail_before` | `pass` / `fail` / `not-run` — `pass` means the frozen host failed the test before the edit, as required |
+| `beats.pass_after` | `pass` / `fail` / `not-run` |
+| `beats.destroy` | `pass` / `fail` / `not-run` — `pass` means removing the prescribed primitive turned the test red again; a beat that stays green is `fail` and voids the test |
+| `evidence` | command + observed outcome per executed beat; empty when `not-run` |
+
+Card status: `e2e-verified` (all applicable beats executed with the expected
+outcome), `contract-only` (contract written, beats not run), or `failed`.
+This skill's own run ends at the card, so its cards are `contract-only` by
+construction — a report must never present a `contract-only` card's product
+as delivered. For a `refuse` card, `e2e-verified` means the host was checked
+unchanged and the product is absent from the paper test set; `destroy` stays
+`n/a`.
 
 Priority orders `install` cards only: fix-wrongness (`validity-gap`, and a
 five-state `partial` on a question the host already answers), then

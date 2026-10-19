@@ -45,6 +45,15 @@ on a different calculator into one `compute`. Produce the reference capability
 list in the IR schema (`references/capability-ir.md`), including the type
 vocabulary and the `confidence` tag on every item.
 
+**Blind dual inventory (mandatory when the work has both a paper and a repo
+arm).** Inventory the two arms in isolation: finish one side's slot records
+(each slot with `span` + verbatim `quote`) before opening the other side, and
+merge the two sides by product identity only after both are frozen. Reading
+both sides in one pass lets the repo's entries ghost-write the paper's missing
+steps and flattens the residual this method exists to measure (E1 pilot
+contamination lesson). When the host supports it, run the two inventories in
+separate isolated contexts.
+
 When the given reference is a **repo**, a **homepage**, or **both**, then run
 §E `recover_reference` before step 2: local seeds → homepage (skip search if
 the caller already gave it) → web-search **only when necessary** (budget ≤3
@@ -59,6 +68,17 @@ network is never required for a valid run; missing fetch/search is
 section).
 
 ### 2. Inventory the host agent
+**Pre-flight sync (mandatory when the host is a git worktree with a remote).**
+Alignment verdicts are computed against the host surface; a stale surface
+produces wrong `host_has` judgments and wrong cards. Before scanning: fetch
+and fast-forward the host (`git fetch && git pull --ff-only`). If the pull is
+not clean — local uncommitted changes, diverged history, or a merge conflict —
+**stop the run and present `git status` to the caller**: stash, commit,
+discard, or proceed-dirty is the caller's decision, never the skill's. Record
+the outcome (synced commit hash, `not-a-git-repo`, or `paused-user-decision`)
+in the report's `surfaces` block. Only after the sync settles is the host
+surface frozen for the run.
+
 Run §D of the heuristics: **scope first** (host doctrine skill/tool root;
 exclude worktrees / `node_modules`), then auto-scan skill dirs / `SKILL.md`s /
 tool registries; ask the caller for whatever the scan cannot close. Produce
@@ -101,6 +121,11 @@ only. Do not override it, and do not copy product names, targets, or validity
 sentences from another run or from the fixture gold. `ignore` rows are not
 cards. All six labels stay available.
 
+For every joined row with `s=e=1`, judge `kappa` as a separate question — are
+the two procedures the same computation? `kappa=1` is forbidden unless
+`s=e=1`; when the conflict cannot be decided, `kappa=0`. Never invent a
+conflict.
+
 Only an `install` card enters the placement questions
 (`references/alignment-rules.md` §Placement): axis → tool-vs-script →
 new-skill-vs-extend → constraint ownership → never-low-evidence →
@@ -126,7 +151,7 @@ Write `capability-alignment-report.md` (and `capability-alignment.json` IR)
 per `references/report-contract.md` — required sections, validity rules, and the
 closing statement verbatim. Before declaring the report final, run Layer-1
 self-check (`references/evaluation.md` §Layer 1): the report must open with the
-`self_check:` block, all 12 checks green, or the run is not valid and must be
+`self_check:` block, all 14 checks green, or the run is not valid and must be
 reworked.
 
 ## Outputs & validity

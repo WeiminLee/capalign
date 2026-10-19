@@ -40,8 +40,9 @@ a `log:` entry in the gold file (what changed, why, when).
 
 Pass = zero unlogged mismatches on all four fixtures plus the neighborhood /
 companion-paper golds and `gold/mini-introduction-cards.json`, and Layer-1
-self-check green on the mini-ref run (12 checks, including neighborhood
-stratified, host-owned placement, card routing, and test contract).
+self-check green on the mini-ref run (14 checks, including neighborhood
+stratified, host-owned placement, card routing, test contract, and slot
+evidence & fork).
 Projection `class` values stay on their own gold files.
 
 ## When to run
