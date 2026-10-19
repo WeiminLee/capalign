@@ -11,9 +11,9 @@
 **cap-align 是一个可插拔、框架无关、零捆绑的"能力对齐" skill。** 核心能力：
 
 > 给定一篇材料论文（及其配套仓库），把其中的**材料能力**对齐到用户自己的材料
-> agent，产出三样东西：**能力清单**、**差距表**、**宿主自有的落点建议**
-> （新 skill / 新 tool / 扩既有 / runner 契约 / 跳过）。
-> 对齐完成 = 宿主自己拥有这些动词；把参考 agent 嵌进宿主不是对齐。
+> agent，产出三样东西：**能力清单**、**差距表**、**引入卡片**。
+> 该装的才写宿主自有的 skill / tool，并带改前必败的测试合同；该拒绝的写明宿主不改。
+> 对齐完成 = 宿主自己拥有这些动词；把参考 agent 嵌进宿主不是对齐。这一轮不改宿主。
 
 仓库与论文是同一科学工作的两份编码；skill 对两份编码走同一套判定。博客是第三
 种编码，产品支持，论文主文钉 paper / repo。
@@ -57,7 +57,7 @@ cap-align/
 | skill 本体 | `SKILL.md` | 八步工作流 + 输出契约 |
 | 方法论（三层纪律） | `references/methodology.md` | 通用方法（七阶段）→ 可插拔适配层 → 实例 |
 | 中间表示 IR | `references/capability-ir.md` | 统一 schema、类型词表、归一化与粒度边界 |
-| 对齐/落点规则 | `references/alignment-rules.md` | 五态差距 × 三来源、范围（材料模拟 / 材料 agent / plumbing）、落点六问、宿主 doctrine 优先 |
+| 对齐/落点规则 | `references/alignment-rules.md` | 五态差距 × 三来源、范围（材料模拟 / 材料 agent / plumbing）、引入卡片、落点六问、宿主 doctrine 优先 |
 | 盘点启发式 | `references/inventory-heuristics.md` | repo/paper/blog/宿主盘点 + §E 配套论文/邻域回收（零捆绑） |
 | 评估 | `references/evaluation.md` | Layer-1 每跑自检 + Layer-2 fixture 金标验收 |
 | 报告契约 | `references/report-contract.md` | 报告必含字段与 `self_check:` 头块 |
@@ -93,10 +93,12 @@ cap-align/
    host-only | unknown`，并打来源标签（`host self-audit | reference-contrast |
    domain inference`）；`missing` 必须 ≥1 条 high/medium 的**已验证**证据，
    低置信证据永远推不出 `missing`。
-6. **落点推荐** — 对每个缺口套"落点六问"（见 §4.4），每条推荐引用其满足的规则号。宿主自有，不 wrap 参考 agent。
+6. **引入卡片，再落点** — 两侧按产物并成一张卡（`references/introduction-card.md`）。
+   标签由槽位算出。只有 `install` 才套落点六问（见 §4.4）；`refuse` 引用规则 7，
+   不写技能名，成功是宿主不改。测试合同写在同一张卡上，这一轮不执行。
 7. **撰写报告** — 按 report-contract 的必需章节组织，结尾固定结语。
-8. **报告自检门** — 跑 Layer-1 九项自检（含邻域分层），`self_check:` 头块必须全绿，否则整轮无效、
-   回炉重做。
+8. **报告自检门** — 跑 Layer-1 十二项自检（含邻域分层、宿主自有落点、卡片路由、测试合同），
+   `self_check:` 头块必须全绿，否则整轮无效、回炉重做。
 
 ### 3.3 产出物示例形状（IR）
 
@@ -182,7 +184,7 @@ cap-align/
 | 防线 | 机制 | 失败后果 |
 |---|---|---|
 | 交叉验证门（Phase 2） | 分类前必须先验证；E1 首跑 ~25 个疑缺口里 grep 杀掉 4 个假缺口（Grüneisen、群速度实为已有；α 是 partial 不是 missing） | 假缺口进表 = 错误产品 |
-| Layer-1 自检门（每跑强制） | 报告头块 `self_check:`，10 项检查（章节齐全 / 证据已验证 / 无 low 推 missing / 规则引用 / 来源标签 / host-only 在场 / 结语精确 / 重跑确定性 / 邻域分层 / 宿主自有落点） | **任一 fail = 整轮无效**，不是"基本完成" |
+| Layer-1 自检门（每跑强制） | 报告头块 `self_check:`，12 项检查（章节齐全 / 证据已验证 / 无 low 推 missing / 规则引用 / 来源标签 / host-only 在场 / 结语精确 / 重跑确定性 / 邻域分层 / 宿主自有落点 / 卡片路由 / 测试合同） | **任一 fail = 整轮无效**，不是"基本完成" |
 | Layer-2 金标验收（装机或改规则时） | mini-ref / mini-host / mini-paper / mini-blog 四组 fixture + 手算 gold；零捆绑、无测试框架，径直跑 skill 自己的工作流比对 | 与 gold 的**未登记**差异 = 回归，需裁决修复或登记规则变更 |
 
 ### 4.6 零捆绑怎么落地

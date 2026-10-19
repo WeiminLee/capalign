@@ -1,6 +1,6 @@
 ---
 name: capability-align
-description: 'Use when a materials agent must align materials capabilities of a reference (repo, paper, or blog) onto its own surface and get a gap table plus host-owned placement. Given a repo, recover its companion paper and a bounded neighborhood (homepage first, web-search only when necessary). Not for running the reference, wrapping it as a nested runtime, or implementing the gap. Zero-bundle: host shell/Python only.'
+description: 'Use when a materials agent must align materials capabilities of a reference (repo, paper, or blog) onto its own surface and get a gap table plus an introduction card (install placement or refusal) with a test contract. Given a repo, recover its companion paper and a bounded neighborhood (homepage first, web-search only when necessary). Not for running the reference, wrapping it as a nested runtime, executing the test, or implementing the gap. Zero-bundle: host shell/Python only.'
 ---
 
 # capability-align
@@ -29,7 +29,7 @@ reference agent is gone — not a clone, plugin, or MCP of \(W\) nested inside
 
 ## When not to use
 - Running the reference tool (that is the reference's own scope).
-- Building/implementing a gap (this skill ends at the recommendation).
+- Building/implementing a gap, or executing the card's test (this skill ends at the card).
 - Nesting the reference as a runtime ("wrap this clone / add its plugin / call its MCP").
 - Auditing generic agent plumbing (plugin marketplace, extra MCP, lockfiles, env bootstrap, codegen) as if they were materials gaps.
 - Generic summarization without capability-surface framing.
@@ -94,27 +94,39 @@ evidence entry — from **validated** evidence, not the raw comparison — and n
 from `low` entries; unverifiable gaps are `unknown`. Plumbing items never
 appear in the gap table.
 
-### 6. Recommend
-For every `missing` / `partial` gap, apply the placement decision
+### 6. Card, then placement
+Join the two projections by product (`references/introduction-card.md`). Do
+not merge the projection gap tables. Compute `lambda` from this work's slots
+only. Do not override it, and do not copy product names, targets, or validity
+sentences from another run or from the fixture gold. `ignore` rows are not
+cards. All six labels stay available.
+
+Only an `install` card enters the placement questions
 (`references/alignment-rules.md` §Placement): axis → tool-vs-script →
 new-skill-vs-extend → constraint ownership → never-low-evidence →
-**host-owned (rule 6)**. Apply §Alignment boundary again: do not recommend a
-reference menu item the host has not offered. Apply §Skill boundary and tool duty: do not put a
-second scientific argument in an existing skill body, and do not open a skill
-for a single-consumer postprocess or a render. A recommendation names a host skill/tool/script/extend
-the host would own; it may call an upstream scientific engine; it must not
-clone, wrap, or MCP-mount the reference agent/hub. Order the recommendations
-with the stated priority judgment (`methodology.md` Phase 5: fix-wrongness >
-honor-promise > extend-surface; source-kind informs priority), and cite the
-rule number each satisfies. The recommendation is a placement suggestion, not a
-build order.
+**host-owned (rule 6)**. Fill `target`, `question`, `input`, `validity` plus
+`validity_owner`, and `forbidden`. Apply §Skill boundary and tool duty: do not
+put a second scientific argument in an existing skill body, and do not open a
+skill for a single-consumer postprocess or a render. The target is a host
+skill/tool/script/extend the host would own; it may call an upstream
+scientific engine; it must not clone, wrap, or MCP-mount the reference
+agent/hub. A `new-question` install card is ranked last. It is a suggestion,
+not alignment debt, and not a build order.
+
+A `refuse` card cites rule 7 and stops. `placement` is null. Success is that
+the host stays unchanged. Do not invent a skill for a repo entry the paper
+never obligates, and do not pick a side of a procedure conflict.
+
+On every card, write the test contract from `introduction-card.md`. Do not
+execute it. Order install cards with the stated priority judgment
+(`methodology.md` Phase 5: fix-wrongness > honor-promise > extend-surface).
 
 ### 7. Report & self-check
 Write `capability-alignment-report.md` (and `capability-alignment.json` IR)
 per `references/report-contract.md` — required sections, validity rules, and the
 closing statement verbatim. Before declaring the report final, run Layer-1
 self-check (`references/evaluation.md` §Layer 1): the report must open with the
-`self_check:` block, all 10 checks green, or the run is not valid and must be
+`self_check:` block, all 12 checks green, or the run is not valid and must be
 reworked.
 
 ## Outputs & validity
@@ -124,10 +136,11 @@ reworked.
   \(W\), namespace the filename (do not overwrite another pair — MatDiscovery
   already carried a phonopy report).
 - Every report line traces to an inventory entry; no fabricated capability names.
-- Placement recommendations cite the decision rule; a recommendation without a
-  rule is a stub. A recommendation that keeps the reference repo/plugin/MCP as
+- Install cards cite a placement rule; refuse cards cite rule 7. A card
+  without a rule is a stub. A card that keeps the reference repo/plugin/MCP as
   the host runtime is invalid (rule 6).
-- `low`-confidence reference entries never drive a `missing` verdict.
+- `low`-confidence reference entries never drive a `missing` verdict or an
+  `install` card.
 - Neighborhood capabilities whose only evidence is a search snippet are `low`
   and never drive `missing`.
 - Companion paper belongs in core; neighborhood rows stay in the Neighborhood
@@ -141,4 +154,5 @@ reworked.
 - [Inventory heuristics](references/inventory-heuristics.md)
 - [Capability IR](references/capability-ir.md)
 - [Alignment & placement rules](references/alignment-rules.md)
+- [Introduction card — lambda, install or refuse, test contract](references/introduction-card.md)
 - [Report contract](references/report-contract.md)

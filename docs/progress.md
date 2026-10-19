@@ -1,5 +1,15 @@
 # 项目进展 — cap-align（能力对齐 skill + 论文实证）
 
+> 更新：2026-10-19。技能落点改为引入卡片：`references/introduction-card.md`，
+> 金标 `tests/fixtures/gold/mini-introduction-cards.json`。五态投影金标的 `class`
+> 未改。论文稿未动。Layer-1 现为 12 项。
+>
+> 更新：2026-10-18。ACL 文稿设计补充见 [`acl-paper-design.md`](acl-paper-design.md)
+> （贡献 vs SciCoQA、Related Work 表、最小实验协议、Limitations、Figure X）。
+>
+> 更新：2026-10-17。设计结论见 [`typed-introduction.md`](typed-introduction.md)
+> （按差异类型引入宿主，并带改前失败、改后通过的测试）。下文仍是 2026-10-16 的状态记录。
+>
 > 更新：2026-10-16。本文记录到当日为止的项目状态、已完成实证、开放边界与下一阶段计划。
 > 论文身份已修订（双编码规格 + 宿主相对判定 + 参考条件化覆盖）；实证数字仍以
 > 2026-10-15 的 E1–E4 首轮为准。当日补上 repo 输入的配套论文/有界邻域回收（§E）。
@@ -16,12 +26,14 @@
 
 | 资产 | 位置 | 状态 |
 |---|---|---|
-| skill 本体（8 步工作流 + 自检门） | `SKILL.md` | 已定；§E + 材料范围 + 宿主自有落点（规则 6）；Layer-1 现为 10 项 |
+| skill 本体（8 步工作流 + 自检门） | `SKILL.md` | 已定；§E + 材料范围 + 引入卡片（规则 7 拒绝）+ 宿主自有落点（规则 6）；Layer-1 现为 12 项 |
 | 方法论 / 评估 / IR / 对齐规则 / 报告契约 | `references/` | F1/F2/F3 三条 pilot 缺陷已全部落码 |
 | 验收 fixtures（mini-ref/host/paper/blog + 邻域 gold） | `tests/fixtures/` | gold 与规则同步；有效跑例 `runs/2026-10-16-e-neighborhood/` |
 | 真实跑：oh-my-mlip × MatDiscovery | `research/runs/oh-my-mlip-vs-matdiscovery/` | 暴露 F4–F9 并回写规则。F10（wrap 参考 hub 不是对齐）在该跑之后钉进 skill；该报告的 wrap 建议视为历史，不回写 |
 | 研究工具（drift-meter / build-registry，纯 stdlib） | `research/tools/` | v1 已含 host TS 产物面 |
 | 论文中文核心稿 + 三张 archify 正稿（图1–3） | `docs/paper-core.md`, `docs/figures/` | 文案已按新身份改写；图面邻居集待重绘 |
+| ACL 写作包 + typed Method 主图 | `docs/acl-paper-design.md`, `docs/figures/typed-introduction/` | 2026-10-18：贡献/对照表/实验协议/Limitation/Figure X；实验数字未发明 |
+| ACL 英文全稿草稿 | `docs/acl-draft/paper.md` | 2026-10-18：typed introduction 主张 + 洞察段；实验表 TODO；与 brief/abstract v0.3 对齐 |
 
 ## 3. 第一轮实证结果（1→2→4→3 全部落地，commit bea0c8b）
 

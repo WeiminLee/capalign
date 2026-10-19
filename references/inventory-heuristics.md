@@ -24,9 +24,10 @@ IR (see `capability-ir.md`).
    hub → one selection interface). Hub install of that roster is plumbing, not
    a verb.
 2. **Dependency fingerprint** — read the manifest dependencies; map the
-   domain-relevant ones to implied capability families (e.g., a phonon code →
-   force-constants / dynamical-matrix / DOS / thermal-properties / QHA families;
-   a DFT code → SCF / relax / band-structure / response families). Mark these
+   domain-relevant ones to implied capability families (e.g., a phonon code may
+   imply force-constants / dynamical-matrix / DOS / thermal-properties; a DFT
+   code may imply SCF / relax / band-structure / response). A named method is
+   not an implied family unless this work states it. Mark an implication
    `confidence: medium` unless confirmed in docs/code (`high`).
 3. **Docs feature surface** — when `docs/` exists, list feature pages; each page
    that documents a user-facing capability adds one capability (evidence

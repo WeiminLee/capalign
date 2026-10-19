@@ -10,7 +10,7 @@ runner: the tests run **through the skill's own workflow**, exactly as in produc
 
 | fixture | traps asserted |
 |---|---|
-| `mini-ref/` (phonon toolkit) | doc-claim-without-code → `unknown` not `missing`; adjacent thermal capability (host `heat-flow`) → `partial` with host link; host self-audit source kind; CITATION companion paper is core; neighborhood identity gate |
+| `mini-ref/` (phonon toolkit) | doc-claim-without-code → repo-arm `unknown` not `missing`; adjacent thermal capability (host `heat-flow`) → repo-arm `missing` with a host note, not `partial`; that repo entry's introduction card is `refuse`; host self-audit source kind; CITATION companion paper is core; neighborhood identity gate |
 | `mini-host/` (2 skills + registry + AUDIT.md) | provenance scanning; `host self-audit` tagging |
 | `mini-paper.md` | single-mention → `low`; hard software deps → `tool`; published data → `data` |
 | `mini-blog.md` | named command → `tool`; recipe → `workflow` medium; bare opinion → `concept` low |
@@ -29,6 +29,7 @@ runner: the tests run **through the skill's own workflow**, exactly as in produc
    — companion paper inventory: gold/mini-companion-paper.json
    — paper-arm gaps: gold/mini-paper-projection-vs-mini-host.json
    — neighborhood keep/reject: gold/mini-neighborhood.json
+   — introduction cards: gold/mini-introduction-cards.json
    worked example: tests/fixtures/runs/2026-10-16-e-neighborhood/
 ```
 
@@ -38,8 +39,10 @@ method regression (fix the skill) or a deliberate rule change — the latter req
 a `log:` entry in the gold file (what changed, why, when).
 
 Pass = zero unlogged mismatches on all four fixtures plus the neighborhood /
-companion-paper golds, and Layer-1 self-check green on the mini-ref run
-(10 checks, including neighborhood stratified and host-owned placement).
+companion-paper golds and `gold/mini-introduction-cards.json`, and Layer-1
+self-check green on the mini-ref run (12 checks, including neighborhood
+stratified, host-owned placement, card routing, and test contract).
+Projection `class` values stay on their own gold files.
 
 ## When to run
 

@@ -67,7 +67,9 @@ unknown`. Additionally tag every gap with a **source kind**:
 Source kind drives priority, so it is recorded, not implied.
 
 ### Phase 4 — Cost-tier the placement
-For each gap, estimate what the **host** must change to close it. The tier question is
+Cost-tier only cards whose `action` is `install` (`introduction-card.md`). A
+`refuse` card is a finished outcome: the host stays unchanged. For each
+install card, estimate what the **host** must change to close it. The tier question is
 always about the host's own architecture, never about the size of the reference side.
 Never cost-tier "add the reference agent as a nested runtime"; that is not a
 host change (`alignment-rules.md` §Placement 6).
@@ -79,7 +81,8 @@ D) new physical input (needs something the host cannot synthesize);
 E) not recommended (route conflict or outside the host's product boundary).
 
 ### Phase 5 — Prioritize with an explicit judgment
-Order the recommendations with a stated judgment, not a count. The reference run used
+Order the install cards with a stated judgment, not a count. A refuse card is
+already finished. The reference run used
 **fix-wrongness > honor-promise > extend-surface** (first close results that are
 systematically wrong or promised but absent, then whole-class physics errors, then new
 question classes). The judgment must be stated in the report so it can be argued with.
@@ -92,8 +95,10 @@ has no doctrine, fall back to `alignment-rules.md` §Alignment boundary,
 host's doctrine as law.
 
 ### Phase 7 — Advice, stopping at advice
-The output is recommendations. Building is a product/engineering decision for the host
-and its human; the report says so in a fixed closing statement.
+The output is the introduction card, written before any host edit. The test
+contract on the card is not executed in this run. Building is a
+product/engineering decision for the host and its human; the report says so
+in a fixed closing statement.
 
 ## 2. Adaptation layer (pluggable — replaced per host / per domain)
 
@@ -103,9 +108,10 @@ and its human; the report says so in a fixed closing statement.
   MatDiscovery's `CAPABILITY-SURFACE.md` is one such doctrine — a worked example, not
   the law for other hosts.
 - **Domain lexicon**: mapping dependency fingerprints → implied capability families is
-  domain knowledge, not method. For materials simulation, a phonon engine implies
-  force-constants / dynamical-matrix / DOS / thermal-properties / QHA families, a DFT
-  engine implies SCF / relax / bands / response. The same lexicon also names which
+  domain knowledge, not method. For materials simulation, a phonon engine may imply
+  force-constants / dynamical-matrix / DOS / thermal-properties, and a DFT
+  engine may imply SCF / relax / bands / response. A named method is not a family
+  for every engine in that area; it enters only when this work states it. The same lexicon also names which
   verbs are domain-agent methods (benchmark a potential, fine-tune, distill) versus
   generic packaging (plugin, extra MCP, lockfiles). Another domain swaps this table.
   The method provides the *action* (derive implied families from dependencies, mark

@@ -31,10 +31,11 @@ cannot be validated is `unknown`, not `missing`.
 ## Reference-side inventory heuristics
 - **repo**: CLI entry points (`cli`/`console_scripts`/`bin`/`[project.scripts]`), package modules
   (top-level modules = capability boundaries), dependency fingerprints → implied
-  capability families (**domain lexicon — replace per domain**; materials example: a
-  phonon engine implies force-constants/dynamical-matrix/DOS/thermal/QHA families, a
-  DFT engine implies SCF/relax/bands/response; derived families start at
-  `medium` confidence until confirmed), docs feature pages. After the local
+  capability families (**domain lexicon — replace per domain**; one materials
+  example: a phonon engine may imply force-constants/dynamical-matrix/DOS/thermal
+  families, a DFT engine may imply SCF/relax/bands/response. A named method is
+  not implied unless this work states it. Derived families start at `medium`
+  confidence until confirmed), docs feature pages. After the local
   inventory, run `inventory-heuristics.md` §E: recover companion paper (core)
   and a budgeted neighborhood; identity gate; search only when necessary.
 - **paper**: Methods→Steps decomposition; explicit software/dataset dependencies
@@ -69,10 +70,28 @@ ships is not what this skill aligns.
 A registry/roster of N models is at most one domain-agent `interface` (model
 selection), never N capabilities, and never a neighborhood.
 
-## Placement decision (per missing gap)
-Order recommendations with an explicit priority judgment, not a count
+## Card routing (before placement)
+
+One product, one card (`introduction-card.md`). Compute `lambda` from the
+slots. The projection gap tables stay separate; the card does not replace
+them.
+
+| `action` | what happens here |
+|---|---|
+| `install` | ask the placement questions below, then write the five placement fields and the three-beat test contract |
+| `refuse` | rule 7. `placement` is null. The host stays unchanged. Do not ask the questions below |
+| `ignore` | no card |
+
+A `new-question` install card is ranked last. It records a suggestion. It is
+not alignment debt, and this run does not build it. Low-confidence evidence
+never drives `install`.
+
+## Placement decision (per install card)
+Order install cards with an explicit priority judgment, not a count
 (`methodology.md` Phase 5: fix-wrongness > honor-promise > extend-surface);
-source kind informs priority (host self-audit first). Then ask, in order:
+source kind informs priority (host self-audit first). Ask 1–6 only when
+`action` is `install`. Rule 7 is the refuse stop; do not ask 1–6 on a
+refuse card:
 
 1. **Axis** — does the host need "a way to do something" (skill), "a deterministic
    computation" (tool/script), or "a settings/UI/service surface" (plugin/server)?
@@ -106,6 +125,10 @@ source kind informs priority (host self-audit first). Then ask, in order:
    Invalid: "new skill wrapping a clone of the reference." Valid: "new host
    skill that runs this protocol on host compute / an upstream scientific
    library." License of a sibling engine is reported, not decided.
+7. **Refusal** — `entry-sans-obligation` and `procedure-conflict` are
+   successful no-ops (`introduction-card.md`). `placement` is null. Do not
+   name a new skill, tool, or extend target. Do not forge an entry id the
+   repo does not have, and do not pick a side of a procedure conflict.
 
 ## Alignment boundary
 
@@ -117,7 +140,10 @@ Ask, in order, before a row becomes `missing` or a recommendation:
 
 1. **Is this a question the host catalog already answers?** If no, it is not
    alignment debt. It is a decision to open a new question. Leave it outside
-   the gap table, or record it as a boundary the host has not offered.
+   the gap table, or record it as a boundary the host has not offered. The
+   introduction card may still be `install` with `boundary: new-question`,
+   ranked last, and this run does not build it. A repo entry the paper never
+   obligates is `refuse` (rule 7), not that card.
 2. **If yes, is the host's number silently wrong where the reference requires
    a correction?** If yes, the row is inside the boundary (`partial` or
    `missing`). Fix-wrongness outranks a new question.

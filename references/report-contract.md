@@ -12,7 +12,7 @@ different pair, namespace the filename
 Every report opens with its own validity gate (Layer-1, `evaluation.md`). The block
 lists each check (sections, validated evidence, no-low-driven-missing, rule
 citations, source kinds, host-only tracked, neighborhood stratified, closing
-statement, determinism, host-owned placement) with
+statement, determinism, host-owned placement, card routing, test contract) with
 `pass`/`fail` and a one-line reason. Any `fail` is reported verbatim — the report is
 then **not valid** and the run must be reworked, not delivered.
 
@@ -27,10 +27,12 @@ then **not valid** and the run must be reworked, not delivered.
    **source kind** (`host self-audit|reference-contrast|domain inference`), matched host id
    (when any), and evidence. `partial` rows state what is / is not covered. Paper-arm
    gaps, when present, are a second table, not extra rows in the repo-arm table.
-5. **Recommendations** — per `missing`/`partial` gap: placement (skill/tool/script/extend/
-   runner contract/skip), the decision rule satisfied (numbered from alignment-rules.md),
-   estimated surface (new skill? extend which? new tool? which module?), and a
-   `confidence: low`-evidence call-out where applicable.
+5. **Introduction cards** — one card per joined product (`introduction-card.md`).
+   The two projection gap tables stay separate. An `install` card carries the five
+   placement fields, `validity_owner`, `rule`, `boundary`, `priority`, and the
+   three-beat test contract. A `refuse` card cites rule 7, sets `placement` to
+   null, and states that the host stays unchanged. `ignore` rows do not appear.
+   A `confidence: low` span is called out and never drives `install`.
 6. **Host-only section** (informational) — capabilities the host has beyond the reference.
 7. **Neighborhood** — required on every run (empty for paper/blog). Lists kept items
    (`relation`, lightweight inventory, gap class), rejected candidates (reason),
@@ -44,12 +46,13 @@ then **not valid** and the run must be reworked, not delivered.
 - Every non-`equivalent` row in the gap table must name the reference capability id;
   no orphan rows.
 - `missing` requires ≥1 high/medium-confidence reference evidence entry.
-- Recommendations must cite the rule number; a recommendation without a rule is a stub.
-- Recommendations are **host-owned** (`alignment-rules.md` §Placement 6): they
-  name a host skill/tool/script/extend/skip. A host tool that **calls a
-  scientific engine** named by the reference is allowed. A recommendation that
-  clones, wraps, or MCP-mounts the reference **agent/hub/plugin** as the host
-  runtime is invalid.
+- Install cards cite a placement-rule number; refuse cards cite rule 7. A card
+  without a rule is a stub.
+- Install cards are **host-owned** (`alignment-rules.md` §Placement 6): `target`
+  names a host skill/tool/script/extend/runner. A host tool that **calls a
+  scientific engine** named by the reference is allowed. A card that clones,
+  wraps, or MCP-mounts the reference **agent/hub/plugin** as the host runtime
+  is invalid. Refuse cards name no target.
 - Neighborhood rows are absent from the core gap table; the companion paper is
   core (`relation: companion-paper`), never a neighborhood kept-item.
 - Neighborhood `missing` requires neighbor-owned high/medium evidence (abstract /
@@ -75,7 +78,19 @@ then **not valid** and the run must be reworked, not delivered.
     "rejected": [{"id": "...", "reason": "..."}],
     "unresolved": []
   },
-  "recommendations": [...],
+  "cards": [
+    {
+      "id": "...",
+      "slots": {"s": 0, "e": 0, "v_p": 0, "v_r": 0, "kappa": 0},
+      "lambda": "obligation-sans-entry|entry-sans-obligation|procedure-conflict|validity-gap|both-aligned",
+      "action": "install|refuse",
+      "boundary": "in-question|new-question",
+      "priority": "fix-wrongness|honor-promise|extend-surface|null",
+      "rule": "3,6|7",
+      "placement": {"target": "...", "question": "...", "input": "...", "validity": "...", "validity_owner": "gate|runner|skill-body|null", "forbidden": "..."},
+      "test": {"fail_before": "...|null", "pass_after": "...", "destroy": "...|n/a"}
+    }
+  ],
   "unresolved": [...]
 }
 ```
