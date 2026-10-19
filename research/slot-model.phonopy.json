@@ -1,0 +1,174 @@
+{
+  "pair": {
+    "paper": "arXiv:1506.08498",
+    "paper_url": "https://ar5iv.labs.arxiv.org/html/1506.08498",
+    "repo_docs": [
+      "https://phonopy.github.io/phonopy/command-options.html",
+      "https://phonopy.github.io/phonopy/qha.html"
+    ],
+    "repo_version": "Phonopy v.4.8.2",
+    "host": null,
+    "host_note": "这次没有冻结的宿主清单，所以不计算投影"
+  },
+  "units": [
+    {
+      "id": "harmonic-thermal",
+      "product": "由声子频率得到定容热容、Helmholtz 自由能和熵",
+      "paper": {
+        "step": {
+          "filled": true,
+          "span": "arXiv:1506.08498 §2 eq (9)–(11)",
+          "quote": "Using the thermodynamic relations, a number of thermal properties, such as constant volume heat capacity Cv, Helmholtz free energy F, and entropy S, can be computed as functions of temperature."
+        },
+        "validity": {"filled": false, "span": "", "quote": ""}
+      },
+      "repo": {
+        "entry": {
+          "filled": true,
+          "span": "command-options.html TPROP",
+          "quote": "-t (TPROP = .TRUE.)"
+        },
+        "validity": {"filled": false, "span": "", "quote": ""}
+      },
+      "label": "两侧齐"
+    },
+    {
+      "id": "phonon-dos",
+      "product": "声子态密度 g(ω)",
+      "paper": {
+        "step": {
+          "filled": true,
+          "span": "arXiv:1506.08498 §2 eq (6)",
+          "quote": "The phonon DOS is defined as g(ω)=1/N ∑_{q j} δ(ω−ω_{q j})."
+        },
+        "validity": {"filled": false, "span": "", "quote": ""}
+      },
+      "repo": {
+        "entry": {
+          "filled": true,
+          "span": "command-options.html DOS",
+          "quote": "--dos (DOS = .TRUE.)"
+        },
+        "validity": {"filled": false, "span": "", "quote": ""}
+      },
+      "label": "两侧齐"
+    },
+    {
+      "id": "qha",
+      "product": "在体积上极小化 F(T,V)+pV，得到定压热性质和热膨胀",
+      "paper": {
+        "step": {
+          "filled": true,
+          "span": "arXiv:1506.08498 §4 eq (17)",
+          "quote": "Gibbs free energy G(T,p) at given temperature T and pressure p is obtained from Helmholtz free energy F(T,V) through the transformation G(T,p)=min_V [F(T,V)+pV]."
+        },
+        "validity": {
+          "filled": true,
+          "span": "arXiv:1506.08498 §4",
+          "quote": "QHA is known as a reasonable approximation in a wide temperature range below melting point except for temperatures very close to melting point where higher-order terms become evident."
+        }
+      },
+      "repo": {
+        "entry": {
+          "filled": true,
+          "span": "qha.html",
+          "quote": "phonopy-qha is the script to run the fitting and calculations. Mind that at least 5 volume points are needed for the fitting."
+        },
+        "validity": {
+          "filled": false,
+          "span": "qha.html",
+          "quote": "",
+          "why_empty": "「至少 5 个体积点」是拟合能否进行的前提，不是结果作废的条件。该页没有写熔点附近高阶项使 QHA 失效。"
+        }
+      },
+      "label": "缺有效性"
+    },
+    {
+      "id": "force-constants",
+      "product": "由力对位移的导数得到二阶力常数",
+      "paper": {
+        "step": {
+          "filled": true,
+          "span": "arXiv:1506.08498 §2 eq (2)",
+          "quote": "With a force F_α(lκ)=−∂Φ/∂u_α(lκ), an element of second-order force constants is obtained by Φ_αβ=−∂F_β/∂u_α."
+        },
+        "validity": {
+          "filled": true,
+          "span": "arXiv:1506.08498 §2",
+          "quote": "With small displacements at constant volume, the problem of atomic vibrations is solved with the second-order terms as the harmonic approximation, and the higher order terms are treated by the perturbation theory."
+        }
+      },
+      "repo": {
+        "entry": {
+          "filled": true,
+          "span": "command-options.html CREATE_DISPLACEMENTS and --forces",
+          "quote": "-d (CREATE_DISPLACEMENTS = .TRUE.); -f or --forces collects forces into FORCE_SETS."
+        },
+        "validity": {
+          "filled": false,
+          "span": "command-options.html",
+          "quote": "",
+          "why_empty": "命令页给出位移幅度选项，没有写位移变大后二阶力常数不再是谐近似。"
+        }
+      },
+      "label": "缺有效性"
+    },
+    {
+      "id": "band-structure",
+      "product": "沿高对称路径的声子色散",
+      "paper": {
+        "step": {"filled": false, "span": "arXiv:1506.08498 §2 Fig. 1", "quote": "The phonon band structure and phonon density of states (DOS) of Al are shown in Fig. 1."},
+        "validity": {"filled": false, "span": "", "quote": ""}
+      },
+      "repo": {
+        "entry": {
+          "filled": true,
+          "span": "command-options.html BAND",
+          "quote": "--band (BAND)"
+        },
+        "validity": {"filled": false, "span": "", "quote": ""}
+      },
+      "label": "入口缺义务",
+      "note": "论文这句话是结果展示。路径取样的做法没有写出来，所以 step 为空。态密度另有式 (6)，不并进行。"
+    },
+    {
+      "id": "group-velocity",
+      "product": "声子群速度",
+      "paper": {
+        "step": {"filled": false, "span": "", "quote": ""},
+        "validity": {"filled": false, "span": "", "quote": ""}
+      },
+      "repo": {
+        "entry": {
+          "filled": true,
+          "span": "command-options.html GROUP_VELOCITY",
+          "quote": "--gv, --group_velocity (GROUP_VELOCITY = .TRUE.)"
+        },
+        "validity": {"filled": false, "span": "", "quote": ""}
+      },
+      "label": "入口缺义务"
+    },
+    {
+      "id": "lattice-kappa",
+      "product": "由线性化声子玻尔兹曼方程得到晶格热导率",
+      "paper": {
+        "step": {
+          "filled": true,
+          "span": "arXiv:1506.08498 §6",
+          "quote": "Using the harmonic phonon coordinates, anharmonic terms are transformed to a picture of phonon-phonon interactions. Lattice thermal conductivity can be accurately calculated by solving linearized Boltzmann transport equation with the phonon-phonon interaction strength obtained using first principles calculation."
+        },
+        "validity": {"filled": false, "span": "", "quote": ""}
+      },
+      "repo": {
+        "entry": {
+          "filled": false,
+          "span": "command-options.html",
+          "quote": "",
+          "why_empty": "Phonopy v.4.8.2 命令页没有晶格热导率或线性化玻尔兹曼方程的入口。phono3py 是另一个包，不计入本仓库。"
+        },
+        "validity": {"filled": false, "span": "", "quote": ""}
+      },
+      "label": "义务缺入口"
+    }
+  ]
+}

@@ -1,124 +1,109 @@
-# Research brief — Host-relative alignment of dual-encoded scientific works
+# Research brief — Typed introduction of dual-encoded scientific work
 
-**Working title:** *From Scientific Works to Agent Capabilities: Host-Relative Alignment of Dual-Encoded Specifications*
+**Working title:** *Typed Introduction: Residual Labels Decide Host Edits and
+Fail-Before Tests for Dual-Encoded Scientific Work*
 
-**Status:** research brief v0.2 (2026-10-16). Identity revised: the object is an
-incoming scientific work \(W=(\mathrm{paper},\mathrm{repo})\) aligned to an
-existing host agent \(H\). cap-align is the measurement instrument, not the
-contribution. Canonical Chinese statement: `docs/paper-core.md`.
+**Status:** research brief v0.4 (2026-10-18). **Paper claim (DECIDED):**
+coverage fork + principled refusal + \(K_H\)/\(t_v\) — refined C1–C3 in
+`docs/acl-paper-design.md` §1.2 / `docs/acl-draft/innovation-proposals.md`.
+Prior shorthand \(\lambda\to I\) remains the operator; lead insight is the
+*fork*, not “six labels.” Skill gap-table endpoint is **not** the manuscript
+contribution. Canonical design: `docs/typed-introduction.md`. ACL draft:
+`docs/acl-draft/paper.md` (claim lock only; body not bulk-rewritten).
 
 ---
 
 ## 1. Problem
 
-Materials science now accumulates two piles at once: deployed materials agents
-(MatDiscovery, El Agente Sólido, PolyJarvis, Catalyst-Agent, …) and published
-works that arrive as a **paper plus a companion repository**. A user holding
-their own agent and a new paper needs a decision, not a re-implementation:
+Materials and other computational sciences accumulate deployed agents and
+published works \(W=(\mathrm{paper},\mathrm{repo})\). Holding \(H\) and a new
+\(W\), the user needs:
 
-> Which capabilities of this paper does my agent already have, which are missing,
-> and where should each gap land on my architecture?
+> Which products does my host already deliver, which residual **types** justify
+> an edit, and which test must fail **before** that edit?
 
-Three neighbouring questions are already occupied:
+Three neighbouring questions are occupied:
 
-1. **Reproduction.** AutoMat (2026) asks whether an agent can run a paper claim
-   to completion (best setting ~53%). That is task success, not host coverage.
-2. **Generation.** SkillFoundry compiles heterogeneous scientific resources into
-   new skills. The output is a skill package, not a gap table against *this* host.
-3. **Intra-artifact audit.** BIV / SkillConsist / DCI compare a skill (or MCP
-   tool) with *its own* implementation. SciCoQA / paper–code consistency compare
-   a paper with *its own* code at sentence–function grain.
+1. **Detect** (SciCoQA): paper vs *its own* code.
+2. **Reproduce / generate** (SA-Bench, LMR-BENCH, SciReplicate, ReproAgent,
+   AutoMat, SkillFoundry): code or claim success from papers / resources.
+3. **Intra-artifact audit** (BIV, SkillConsist, DCI): package vs itself.
 
-**Research question.** Can a published scientific work be treated as a capability
-specification and aligned, evidence-gated, to an already-deployed scientific
-agent — and do the paper encoding and the repo encoding specify the same surface?
+**Research question.** Does dual encoding *fork* host coverage such that
+product-typed \(\lambda\) selects introduction *and refusal* (incl. \(K_H\))
+with countable advantages over wrap-repo / paper-only / write-directly on FI,
+Miss, and \(t_v\)?
 
-“Quick” is the operational corollary of a **static decision procedure**: no
-execution of the reference, no implementation of the gap. It sits *before*
-generation and *before* reproduction.
+---
 
-## 2. Methodology — a decision procedure (instrument, not contribution)
+## 2. Method (contribution, not only instrument)
 
 ```
-W_paper ──┐
-          ├──→ Capability IR ──→ Gap(H, W) ──→ placement (5 questions)
-W_repo  ──┤     (typed+evidence)   five-way × 3 sources
-H_host  ──┘                        evidence-gated
-                 │
-                 └── coverage(H, W_paper)  vs  coverage(H, W_repo)
+W_paper ─┐
+         ├→ slots → u=(p,s,e,v_p,v_r,κ) → λ → project(·) → I(H,λ) + tests
+W_repo  ─┤                                      │
+H_host  ─┘                                      ├ vs W_rap / P_aper / write-directly / π
+                                                └ Fast / Effective / Testable
 ```
 
-- **Specification.** \(W=(W_{\mathrm{paper}}, W_{\mathrm{repo}})\) induces two
-  surfaces. Identity across encodings uses one predicate: semantic match
-  \(\in\{\mathrm{exact},\mathrm{plugin},\mathrm{subsume}\}\) and evidence
-  strength \(\ge\theta\). Blog is a third encoding; the paper pins paper/repo.
-- **Decision procedure.** \(\mathrm{Gap}(H,W)\): five-way class × three source
-  kinds + placement. Validate-before-classify; low-confidence evidence cannot
-  alone yield `missing`; adding evidence may turn `unknown→missing` and never
-  the reverse without a host artifact. Output stops at recommendations.
-- **Coverage.** \(\mathrm{coverage}(H,W)\) is reference-conditioned: the paper
-  projection and the repo projection can (and, we claim, do) fork. Intra-artifact
-  `promise-drift` is a decomposition term, not the headline metric.
+- **Typed residual.** Unique \(\lambda\) per unit (Prop. 1).
+- **Typed introduction \(I\).** Edits \(P_H\) / \(K_H\) by \(\lambda\); conflict
+  unresolved; incongruent ignored.
+- **Counting insights (Props. 2–5).** FI\((I)=0\); wrap-repo FI/Miss identities;
+  \(t_v\) on validity-gap; \(\pi\) non-vacuous.
+- **Assumptions outside theorems:** Id, \(\kappa\), Faithful.
 
-Represent / align / verify is the *shape of the instrument*. Closed loops are
-common in 2026 skill systems; they are not a contribution.
+Instrument workflow (inventory → IR → five-way gap → placement) may still run
+for measurement; manuscript contributions are \(\lambda\), \(I\), and the
+contract protocol.
 
-## 3. Contributions
+---
+
+## 3. Contributions (ACL) — **DECIDED** C1–C3
 
 | # | Contribution | Assertion | Experiment |
 |---|---|---|---|
-| **C1** | **A scientific work is a dual-encoded capability specification.** Paper methods and companion-repo interfaces share an identity predicate; taking only one encoding leaves the specification incomplete. Distinct from intra-package declaration–implementation audit and from sentence–function paper–code discrepancy. | Residual \(\Delta(W_{\mathrm{paper}},W_{\mathrm{repo}})\) is non-empty and classifiable | **EΔ** (unrun; phonopy paper vs phonopy repo) |
-| **C2** | **Host-relative alignment is a decision problem.** \(\mathrm{Gap}(H,W)\) is static, evidence-gated, reproducible, and stops at placement. Distinct from reproducing a claim (AutoMat) and from compiling skills (SkillFoundry). | A (evidence monotonicity); IRR on both the repo arm and the paper arm | E1 (P1 κ=0.853, P2 κ=1.000; same-model judges) |
-| **C3** | **Coverage is reference-conditioned.** \(\mathrm{coverage}(H,W_{\mathrm{paper}})\) and \(\mathrm{coverage}(H,W_{\mathrm{repo}})\) diverge; residual type tells wrap-the-interface from honour-the-method. Distinct from Skill Coverage (trajectory vs a skill’s own constraints) and from BIV’s 80% intra-package drift. | Assembly along the paper spec vs the repo spec yields different task-gain shapes | E2 (protocol ready; gold pending) |
+| **C1** | **Coverage-fork residual:** product-Id merge; paper-face vs repo-face gaps can be disjoint; \(\lambda\) partitions residual | Fork is the insight; \(\lambda\) is the partition engine—not “six labels” as headline | **EΔ** TODO (Jaccard of faces); slots illustrated on mini-ref / phonopy (`qha`/`band`) |
+| **C2** | **Typed \(I\) + principled refusal + \(K_H\):** refuse entry-sans-obl / conflict / incongruent; install \(t_v\) on validity-gap | Props. 2–5 (contract); Faithful separate; refusal = success | **E2′** TODO; obedience ≠ definition |
+| **C3** | **Contract acceptance:** Effective (FI, Miss, \(t_v\)) + Testable (fail-before→destroy); Fast optional | Wrong scalars: detection recall / reproduction fidelity | **Testable** TODO; **Fast** TODO until measured; human **E1′** TODO |
 
-Self-audit bias (E4) hangs off C2: whether the host can stand in for an external
-alignment against incoming \(W\). Stale-skill recall (old assertion E) is
-governance follow-on, not a headline contribution.
+**ZH one-liners.** C1: 双编码分叉宿主覆盖。C2: \(\lambda\) 决定编辑与原则性拒绝，有效性装 \(K_H\)。C3: FI/Miss/\(t_v\)+破坏测试验收。
 
-**Defensive thesis.** Matching is old (Paolucci / RE). The claim is host-relative
-alignment of a dual-encoded scientific work, plus the finding that coverage forks
-with the encoding. The skill is the instrument; the residual and the
-reference-conditioned coverage are the paper.
+**Defensive thesis.** Matching and detection are occupied. The claim is
+host-relative **typed introduction with refusal**, with *coverage fork* as cause
+of wrong edits under single-face wrap/paper policies—not a better SciCoQA detector.
 
-## 4. Positioning vs. neighbours
+---
+
+## 4. Positioning
 
 | Neighbour | Their question | Ours |
 |---|---|---|
-| AutoMat (2605.00803) | Can the agent reproduce this claim? | Which capabilities of this work does the host already cover? |
-| SkillFoundry (2604.03964) | Can resources be compiled into skills? | Where does each gap land on *this* host? Stop at advice. |
-| SciCoQA (2601.12910) / Do Papers Match Code? (2603.22018) | Does this paper match *its own* code? | Does this paper+repo, as a spec, sit relative to *another* agent? |
-| BIV (2605.11770) / SkillConsist (2608.07639) / DCI (2606.04769) | Does a skill/tool match its own implementation? | Does an incoming work get covered by the host? |
-| Skill Coverage (2606.20659) | Did the trajectory exercise the skill’s own constraints? | Did the host cover the external scientific work? |
-| SkillOps (2605.13716) | Library-internal merge / repair / retire | Demand-side: a new work against an existing surface |
-| ClaimReceipt / TessIndex / Lemons | Credentials, identity, market mechanisms | Content-level, host-relative evidence gates |
-| Externalization (2604.08224) / CDD | Capability-as-infrastructure / organisational processes | Scientific work → deployed scientific agent |
+| SciCoQA | Detect paper–own-code discrepancies | \(\lambda\to I\) on deployed \(H\) |
+| SA-Bench / LMR / SciReplicate / ReproAgent | Generate / reproduce | Edit contract; FI/Miss/\(t_v\) |
+| SkillFoundry | Compile new skills | Type must choose the edit; untyped gen = baseline |
+| BIV / SkillConsist / DCI | Package vs own implementation | Incoming \(W\) vs \(H\) |
+| Skill Coverage | Trajectory vs skill’s own constraints | External \(W\); two projections |
 
-Materials is the instance: many agents, many paper–repo pairs, the deepest
-community-verified software pool (Lejaeghere). The generic method names no host
-file and no domain lexicon.
+Full table: `docs/acl-paper-design.md` §2; draft prose: `docs/acl-draft/paper.md` §2.
 
-## 5. Evidence plan (see `experiments.md`)
+---
 
-- **E1** IRR of \(\mathrm{Gap}(H,W)\) on a repo arm and a paper arm (C2).
-- **EΔ** residual \(W_{\mathrm{paper}}\bowtie W_{\mathrm{repo}}\) on a paired
-  work (C1/C3 lifeline; unrun).
-- **E2** assembly along paper spec vs repo spec vs random / none (C3).
-- **E3** library-level distribution of \(\mathrm{coverage}(H,W)\); intra-package
-  drift demoted to an appendix decomposition.
-- **E4** self-report vs externally verified surface against incoming \(W\) (C2).
+## 5. Evidence plan
 
-Seed corpus: phonopy↔MatDiscovery (19 gaps, A–E tiers, three false-gap catches)
-and the 37-skill host library.
+Minimum submission pack (`acl-paper-design.md` §3): **EΔ**, **E1′** (human),
+**E2′** (four arms + \(\pi\)), **Fast**, **Testable**. Legacy E1 same-model
+\(\kappa\) and E3 intra-package drift are appendix / decomposition only.
+
+Illustrative empty-host phonopy / mini-ref **definitional** counts exist in
+`docs/typed-introduction.md` §11 — not multi-work results.
+
+---
 
 ## 6. Risks & defense
 
-- Crowded 2026 skill-audit field → differentiate on **host-relative · dual-encoded
-  scientific work · reference-conditioned coverage**. Intra-package drift, skill
-  generation, and claim reproduction are occupied.
-- “Matching is not new” → grant Paolucci/RE; the object is \(W\) against \(H\),
-  with a residual between encodings.
-- “Two input adapters” → the paper must lead with the residual (C1/C3), or
-  dual-modality collapses to a product feature. EΔ is therefore first priority.
-- Empirics currently cannot carry a findings-first paper (EΔ unrun, E2 gold
-  pending, E4 unfalsifiable on mini). Method+phenomenon identity (C1–C3 as
-  definitions plus a residual measurement) is the honest present tense.
+- SciCoQA Main collision → nail detect vs introduce in Intro sentence 1 of RW.
+- “Matching is not new” → grant; object is \(\lambda\to I\) on \(H\).
+- Thin empirics → honest TODO tables; do not invent residual rates or human \(\kappa\).
+- ARR M1 (LLM-only eval) → same-model pilot disclosed; human IRR required.
+- Faithful → report obedience and destroy failures separately from Props. 2–4.

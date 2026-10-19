@@ -1,0 +1,343 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "cap-align · 能力对齐 — 核心能力架构",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/WeiminLee/capalign",
+      "provider": "github",
+      "link_mode": "web",
+      "revision": "b6a06b756837a242af5430d8d84cc7e2bbfc1459"
+    },
+    "viewBox": [
+      1240,
+      720
+    ],
+    "legend": {
+      "mode": "auto",
+      "entries": {
+        "external": {
+          "label": "外部科学工作 W"
+        },
+        "backend": {
+          "label": "判定算子"
+        },
+        "cloud": {
+          "label": "宿主面 H"
+        },
+        "database": {
+          "label": "产物"
+        },
+        "security": {
+          "label": "验证门"
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "paper",
+      "type": "external",
+      "label": "W_paper · 论文编码",
+      "sublabel": "方法步骤 · 有效性条件 · 产物",
+      "pos": [
+        56,
+        130
+      ],
+      "size": [
+        170,
+        88
+      ],
+      "sources": [
+        {
+          "path": "SKILL.md",
+          "label": "§1 盘点参考物"
+        }
+      ]
+    },
+    {
+      "id": "repo",
+      "type": "external",
+      "label": "W_repo · 仓库编码",
+      "sublabel": "CLI · 模块 · 接口",
+      "pos": [
+        56,
+        268
+      ],
+      "size": [
+        170,
+        88
+      ],
+      "sources": [
+        {
+          "path": "references/inventory-heuristics.md",
+          "label": "§A/B/C 盘点"
+        }
+      ]
+    },
+    {
+      "id": "ir",
+      "type": "backend",
+      "label": "归一化 → 能力 IR",
+      "sublabel": "C = (id, τ, 契约, E, conf)",
+      "pos": [
+        320,
+        196
+      ],
+      "size": [
+        160,
+        88
+      ],
+      "sources": [
+        {
+          "path": "references/capability-ir.md",
+          "label": "IR schema"
+        }
+      ]
+    },
+    {
+      "id": "gate",
+      "type": "security",
+      "label": "验证门 · 验证先于分类",
+      "sublabel": "grep 代码 · 读产物 spec",
+      "pos": [
+        550,
+        196
+      ],
+      "size": [
+        140,
+        88
+      ],
+      "sources": [
+        {
+          "path": "SKILL.md",
+          "line": 75,
+          "label": "§4 交叉验证"
+        }
+      ]
+    },
+    {
+      "id": "overlay",
+      "type": "backend",
+      "label": "五态覆盖比对 Gap(H, W)",
+      "sublabel": "五态差距 · 三来源",
+      "pos": [
+        760,
+        168
+      ],
+      "size": [
+        180,
+        142
+      ],
+      "sources": [
+        {
+          "path": "references/alignment-rules.md",
+          "label": "§Gap classification"
+        }
+      ]
+    },
+    {
+      "id": "placement",
+      "type": "backend",
+      "label": "落点建议 · 六问",
+      "sublabel": "新 skill · 新 tool · 扩既有",
+      "pos": [
+        1010,
+        196
+      ],
+      "size": [
+        160,
+        88
+      ],
+      "sources": [
+        {
+          "path": "references/alignment-rules.md",
+          "label": "§Placement 规则 6"
+        }
+      ]
+    },
+    {
+      "id": "deliverable",
+      "type": "database",
+      "label": "对齐产物 + 自检门",
+      "sublabel": "report.md · report.json",
+      "pos": [
+        995,
+        530
+      ],
+      "size": [
+        190,
+        108
+      ],
+      "sources": [
+        {
+          "path": "references/report-contract.md",
+          "label": "报告契约"
+        }
+      ]
+    },
+    {
+      "id": "host",
+      "type": "cloud",
+      "label": "宿主能力面 H",
+      "sublabel": "自有的 skill / tool / runner — 落点是它自己的，不 wrap 参考 agent",
+      "pos": [
+        320,
+        530
+      ],
+      "size": [
+        610,
+        108
+      ],
+      "sources": [
+        {
+          "path": "SKILL.md",
+          "label": "§2 盘点宿主面"
+        }
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "外来科学工作 W · 双编码规格",
+      "wraps": [
+        "paper",
+        "repo"
+      ],
+      "pad": 20
+    }
+  ],
+  "connections": [
+    {
+      "id": "paper-ir",
+      "from": "paper",
+      "to": "ir",
+      "label": "方法合同",
+      "fromSide": "right",
+      "toSide": "left",
+      "labelAt": [
+        288,
+        150
+      ]
+    },
+    {
+      "id": "repo-ir",
+      "from": "repo",
+      "to": "ir",
+      "label": "软件接口",
+      "fromSide": "right",
+      "toSide": "left",
+      "labelAt": [
+        288,
+        402
+      ]
+    },
+    {
+      "id": "ir-gate",
+      "from": "ir",
+      "to": "gate",
+      "label": "候选能力"
+    },
+    {
+      "id": "gate-overlay",
+      "from": "gate",
+      "to": "overlay",
+      "label": "已验证候选"
+    },
+    {
+      "id": "overlay-placement",
+      "from": "overlay",
+      "to": "placement",
+      "label": "missing / partial",
+      "labelAt": [
+        985,
+        350
+      ]
+    },
+    {
+      "id": "placement-deliverable",
+      "from": "placement",
+      "to": "deliverable",
+      "label": "建议",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        1115,
+        430
+      ]
+    },
+    {
+      "id": "host-gate",
+      "from": "host",
+      "to": "gate",
+      "label": "宿主代码与产物 spec",
+      "variant": "dashed",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "labelAt": [
+        640,
+        390
+      ]
+    },
+    {
+      "id": "host-overlay",
+      "from": "host",
+      "to": "overlay",
+      "label": "被比对的宿主面",
+      "variant": "dashed",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "labelAt": [
+        840,
+        460
+      ]
+    },
+    {
+      "id": "placement-host",
+      "from": "placement",
+      "to": "host",
+      "label": "落点宿主自有",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        990,
+        370
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "C1 · 双编码规格",
+      "items": [
+        "论文面给方法合同，仓库面给软件接口",
+        "两份编码共用同一性谓词：语义匹配 ∧ 证据 ≥ θ",
+        "只认其中一份，规格不完整"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "C2 · 五态差距 · 三来源",
+      "items": [
+        "equivalent 等效 · partial 部分 · missing 缺失",
+        "host-only 宿主独有 · unknown 证据不足",
+        "三来源：宿主自审 · 参考对比 · 领域推断",
+        "低置信条目推不出 missing；25 候选中 4 个假缺口未进表"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "C3 · 落点宿主自有",
+      "items": [
+        "覆盖是参考条件化的：paper 面与 repo 面缺口集合不同",
+        "可调用上游科学引擎，不 wrap 参考 agent",
+        "Layer-1 自检 10 项，任一 fail 即整轮无效",
+        "报告落 capability-alignment-report.md 与 .json"
+      ]
+    }
+  ]
+}

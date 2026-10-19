@@ -167,7 +167,7 @@ weakens to external-audit-only — a falsifiable boundary we state up front.
 
 The closed loop is a measurement sequence on a *single evolving surface* `S(t)`:
 ```
-re-inventory → align(S(t), R) → drift(S(t)) → assemble per gap → S(t+1)
+re-inventory → align(S(t), R) → drift(S(t)) → I(S(t)) → S(t+1)
 ```
 Two governance signals:
 - **coverage@reference(S(t))** — should rise after assembly (Assertion B shape);
@@ -194,3 +194,8 @@ Headline assertions: **C1** (residual, §0), **A** (gates, §2), **C2** via E1 I
 Intra-package drift (old C) and stale recall (E) are follow-ons. If C1 fails
 (\(\Delta(W)=\emptyset\) on paired works), dual-encoding collapses to a product
 feature and the paper identity weakens to C2 alone.
+
+The introduction step above is the operator \(I\) in `introduction-operator.md`:
+label \(\lambda\) selects the edit and the pre/post test. Propositions there
+fix false-introduction and missed-obligation counts for \(I\) versus wrapping
+the repo. They do not prove that a generated patch implements the edit.

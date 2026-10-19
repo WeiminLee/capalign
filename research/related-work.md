@@ -6,7 +6,9 @@ SkillFoundry (compile skills from resources), SciCoQA / paper–code consistency
 (paper vs *its own* code), BIV / SkillConsist / DCI (package vs *its own*
 implementation), Skill Coverage (trajectory vs a skill’s own constraints). Our
 object is an incoming work \(W=(\mathrm{paper},\mathrm{repo})\) against an
-already-deployed host \(H\).
+already-deployed host \(H\). **Manuscript claim (2026-10-18):** typed residual
+\(\lambda\to I\) — see `docs/acl-draft/paper.md` and `docs/acl-paper-design.md` §2;
+do not position this paper as detection-only.
 
 Updated 2026-10-16: added 2026-06..10 neighbours that occupy intra-package
 audit, skill coverage, and paper–code discrepancy. The 2026-02 SoK remark that

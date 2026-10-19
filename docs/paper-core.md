@@ -4,6 +4,16 @@
 > `research/`（brief / abstract / related-work / experiments）。本稿讲清楚
 > **主张什么、为什么新、怎么成体系**。配图仍用 `figures/` 的 archify 正稿；
 > 图注已按新身份改写，图面邻居集待重绘。
+>
+> 2026-10-17 的讨论结论在 [`typed-introduction.md`](typed-introduction.md)：
+> 终点从「停在差距表」改为「差异类型决定引入和测试」。本稿第 1 节的旧终点仍是仪器行为。
+>
+> **ACL 写作包（2026-10-18）：** 投稿主张、SciCoQA 差分、Related Work 对照表、
+> 最小实验协议、Limitations、Intro 三条与 Figure X caption 见
+> [`acl-paper-design.md`](acl-paper-design.md)。
+> **英文全稿草稿：** [`acl-draft/paper.md`](acl-draft/paper.md)（typed introduction +
+> 洞察段；非差距表终点）。投稿时以 typed introduction + acl-draft 为准；
+> 本稿保留为仪器层身份说明。
 
 ---
 
