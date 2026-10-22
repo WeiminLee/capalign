@@ -49,175 +49,221 @@
       "product": "在体积网格上极小化 Helmholtz 自由能 F(V,T)，得到热膨胀",
       "paper": {
         "step": {
-          "filled": true,
+          "state": 1,
+          "provenance": "paper",
           "span": "tests/fixtures/mini-ref/papers/qha-mini-ref-2015.md:5-7",
           "quote": "The quasi-harmonic approximation evaluates the Helmholtz free energy on a volume grid. At each volume, harmonic phonons are obtained from finite-displacement force constants; F(V,T) is then minimized to give the thermal expansion."
         },
         "validity": {
-          "filled": true,
+          "state": 1,
+          "provenance": "paper",
           "span": "tests/fixtures/mini-ref/papers/qha-mini-ref-2015.md:9-10",
           "quote": "Validity: the harmonic approximation must hold at each volume. Imaginary modes invalidate the QHA protocol."
         }
       },
       "repo": {
         "entry": {
-          "filled": false,
+          "state": 0,
+          "provenance": "repo",
           "span": "tests/fixtures/mini-ref/docs/qha.md:3-4",
           "quote": "Requires the `qha` module.",
-          "why_empty": "docs 点名 qha 模块；src 下没有 qha.py；cli.py 用法只有 band|dos|thermal"
+          "why_empty": "absent"
         },
         "validity": {
-          "filled": false,
-          "span": "",
-          "quote": ""
+          "state": 0,
+          "provenance": "repo",
+          "span": null,
+          "quote": "",
+          "why_empty": "absent"
         }
       },
-      "label": "义务缺入口"
+      "label": "义务缺入口",
+      "kappa": 0
     },
     {
       "id": "force-constants",
       "product": "由位移和力得到二阶力常数张量",
       "paper": {
         "step": {
-          "filled": false,
-          "span": "",
-          "quote": ""
+          "state": 0,
+          "provenance": "paper",
+          "span": null,
+          "quote": "",
+          "why_empty": "absent"
         },
         "validity": {
-          "filled": false,
-          "span": "",
-          "quote": ""
+          "state": 0,
+          "provenance": "paper",
+          "span": null,
+          "quote": "",
+          "why_empty": "absent"
         }
       },
       "repo": {
         "entry": {
-          "filled": true,
+          "state": 1,
+          "provenance": "repo",
           "span": "tests/fixtures/mini-ref/src/mini_ref/cli.py:11-13",
           "quote": "Build the 2nd-order force-constant tensor from displacement/force data."
         },
         "validity": {
-          "filled": false,
-          "span": "",
-          "quote": ""
+          "state": 0,
+          "provenance": "repo",
+          "span": null,
+          "quote": "",
+          "why_empty": "absent"
         }
       },
-      "label": "入口缺义务"
+      "label": "入口缺义务",
+      "kappa": 0
     },
     {
       "id": "dynamical-matrix",
       "product": "组装动力学矩阵 D(q) 并对角化",
       "paper": {
         "step": {
-          "filled": false,
-          "span": "",
-          "quote": ""
+          "state": 0,
+          "provenance": "paper",
+          "span": null,
+          "quote": "",
+          "why_empty": "absent"
         },
         "validity": {
-          "filled": false,
-          "span": "",
-          "quote": ""
+          "state": 0,
+          "provenance": "paper",
+          "span": null,
+          "quote": "",
+          "why_empty": "absent"
         }
       },
       "repo": {
         "entry": {
-          "filled": true,
+          "state": 1,
+          "provenance": "repo",
           "span": "tests/fixtures/mini-ref/src/mini_ref/cli.py:16-18",
           "quote": "Assemble the dynamical matrix D(q) and diagonalize it."
         },
         "validity": {
-          "filled": false,
-          "span": "",
-          "quote": ""
+          "state": 0,
+          "provenance": "repo",
+          "span": null,
+          "quote": "",
+          "why_empty": "absent"
         }
       },
-      "label": "入口缺义务"
+      "label": "入口缺义务",
+      "kappa": 0
     },
     {
       "id": "phonon-dos",
       "product": "Gaussian 展宽的声子态密度",
       "paper": {
         "step": {
-          "filled": false,
-          "span": "",
-          "quote": ""
+          "state": 0,
+          "provenance": "paper",
+          "span": null,
+          "quote": "",
+          "why_empty": "absent"
         },
         "validity": {
-          "filled": false,
-          "span": "",
-          "quote": ""
+          "state": 0,
+          "provenance": "paper",
+          "span": null,
+          "quote": "",
+          "why_empty": "absent"
         }
       },
       "repo": {
         "entry": {
-          "filled": true,
+          "state": 1,
+          "provenance": "repo",
           "span": "tests/fixtures/mini-ref/src/mini_ref/cli.py:21-23",
           "quote": "Gaussian-broadened phonon density of states."
         },
         "validity": {
-          "filled": false,
-          "span": "",
-          "quote": ""
+          "state": 0,
+          "provenance": "repo",
+          "span": null,
+          "quote": "",
+          "why_empty": "absent"
         }
       },
-      "label": "入口缺义务"
+      "label": "入口缺义务",
+      "kappa": 0
     },
     {
       "id": "harmonic-thermal",
       "product": "由声子频率得到自由能、熵和热容",
       "paper": {
         "step": {
-          "filled": false,
-          "span": "",
-          "quote": ""
+          "state": 0,
+          "provenance": "paper",
+          "span": null,
+          "quote": "",
+          "why_empty": "absent"
         },
         "validity": {
-          "filled": false,
-          "span": "",
-          "quote": ""
+          "state": 0,
+          "provenance": "paper",
+          "span": null,
+          "quote": "",
+          "why_empty": "absent"
         }
       },
       "repo": {
         "entry": {
-          "filled": true,
+          "state": 1,
+          "provenance": "repo",
           "span": "tests/fixtures/mini-ref/src/mini_ref/cli.py:26-28",
           "quote": "Free energy / entropy / heat capacity from the phonon frequencies."
         },
         "validity": {
-          "filled": false,
-          "span": "",
-          "quote": ""
+          "state": 0,
+          "provenance": "repo",
+          "span": null,
+          "quote": "",
+          "why_empty": "absent"
         }
       },
-      "label": "入口缺义务"
+      "label": "入口缺义务",
+      "kappa": 0
     },
     {
       "id": "band-structure",
       "product": "高对称路径上的声子色散，输出 band.yaml",
       "paper": {
         "step": {
-          "filled": false,
-          "span": "",
-          "quote": ""
+          "state": 0,
+          "provenance": "paper",
+          "span": null,
+          "quote": "",
+          "why_empty": "absent"
         },
         "validity": {
-          "filled": false,
-          "span": "",
-          "quote": ""
+          "state": 0,
+          "provenance": "paper",
+          "span": null,
+          "quote": "",
+          "why_empty": "absent"
         }
       },
       "repo": {
         "entry": {
-          "filled": true,
+          "state": 1,
+          "provenance": "repo",
           "span": "tests/fixtures/mini-ref/docs/band.md:3-5",
           "quote": "`phon-vib band` computes the phonon dispersion along a high-symmetry path using `mini_ref.cli.dynamical_matrix` on a q-point mesh. Output: `band.yaml` with frequencies per q-point."
         },
         "validity": {
-          "filled": false,
-          "span": "",
-          "quote": ""
+          "state": 0,
+          "provenance": "repo",
+          "span": null,
+          "quote": "",
+          "why_empty": "absent"
         }
       },
-      "label": "入口缺义务"
+      "label": "入口缺义务",
+      "kappa": 0
     }
   ],
   "host_fills": [

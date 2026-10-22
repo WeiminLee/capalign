@@ -57,7 +57,7 @@ cap-align/
 | skill 本体 | `SKILL.md` | 八步工作流 + 输出契约 |
 | 方法论（三层纪律） | `references/methodology.md` | 通用方法（七阶段）→ 可插拔适配层 → 实例 |
 | 中间表示 IR | `references/capability-ir.md` | 统一 schema、类型词表、归一化与粒度边界 |
-| 对齐/落点规则 | `references/alignment-rules.md` | 五态差距 × 三来源、范围（材料模拟 / 材料 agent / plumbing）、引入卡片、落点六问、宿主 doctrine 优先 |
+| 对齐/落点规则 | `references/alignment-rules.md` | 六态差距 × 三来源、范围（材料模拟 / 材料 agent / plumbing）、引入卡片、落点六问、宿主 doctrine 优先 |
 | 盘点启发式 | `references/inventory-heuristics.md` | repo/paper/blog/宿主盘点 + §E 配套论文/邻域回收（零捆绑） |
 | 评估 | `references/evaluation.md` | Layer-1 每跑自检 + Layer-2 fixture 金标验收 |
 | 报告契约 | `references/report-contract.md` | 报告必含字段与 `self_check:` 头块 |
@@ -128,11 +128,11 @@ cap-align/
 
 ### 4.1 数据流与判定主线
 
-![运行逻辑：双盘点 → 归一化 → 验证门 → 五态分类 → 双自检门](images/cap-align-workflow.jpg)
+![运行逻辑：双盘点 → 归一化 → 验证门 → 六态分类 → 双自检门](images/cap-align-workflow.jpg)
 
 ```
 参考物(repo/paper/blog) ──┐
-                         ├──▶ 归一化到能力 IR ──▶ 交叉验证(证据门) ──▶ 五态差距×三来源
+                         ├──▶ 归一化到能力 IR ──▶ 交叉验证(证据门) ──▶ 六态差距×三来源
 宿主 agent 能力面 ────────┘                          ▲                       │
        ▲                                             └── 只有验证过的证据 ──── ▼
        └────────────────────────────────────────────────────────────── 落点建议(引用规则号)
@@ -224,7 +224,7 @@ agent 在宿主 shell 里跑 `ls <repo>; cat pyproject.toml; grep -rn console_sc
 | 科学工作 \(W\) | 双编码能力规格 \((W_{\mathrm{paper}}, W_{\mathrm{repo}})\) | C1：同一资产上两面残差非空、可分类（EΔ） |
 | 能力 IR | `C = (id, τ, l, E, conf, src)`，τ∈六型，E=证据集 | 同一性谓词的载体 |
 | covers 判定 | 语义匹配 ∧ 证据强度 ≥ θ | A：判定关于证据单调（加证据可 unknown→missing） |
-| \(\mathrm{Gap}(H,W)\) | 五态 × 三来源 + 落点 | C2：同一谓词在 repo 臂与 paper 臂上 IRR（E1） |
+| \(\mathrm{Gap}(H,W)\) | 六态 × 三来源 + 落点 | C2：同一谓词在 repo 臂与 paper 臂上 IRR（E1） |
 | coverage@reference | 分 paper 投影与 repo 投影；raw vs adequacy-gated | B / C3：按哪份规格装配，任务增益形状不同（E2） |
 | 自参照偏差 | bias = 自报面 − 相对外来 \(W\) 的验证面 | D：bias ≥ 0 且可校准；否则只能外部对齐（E4） |
 

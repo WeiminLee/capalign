@@ -13,9 +13,12 @@
 > 此前两支线各自记为「14 → 16」与「14 → 18」，均系从 14 分叉后单侧计数，此处按合流后的
 > 实际表序（1–15 旧、16 桥、17 unknown、18 host_need）更正。
 > 新 fixture：`tests/fixtures/mini-ref-unreachable/` 与对应 gold。金标卡槽已迁移三态。
-> **论文轨待同步**：`research/tools/slot-model.py` 与 `research/slot-model.*.json` 仍用
-> 二值/`filled` 形式化，尚未引入 unknown；`docs/acl-draft/paper.md` 的槽位记录指向
-> `research/slot-model.phonopy.json`，故随其一并待迁移（论文正文本身不写 `filled`）。
+> **论文轨已同步（2026-10-22）**：`research/tools/slot-model.py` 与
+> `research/slot-model.*.json` 已迁到三态（`state` / `provenance` / `why_empty` /
+> `why_unknown`），新增标签 `证据不足` 与 `有效性未评`，`unres` 单列未决；
+> `research/introduction-operator.md` 的 \(\lambda\)、算子表、命题 2/3 与 Adm 表，
+> `research/slot-model.md` 的槽位、标签函数与投影，`docs/typed-introduction.md` 的
+> §5/§6 均已同步。旧记录的 `filled` 仍可读（折成 state 1/0）。
 >
 > 更新：2026-10-19（五）。宿主同步前置：对齐前先对宿主 `git pull --ff-only`，
 > 拉不动（未提交改动 / 分叉 / 冲突）就停跑并把 `git status` 交给用户裁决

@@ -70,8 +70,8 @@
 \mathrm{plugin},\mathrm{subsume}\}\) 且证据强度 \(\ge\theta\)。
 
 **判定（Decision procedure）。** 对象是 \(\mathrm{Gap}(H,W)\)：已有宿主面 \(H\)
-相对外来工作 \(W\) 的五态差距（equivalent / partial / missing / host-only /
-unknown），带来源、带已验证证据、带落点（新 skill / 新 tool / 扩既有 /
+相对外来工作 \(W\) 的六态差距（equivalent / partial / missing / agent-competence /
+host-only / unknown），带来源、带已验证证据、带落点（新 skill / 新 tool / 扩既有 /
 runner 契约 / 跳过）。三条使它成为理论对象：
 
 1. 证据先于分类：低置信参考条目不能单独判 `missing`；
@@ -97,7 +97,7 @@ runner 契约 / 跳过）。三条使它成为理论对象：
 | # | 创新 | 空在哪 | 可证伪点 |
 |---|---|---|---|
 | **C1** | **科学工作是双编码能力规格。** \(W=(\mathrm{paper},\mathrm{repo})\) 两份编码共用同一性谓词；只认其中一份，规格不完整。 | BIV / SkillConsist / DCI 比的是**同一个包**内部的声明与实现；SciCoQA / paper–code 比的是论文与**它自己的**代码（句/函数级错误）。这里比的是外来工作的两份**能力面**编码。 | 同一资产上 \(W_{\mathrm{paper}}\neq W_{\mathrm{repo}}\)（残差非空、可分类） |
-| **C2** | **宿主相对对齐是判定问题。** \(\mathrm{Gap}(H,W)\) 是静态、证据门控、可复现的决策过程：五态 × 三来源 + 落点，不执行 \(W\)、不实现缺口。 | AutoMat 问能否复现一条 claim；SkillFoundry 问资源能否编成 skill。都没有问已有 \(H\) 相对新 \(W\) 覆盖了什么。 | 断言 A（证据单调）+ E1 IRR（同一谓词在 repo 臂与 paper 臂上都可复现） |
+| **C2** | **宿主相对对齐是判定问题。** \(\mathrm{Gap}(H,W)\) 是静态、证据门控、可复现的决策过程：六态 × 三来源 + 落点，不执行 \(W\)、不实现缺口。 | AutoMat 问能否复现一条 claim；SkillFoundry 问资源能否编成 skill。都没有问已有 \(H\) 相对新 \(W\) 覆盖了什么。 | 断言 A（证据单调）+ E1 IRR（同一谓词在 repo 臂与 paper 臂上都可复现） |
 | **C3** | **覆盖是参考条件化的。** \(\mathrm{coverage}(H,W_{\mathrm{paper}})\) 与 \(\mathrm{coverage}(H,W_{\mathrm{repo}})\) 系统分叉；残差类型决定落点是「包接口」还是「兑现方法合同」。 | Skill Coverage（2606.20659）量的是轨迹是否跑过 **skill 自己的**约束。这里的轴是外部科学工作。BIV 的 80% 是包内漂移，不作头条去比规模。 | 按 paper 规格装配 vs 按 repo 规格装配，任务增益形状不同（E2）；paper-only 失败与 \(\Delta\) 相关 |
 
 形式主义（Paolucci 匹配、Zhu 测试充分性、CORA 类型）是判定过程的零件，写进

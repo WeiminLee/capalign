@@ -1,9 +1,8 @@
-# Coverage Fork and Typed Introduction: Residual Labels Select Host Edits, Refusal, and Validity Checks
+# Green but Not the Paper's Result: Admissible Revision of a Deployed Scientific Host
 
-> **Version.** Draft **v0.4.4** (2026-10-18, Asia/Shanghai). Status/gaps pointer only; method/protocol still as v0.4.3. **C1–C3 substance unchanged.** No new empirics.  
-> **Claim authority.** [`../acl-paper-design.md`](../acl-paper-design.md) §0–§1.2; [`innovation-proposals.md`](innovation-proposals.md) DECIDED.  
-> **Rule.** No fabricated empirics; unrun cells marked `TODO`. Illustrative phonopy / mini-ref slot counts are *not* multi-work results.  
-> **Status / gaps.** Story core (C1–C3 + typed edit + destroy contract) is written; **ACL-blocking gaps are empty experiment tables** (EΔ / human IRR / four-arm+\(π\) / destroy batch / ≥2 real pairs). Full inventory: [`gaps-and-todos-v043.md`](gaps-and-todos-v043.md). Run plan: [`experiment-checklist-v043.md`](experiment-checklist-v043.md).  
+> **Version.** Draft **v0.4.7** (2026-10-20, Asia/Shanghai). v0.4.6 withdrew. “Same name, different equation, usually an old host skill” mis-states the cases: near melting the equation is unchanged and the paper’s condition fails; a band file can be a correct computation the paper never owned. The object is a delivered number that does not have both responsibilities at once: the paper’s definition and conditions, and a run that executes that definition inside those conditions. **No new empirics.**  
+> **Rule.** No fabricated empirics; unrun cells marked `TODO`.  
+> **Status / gaps.** Story core rewritten in §1. **ACL-blocking gaps remain empty experiment tables.** Full inventory: [`gaps-and-todos-v043.md`](gaps-and-todos-v043.md). Run plan: [`experiment-checklist-v043.md`](experiment-checklist-v043.md). Prior lock (fork as C1) is superseded here: [`innovation-proposals.md`](innovation-proposals.md).  
 > **Figure X.** [`../figures/typed-introduction/cap-align-typed-introduction.pdf`](../figures/typed-introduction/cap-align-typed-introduction.pdf)  
 > **Formal proofs.** [`../../research/introduction-operator.md`](../../research/introduction-operator.md) (Props. 1–5). Design: [`../typed-introduction.md`](../typed-introduction.md). Insights map: [`insights-research.md`](insights-research.md).
 
@@ -11,55 +10,76 @@
 
 ## Abstract
 
-A practitioner who already runs a host agent \(H\) and faces a dual-encoded scientific work \(W=(W_{\mathrm{paper}},W_{\mathrm{repo}})\) needs more than a discrepancy detector and more than a code generator. The first question is host-relative: which products of \(W\) does \(H\) already deliver; which residual *types* justify an edit; which types justify *refusal*; and which test must fail *before* any edit. We show that dual encoding **forks host coverage**: after independent paper/repo inventories are merged by *product identity*, the paper-face and repo-face host-gap sets can be disjoint. Unique residual type \(\lambda\) then selects a typed introduction operator \(I\) on \(H=(P_H,K_H)\) that both installs products and *paper-grounded* validity checks \(K_H\) *and* treats refusal of entry-sans-obligation, procedure-conflict, and incongruent units as success (not a failed run). Counting identities prove \(\mathrm{FI}(I)=0\); wrap-repo’s FI and Miss equal the two omission-type counts; wrap-repo and paper-only leave \(t_v=0\) on validity-gap units. Acceptance is a fail-before → green → destroy-red contract (Effective = FI / Miss / \(t_v\); Testable = destroy still-green rate; Fast = call count only when measured). Materials agents are instance one; \(\lambda\) is frozen. We do not claim detection SOTA (SciCoQA) or paper→code SOTA. Multi-work EΔ, human IRR, and arm tables remain `TODO`.
+A paper and its repository do not carry the same responsibility. The paper defines a quantity and states when that quantity does not count. The repository exposes commands that actually run. An agent that already runs is updated from one side or from a blend, and the update is kept when a number comes back. On the phonopy paper of Togo and Tanaka (2015), that number need not have both responsibilities. Very near melting, `phonopy-qha` still returns a quasi-harmonic expansion; the equation is the paper’s equation, and the paper says it does not count there. `--band` returns a real file; the paper never stated the sampling method as its own. A conductivity number can appear with no phonopy command for the anharmonic Boltzmann path the paper wrote. An \(E(V)\) fit on a frozen mini-host can be labeled thermal expansion; the paper’s definition is the minimization of \(F(V,T)\). These are forms read off the sources, not a rate.
 
-**Keywords:** scientific agents; dual-encoded specs; coverage fork; typed introduction; principled refusal; structured refusal; criterion provenance; validity checks; fail-before tests; host-relative coverage.
+The problem we take on is not whether the paper matches its own code, and not whether a new repository can be generated. It is how to revise an agent that is already running so that these three results are not accepted. We read the paper and the repository separately, open a row only for a product a user can request alone, and cite the procedure, the real entry, and any invalidation condition in the source. Before any edit, each row is written as one of the three failures. The edit may only bind a real entry, write the paper’s procedure without inventing an entry, bind the entry together with the stated invalidation check, or leave the host unchanged. Tests are fixed first. They must catch the failure before the edit, pass after the allowed edit, and fail again when that edit is removed. A suite that stays green after removal does not count. Whether this revision actually blocks the three results is `TODO`.
+
+**Keywords:** scientific agents; deployed host; false success; invalidation conditions; admissible revision; paper–repo products; fail-before tests.
 
 ---
 
 ## 1. Introduction
 
-### 1.1 The missing question
+### 1.1 What is going wrong
 
-Deployed scientific agents and published paper+repo works arrive on different schedules. Holding a frozen host surface \(H\) and a new dual-encoded work \(W\), the practitioner’s first question is not “does this paper match its own code?” (detection) nor “can an agent regenerate the code?” (reproduction), but:
+Materials work now arrives as two piles at once. One pile is agents that are already running and can already return some scientific quantities. The other is papers that keep appearing with a companion repository. The usual update is to attach that repository to the agent, or to let a model read the paper and write a new capability. The update is kept when it runs, writes a file, or returns a number.
 
-> Which products of \(W\) does \(H\) already deliver; which residual types justify an edit of \(H\); which types require *principled refusal*; and which test must fail *before* that edit?
+That standard accepts results the paper does not stand behind. The rest of this section names three such results on one public pair. It then states the revision problem and the procedure we will test. Detecting whether a paper matches its own code, and generating a repository from a paper, answer different questions. They do not decide whether a number just returned by an existing agent is a result of this paper.
 
-A gap table answers only coverage. A discrepancy detector answers a different paper. A reproduction loop optimizes a new artifact. None of them says *what to change on an existing host* when paper and repo disagree—or when they agree on products but disagree on *when those products are scientifically invalid*.
+### 1.2 Three results that look successful and are not the paper's
 
-### 1.2 Three families, three endpoints
+The pair is Togo and Tanaka, *Scripta Materialia* 108 (2015) 1–5 (arXiv:1506.08498), read against the Phonopy v.4.8.2 command and QHA pages. Slots and quotations are recorded in `research/slot-model.phonopy.json`. A second, smaller pair (`research/slot-model.md`) supplies the equation-of-state confusion on a frozen mini-host. Nothing here is a count of how often agents do this.
 
-| Family | Input | Output | Success |
+**A number is returned in a regime the paper says does not count.** Section 4 writes the quasi-harmonic Gibbs energy as \(G(T,p)=\min_V[F(T,V)+pV]\) and states that the approximation is reasonable below the melting point except very near melting, where higher-order terms become evident. `phonopy-qha` fits the curve and asks for at least five volume points. That sentence is a precondition for the fit, not the melting invalidation, and the page does not state the melting failure. An agent that binds the command returns a thermal expansion on a room-temperature example, and the obvious test goes green. Asked for the same quantity near melting, it still returns a number. The fit ran. Under the paper’s own condition the number is not a quasi-harmonic result. Force constants have the same shape. Section 2 defines them as the derivative of forces with respect to displacement and treats the second-order term as the harmonic approximation only at small displacement and fixed volume. The repository can generate displacements and collect forces. Its command page does not say that a large displacement voids the harmonic constants. An agent that uses a large displacement still writes a force-constant matrix. The file exists. The harmonic approximation does not.
+
+**A file exists, and it is not a result this paper is responsible for.** The phonon band structure appears as a figure for aluminum. The paper does not state how samples are taken along a high-symmetry path. The repository’s `--band` writes `band.yaml`. After the command is attached, the host produces the plot and looks as if it now implements the paper’s band method. The paper never wrote that procedure down as its method. Group velocity is cleaner: the paper has no such product, and `--gv` returns numbers. The numbers belong to the repository. They are not results of this paper.
+
+**The requested quantity appears, and the path that produced it is the wrong path.** Section 6 obtains lattice thermal conductivity by turning anharmonic terms into phonon–phonon interactions and solving the linearized Boltzmann equation. The phonopy command page has no such entry; that calculation lives in another program, which we do not treat as this repository. If the agent still returns a conductivity, it used a conductivity skill the host already had, or a command that was invented. A test that only checks whether a conductivity number exists goes green. The number was not computed by the paper’s procedure, and it was not computed by this repository. A second wrong path shows up on the mini-host. The paper’s thermal expansion minimizes \(F(V,T)\). The host’s equation-of-state skill fits \(E(V)\) and returns an equilibrium volume and a bulk modulus. Returning that fit as thermal expansion looks like a materials answer. The thermodynamic potential is the wrong one. A similar name does not make the host already able to deliver the product.
+
+| Looks successful | What the host returns | Why it is not this paper’s result | Source |
 |---|---|---|---|
-| Detect | Paper + own code | Discrepancy labels | Recall / F1 |
-| Reproduce | Paper (± repo) | Code / run / claim match | Fidelity / exec. |
-| **Introduce (ours)** | \(W\) + **deployed host** \(H\) | \(I(H,\lambda)\) with refuse + \(K_H\) + fail-before | FI, Miss, \(t_v\); Testable; Fast (optional) |
+| Room-temperature QHA test is green; near-melting request still returns a number | Thermal expansion / \(G(T,p)\) from `phonopy-qha` | Paper: QHA fails very near melting, where higher-order terms matter. The docs require five volumes and do not state that failure | arXiv:1506.08498 §4; phonopy QHA page |
+| Force-constant file is written | Second-order constants from a large displacement | Paper: harmonic form holds at small displacement and fixed volume. Command page does not state the failure | arXiv:1506.08498 §2; `-d` / `-f` |
+| Band plot or group-velocity numbers appear | `band.yaml`, `--gv` | Paper shows a band figure and does not specify path sampling. Group velocity is absent from the paper | Fig. 1; `--band`, `--gv` |
+| A conductivity number appears | \(\kappa\) from another skill or an invented command | Paper’s path is anharmonic phonon interactions and the linearized Boltzmann equation. The phonopy command page has no such entry | arXiv:1506.08498 §6 |
+| An equation-of-state fit is labeled thermal expansion | \(V_0\), \(B_0\) from \(E(V)\) | The requested product minimizes \(F(V,T)\) | Frozen mini-host `eos` vs QHA |
 
-**SciCoQA** (ACL 2026 Main, SAC Highlight) detects conflicts between a paper and *its own* code, and reports that even strong models recover only a minority of *real* discrepancies (best reported recall \(\approx 46.7\%\); Paper Omissions hardest). Their taxonomy (Difference / Paper Omission / Code Omission) roughly aligns with our procedure-conflict / obligation-sans-entry / entry-sans-obligation. **Shared surface: residual labels. Differential: we require a deployed host \(H\), and \(\lambda\) selects introduction *and refusal* plus validity checks \(K_H\).** Remove \(H\) and the claim collapses to detection—we refuse that collapse.
+### 1.3 What has to be true of a delivered number
 
-**Reproduction / generation** (SA-Bench, LMR-BENCH, SciReplicate, ReproAgent, PaperBench, AutoMat, SkillFoundry-style wrap) ask whether agents can write or run code from papers. ReproAgent persists *split* specs (paper obligations + repo conventions) into a *generation* contract; we keep the two faces *separable for introduction*, because fusing them on an existing host recreates wrap-repo’s false introductions. Our endpoint is an edit contract on a frozen host surface, scored by FI / Miss / \(t_v\), not execution accuracy.
+A number returned under this work’s name is that work’s result only when both of the following hold.
 
-### 1.3 Lead insight: coverage fork (C1)
+The paper contains a passage that defines the quantity and states when it does not count. The run that produced the number executes that definition inside those conditions.
 
-Dual encoding is not two adapters for one coverage number. Define \(\mathrm{Obl}=\{p:s=1\}\) and \(\mathrm{Ent}=\{p:e=1\}\). On one \(H\), paper-face and repo-face host-gap projections can be **disjoint**: obligation-sans-entry gaps appear only on the paper face; entry-sans-obligation gaps only on the repo face (Figure X(b); worked `qha` vs `band`). In classical SE bidirectional-traceability language, the paper-face host gap is an **orphan obligation** (requirement without an owned host realization); the repo-face gap is a **phantom entry** (callable without a paper obligation). Wrapping every repo entry therefore **installs products the paper never obligated** (FI / phantoms) and **misses products the paper obligated but the repo never exposed** (Miss / orphans). Collapsing to either face alone is contractually wrong whenever both omission types are nonempty: **no single-face policy can be both FI\(=0\) and Miss\(=0\)** when orphans and phantoms coexist.
+Near melting, the first passage exists and the run steps outside it. The equation has not been replaced. The paper’s condition has. For the band file, the run is real and the passage does not exist: the paper never owned that method. For lattice thermal conductivity, the passage exists in §6 and the phonopy command page has no run of it; a number from some other code fails the second sentence. For the equation-of-state fit, neither the paper nor this repository owns that run, and the definition in the paper is a different minimization.
 
-This is the knowledge claim detection cannot state: without a host, there is no coverage of \(H\) to fork. It is also what industry MCP / skill wrap silently optimize against—connect maximizes \(\mathrm{coverage}_{\mathrm{repo}}\) by definition (OWASP: connect \(\neq\) least-privilege ownership).
+The rows in §1.2 are these two sentences failing in different places. They are not three mechanisms, and they are not one mechanism of “a similar name, a different formula.” An edit table is not required to apply the two sentences. The table in §1.4 is a way to keep a later revision from creating such numbers. It does not decide, by itself, that a number is scientifically void.
 
-### 1.4 Supporting insights (why type is causal)
+### 1.4 A candidate control, not the claim
 
-Three community takeaways motivate C2–C3; none is a contribution bullet by itself.
+If false delivery is common, one control is to revise the host before it answers. That control is specified here so it can be ablated later. It is not what the paper claims to have found.
 
-1. **Detection recall \(\neq\) introduction safety.** Low SciCoQA recall yields *false assurance* (missed real conflicts). Untyped wrapping yields *false introduction* (FI). Dude shows naïve dual-detection can raise recall while destroying precision via *granularity asymmetry*—sentence↔function alignment invents gaps no product identity supports. Both failures are silent and orthogonal.
-2. **Runnable / used \(\neq\) host-covered.** SA-Bench: semantic drift persists under executability scaffolds. Materials-side methodological notes converge: code execution \(\neq\) reliable scientific execution; skill *usage* \(\neq\) capability gain; stop conditions must bind obligations, not “it compiled.” Nearest host skills (`eos` \(\neq\) QHA) must not flip `host_has`.
-3. **Green tests can be invalid.** TestPrism: Joint Success ≪ single-reference success. Our destroy-test is the introduction analogue—if deleting the prescribed bind/steps/check leaves the suite green, it was never a validity witness. Rating Roulette: LLM-judge scores can be self-inconsistent; human IRR is required before labeling claims.
+Read the paper and the repository separately. Open a row only for a result a person can ask for on its own. Copy the location of the procedure, of the entry that actually runs, and of any sentence that says when the result is void. A package name does not open a row. “At least five volume points” does not count as an invalidation. A name that merely resembles a host skill does not count as the host already having the product: fitting \(E(V)\) is not minimizing \(F(V,T)\).
 
-### 1.5 Contributions (locked C1–C3)
+Write the failure before changing the agent. Near melting, quasi-harmonic output must be rejected, and a room-temperature request must still succeed. A band file and a group velocity must not be reported as this paper’s method. Lattice thermal conductivity must come from the procedure the paper wrote, and the revision must not pretend this repository has that command. If the repository has no entry, write the paper’s procedure as the host’s own capability and record that no entry exists.
 
-1. **C1 — Coverage-fork residual (model + insight).** Independent paper/repo inventories are merged by *product identity* into units \(u=(p,s,e,v_{\mathrm{p}},v_{\mathrm{r}},\kappa)\); the induced paper-face and repo-face host-gap sets can be *disjoint*. Unique type \(\lambda\) partitions residual (including validity-gap and procedure-conflict). Dual encoding is not two adapters for one coverage number—a detection taxonomy without host \(H\) cannot state this fork. Lead with *fork*, not “six labels.”
-2. **C2 — Typed introduction \(I\) with principled refusal and \(K_H\).** \(\lambda\) maps to edits of \(H=(P_H,K_H)\) *or* to non-introduction (entry-sans-obligation / procedure-conflict / incongruent). Counting: \(\mathrm{FI}(I)=0\); wrap-repo FI/Miss equal omission-type counts; only \(I\) installs \(t_v=1\) on validity-gap (Props. 2–4). Label permutation \(\pi\) is a non-vacuous ablation (Prop. 5). **Refusal is part of correctness, not a failed run.**
-3. **C3 — Contract acceptance protocol.** Against wrap-repo (\(W_{\mathrm{rap}}\) / MCP-attach), paper-only (\(P_{\mathrm{aper}}\)), and write-directly, report Effective (FI, Miss, \(t_v\)) and Testable (fail-before → green → destroy-red); Fast (calls to green) only when measured. Materials (or any domain with public products + enumerable host) is instance one; \(\lambda\) frozen. Reproduction fidelity and detection recall are the wrong scalars for host introduction.
+Each row then receives one action and no other: bind a real entry; write the paper’s steps and do not invent an entry id; bind the entry and install the stated invalidation check together; or leave the host unchanged. Leaving it unchanged is a successful revision when the row is a repository product the paper never owned, or when the two sides state conflicting procedures. Tests are written before the edit. The host must fail them before the edit and pass the ones it should pass after the edit. Delete the one prescribed action. If the test stays green, the test was wrong, and the revision does not count.
 
-**Not claimed:** multi-work residual rates (`TODO` EΔ); human IRR (`TODO` E1′); user-study “faster/more accurate/more trustworthy”; SciCoQA detection SOTA; paper→code SOTA; “six λ taxonomy” as the contribution; eight-step instrument loops as contributions.
+Section 3 records the same rule as slots, a label, and an operator. Those are the bookkeeping. They are not a separate claim. The coverage fork — paper-face gaps and repository-face gaps with nothing in common — is what this bookkeeping shows when the host can deliver neither product. On this phonopy reading the two faces are disjoint. That is an illustration. How often it happens is not the result this paper needs.
+
+### 1.5 What would make the revision count
+
+The revision counts if, on the same frozen host and the same requests, it blocks the three results while the usual updates still produce them, and it still returns the results the paper does stand behind (room-temperature quasi-harmonic output; a product whose procedure and entry both exist, bound to that entry). It does not count if every policy blocks every result, or if deleting the prescribed action leaves the test green. Section 4 states the arms and the ablations. No arm has been run. Counting identities under an operator that is assumed to follow the rule are not this evidence.
+
+### 1.6 Neighbors, briefly
+
+SciCoQA (ACL 2026) asks whether a paper and its own code disagree. On its real items the best reported recall is about 46.7%, and 55% of those items are differences of method rather than omissions. A detected omission is a fact about that pair. It does not say whether this host may return the corresponding file as the paper’s result. ReproAgent fuses paper obligations and repository evidence into a contract for building a new repository. That fusion is the right shape when the repository does not yet exist. Applied to an agent that already runs, it is one of the updates that can return the three results above. We do not compete on detection recall or on paper-to-code accuracy.
+
+### 1.7 Contributions
+
+1. **A delivered number needs both responsibilities.** The paper must define it and state when it does not count. The run must execute that definition inside those conditions. Attaching a repository, or accepting any number the host can compute, checks only the run. We show how each sentence fails on the phonopy pair and on one frozen mini-host. We do not show a rate.
+2. **What is not yet shown.** In answers an agent actually marks successful, how often one of the two sentences fails, and whether the revision in §1.4 reduces those answers without discarding runs that satisfy both. Both are `TODO`.
+
+**Not claimed:** that name collision with an old skill is the general cause; an edit taxonomy; a measured coverage-fork rate; detection or paper-to-code SOTA.
 
 ---
 
@@ -116,7 +136,7 @@ That sentence is the Related Work wall. Shared vocabulary (contract, residual, c
 
 ## 3. Method
 
-Figure X summarizes the pipeline: dual encoding → product-Id merge → coverage fork → \(I\) with refuse + \(K_H\) → contract metrics vs \(W_{\mathrm{rap}}\) / \(P_{\mathrm{aper}}\). Proofs: `research/introduction-operator.md`. Design authority: `docs/typed-introduction.md`.
+The procedure in §1.4 is recorded here as slots, a label \(\lambda\), and an operator \(I\). That record is how a revision stays checkable. It is not a second claim beside the three false results. The coverage fork in §3.4 is the special case in which the host delivers neither product and the two faces therefore list different gaps. Proofs that assume the operator is followed exactly are in `research/introduction-operator.md`. They are lemmas about the record, not the experiment. Design notes: `docs/typed-introduction.md`.
 
 ### 3.1 Dual encoding and domain co-conditions
 
@@ -126,30 +146,34 @@ Figure X summarizes the pipeline: dual encoding → product-Id merge → coverag
 
 Unit = one solicit-able product \(p\) (not file, function, or sentence):
 \[
-u=(p,\; s,\; e,\; v_{\mathrm{p}},\; v_{\mathrm{r}},\; \kappa),
+u=(p,\; s,\; e,\; v_{\mathrm{p}},\; v_{\mathrm{r}},\; \kappa),\qquad s,e,v_{\mathrm{p}},v_{\mathrm{r}}\in\{0,1,\mathrm{u}\},
 \]
-with \(s\)/\(e\) = paper procedure / repo entry (citeable loci); \(v_{\mathrm{p}},v_{\mathrm{r}}\) = explicit invalidation; \(\kappa=1\) only if both sides have procedures that are *not* the same computation (requires \(s=e=1\)). Inventories are **independent**; merge by product identity (**Id**). Uncertain Id → no merge; uncertain \(\kappa\) → 0.
+with \(s\)/\(e\) = paper procedure / repo entry (citeable loci); \(v_{\mathrm{p}},v_{\mathrm{r}}\) = explicit invalidation; \(\kappa=1\) only if both sides have procedures that are *not* the same computation (requires \(s=e=1\)). **Slots are tri-state:** \(1\) = stated with a locus; \(0\) = the source was inspected and is silent; \(\mathrm{u}\) = the source could not be inspected. Inventories are **independent**; merge by product identity (**Id**). Uncertain Id → no merge; uncertain \(\kappa\) → 0.
+
+**Why tri-state (not two-valued).** Recording "not stated" and "not inspectable" as the same value reads absence of evidence as evidence of absence. When a companion paper is claimed but unreachable—a frozen search returns nothing—two-valued slots record \(s=0\) for every paper obligation, and the run then reports a confident *refusal* ("the paper never obligated this") on a work it never read. Tri-state moves that row to **insufficient evidence**: no card, `unknown` in both gap tables, the reason in Unresolved, and excluded from FI and Miss (an uninspectable row is neither a confirmed obligation nor a confirmed false introduction). A slot whose invalidation is unassessed installs with `bind` only and states validity as unknown—never a `check`, which would disguise an open question as a discharged one.
 
 **Why product slots (insight).** Sentence–function detectors optimize textual-conflict recall. Introduction needs a grain a host can *own*: add \(p\) to \(P_H\), install \((p,v)\) in \(K_H\), or refuse. Dude’s grain mismatch and SciCoQA’s Paper Omission hardness share a root—code exposes many callables papers need not obligate—so treating every entry as obligation inflates FI under wrap-repo. Product slots refuse that inflation *before* \(\lambda\). ViewPoints: manage inconsistency; unilateral rows stay unilateral until Id is decided.
 
-What does *not* open a row: package names; invalidation conditions alone (they are slots of a product); incidental inputs mentioned in a procedure; documentation pointing at a missing module (e.g., `docs/qha.md` without `qha.py` → \(e=0\)).
+What does *not* open a row: package names; invalidation conditions alone (they are slots of a product); incidental inputs mentioned in a procedure; documentation pointing at a missing module (e.g., `docs/qha.md` without `qha.py` → \(e=0\), inspected-and-silent, not \(\mathrm{u}\)).
 
 ### 3.3 Type \(\lambda\) as partition (means, not headline)
 
 \[
 \lambda(u)=\begin{cases}
+\text{insufficient-evidence} & s=\mathrm{u}\ \text{or}\ e=\mathrm{u} \\
 \text{incongruent} & s=e=0 \\
 \text{obligation-sans-entry} & s=1,\; e=0 \\
 \text{entry-sans-obligation} & s=0,\; e=1 \\
 \text{procedure-conflict} & s=e=\kappa=1 \\
-\text{validity-gap} & s=e=1,\;\kappa=0,\; v_{\mathrm{p}}\neq v_{\mathrm{r}} \\
-\text{both-aligned} & s=e=1,\;\kappa=0,\; v_{\mathrm{p}}=v_{\mathrm{r}}.
+\text{validity-unassessed} & s=e=1,\;\kappa=0,\; v_{\mathrm{p}}=\mathrm{u}\ \text{or}\ v_{\mathrm{r}}=\mathrm{u} \\
+\text{validity-gap} & s=e=1,\;\kappa=0,\; v_{\mathrm{p}},v_{\mathrm{r}}\in\{0,1\},\; v_{\mathrm{p}}\neq v_{\mathrm{r}} \\
+\text{both-aligned} & s=e=1,\;\kappa=0,\; v_{\mathrm{p}}=v_{\mathrm{r}}\in\{0,1\}.
 \end{cases}
 \]
 
-**Prop. 1 (partition).** Exactly one label per well-formed unit (case on \((s,e)\), then \(\kappa\), then validity equality). Incongruent units are ignored. Without \(\kappa\), conflicts would mislabel as both-aligned and wrongly bind into \(H\). Hand labels that disagree with the boolean function lose; the function is authoritative.
+**Prop. 1 (partition).** Exactly one label per well-formed unit. The case order is part of the definition: \(\mathrm{u}\) on \(s\) or \(e\) is decided **first** (otherwise \(s=1,e=\mathrm{u}\) falls into both-aligned and binds an unread entry), then \(\mathrm{u}\) on the validity slots (validity-unassessed), then \((s,e)\), then \(\kappa\), then validity equality. Incongruent units are ignored. Without \(\kappa\), conflicts would mislabel as both-aligned and wrongly bind into \(H\). Hand labels that disagree with the function lose; the function is authoritative.
 
-**Taxonomy discipline.** We do not claim “first taxonomy of paper–code mismatch”—SciCoQA already owns detection taxonomy. \(\lambda\) is the *partition engine* for C1–C2; the contribution headline is coverage fork + typed refuse/install, not six named chips.
+**Taxonomy discipline.** We do not claim “first taxonomy of paper–code mismatch”—SciCoQA already owns detection taxonomy. \(\lambda\) is the *partition engine* for C1–C2; the contribution headline is coverage fork + typed refuse/install, not the named chips. Two of the eight labels produce no card (incongruent, insufficient-evidence) and are reported as such, not silently dropped.
 
 ### 3.4 Coverage fork (C1 core)
 
@@ -217,9 +241,9 @@ Input: paper text, repo text, frozen \(H_0\). Each step’s output is determined
 
 1. **Inventory independently.** List products on each face separately. Finish the paper inventory before reading the repo (and vice versa). Cross-reading in one pass lets models fill paper steps from repo commands and erase residual.
 2. **Merge by Id.** Form units \(u\) by product identity. Unmatched sides stay unilateral with zeros on the other face. If Id is undecidable, **do not merge** (two units, not a residual). Never invent a row from unmatched sentence↔function pairs (Dude grain constraint).
-3. **Copy loci.** Every filled slot cites a line-bounded locus. If no locus can be copied, that boolean stays 0. “At least \(N\) fit points” is a runtime prerequisite, not invalidation.
+3. **Copy loci.** Every slot at \(1\) cites a line-bounded locus and a verbatim quote. A source that was inspected and is silent is \(0\) with a recorded reason; a source that could not be inspected is \(\mathrm{u}\) with its own reason. The two are never collapsed. “At least \(N\) fit points” is a runtime prerequisite, not invalidation.
 4. **Judge \(\kappa\) only when \(s=e=1\).** If undecidable, keep \(\kappa=0\) (do not invent conflict). If \(\kappa=1\) appears on a unilateral row, reset to 0.
-5. **Compute \(\lambda\).** Apply the case partition (Prop. 1 / Appendix D). If a hand label disagrees with the boolean function, **the function wins** and the locus citation is corrected.
+5. **Compute \(\lambda\).** Apply the case partition (Prop. 1 / Appendix D). If a hand label disagrees with the function, **the function wins** and the locus citation is corrected.
 6. **Project (before edit).** Emit paper-face and repo-face statuses via \(\mathrm{project}(\lambda,\mathrm{host\_has})\) (Appendix D); compute gap-set Jaccard as a C1 diagnostic. This step does **not** edit \(H\).
 7. **Introduce or refuse (\(I\)).** Apply Table 3.5 / Appendix E. For refusal types, record exclusion/unresolved with \(\Delta P_H=\emptyset\). Generate the per-\(\lambda\) test contract (§3.7.1) *before* applying the edit.
 8. **Accept.** On frozen \(H_0\): fail-before → apply edit → green → destroy prescribed action → must re-red. Then re-run the same labeled batch under \(W_{\mathrm{rap}}\), \(P_{\mathrm{aper}}\), and \(I\circ\pi\); report FI, Miss, green-rate, and destroy-still-green **broken out by \(\lambda\)**.
@@ -233,18 +257,20 @@ Under Faithful realization and empty start, the first two aggregates are fixed b
 Detection says residual *exists*. Typed introduction says *which wrong edit* an untyped policy commits:
 
 - **Prop. 2.** \(I\) adds only \(s=1\) products \(\Rightarrow \mathrm{FI}(I)=0\) (empty start, Faithful).
-- **Prop. 3.** \(\mathrm{FI}(W_{\mathrm{rap}})=|\{u:\text{entry-sans-obligation}\}|\), \(\mathrm{Miss}(W_{\mathrm{rap}})=|\{u:\text{obligation-sans-entry}\}|\) (empty start).
+- **Prop. 3.** \(\mathrm{FI}(W_{\mathrm{rap}})=|\{u:\text{entry-sans-obligation}\}|\), \(\mathrm{Miss}(W_{\mathrm{rap}})=|\{u:\text{obligation-sans-entry}\}|\) (empty start; holds because \(\lambda\) removes \(\mathrm{u}\)-rows from both labels).
 - **Prop. 4.** On validity-gap, \(t_v=1\) under \(I\); \(t_v=0\) under \(W_{\mathrm{rap}}\) and \(P_{\mathrm{aper}}\) if check was absent.
 - **Prop. 5.** If \(\pi\) swaps omission types and \(\ge 1\) such unit exists, some \(H\) and tests separate \(I\) from \(I\circ\pi\) (non-vacuous ablation).
+
+**Prop. 3 under tri-state.** An uninspectable row is neither a confirmed obligation nor a confirmed false introduction: \(W_{\mathrm{rap}}\) cannot bind an entry it could not read, and \(P_{\mathrm{aper}}\) cannot copy a procedure it could not read. Such rows are reported in a third aggregate, **unresolved**, and excluded from FI and Miss. The identity still holds because \(\lambda\) assigns them to insufficient-evidence, not to either omission type — but an implementation that counts "\(e\neq1\)" as "not bound" will silently inflate Miss. We report the unresolved count beside FI/Miss so that inflation is visible.
 
 **Knowledge claim.** SciCoQA-style labels become *edit selectors* with falsifiable counting identities. FI, Miss, and missing validity are separable errors—orthogonal to detection recall and reproduction accuracy. Type is causal for which wrong edit untyped policies commit.
 
 
 ### 3.6.1 Proof intuitions (for Soundness readers)
 
-**Prop. 2 intuition.** The only labels that add to \(P_H\) are both-aligned, obligation-sans-entry, and validity-gap; each requires \(s=1\) by definition. Refusal labels never touch \(P_H\). Hence FI\(=0\) under Faithful realization from an empty start.
+**Prop. 2 intuition.** The only labels that add to \(P_H\) are both-aligned, obligation-sans-entry, validity-gap, and validity-unassessed; each requires \(s=1\) by definition. Refusal and no-card labels never touch \(P_H\). Hence FI\(=0\) under Faithful realization from an empty start.
 
-**Prop. 3 intuition.** Wrap-repo adds every \(e=1\). Those with \(s=0\) are exactly entry-sans-obligation (FI count). Those with \(s=1,e=0\) are never added and are exactly obligation-sans-entry (Miss count). The fork in §3.4 is the *mechanism* that makes these two counts independently nonzero.
+**Prop. 3 intuition.** Wrap-repo adds every \(e=1\). Those with \(s=0\) are exactly entry-sans-obligation (FI count). Those with \(s=1,e=0\) are never added and are exactly obligation-sans-entry (Miss count). Rows with \(s=\mathrm{u}\) or \(e=\mathrm{u}\) are insufficient-evidence and sit outside both counts. The fork in §3.4 is the *mechanism* that makes these two counts independently nonzero.
 
 **Prop. 4 intuition.** \(t_v\) is a product of indicators. Baselines that never write \(K_H\) leave the second factor zero even when \(p\in P_H\). Only validity-gap under \(I\) writes both.
 
@@ -290,19 +316,36 @@ Separate **contract counts** (Props. 2–3; decidable from labels + Faithful \(I
 
 ## 4. Experiments (protocol; results mostly TODO)
 
+The outcome that matters is, among answers the host marks successful, how often one of the two sentences in §1.3 fails. Fork rate and label counts are not substitutes. No cell below has been filled.
+
+### 4.0 Requests that define a false success
+
+Freeze the host, the paper, and the repository before any edit. Each request is something a user can ask the host after the update. Score the returned object, not a label.
+
+| Request | False success | Legitimate success |
+|---|---|---|
+| Thermal expansion very near melting | A QHA number is returned and not rejected | The host refuses, citing the paper’s melting condition |
+| Thermal expansion at a temperature the paper still allows | No expansion, or an \(E(V)\) fit labeled as \(F(V,T)\) | Expansion from the paper’s minimization, not from `eos` |
+| Force constants from a large displacement | A second-order matrix is returned as harmonic | The host refuses: the harmonic regime is small displacement, fixed volume |
+| “The paper’s band method” / group velocity | `band.yaml` or `--gv` numbers, described as this paper’s method | No such claim. The repository command may exist; it is not introduced as the paper’s obligation |
+| Lattice thermal conductivity via this phonopy workflow | A \(\kappa\) from `heat-flow` or from an invented phonopy command | \(\kappa\) only from the paper’s Boltzmann path, with the missing phonopy entry recorded. A number from another skill does not count |
+
+Write these checks before editing. Room-temperature QHA and a both-aligned product (phonon DOS, whose formula and `--dos` entry both exist) are the positive controls: a revision that refuses every request has not solved the problem.
+
 ### 4.1 Design principles
 
-Freeze \(H\), \(\lambda\), and tests *before* seeing results. Independent dual inventories (no cross-reading). Report contract-expected vs realized columns when Faithful may fail. Held-out works for E2′—fixed-task benchmark pass need not transfer to unseen introduction settings.
+Freeze \(H\), the allowed action, and the tests *before* seeing results. Read the paper and the repository separately. A second paper–repo pair uses the same requests in form and no retuned rule text. An operator that is assumed to obey the rule cannot prove the revision works.
 
 ### 4.2 Experiment overview
 
 | ID | Question | Serves | Status | Submission floor |
 |---|---|---|---|---|
-| **EΔ** | Residual non-empty and \(\lambda\)-typed; paper/repo gap Jaccard | C1 | **TODO** (phonopy/mini = illustrations) | ≥1 real pair; independent dual inventories; report fork Jaccard |
-| **E1′** | Human IRR on Id / \(\lambda\) / projection | Annotation trust | Same-model pilot only; **human TODO** | ≥2 annotators; Cohen/Fleiss \(\kappa\) + raw agreement; same-model as appendix lower bound |
-| **E2′** | \(I\) vs \(W_{\mathrm{rap}}\) vs \(P_{\mathrm{aper}}\) vs write-directly (+ \(\pi\)) | C2 / Props. 2–5 | Typed arms **TODO** | Same labeled units; FI/Miss/\(t_v\) by \(\lambda\) |
-| **Testable** | Destroy still-green rate | C3 | Contract written; **batch TODO** | Report invalid-test rate |
-| **Fast** | Calls to green vs write-directly | Optional | **TODO** | Matched tasks only |
+| **E-false** | On the requests in §4.0, which arms return a false success, and which still return the legitimate product | §1.5 | **TODO** | Phonopy pair + frozen mini-host; same requests for every arm |
+| **E1′** | Human agreement on product identity, cited procedure / entry / invalidation | The rows are not private | Same-model pilot only; **human TODO** | ≥2 annotators; \(\kappa\) + disagreements on what counts as an invalidation |
+| **E2′** | Admissible revision vs wrap-repo vs paper-only vs write-directly | §1.5 | **TODO** | Same units; false-success rate and legitimate-success rate, not only FI/Miss |
+| **Ablations** | §4.4: drop the check; swap install with refuse; labels without forbidden actions; hide `host_has`; delete the prescribed action | The block is due to that action | **TODO** | Each ablation restores the failure it names, or the claim is unsupported |
+| **EΔ** | How often the two faces list different products | Descriptive corollary | **TODO** (phonopy/mini = illustrations) | Report the mix. Do not lead with it |
+| **Fast** | Calls until the §4.0 suite behaves | Optional | **TODO** | Only against write-directly on the same requests |
 
 Legacy same-model IRR may appear in appendix as instrument pilot—not human IRR, not typed Effective.
 
@@ -311,10 +354,10 @@ Legacy same-model IRR may appear in appendix as instrument pilot—not human IRR
 1. **What opens a row.** A row is a product a practitioner can request alone—not a package name, not an invalidation sentence (that fills a slot), not a merely incidental input, and not a docs mention without a callable source locus (`typed-introduction.md` §5). Soft mentions must not drive “missing” or introduction.
 2. **Independent inventories.** Finish paper listing before reading the repo (and vice versa). Merge by product Id only. Undecidable Id → **no merge** (two units). Unilateral sides keep zeros on the other face.
 3. **Slot fill rules.** \(s\): ordered procedure with locus (a noun alone does not count). \(e\): source function or documented subcommand that actually executes (docs pointing at a missing module → \(e=0\)). \(v_{\mathrm{p}}/v_{\mathrm{r}}\): explicit invalidation (“fails near melting”), not runtime prerequisites (“need ≥\(N\) points”). \(\kappa\): only when \(s=e=1\); undecidable → 0 (do not invent conflict).
-4. **Loci.** Every filled boolean cites a **line-bounded** locus; uncopyable → boolean 0.
-5. **Hand label vs function.** Compute \(\lambda\) from the boolean case partition. If a hand label disagrees, **the function wins** and the locus citation is corrected.
+4. **Loci.** Every slot at `1` cites a **line-bounded** locus and a verbatim quote. Inspected-and-silent is `0` with a recorded reason; not-inspectable is `unknown` with its own reason. The two are never collapsed.
+5. **Hand label vs function.** Compute \(\lambda\) from the case partition, in its defined order (unknown before any `s`/`e` comparison). If a hand label disagrees, **the function wins** and the locus citation is corrected.
 6. **Contamination control.** Methodology prose / skill guides must stay **out of the judge context**. Annotators and model judges see line-bounded paper/repo excerpts only (Limitations §7). Same-model mutual agreement is **not** human calibration (Rating Roulette).
-7. **Scale (Findings floor).** First ~8 paper–repo pairs until a second annotator can independently reproduce `filled` and \(\lambda\); then expand. Venue-credible minimum: one batch of human-labeled units + three arms + one ablation + negative false-alarm cases.
+7. **Scale (Findings floor).** First ~8 paper–repo pairs until a second annotator can independently reproduce each slot's `state` and \(\lambda\); then expand. Venue-credible minimum: one batch of human-labeled units + three arms + one ablation + negative false-alarm cases.
 8. **Freeze.** Host inventory \(H\), label set \(\Lambda\), and witnesses frozen before results; mid-run thaw forbidden.
 9. **Id / \(\kappa\) humans-first.** Humans label a seed set; models report agreement with humans afterward—not among themselves.
 
@@ -327,13 +370,21 @@ Report destroy-still-green as test-invalid / survivor rate, separate from FI/Mis
 
 ### 4.4 Baselines and ablation
 
-| Symbol | Behavior | Hits which prop | Faithful *qualitative* contract outcome (empty start) |
+Arms see the same frozen host, paper, repository, and §4.0 requests.
+
+| Arm | What it does | False success it is expected to emit | What would falsify that expectation |
 |---|---|---|---|
-| \(I\) | Edit per \(\lambda\) + write \(K_H\); refuse phantoms/conflicts | Props. 2, 4 | FI\(=0\); Miss\(=0\) except deliberate unresolved conflicts; \(t_v=1\) on validity-gap |
-| \(W_{\mathrm{rap}}\) | Every \(e=1\); never \(K_H\) | Props. 3, 4 | FI\(=|\{\text{entry-sans-obl.}\}|\); Miss\(=|\{\text{obl.-sans-entry}\}|\); \(t_v=0\) on validity-gap |
-| \(P_{\mathrm{aper}}\) | Every \(s=1\); no bind/check | Prop. 4; both-aligned destroy fails bind | FI\(=0\); no Miss on obligations (but no entry bind); \(t_v=0\); both-aligned destroy (unbind) not applicable / fails contract |
-| write-directly | Paper+repo to model; no \(\lambda\) | Fast; Effective contrast | No Prop. guarantee; may FI phantoms, Miss orphans, omit \(K_H\) |
-| \(\pi\) | Swap obl.-sans-entry ↔ entry-sans-obl., then \(I\) | Prop. 5 | Pass sets separate from \(I\) when ≥1 omission-type unit exists |
+| Admissible revision | One allowed action per row, including “do nothing” and the invalidation check | None of the three. Legitimate rows still return a product | It still returns a voided number, a repository-only product as the paper’s method, or a quantity from the wrong path. Or it refuses the room-temperature QHA and the DOS as well |
+| Wrap repository | Attach every real entry. No invalidation check. No paper-only procedure | Near-melting QHA number; band and group velocity as if they were the paper’s method; no paper-path \(\kappa\) | It refuses near melting without being told to, and it does not present `--band` / `--gv` as the paper’s method |
+| Paper only | Write every paper procedure. No real entry. No check | \(\kappa\) or QHA from a rewritten procedure that cites a phonopy command which does not exist; no melting refusal | The rewritten procedure names no fake entry and rejects the melting regime on its own |
+| Write directly | Paper, repository, and host in one prompt. No allowed-action list | Whichever of the three the model happens to produce | Across requests it neither voids the melting result, nor substitutes `eos` / `heat-flow`, nor calls repository-only outputs the paper’s method |
+| Drop the check | Same as admissible revision, but do not install the melting or large-displacement refusal | Near-melting QHA and large-displacement constants look successful again. Other requests unchanged | Those two stay blocked. Then the check was not what blocked them |
+| Swap install and refuse | Treat “paper only” as “do nothing”, and “repository only” as “write it as an obligation” | Band and group velocity get installed as obligations; \(\kappa\) is dropped | The false successes do not move with the swap |
+| Label without a forbidden action | Tell the editor the row’s name only | A green result whose patch still contains a forbidden action: fake entry id, missing check, or a silent choice of one procedure | Green patches contain none of those actions |
+| Hide whether the host already can | Run the thermal-expansion request once with `eos` visible and once with it hidden, under write-directly | With `eos` visible, an \(E(V)\) fit is returned as thermal expansion | The substitution appears even when `eos` is hidden, or never appears. The host’s existing skill is then not part of the failure |
+| Delete the prescribed action | After a passing admissible revision, remove only the bind, the paper steps, or the check | The request fails again | It still passes. The test does not witness that action |
+
+Contract counts (false introductions, missed obligations) may be reported beside these outcomes. They do not replace them. A run in which the editor is assumed to obey the table is not a row in this experiment.
 
 **Scoring columns (required for E2′).** For each arm and each \(\lambda\), report **contract-expected** (Props. 2–4 / Table 3.7.1 under Faithful) vs **realized** (measured FI, Miss, \(t_v\), green-rate, destroy-still-green). Per-\(\lambda\) breakdown is mandatory—aggregate-only tables hide which residual type caused which wrong edit. Refusal arms score success as \(H\) unchanged (+ unresolved for conflict), not as product presence.
 
@@ -356,16 +407,14 @@ Report destroy-still-green as test-invalid / survivor rate, separate from FI/Mis
 - [ ] Fast: matched call-count vs write-directly (optional for Findings)
 - [ ] (Main bonus) Second enumerable host or second computational domain, \(\lambda\) unchanged
 
-### 4.7 What “enough for Findings” looks like
+### 4.7 What would count as shown
 
-ARR Findings prioritizes soundness and reproducibility over flashy novelty theater. A Findings-ready packet for this paper is:
+1. **E-false / E2′ on the phonopy pair and the frozen mini-host.** Same §4.0 requests for every arm. Admissible revision blocks the three false successes and still returns room-temperature QHA and DOS. Wrap, paper-only, and write-directly do not.
+2. **The ablations in §4.4 put those failures back in the place each ablation names.** A revision that stays perfect under every ablation has not been shown to work by this procedure.
+3. **A second paper–repo pair**, same request forms, no retuned rule, plus human agreement on the cited procedure, entry, and invalidation.
+4. **Delete-the-action** on the passing revisions: the witness goes red again.
 
-1. **EΔ on ≥2 real pairs** with independent dual inventories, nonempty residual, and at least one pair whose paper/repo missing-id Jaccard is near zero (fork evidence).
-2. **E1′ human IRR** on Id and \(\lambda\) with disagreement analysis (partial products, Id boundaries, \(\kappa=0\) defaults).
-3. **E2′ contract table** on the same labeled units: \(I\) vs \(W_{\mathrm{rap}}\) vs \(P_{\mathrm{aper}}\) (+ \(\pi\)), reporting FI/Miss/\(t_v\) by \(\lambda\), plus destroy still-green rate.
-4. **Honest Limitations** as in §6—same-model pilots only as appendix lower bounds; no detection/reproduction leaderboard claims.
-
-Main would additionally want a second enumerable host or domain with \(\lambda\) frozen, larger EΔ, and Faithful obedience rates under LLM patches—not a thicker taxonomy.
+A fork rate can sit in an appendix. It is not a substitute for (1)–(4). No item above has been run.
 
 
 ---
@@ -422,7 +471,7 @@ Require co-holding of public product names, dual encodings of one process, and e
 
 **Draft status.** Empirics for EΔ / E1′ / E2′ / Testable / Fast remain `TODO` (see [`gaps-and-todos-v043.md`](gaps-and-todos-v043.md)); this section states honesty bounds, not filled rates.
 
-(1) Multi-work EΔ quantifying \(\Delta(W_p,W_r)\) and fork Jaccard beyond illustrative phonopy / mini-ref slots is incomplete; dual-encoding residual remains partially hypothetical until that table exists. (2) Existing classification agreement is a same-model three-judge pilot, not human IRR; Id and \(\kappa\) require human protocols before claims of calibrated labeling. (3) Counting theorems assume Faithful patches—we do not prove that a given LLM writes such patches; report green-rate and destroy still-green. (4) Scope requires product names + dual encoding + enumerable \(H\). (5) No competition on SciCoQA recall or paper→code accuracy (SA-Bench / LMR / SciReplicate / PaperBench / ReproAgent); no claim of Dude / Code Check detection SOTA. (6) Intra-package drift numbers are decomposition context, not headline results. (7) Pilot contamination risk (methodology prose entering judge context) → line-bounded protocol. (8) Fixed-task benchmark signals need not transfer to unseen introduction works. (9) Fast / “more trustworthy” brand claims are undefined until call-count and destroy tables exist. (10) We do **not** claim cryptographic G1 capability binding or implement capability-context integrity; that vocabulary is threat framing only. (11) We do **not** report MCP-proxy Unauthorized Invocation Rate (or related gate deltas) as our numbers—infrastructure precedent only. (12) LLM-as-judge is **not** the sole FI / \(t_v\) oracle (ACL 2025–26 Findings on judge fragility / attribute verifiability); prefer executable witnesses + destroy + human IRR.
+(1) Multi-work EΔ quantifying \(\Delta(W_p,W_r)\) and fork Jaccard beyond illustrative phonopy / mini-ref slots is incomplete; dual-encoding residual remains partially hypothetical until that table exists. (2) Existing classification agreement is a same-model three-judge pilot, not human IRR; Id and \(\kappa\) require human protocols before claims of calibrated labeling. (3) Counting theorems assume Faithful patches—we do not prove that a given LLM writes such patches; report green-rate and destroy still-green. (4) Scope requires product names + dual encoding + enumerable \(H\). (5) No competition on SciCoQA recall or paper→code accuracy (SA-Bench / LMR / SciReplicate / PaperBench / ReproAgent); no claim of Dude / Code Check detection SOTA. (6) Intra-package drift numbers are decomposition context, not headline results. (7) Pilot contamination risk (methodology prose entering judge context) → line-bounded protocol. (8) Fixed-task benchmark signals need not transfer to unseen introduction works. (9) Fast / “more trustworthy” brand claims are undefined until call-count and destroy tables exist. (10) We do **not** claim cryptographic G1 capability binding or implement capability-context integrity; that vocabulary is threat framing only. (11) We do **not** report MCP-proxy Unauthorized Invocation Rate (or related gate deltas) as our numbers—infrastructure precedent only. (12) LLM-as-judge is **not** the sole FI / \(t_v\) oracle (ACL 2025–26 Findings on judge fragility / attribute verifiability); prefer executable witnesses + destroy + human IRR. (13) The tri-state split between \(0\) (inspected, silent) and \(\mathrm{u}\) (not inspectable) is an annotation judgment, not a theorem—we assume **Availability**: annotators agree on which sources count as inspected. Disagreement there changes both the label and the denominators, so it needs its own agreement statistic alongside Id and \(\kappa\).
 
 ---
 
@@ -434,7 +483,7 @@ Public scientific papers/repos; no personal data. Risks: over-trust without dest
 
 ## 8. Conclusion
 
-We reframed paper–repo residual from a detection target into a **coverage-fork + typed introduction contract**: product-Id merge induces possibly disjoint host-gap faces; \(\lambda\) selects edits *and principled refusal* on \(H=(P_H,K_H)\), including validity checks; wrap-repo and paper-only admit countable FI, Miss, and \(t_v\) failures that \(I\) avoids under Faithful realization. Acceptance is fail-before → green → \(\lambda\)-indexed destroy-red (paper-grounded checks; refusal as success), not detection recall or reproduction fidelity. Remaining work is measurement—human IRR, multi-work EΔ with fork Jaccard, obedience and destroy tables—not further taxonomy. Detection and reproduction remain valuable and orthogonal; introduction is the missing third instrument for already-deployed hosts.
+A paper defines a quantity and states when it does not count. Its repository exposes commands that run. An agent updated from either side keeps the update when a number comes back, which checks the run and not the paper’s definition and conditions. On phonopy, a quasi-harmonic number very near melting, a band file the paper never specified, and a conductivity with no command for the paper’s anharmonic path each fail one of those two requirements. The rate at which agents mark such numbers successful is unmeasured. Detection asks whether the two texts owe each other a correction. This draft asks whether the number a user received has both the paper’s responsibility and the run’s.
 
 ---
 
@@ -446,7 +495,7 @@ We reframed paper–repo residual from a detection target into a **coverage-fork
 
 | Path | Role |
 |---|---|
-| This file | ACL English draft **v0.4.4** (status/gaps pointer; method still v0.4.3; C1–C3 unchanged; empirics TODO) |
+| This file | ACL English draft **v0.4.5** (narrative retarget: three false successes; fork demoted; empirics TODO) |
 | [`gaps-and-todos-v043.md`](gaps-and-todos-v043.md) | ACL-blocking gaps + open TODOs (Chinese) |
 | [`experiment-checklist-v043.md`](experiment-checklist-v043.md) | Six-phase run checklist (48 items) |
 | [`CHANGELOG-v0.4.md`](CHANGELOG-v0.4.md) | What changed vs v0.3 |
@@ -460,7 +509,7 @@ We reframed paper–repo residual from a detection target into a **coverage-fork
 
 ## Appendix C. Checklist
 
-- [x] Contributions = C1 fork / C2 refuse+\(K_H\) / C3 contract (not “six λ”)
+- [x] v0.4.5: claim = three false successes + revision tested against them (fork demoted; not “six λ”)
 - [x] RW opens detect vs introduce (SciCoQA); no “better detector”
 - [x] Worked `qha`/`band` table + single-face impossibility corollary
 - [x] Prop. 1–5 intuition + Faithful honesty
@@ -501,13 +550,14 @@ Full proofs: [`../../research/introduction-operator.md`](../../research/introduc
 \[
 \mathrm{project}(\lambda,\mathrm{host\_has})=
 \begin{cases}
-(\mathrm{covered\ or\ gap},\;\mathrm{covered\ or\ gap}) & \lambda=\text{both-aligned} \\
+(\mathrm{covered\ or\ gap},\;\mathrm{covered\ or\ gap}) & \lambda\in\{\text{both-aligned},\text{validity-unassessed}\} \\
 (\mathrm{gap\ or\ host\text{-}already},\;\mathrm{absent}) & \lambda=\text{obligation-sans-entry} \\
 (\mathrm{absent},\;\mathrm{gap\ or\ host\text{-}already}) & \lambda=\text{entry-sans-obligation} \\
-(\mathrm{validity\text{-}gap\ or\ host\text{-}already},\;\text{same}) & \lambda=\text{validity-gap}
+(\mathrm{validity\text{-}gap\ or\ host\text{-}already},\;\text{same}) & \lambda=\text{validity-gap} \\
+(\mathrm{unknown},\;\mathrm{unknown}) & \lambda=\text{insufficient-evidence}
 \end{cases}
 \]
-Procedure-conflict does not enter the two gap tables; it is logged unresolved. This is the algorithmic form of the coverage fork: obligation-sans-entry appears only on the paper projection; entry-sans-obligation only on the repo projection.
+Procedure-conflict and incongruent do not enter the two gap tables; conflict is logged unresolved. Insufficient-evidence enters both tables as `unknown` and produces no card. This is the algorithmic form of the coverage fork: obligation-sans-entry appears only on the paper projection; entry-sans-obligation only on the repo projection.
 
 **Validity indicator.**
 \[
@@ -531,5 +581,7 @@ Compact copy of `typed-introduction.md` §7 (English labels). \(\lambda\) select
 | obligation-sans-entry | Host-owned procedure from paper text; mark that the repo has no entry | Paper product; no forged repo entry id | Pretend a repo command exists |
 | entry-sans-obligation | **Do not introduce** | Product absent from paper test set; \(P_H\) unchanged | Record it as a missing host obligation |
 | validity-gap | Bind entry **and** install the side’s stated invalidation into \(K_H\) | Normal inputs deliver \(p\); violating inputs must fail (\(t_v=1\)) | Test only the happy path |
+| validity-unassessed | Bind entry only; state validity as unknown | Product delivered; no invalidation check claimed | Write a `check` whose condition was never read |
+| insufficient-evidence | **Do not introduce**; record the unread arm and why | — (no card) | Treat the unread side as \(0\) and refuse |
 | procedure-conflict | Do not edit \(H\); leave unresolved | No silent side-pick | Quietly choose paper or repo procedure |
 | incongruent | Ignore | — | Invent a product |
