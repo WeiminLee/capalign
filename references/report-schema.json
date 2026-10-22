@@ -1,0 +1,827 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://capability-align.local/report-schema.json",
+  "title": "capability-align report (capability-alignment.json)",
+  "type": "object",
+  "required": [
+    "surfaces",
+    "gaps",
+    "cards",
+    "fork",
+    "unresolved"
+  ],
+  "properties": {
+    "surfaces": {
+      "type": "object",
+      "required": [
+        "reference",
+        "reference_kind",
+        "reference_license",
+        "host",
+        "host_sync",
+        "generated_at",
+        "companion_paper",
+        "search_used",
+        "arms",
+        "independent_check"
+      ],
+      "properties": {
+        "reference": {
+          "type": "string"
+        },
+        "reference_kind": {
+          "enum": [
+            "repo",
+            "paper",
+            "blog"
+          ]
+        },
+        "reference_license": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "host": {
+          "type": "string"
+        },
+        "host_sync": {
+          "type": "string",
+          "pattern": "^(synced@.*|proceed-dirty@.*|not-a-git-repo|paused-user-decision)$"
+        },
+        "generated_at": {
+          "type": "string"
+        },
+        "companion_paper": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "search_used": {
+          "type": "boolean"
+        },
+        "arms": {
+          "type": "object",
+          "required": [
+            "method",
+            "blind",
+            "contaminated"
+          ],
+          "properties": {
+            "method": {
+              "enum": [
+                "isolated-context",
+                "file-freeze",
+                "none"
+              ]
+            },
+            "blind": {
+              "type": "boolean"
+            },
+            "contaminated": {
+              "type": "boolean"
+            }
+          }
+        },
+        "independent_check": {
+          "enum": [
+            "isolated-context",
+            "not-available"
+          ]
+        }
+      }
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "ref_id",
+          "class",
+          "host_need",
+          "source_kind",
+          "layer"
+        ],
+        "properties": {
+          "ref_id": {
+            "type": "string"
+          },
+          "class": {
+            "enum": [
+              "equivalent",
+              "partial",
+              "missing",
+              "agent-competence",
+              "host-only",
+              "unknown"
+            ]
+          },
+          "host_need": {
+            "enum": [
+              "none",
+              "data",
+              "contract",
+              "runner",
+              "verification"
+            ]
+          },
+          "host_need_note": {
+            "type": "string"
+          },
+          "local_check": {
+            "type": "object",
+            "required": [
+              "form",
+              "status"
+            ],
+            "properties": {
+              "form": {
+                "enum": [
+                  "analytic",
+                  "conservation",
+                  "limit"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "named",
+                  "demonstrated"
+                ]
+              },
+              "command": {
+                "type": "string"
+              }
+            },
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "status": {
+                      "const": "demonstrated"
+                    }
+                  }
+                },
+                "then": {
+                  "required": [
+                    "command"
+                  ],
+                  "properties": {
+                    "command": {
+                      "minLength": 1
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "host_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_kind": {
+            "enum": [
+              "host-self-audit",
+              "reference-contrast",
+              "domain inference"
+            ]
+          },
+          "layer": {
+            "enum": [
+              "core",
+              "neighborhood"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "host_need": {
+                  "not": {
+                    "const": "none"
+                  }
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "host_need_note"
+              ],
+              "properties": {
+                "host_need_note": {
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "class": {
+                  "const": "agent-competence"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "local_check"
+              ],
+              "properties": {
+                "host_need": {
+                  "const": "none"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "class": {
+                  "const": "missing"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "host_need": {
+                  "enum": [
+                    "data",
+                    "contract",
+                    "runner",
+                    "verification"
+                  ]
+                }
+              },
+              "required": [
+                "host_need_note"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "paper_projection_gaps": {
+      "type": "array"
+    },
+    "neighborhood": {
+      "type": "object",
+      "properties": {
+        "kept": {
+          "type": "array"
+        },
+        "rejected": {
+          "type": "array"
+        },
+        "unresolved": {
+          "type": "array"
+        }
+      }
+    },
+    "cards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "slots",
+          "lambda",
+          "action",
+          "boundary",
+          "priority",
+          "rule",
+          "prescribed",
+          "forbidden_primitives",
+          "placement",
+          "test",
+          "verification"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "slots": {
+            "type": "object",
+            "required": [
+              "s",
+              "e",
+              "v_p",
+              "v_r",
+              "kappa"
+            ],
+            "properties": {
+              "s": {
+                "$ref": "#/$defs/slotPaper"
+              },
+              "e": {
+                "$ref": "#/$defs/slotRepo"
+              },
+              "v_p": {
+                "$ref": "#/$defs/slotPaper"
+              },
+              "v_r": {
+                "$ref": "#/$defs/slotRepo"
+              },
+              "kappa": {
+                "enum": [
+                  0,
+                  1
+                ]
+              }
+            }
+          },
+          "lambda": {
+            "enum": [
+              "obligation-sans-entry",
+              "entry-sans-obligation",
+              "procedure-conflict",
+              "validity-gap",
+              "both-aligned",
+              "validity-unassessed"
+            ]
+          },
+          "action": {
+            "enum": [
+              "install",
+              "refuse"
+            ]
+          },
+          "boundary": {
+            "enum": [
+              "in-question",
+              "new-question"
+            ]
+          },
+          "priority": {
+            "enum": [
+              "fix-wrongness",
+              "honor-promise",
+              "extend-surface",
+              null
+            ]
+          },
+          "rule": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 7
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "prescribed": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "bind",
+                "impl",
+                "check",
+                "record"
+              ]
+            },
+            "uniqueItems": true
+          },
+          "forbidden_primitives": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "bind",
+                "impl",
+                "check",
+                "record"
+              ]
+            },
+            "uniqueItems": true
+          },
+          "placement": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "target",
+                  "question",
+                  "input",
+                  "validity",
+                  "validity_owner",
+                  "forbidden"
+                ],
+                "properties": {
+                  "target": {
+                    "type": "string"
+                  },
+                  "question": {
+                    "type": "string"
+                  },
+                  "input": {
+                    "type": "string"
+                  },
+                  "validity": {
+                    "type": "string"
+                  },
+                  "validity_owner": {
+                    "enum": [
+                      "gate",
+                      "runner",
+                      "skill-body",
+                      null
+                    ]
+                  },
+                  "forbidden": {
+                    "type": "string"
+                  },
+                  "engine": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "engine_license": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "test": {
+            "type": "object",
+            "required": [
+              "fail_before",
+              "pass_after",
+              "destroy"
+            ],
+            "properties": {
+              "fail_before": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "pass_after": {
+                "type": "string"
+              },
+              "destroy": {
+                "type": "string"
+              }
+            }
+          },
+          "verification": {
+            "type": "object",
+            "required": [
+              "status",
+              "beats",
+              "evidence"
+            ],
+            "properties": {
+              "status": {
+                "enum": [
+                  "e2e-verified",
+                  "contract-only",
+                  "failed"
+                ]
+              },
+              "beats": {
+                "type": "object",
+                "required": [
+                  "fail_before",
+                  "pass_after",
+                  "destroy"
+                ],
+                "properties": {
+                  "fail_before": {
+                    "enum": [
+                      "pass",
+                      "fail",
+                      "not-run"
+                    ]
+                  },
+                  "pass_after": {
+                    "enum": [
+                      "pass",
+                      "fail",
+                      "not-run"
+                    ]
+                  },
+                  "destroy": {
+                    "enum": [
+                      "pass",
+                      "fail",
+                      "not-run",
+                      "n/a"
+                    ]
+                  }
+                }
+              },
+              "evidence": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "action": {
+                  "const": "refuse"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "placement": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "lambda": {
+                  "const": "validity-unassessed"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "prescribed": {
+                  "const": [
+                    "bind"
+                  ]
+                },
+                "action": {
+                  "const": "install"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "fork": {
+      "type": "object",
+      "required": [
+        "paper_gaps",
+        "repo_gaps",
+        "intersection",
+        "jaccard"
+      ],
+      "properties": {
+        "paper_gaps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "repo_gaps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "intersection": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "jaccard": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "contaminated": {
+          "type": "boolean"
+        }
+      }
+    },
+    "unresolved": {
+      "type": "array"
+    },
+    "build_records": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/buildRecord"
+      }
+    }
+  },
+  "$defs": {
+    "slotBase": {
+      "type": "object",
+      "required": [
+        "state",
+        "provenance",
+        "span",
+        "quote"
+      ],
+      "properties": {
+        "state": {
+          "enum": [
+            1,
+            0,
+            "unknown"
+          ]
+        },
+        "provenance": {
+          "enum": [
+            "paper",
+            "repo",
+            "none"
+          ]
+        },
+        "span": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "quote": {
+          "type": "string"
+        },
+        "why_empty": {
+          "type": "string",
+          "pattern": "^(absent|no-paper-arm|no-repo-arm)(:.*)?$"
+        },
+        "why_unknown": {
+          "type": "string",
+          "pattern": "^(unreachable|not-consulted|unparsable)(:.*)?$"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": 1
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "span",
+              "quote"
+            ],
+            "properties": {
+              "span": {
+                "type": "string"
+              },
+              "quote": {
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": 0
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "why_empty"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "unknown"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "why_unknown"
+            ],
+            "properties": {
+              "quote": {
+                "maxLength": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "slotPaper": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/slotBase"
+        },
+        {
+          "properties": {
+            "provenance": {
+              "enum": [
+                "paper",
+                "none"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "slotRepo": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/slotBase"
+        },
+        {
+          "properties": {
+            "provenance": {
+              "enum": [
+                "repo",
+                "none"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "buildRecord": {
+      "type": "object",
+      "required": [
+        "card_id",
+        "date",
+        "host_commit",
+        "commands",
+        "beats",
+        "evidence"
+      ],
+      "properties": {
+        "card_id": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "host_commit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "commands": {
+          "type": "object",
+          "required": [
+            "fail_before",
+            "pass_after",
+            "destroy"
+          ],
+          "properties": {
+            "fail_before": {
+              "type": "string"
+            },
+            "pass_after": {
+              "type": "string"
+            },
+            "destroy": {
+              "type": "string"
+            }
+          }
+        },
+        "beats": {
+          "type": "object",
+          "required": [
+            "fail_before",
+            "pass_after",
+            "destroy"
+          ],
+          "properties": {
+            "fail_before": {
+              "enum": [
+                "pass",
+                "fail"
+              ]
+            },
+            "pass_after": {
+              "enum": [
+                "pass",
+                "fail"
+              ]
+            },
+            "destroy": {
+              "enum": [
+                "pass",
+                "fail",
+                "n/a"
+              ]
+            }
+          }
+        },
+        "evidence": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

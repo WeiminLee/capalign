@@ -1,0 +1,5 @@
+{
+  "_comment": "Fixture-only search double. The companion paper is claimed but the frozen search returns nothing, so the paper arm is unreachable. Live network is never required for a valid run.",
+  "necessary_because": "CITATION.cff claims a preferred-citation article and no local copy exists",
+  "hits": []
+}

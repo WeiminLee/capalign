@@ -15,7 +15,7 @@ cannot be validated is `unknown`, not `missing`.
 ## Gap source kinds (informs priority, tags every gap)
 | kind | definition | priority |
 |---|---|---|
-| `host self-audit` | the host's own docs/roadmap/audit already admits the gap | highest — the host already owes it |
+| `host-self-audit` | the host's own docs/roadmap/audit already admits the gap | highest — the host already owes it |
 | `reference-contrast` | the reference has it, the host lacks it, neither documents it | medium — reference is the source of truth |
 | `domain inference` | a domain expert reasons it is wrong/missing; both sides silent | lowest — must be argued, not cited |
 
@@ -28,6 +28,24 @@ cannot be validated is `unknown`, not `missing`.
 | `agent-competence` | a standard method the agent can deliver against a standard library with `host_need: none`, and a **named local check** exists | the named check (analytic solution / conservation law / limit case) |
 | `host-only` | host capability with no reference counterpart | host evidence (informational) |
 | `unknown` | cannot be characterized from the inputs | never classified as `missing` |
+
+### Host-need evidence
+
+`host_need` is a claim about what the host must own, so it carries evidence, not
+just a word. Every `missing` row records `host_need_note`:
+
+- `data`: name the dataset/coefficient and where the host would keep it.
+- `contract`: name the artifact or record the user relies on.
+- `runner`: name the credentials / remote compute / lifecycle the host lacks.
+- `verification`: name **the regime**, **the check that is missing**, and **the
+  layer that would own it** (`gate` / `runner` / `skill-body`). "It would be
+  good to have this verified" is not a host need. If nobody has checked the
+  regime and the agent has no local check, the row is `unknown`, not `missing`.
+- `none`: forbidden on a `missing` row (that is `agent-competence` or
+  `unknown`).
+
+A `verification` need without those three parts is a free pass that inflates the
+gap table; it is treated as `unknown`.
 
 ## Reference-side inventory heuristics
 - **repo**: CLI entry points (`cli`/`console_scripts`/`bin`/`[project.scripts]`), package modules
@@ -80,6 +98,20 @@ result locally (an analytic solution, a conservation law, a limit case), the row
 is `agent-competence`: recorded in the gap table, **not a gap**, and it carries no
 install card.
 
+The local check is recorded with a form and a status:
+
+| field | values |
+|---|---|
+| `local_check.form` | `analytic` / `conservation` / `limit` |
+| `local_check.status` | `named` (constructible, not run in this alignment) / `demonstrated` (run, with command and outcome) |
+| `local_check.command` | required when `status: demonstrated`, empty otherwise |
+
+`named` is enough to keep the row out of the gap table, but the report must list
+these rows separately as **unrun competence checks**. Only `demonstrated` may be
+used in a "no gaps" summary or as evidence that the host can deliver the result.
+A check that cannot be named at all is not competence: the row is `missing` or
+`unknown`.
+
 This is the counterweight to counting a code library as a capability inventory. It
 is not "the agent knows the topic": the named local check is what separates
 competence from improvisation. A method with no local check, or whose delivery
@@ -105,6 +137,8 @@ them.
 | `refuse` | rule 7. `placement` is null. The host stays unchanged. Do not ask the questions below |
 | `ignore` | no card |
 | `agent-competence` | no card. The host already delivers it through the agent plus a standard library; there is nothing to place. The row stays in the gap table with its named local check |
+| `insufficient-evidence` | no card. `s` or `e` is `unknown` (usually an unreachable companion paper). The gap row is `unknown`, the reason goes to Unresolved, and the run must not substitute the other arm's value to escape it |
+| `validity-unassessed` | `install`, but `prescribed: ["bind"]` only. Obligation and entry are established; the validity was not inspected, so no `check` primitive may be prescribed and the card says `unknown (not assessed)` |
 
 A `new-question` install card is ranked last. It records a suggestion. It is
 not alignment debt, and this run does not build it. Low-confidence evidence
@@ -113,7 +147,7 @@ never drives `install`.
 ## Placement decision (per install card)
 Order install cards with an explicit priority judgment, not a count
 (`methodology.md` Phase 5: fix-wrongness > honor-promise > extend-surface);
-source kind informs priority (host self-audit first). Ask 1–6 only when
+source kind informs priority (host-self-audit first). Ask 1–6 only when
 `action` is `install`. Rule 7 is the refuse stop; do not ask 1–6 on a
 refuse card:
 
@@ -129,7 +163,11 @@ refuse card:
    existing skill (three body lines plus a reference page); an independent routing
    trigger or a different input contract → new skill. A second argument inside an
    existing body is bloat; a new skill for an adjacent postprocess is fragmentation.
-   Naming/prefixes are the host's convention. See §Skill boundary and tool duty.
+   Naming/prefixes are the host's convention. Every `extend:` recommendation carries
+   **two** routing cases: the existing skill still routes its original question, and
+   the neighbouring skill does not absorb the new one (test contract,
+   `introduction-card.md`). Without both, the extend line is untested. See §Skill
+   boundary and tool duty.
 4. **Constraint ownership** — state which layer owns each validity constraint:
    static-checkable → linter/gate; runtime-known → hook/runner self-report;
    never-mechanical → agent judgment in the skill body. The recommendation names the

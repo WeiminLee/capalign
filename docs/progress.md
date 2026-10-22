@@ -1,5 +1,22 @@
 # 项目进展 — cap-align（能力对齐 skill + 论文实证）
 
+> 更新：2026-10-22。槽位改**三态**（`1 | 0 | "unknown"` + `provenance` + `why_empty` /
+> `why_unknown`）：读不到的论文不再被当成"论文没写"，`s`/`e` 为 unknown 的产品落成
+> `insufficient-evidence`（**不建卡**，差距行 `unknown`），`v` 未知则 install 但只判
+> `bind`、`validity: unknown (not assessed)`。配套落码：`host_need_note` 举证（含
+> verification 的 regime / 缺的检查 / owner）、`local_check`（form + named/demonstrated）、
+> `extend:` 双路由用例、`surfaces.arms` / `independent_check` / `reference_license`、
+> 报告 9 节与 build records（append-only，必须记 host commit）、卡片 `rule` 改为数组、
+> 新增 `references/report-schema.json` 与 `references/quick-decisions.md`。
+> Layer-1 由 14 项增至 **18 项**：两条并行支线合流 ——「桥，不是护栏」支线加第 16 项，
+> 本支线加第 17/18 项（unknown 处理、host_need 举证）；另设「独立复核」一节，不计入编号。
+> 此前两支线各自记为「14 → 16」与「14 → 18」，均系从 14 分叉后单侧计数，此处按合流后的
+> 实际表序（1–15 旧、16 桥、17 unknown、18 host_need）更正。
+> 新 fixture：`tests/fixtures/mini-ref-unreachable/` 与对应 gold。金标卡槽已迁移三态。
+> **论文轨待同步**：`research/tools/slot-model.py` 与 `research/slot-model.*.json` 仍用
+> 二值/`filled` 形式化，尚未引入 unknown；`docs/acl-draft/paper.md` 的槽位记录指向
+> `research/slot-model.phonopy.json`，故随其一并待迁移（论文正文本身不写 `filled`）。
+>
 > 更新：2026-10-19（五）。宿主同步前置：对齐前先对宿主 `git pull --ff-only`，
 > 拉不动（未提交改动 / 分叉 / 冲突）就停跑并把 `git status` 交给用户裁决
 > （stash / commit / discard / proceed-dirty），skill 永不自动解决；
@@ -57,7 +74,7 @@
 
 | 资产 | 位置 | 状态 |
 |---|---|---|
-| skill 本体（8 步工作流 + 自检门） | `SKILL.md` | 已定；§E + 材料范围 + 引入卡片（规则 7 拒绝）+ 宿主自有落点（规则 6）+ 盲盘纪律与 κ 步骤（2026-10-19 三）+ 验证账本（2026-10-19 四）；Layer-1 现为 14 项 |
+| skill 本体（8 步工作流 + 自检门） | `SKILL.md` | 已定；§E + 材料范围 + 引入卡片（规则 7 拒绝）+ 宿主自有落点（规则 6）+ 盲盘纪律与 κ 步骤（2026-10-19 三）+ 验证账本（2026-10-19 四）+ 槽位三态与 `host_need_note`（2026-10-22）；Layer-1 现为 **18 项** |
 | 方法论 / 评估 / IR / 对齐规则 / 报告契约 | `references/` | F1/F2/F3 三条 pilot 缺陷已全部落码 |
 | 验收 fixtures（mini-ref/host/paper/blog + 邻域 gold） | `tests/fixtures/` | gold 与规则同步；有效跑例 `runs/2026-10-16-e-neighborhood/` |
 | 真实跑：oh-my-mlip × MatDiscovery | `research/runs/oh-my-mlip-vs-matdiscovery/` | 暴露 F4–F9 并回写规则。F10（wrap 参考 hub 不是对齐）在该跑之后钉进 skill；该报告的 wrap 建议视为历史，不回写 |
@@ -123,7 +140,7 @@ python3 research/tools/drift-meter.py <skills_dir> --registry reg.json --table
 
 ## 2026-10-22 — 桥，不是护栏
 
-Layer-1 自检 14 → **16** 项。新增第 16 项「bridge, not guardrail」：每张 install 卡必须说清**没有这个落点时 agent 会做错什么**；内容以禁令为主的落点是错的。
+Layer-1 新增第 **16** 项「bridge, not guardrail」：每张 install 卡必须说清**没有这个落点时 agent 会做错什么**；内容以禁令为主的落点是错的。（此项与同日另一支线的第 17/18 项在合流后同表共存，编号见文件头说明。）
 
 理由：把 FiPy 的能力面写成 `mat-phase-field-kinetics` 时发现，我第一版把 skill 写成了护栏（「不许声称材料性质」「不是 catalog」「未验证的不要用」）。但 skill 的存在理由是**桥**——装 agent 缺的**领域判断**（识别问题 / 选模型 / 尺度纪律 / 实测陷阱 / 怎么读结果），不是方程、不是 API、更不是禁令。仓库此前**没有一处正面定义 skill 该装什么**，本轮补上（`alignment-rules.md` §What a skill is for）。
 

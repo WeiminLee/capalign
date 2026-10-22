@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mini-unreachable"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.26"]
+
+[project.urls]
+Homepage = "https://example.invalid/mini-unreachable"
+
+[project.scripts]
+mini-unreachable = "mini_unreachable.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

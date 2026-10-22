@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: If you use mini-unreachable, please cite this paper.
+title: mini-unreachable
+authors:
+  - family-names: Fixture
+    given-names: Ada
+preferred-citation:
+  type: article
+  title: "A method for mini band structures"
+  authors:
+    - family-names: Fixture
+      given-names: Ada
+  year: 2026
+  doi: 10.9999/mini-unreachable.2026

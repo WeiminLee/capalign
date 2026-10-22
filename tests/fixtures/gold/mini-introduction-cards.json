@@ -37,25 +37,30 @@
    },
    "slots": {
     "s": {
-     "filled": 1,
+     "state": 1,
+     "provenance": "paper",
      "span": "tests/fixtures/mini-ref/papers/qha-mini-ref-2015.md:5-7",
      "quote": "The quasi-harmonic approximation evaluates the Helmholtz free energy on a volume grid. At each volume, harmonic phonons are obtained from finite-displacement force constants; F(V,T) is then minimized to give the thermal expansion."
     },
     "e": {
-     "filled": 0,
+     "state": 0,
+     "provenance": "repo",
      "span": "tests/fixtures/mini-ref/docs/qha.md:3-4",
      "quote": "Requires the `qha` module.",
-     "why_empty": "docs 点名 qha 模块；src 下没有 qha.py；cli.py 用法只有 band|dos|thermal"
+     "why_empty": "absent: docs 点名 qha 模块；src 下没有 qha.py；cli.py 用法只有 band|dos|thermal"
     },
     "v_p": {
-     "filled": 1,
+     "state": 1,
+     "provenance": "paper",
      "span": "tests/fixtures/mini-ref/papers/qha-mini-ref-2015.md:9-10",
      "quote": "Validity: the harmonic approximation must hold at each volume. Imaginary modes invalidate the QHA protocol."
     },
     "v_r": {
-     "filled": 0,
+     "state": 0,
+     "provenance": "repo",
      "span": null,
-     "quote": ""
+     "quote": "",
+     "why_empty": "absent"
     },
     "kappa": 0
    },
@@ -66,8 +71,13 @@
    "action": "install",
    "boundary": "new-question",
    "priority": "extend-surface",
-   "rule": "3,6",
-   "prescribed": "impl",
+   "rule": [
+    3,
+    6
+   ],
+   "prescribed": [
+    "impl"
+   ],
    "forbidden_primitives": [
     "bind"
    ],
@@ -107,24 +117,31 @@
    },
    "slots": {
     "s": {
-     "filled": 0,
+     "state": 0,
+     "provenance": "paper",
      "span": null,
-     "quote": ""
+     "quote": "",
+     "why_empty": "absent"
     },
     "e": {
-     "filled": 1,
+     "state": 1,
+     "provenance": "repo",
      "span": "tests/fixtures/mini-ref/src/mini_ref/cli.py:11-13",
      "quote": "Build the 2nd-order force-constant tensor from displacement/force data."
     },
     "v_p": {
-     "filled": 0,
+     "state": 0,
+     "provenance": "paper",
      "span": null,
-     "quote": ""
+     "quote": "",
+     "why_empty": "absent"
     },
     "v_r": {
-     "filled": 0,
+     "state": 0,
+     "provenance": "repo",
      "span": null,
-     "quote": ""
+     "quote": "",
+     "why_empty": "absent"
     },
     "kappa": 0
    },
@@ -135,8 +152,10 @@
    "action": "refuse",
    "boundary": "new-question",
    "priority": null,
-   "rule": "7",
-   "prescribed": "none",
+   "rule": [
+    7
+   ],
+   "prescribed": [],
    "forbidden_primitives": [
     "bind",
     "impl"
@@ -170,24 +189,31 @@
    },
    "slots": {
     "s": {
-     "filled": 0,
+     "state": 0,
+     "provenance": "paper",
      "span": null,
-     "quote": ""
+     "quote": "",
+     "why_empty": "absent"
     },
     "e": {
-     "filled": 1,
+     "state": 1,
+     "provenance": "repo",
      "span": "tests/fixtures/mini-ref/src/mini_ref/cli.py:16-18",
      "quote": "Assemble the dynamical matrix D(q) and diagonalize it."
     },
     "v_p": {
-     "filled": 0,
+     "state": 0,
+     "provenance": "paper",
      "span": null,
-     "quote": ""
+     "quote": "",
+     "why_empty": "absent"
     },
     "v_r": {
-     "filled": 0,
+     "state": 0,
+     "provenance": "repo",
      "span": null,
-     "quote": ""
+     "quote": "",
+     "why_empty": "absent"
     },
     "kappa": 0
    },
@@ -198,8 +224,10 @@
    "action": "refuse",
    "boundary": "new-question",
    "priority": null,
-   "rule": "7",
-   "prescribed": "none",
+   "rule": [
+    7
+   ],
+   "prescribed": [],
    "forbidden_primitives": [
     "bind",
     "impl"
@@ -233,24 +261,31 @@
    },
    "slots": {
     "s": {
-     "filled": 0,
+     "state": 0,
+     "provenance": "paper",
      "span": null,
-     "quote": ""
+     "quote": "",
+     "why_empty": "absent"
     },
     "e": {
-     "filled": 1,
+     "state": 1,
+     "provenance": "repo",
      "span": "tests/fixtures/mini-ref/src/mini_ref/cli.py:21-23",
      "quote": "Gaussian-broadened phonon density of states."
     },
     "v_p": {
-     "filled": 0,
+     "state": 0,
+     "provenance": "paper",
      "span": null,
-     "quote": ""
+     "quote": "",
+     "why_empty": "absent"
     },
     "v_r": {
-     "filled": 0,
+     "state": 0,
+     "provenance": "repo",
      "span": null,
-     "quote": ""
+     "quote": "",
+     "why_empty": "absent"
     },
     "kappa": 0
    },
@@ -261,8 +296,10 @@
    "action": "refuse",
    "boundary": "new-question",
    "priority": null,
-   "rule": "7",
-   "prescribed": "none",
+   "rule": [
+    7
+   ],
+   "prescribed": [],
    "forbidden_primitives": [
     "bind",
     "impl"
@@ -296,24 +333,31 @@
    },
    "slots": {
     "s": {
-     "filled": 0,
+     "state": 0,
+     "provenance": "paper",
      "span": null,
-     "quote": ""
+     "quote": "",
+     "why_empty": "absent"
     },
     "e": {
-     "filled": 1,
+     "state": 1,
+     "provenance": "repo",
      "span": "tests/fixtures/mini-ref/src/mini_ref/cli.py:26-28",
      "quote": "Free energy / entropy / heat capacity from the phonon frequencies."
     },
     "v_p": {
-     "filled": 0,
+     "state": 0,
+     "provenance": "paper",
      "span": null,
-     "quote": ""
+     "quote": "",
+     "why_empty": "absent"
     },
     "v_r": {
-     "filled": 0,
+     "state": 0,
+     "provenance": "repo",
      "span": null,
-     "quote": ""
+     "quote": "",
+     "why_empty": "absent"
     },
     "kappa": 0
    },
@@ -324,8 +368,10 @@
    "action": "refuse",
    "boundary": "new-question",
    "priority": null,
-   "rule": "7",
-   "prescribed": "none",
+   "rule": [
+    7
+   ],
+   "prescribed": [],
    "forbidden_primitives": [
     "bind",
     "impl"
@@ -359,24 +405,31 @@
    },
    "slots": {
     "s": {
-     "filled": 0,
+     "state": 0,
+     "provenance": "paper",
      "span": null,
-     "quote": ""
+     "quote": "",
+     "why_empty": "absent"
     },
     "e": {
-     "filled": 1,
+     "state": 1,
+     "provenance": "repo",
      "span": "tests/fixtures/mini-ref/docs/band.md:3-5",
      "quote": "`phon-vib band` computes the phonon dispersion along a high-symmetry path using `mini_ref.cli.dynamical_matrix` on a q-point mesh. Output: `band.yaml` with frequencies per q-point."
     },
     "v_p": {
-     "filled": 0,
+     "state": 0,
+     "provenance": "paper",
      "span": null,
-     "quote": ""
+     "quote": "",
+     "why_empty": "absent"
     },
     "v_r": {
-     "filled": 0,
+     "state": 0,
+     "provenance": "repo",
      "span": null,
-     "quote": ""
+     "quote": "",
+     "why_empty": "absent"
     },
     "kappa": 0
    },
@@ -387,8 +440,10 @@
    "action": "refuse",
    "boundary": "new-question",
    "priority": null,
-   "rule": "7",
-   "prescribed": "none",
+   "rule": [
+    7
+   ],
+   "prescribed": [],
    "forbidden_primitives": [
     "bind",
     "impl"
@@ -412,7 +467,7 @@
   }
  ],
  "traps_asserted": [
-  "qha doc names a missing module: repo projection stays unknown; card action is install from the paper procedure",
+  "qha doc names a missing module: repo projection is 0 (inspected, absent), not unknown; card action is install from the paper procedure",
   "band-structure and the other repo entries are refuse, not a new skill",
   "eos and heat-flow stay nearest; host_has stays false",
   "package name, duplicate product, and validity sentence do not open cards"
@@ -440,6 +495,12 @@
    "date": "2026-10-22",
    "what": "added §What a skill is for (the bridge, not the guardrail) + the bridge-not-guardrail self-check (now 16); the test contract must exercise the bridge, and routing is part of the contract for skill cards",
    "why": "the skill's own definition of what it places was missing: the repo stated only prohibitions ('not a gap', 'must not clone'), never what a skill carries. Learned from building mat-phase-field-kinetics, whose first draft was a guardrail. No gold class changes here — the fixture's cards already place real procedures (qha-protocol, thermal-expansion), and their fail_before was already about the host's missing procedure."
+  },
+  {
+   "date": "2026-10-22",
+   "what": "slots migrated from {filled} to tri-state {state, provenance, span, quote, why_empty}; card rule migrated from string to integer array; prescribed migrated from a single string to a primitive array",
+   "why": "a source that could not be inspected must not be read as 0 (unknown handling); provenance makes the paper/repo arm explicit",
+   "trigger": "introduction-card.md tri-state slots; report-contract.md; Layer-1 checks 13 and 17; Layer-1 is now 18"
   }
  ]
 }

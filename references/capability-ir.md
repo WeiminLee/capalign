@@ -23,7 +23,13 @@ this one shape. This is what makes alignment possible across heterogeneous sourc
       ],
       "confidence": "high|medium|low",    // low = inferred, must be flagged in the report
       "layer": "core|neighborhood",       // inherit surface.layer if omitted
-      "host_need": ["none"]               // none|data|contract|runner|verification; see §Host need
+      "host_need": ["none"],              // none|data|contract|runner|verification; see §Host need
+      "host_need_note": "...",            // required when host_need != none; see §Host need
+      "local_check": {                    // required when host_need is none
+        "form": "analytic|conservation|limit",
+        "status": "named|demonstrated",
+        "command": "..."                  // required when status is demonstrated
+      }
     }
   ]
 }
@@ -54,9 +60,16 @@ host's capacity is **the agent plus its surface**:
 | `runner` | credentials, remote compute, a task lifecycle, or a job handle |
 | `verification` | a regime someone has checked — measured traps, a validated model, a known-good implementation |
 
-`none` is not "the agent knows the topic". It requires the named local check
-(`alignment-rules.md` §Agent competence). A non-empty `host_need` is what makes a
-row a real gap.
+`none` is not "the agent knows the topic". It requires a `local_check` with a form
+(`analytic` / `conservation` / `limit`) and a status: `named` (constructible, not
+run in this alignment) or `demonstrated` (run, with the command and outcome).
+`named` rows are listed separately as unrun competence checks and never support a
+"no gaps" summary.
+
+Every non-`none` value carries `host_need_note` naming what is missing and, for
+`verification`, the regime, the missing check, and the owning layer
+(`gate` / `runner` / `skill-body`). A `verification` note that is only "we want
+this verified" is not a host need; the row is `unknown`.
 
 ## Normalization rules
 1. Capabilities are **semantic units**, not file counts: a repo with 200 functions and 12

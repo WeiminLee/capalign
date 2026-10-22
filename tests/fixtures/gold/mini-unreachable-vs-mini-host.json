@@ -1,0 +1,79 @@
+{
+ "note": "Gold for the unreachable-paper trap. One repo entry (band-structure), a companion paper claimed by CITATION.cff but not retrievable. The paper arm is unknown, so the product gets no card; it is not entry-sans-obligation (which would refuse) and not validity-gap (which would install).",
+ "surfaces": {
+  "reference": "tests/fixtures/mini-ref-unreachable",
+  "host": "tests/fixtures/mini-host",
+  "generated_at": "2026-10-22",
+  "companion_paper": "claimed (10.9999/mini-unreachable.2026), unreachable",
+  "search_used": true,
+  "arms": {
+   "method": "file-freeze",
+   "blind": true,
+   "contaminated": false
+  }
+ },
+ "gaps": [
+  {
+   "ref_id": "band-structure",
+   "class": "unknown",
+   "host_need": "verification",
+   "host_need_note": "The host has no phonon-dispersion path; whether it must own one cannot be assessed until the claimed paper is read. This is a provisional host need, not a verified one.",
+   "host_id": null,
+   "source_kind": "reference-contrast",
+   "layer": "core"
+  }
+ ],
+ "decisions": [
+  {
+   "ref_id": "band-structure",
+   "slots": {
+    "s": {
+     "state": "unknown",
+     "provenance": "paper",
+     "span": null,
+     "quote": "",
+     "why_unknown": "unreachable: CITATION.cff claims 10.9999/mini-unreachable.2026; no local copy; the frozen search double returns no hits"
+    },
+    "e": {
+     "state": 1,
+     "provenance": "repo",
+     "span": "tests/fixtures/mini-ref-unreachable/src/mini_unreachable/cli.py:6-8",
+     "quote": "Compute the phonon dispersion along a high-symmetry path."
+    },
+    "v_p": {
+     "state": "unknown",
+     "provenance": "paper",
+     "span": null,
+     "quote": "",
+     "why_unknown": "unreachable: same paper"
+    },
+    "v_r": {
+     "state": 0,
+     "provenance": "repo",
+     "span": "tests/fixtures/mini-ref-unreachable/docs/band.md:1-7",
+     "quote": "",
+     "why_empty": "absent: the page states the output, not when it is invalid"
+    },
+    "kappa": 0
+   },
+   "lambda": "insufficient-evidence",
+   "action": "no-card",
+   "reason": "s is unknown (paper claimed but unreachable); an unreadable paper is not a paper that states nothing, so neither install nor refuse is honest"
+  }
+ ],
+ "cards": [],
+ "traps_asserted": [
+  "s = unknown is not s = 0; the product gets no card",
+  "the lambda is insufficient-evidence, not entry-sans-obligation (refuse) and not validity-gap (install)",
+  "the gap row is class unknown, not missing",
+  "Unresolved names the slot and why_unknown: unreachable"
+ ],
+ "log": [
+  {
+   "date": "2026-10-22",
+   "what": "new gold: claimed-but-unreachable companion paper",
+   "why": "the method must not read missing evidence as evidence of absence; a claimed paper that cannot be retrieved yields unknown, not 0",
+   "trigger": "introduction-card.md tri-state slots; Layer-1 checks 17; report-contract.md"
+  }
+ ]
+}

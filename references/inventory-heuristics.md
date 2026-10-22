@@ -55,7 +55,11 @@ IR (see `capability-ir.md`).
 0. **Blindness (mandatory on dual-encoded works).** Run this pass without having
    read the repo arm in the same pass; finish every slot's `span`/`quote` here
    before §A output is consulted. Merge by product identity happens only after
-   both arms are frozen (SKILL.md step 1).
+   both arms are frozen (SKILL.md step 1). Freeze the paper arm to a file or a
+   separate context before opening §A; record
+   `surfaces.arms.method` (`isolated-context|file-freeze|none`). If it was not
+   isolated, set `blind: false`, cap this arm's confidence at `medium`, and mark
+   the fork `contaminated`.
 
 1. **Methods → Steps** — decompose the Methods section into steps; a step that
    computes something → `compute`; that orchestrates steps → `workflow`;
@@ -116,7 +120,7 @@ IR (see `capability-ir.md`).
    trigger) → capability of type `skill`, evidence `skill: <path>`.
    For each tool definition: the registered tool name + one-line purpose →
    capability of type `tool`, evidence `tool: <path>`, provenance recorded.
-3. **Host self-audit scan (mandatory, drives source kind).** Look for a host-side
+2. **Host self-audit scan (mandatory, drives source kind).** Look for a host-side
    audit/roadmap/known-gaps artifact (e.g. `AUDIT.md`, `docs/*-audit*`,
    `SKILLS-*.md`, issues/roadmap text): a capability the host itself admits lacking
    **must** be tagged `source_kind: host-self-audit` (highest priority) — the
@@ -125,11 +129,11 @@ IR (see `capability-ir.md`).
    default `reference-contrast` for every admitted gap. (E1 pilot F2: judge-1
    missed 4 AUDIT-admitted gaps and mis-tagged them reference-contrast; judge-2
    followed this rule.)
-4. **Ask-fallback** — a gap that scanning cannot close (proprietary host,
+3. **Ask-fallback** — a gap that scanning cannot close (proprietary host,
    credentials-only surface, registry without source) is asked of the caller in
    plain text; the caller's reply is ingested as the authoritative host IR
    (`confidence: high`, evidence `caller-supplied`).
-3. **Host-only marker** — every host capability records where it came from
+4. **Host-only marker** — every host capability records where it came from
    (skill dir / tool registry / scripts / caller), so placement recommendations
    can point at a concrete host location.
 

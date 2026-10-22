@@ -90,7 +90,7 @@ cap-align/
    代码/文档里 grep 能力词、读产物 spec、查既有部分路径；比对表只是假设，验证才
    是证据。
 5. **差距分类 + 来源标注** — 每项参考能力分类为 `equivalent | partial | missing |
-   host-only | unknown`，并打来源标签（`host self-audit | reference-contrast |
+   host-only | unknown`，并打来源标签（`host-self-audit | reference-contrast |
    domain inference`）；`missing` 必须 ≥1 条 high/medium 的**已验证**证据，
    低置信证据永远推不出 `missing`。
 6. **引入卡片，再落点** — 两侧按产物并成一张卡（`references/introduction-card.md`）。
@@ -184,7 +184,7 @@ cap-align/
 | 防线 | 机制 | 失败后果 |
 |---|---|---|
 | 交叉验证门（Phase 2） | 分类前必须先验证；E1 首跑 ~25 个疑缺口里 grep 杀掉 4 个假缺口（Grüneisen、群速度实为已有；α 是 partial 不是 missing） | 假缺口进表 = 错误产品 |
-| Layer-1 自检门（每跑强制） | 报告头块 `self_check:`，16 项检查（章节齐全 / 证据已验证 / 无 low 推 missing / 规则引用 / 来源标签 / host-only 在场 / 结语精确 / 重跑确定性 / 邻域分层 / 宿主自有落点 / 卡片路由 / 测试合同 / 槽位证据与分叉一致 / 验证诚实性 / agent 能力边界 / 桥而非护栏） | **任一 fail = 整轮无效**，不是"基本完成" |
+| Layer-1 自检门（每跑强制） | 报告头块 `self_check:`，18 项检查（章节齐全 / 证据已验证 / 无 low 推 missing / 规则引用 / 来源标签 / host-only 在场 / 结语精确 / 重跑确定性 / 邻域分层 / 宿主自有落点 / 卡片路由 / 测试合同 / 槽位证据与分叉一致 / 验证诚实性 / agent 能力边界 / 桥而非护栏 / unknown 处理 / host_need 举证）；另设**独立复核**一节（另起上下文复跑机械子集，计为 `independent_check`） | **任一 fail = 整轮无效**，不是"基本完成" |
 | Layer-2 金标验收（装机或改规则时） | mini-ref / mini-host / mini-paper / mini-blog 四组 fixture + 手算 gold；零捆绑、无测试框架，径直跑 skill 自己的工作流比对 | 与 gold 的**未登记**差异 = 回归，需裁决修复或登记规则变更 |
 
 ### 4.6 零捆绑怎么落地

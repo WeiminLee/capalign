@@ -48,6 +48,13 @@ two projections of \(W\), inventoried independently of the host and of each
 other. Neighborhood items are additional reference surfaces, also built without
 looking at the host.
 
+Freeze the paper arm before opening the repo arm: write its slot records with
+`span` + verbatim `quote` first, or run the two inventories in separate
+contexts. Record the method in `surfaces.arms`
+(`isolated-context` / `file-freeze` / `none`). An unisolated run is allowed but
+sets `blind: false`, caps paper-arm confidence at `medium`, and marks the fork
+`contaminated`; the residual is then not a measurement.
+
 ### Phase 2 — Cross-validate suspected gaps
 Never classify from the comparison table alone. Every candidate `missing` / `partial`
 is validated against the host (and, where cheap, the reference): search the host's
@@ -60,9 +67,11 @@ them into evidence. (The first instance caught several false candidates this way
 Assign each reference capability a class: `equivalent | partial | missing | agent-competence |
 host-only | unknown`, and record `host_need` (`none|data|contract|runner|verification`) —
 what the host must **own**. `host_need: none` with a named local check is
-`agent-competence`, not debt. Additionally tag every gap with a **source kind**:
+`agent-competence`, not debt. A source that could not be inspected yields
+`unknown`, never a `0`-driven verdict: absence of evidence is not evidence of
+absence. Additionally tag every gap with a **source kind**:
 
-- `host self-audit` — the host's own documents/roadmap already admit the gap.
+- `host-self-audit` — the host's own documents/roadmap already admit the gap.
 - `reference-contrast` — the reference has it, the host lacks it, neither documents it.
 - `domain inference` — a domain expert reasons it is wrong/missing; both sides silent.
 
@@ -137,7 +146,7 @@ method:
 |---|---|---|
 | 1 dual inventories | two parallel read-only passes, one per side | separation is the rule, not a convenience |
 | 2 cross-validation | out of ~25 candidate gaps, grep killed 4 false ones: mode Grüneisen and group velocity existed in the host; thermal-expansion α was `partial` (default listed, no table) not `missing`; NAC/LO-TO confirmed truly absent | comparison table = hypotheses; validation = evidence |
-| 3 source tagging | gaps traced to host self-audit (its SKILL-DESIGN §9 roadmap listed α, FF sanity, collective conductivity, melting-point runner), reference-contrast (NAC, electronic thermal, irreps…), domain inference (metal κ_e) | source kind → priority; host-self-audit gaps were done first |
+| 3 source tagging | gaps traced to host-self-audit (its SKILL-DESIGN §9 roadmap listed α, FF sanity, collective conductivity, melting-point runner), reference-contrast (NAC, electronic thermal, irreps…), domain inference (metal κ_e) | source kind → priority; host-self-audit gaps were done first |
 | 4 cost tiering | A–E ladder mapped onto MatDiscovery's local-tool / runner-contract / DFT-input surface | tiers are host-architectural by definition |
 | 5 priority | fix-wrongness > honor-promise > extend-surface; the four host-self-audit gaps were the first batch | judgment stated, source-informed |
 | 6 granularity | placement anchored to MatDiscovery's CAPABILITY-SURFACE §0.1 (its own doctrine) | host doctrine overrides generic; never borrow a doctrine |

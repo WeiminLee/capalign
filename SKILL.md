@@ -47,12 +47,16 @@ vocabulary and the `confidence` tag on every item.
 
 **Blind dual inventory (mandatory when the work has both a paper and a repo
 arm).** Inventory the two arms in isolation: finish one side's slot records
-(each slot with `span` + verbatim `quote`) before opening the other side, and
+(`state` 1 with `span` + verbatim `quote`; `0` with `why_empty`; `unknown` with
+`why_unknown`) before opening the other side, and
 merge the two sides by product identity only after both are frozen. Reading
 both sides in one pass lets the repo's entries ghost-write the paper's missing
 steps and flattens the residual this method exists to measure (E1 pilot
-contamination lesson). When the host supports it, run the two inventories in
-separate isolated contexts.
+contamination lesson). Freeze the paper arm to a file (or a separate isolated
+context) before opening the repo arm and record the method in
+`surfaces.arms`. If neither is possible, set `blind: false`, cap paper-arm
+confidence at `medium`, and mark the fork `contaminated`; it is then not a
+measurement.
 
 When the given reference is a **repo**, a **homepage**, or **both**, then run
 §E `recover_reference` before step 2: local seeds → homepage (skip search if
@@ -107,19 +111,24 @@ refusal closes a boundary; labeling the other quantity as this one does not.
 
 Assign each in-bound reference capability a class from `references/alignment-rules.md`
 §Gap classification: `equivalent | partial | missing | agent-competence | host-only | unknown`,
-and tag it with a source kind: `host self-audit | reference-contrast | domain
+and tag it with a source kind: `host-self-audit | reference-contrast | domain
 inference` (`methodology.md` Phase 3). Same domain observable on a different
 calculator is `equivalent`, not `missing`.
 
 **Ask what the host must own before calling anything missing.** Record
-`host_need` (`none|data|contract|runner|verification`). A standard method the
-agent can deliver against a standard library, with a **named local check** and
-`host_need: none`, is `agent-competence` — recorded, not a gap, no card. The host
-is an agent, not a function table; a library's module list is not a capability
-inventory (`capability-ir.md` granularity 9). `missing` requires ≥1 high/medium
-evidence entry — from **validated** evidence, not the raw comparison — **and** a
-`host_need` that is not `none`; unverifiable gaps are `unknown`. Plumbing items
-never appear in the gap table.
+`host_need` (`none|data|contract|runner|verification`), and add a
+`host_need_note` whenever it is not `none`. A standard method the agent can
+deliver against a standard library, with a **local check** (form +
+`named`/`demonstrated` status) and `host_need: none`, is `agent-competence` —
+recorded, not a gap, no card. The host is an agent, not a function table; a
+library's module list is not a capability inventory (`capability-ir.md`
+granularity 9). `missing` requires ≥1 high/medium evidence entry — from
+**validated** evidence, not the raw comparison — **and** a `host_need` that is
+not `none` **and** a note naming what is missing; for `verification` it names the
+regime, the missing check, and the owning layer. Unverifiable gaps are `unknown`,
+never `missing`. A `0` slot means the source was inspected and found silent;
+`unknown` means it could not be inspected. Plumbing items never appear in the
+gap table.
 
 ### 6. Card, then placement
 A card places a **bridge**: the domain judgement the host agent does not already
@@ -133,7 +142,10 @@ Join the two projections by product (`references/introduction-card.md`). Do
 not merge the projection gap tables. Compute `lambda` from this work's slots
 only. Do not override it, and do not copy product names, targets, or validity
 sentences from another run or from the fixture gold. `ignore` rows are not
-cards. All six labels stay available.
+cards. All eight labels stay available, including `insufficient-evidence`
+(`s` or `e` unknown → **no card**, gap row `unknown`) and
+`validity-unassessed` (install with `prescribed: ["bind"]` only, validity stated
+as unknown).
 
 For every joined row with `s=e=1`, judge `kappa` as a separate question — are
 the two procedures the same computation? `kappa=1` is forbidden unless
@@ -145,14 +157,17 @@ Only an `install` card enters the placement questions
 new-skill-vs-extend → constraint ownership → never-low-evidence →
 **host-owned (rule 6)**. An `agent-competence` row gets **no card**: there is
 nothing to place, and minting one is how a library's module list becomes a fake
-surface. Fill `target`, `question`, `input`, `validity` plus
-`validity_owner`, and `forbidden`. Apply §Skill boundary and tool duty: do not
-put a second scientific argument in an existing skill body, and do not open a
-skill for a single-consumer postprocess or a render. The target is a host
-skill/tool/script/extend the host would own; it may call an upstream
-scientific engine; it must not clone, wrap, or MCP-mount the reference
+surface. An `insufficient-evidence` row also gets no card: an unreadable paper
+is not a paper that states nothing. Fill `target`, `question`, `input`,
+`validity` plus `validity_owner`, and `forbidden`. Apply §Skill boundary and
+tool duty: do not put a second scientific argument in an existing skill body,
+and do not open a skill for a single-consumer postprocess or a render. The
+target is a host skill/tool/script/extend the host would own; it may call an
+upstream scientific engine; it must not clone, wrap, or MCP-mount the reference
 agent/hub. A `new-question` install card is ranked last. It is a suggestion,
-not alignment debt, and not a build order.
+not alignment debt, and not a build order. An `extend:` card carries both
+routing cases: the existing skill still routes its original question, and the
+neighbouring skill does not absorb the new one.
 
 A `refuse` card cites rule 7 and stops. `placement` is null. Success is that
 the host stays unchanged. Do not invent a skill for a repo entry the paper
@@ -167,8 +182,11 @@ Write `capability-alignment-report.md` (and `capability-alignment.json` IR)
 per `references/report-contract.md` — required sections, validity rules, and the
 closing statement verbatim. Before declaring the report final, run Layer-1
 self-check (`references/evaluation.md` §Layer 1): the report must open with the
-`self_check:` block, all 16 checks green, or the run is not valid and must be
-reworked.
+`self_check:` block, all **18** checks green, or the run is not valid and must
+be reworked. Then run the independent re-check on the frozen artifacts
+(schema, slot recompute, card routing); if no isolated context is available,
+record `independent_check: not-available` and do not present the self-check as
+verification.
 
 ## Outputs & validity
 - Authoritative artifacts: `capability-alignment-report.md` + `capability-alignment.json`
@@ -177,12 +195,21 @@ reworked.
   \(W\), namespace the filename (do not overwrite another pair — MatDiscovery
   already carried a phonopy report).
 - Every report line traces to an inventory entry; no fabricated capability names.
-- A capability the agent can deliver with a standard library and a named local
-  check is `agent-competence`, not a gap and not a card. Framework internals are
-  not capabilities.
+- Slots are tri-state: `1` (stated, with quote), `0` (inspected, silent, with
+  `why_empty`), `unknown` (not inspected, with `why_unknown`). `unknown` never
+  drives an install or a refuse card; it produces an `unknown` gap row and an
+  Unresolved entry.
+- A capability the agent can deliver with a standard library and a `local_check`
+  (form + `named`/`demonstrated` status) is `agent-competence`, not a gap and not
+  a card. `named` checks are tallied as unrun. Framework internals are not
+  capabilities.
+- `missing` carries `host_need_note`; a `verification` need names the regime, the
+  missing check, and the owning layer.
 - Install cards cite a placement rule; refuse cards cite rule 7. A card
   without a rule is a stub. A card that keeps the reference repo/plugin/MCP as
   the host runtime is invalid (rule 6).
+- `extend:` cards carry both routing cases (existing question still routed; the
+  neighbour does not absorb the new one).
 - `low`-confidence reference entries never drive a `missing` verdict or an
   `install` card.
 - Neighborhood capabilities whose only evidence is a search snippet are `low`
@@ -193,6 +220,7 @@ reworked.
   conflict.
 
 ## References
+- [Quick decisions — the seven decisions a live run needs, in order](references/quick-decisions.md)
 - [Methodology — generic method; the phonopy ↔ MatDiscovery run is its validating instance](references/methodology.md)
 - [Evaluation — per-run self-check + fixture acceptance tests](references/evaluation.md)
 - [Inventory heuristics](references/inventory-heuristics.md)
@@ -200,3 +228,4 @@ reworked.
 - [Alignment & placement rules](references/alignment-rules.md)
 - [Introduction card — lambda, install or refuse, test contract](references/introduction-card.md)
 - [Report contract](references/report-contract.md)
+- [Report JSON schema](references/report-schema.json)

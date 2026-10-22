@@ -19,12 +19,30 @@ validity sentence, and a second name for the same product do not open rows.
 Record them in `dropped`, or hang the validity sentence on `validity_slot`.
 
 Fill slots from cited text. Do not fill `s` or `e` from a `confidence: low`
-span. Each slot is an object `{filled, span, quote}`: `span` is
-`path:start-end` (or section), `quote` is the verbatim原文, never paraphrased.
-A slot that cannot be cited is `filled: false` with an empty quote; a doc
-claim that names a missing module keeps the span and quote and records
-`why_empty`. The paper arm's slots are filled before the repo arm is read
-(blind dual inventory, SKILL.md step 1).
+span. Each slot is an object:
+
+```json
+{"state": 1, "provenance": "paper", "span": "path:start-end", "quote": "verbatim"}
+```
+
+- `state: 1` — the source states it. Requires a non-empty verbatim `quote` and a
+  `span`.
+- `state: 0` — the source was inspected and does **not** state it. `span` names
+  what was inspected (or is null only when that arm does not exist), `quote` may
+  be empty, and `why_empty` says which case it is: `absent`, `no-paper-arm`,
+  `no-repo-arm`.
+- `state: "unknown"` — the source could **not** be inspected. `why_unknown` is
+  required (`unreachable`, `not-consulted`, `unparsable`); `span` and `quote` are
+  empty. **Unknown is not 0.** Never fill an unknown slot from the other arm —
+  that is the contamination the blind inventory exists to prevent.
+- `provenance` is fixed by the slot: `s` and `v_p` are `paper`; `e` and `v_r`
+  are `repo`; `none` only when that arm does not exist. A value from the wrong
+  arm is invalid, not merely low-confidence.
+
+The paper arm's slots are frozen before the repo arm is read (blind dual
+inventory, SKILL.md step 1). Record which method was used in
+`surfaces.arms`; an unisolated run says so and caps paper-arm confidence at
+`medium`.
 
 | slot | 1 when |
 |---|---|
@@ -32,7 +50,7 @@ claim that names a missing module keeps the span and quote and records
 | `e` | the repo has a real entry (source or formal command). A doc that names a missing module is `e=0` |
 | `v_p` | the paper states when the result is invalid |
 | `v_r` | the repo states when the result is invalid |
-| `kappa` | `s=e=1` and the two procedures are not the same computation. If that cannot be decided, `kappa=0`. `kappa=1` is forbidden unless `s=e=1` |
+| `kappa` | `s=e=1` and the two procedures are not the same computation. If that cannot be decided, `kappa=0`. `kappa=1` is forbidden unless `s=e=1`; `kappa` is meaningless unless both are 1 |
 
 `host_has` is true only when the host already delivers this product. A nearer
 skill or tool with a different product stays `nearest` and `host_has=false`.
@@ -47,8 +65,20 @@ Compute `lambda` from the slots. Do not override it.
 | `s=1`, `e=0` | `obligation-sans-entry` | `install` |
 | `s=0`, `e=1` | `entry-sans-obligation` | `refuse` |
 | `s=e=kappa=1` | `procedure-conflict` | `refuse` |
-| `s=e=1`, `kappa=0`, `v_p!=v_r` | `validity-gap` | `install` |
-| `s=e=1`, `kappa=0`, `v_p==v_r` | `both-aligned` | `install` |
+| `s=e=1`, `kappa=0`, `v_p`,`v_r` known, `v_p!=v_r` | `validity-gap` | `install` |
+| `s=e=1`, `kappa=0`, `v_p`,`v_r` known, `v_p==v_r` | `both-aligned` | `install` |
+| `s` or `e` is `unknown` | `insufficient-evidence` | **no card**; the gap row is `unknown` |
+| `s=e=1`, `kappa=0`, `v_p` or `v_r` is `unknown` | `validity-unassessed` | `install` with `prescribed: ["bind"]`; `validity` is `unknown (not assessed)` |
+
+`insufficient-evidence` is the third outcome the four-question table needs: a
+paper that was claimed but could not be read is **not** a paper that states
+nothing. It produces no install card and no refuse card; the product stays in
+the gap table as `unknown` and in Unresolved with `why_unknown`. Do not
+substitute the repo arm's value for `s` to escape this state.
+
+`validity-unassessed` may still install — the obligation and the entry are
+established — but it must not claim a `check` primitive it could not derive. Its
+card says the validity was not assessed, and Unresolved records why.
 
 `boundary` is `in-question` when the host catalog already answers this
 question, and `new-question` otherwise. A `new-question` card may still be
@@ -72,7 +102,7 @@ Ask the placement questions (`alignment-rules.md` §Placement) only when
 | `target` | `extend:<host id>`, `new-skill:<id>`, `tool:<id>`, `script:<host skill id>`, or `runner` |
 | `question` | the one question a caller would ask |
 | `input` | the one input contract |
-| `validity` | the invalidation clause a side actually stated. If neither side stated one, the value is `none stated`. Do not invent one |
+| `validity` | the invalidation clause a side actually stated. If both sides were inspected and neither stated one, the value is `none stated`; if a side could not be inspected, `unknown (not assessed)`. Do not invent one |
 | `validity_owner` | `gate`, `runner`, or `skill-body` when a side stated an invalidation; otherwise null |
 | `forbidden` | the one clause naming what not to do. It must show that no repo entry id is forged and the reference agent is not wrapped |
 
@@ -114,27 +144,34 @@ passes only that has not been shown to carry anything.
   missing judgement**, on a prompt that states the user's problem and nothing
   more. If the prompt names the skill, the entry point, and the required output
   in order, the case is testing the docstring.
-- **Routing is part of the contract when the card is a skill.** A case that gives
-  the user's own words and checks the catalog selects this skill (and a negative
-  case for the neighbouring question it must not absorb) is the only evidence that
-  the description works.
+- **Routing is part of the contract when the card is a skill or an extend.** For
+  a skill card: a positive case (the user's own words select this skill) and a
+  negative case (the neighbouring question it must not absorb). For an
+  `extend:<host id>` card: a positive case (the existing skill still routes its
+  original question) **and** a negative case (the neighbouring skill or question
+  must not absorb the new one). Without both, an extend line is untested and
+  fragmentation is invisible.
 
 ### Prescribed primitive (audit anchor)
 
 So that a later patch can be audited statically (`π ∈ Adm(λ)`), every card
-names one prescribed primitive and the primitives it forbids:
+names the prescribed primitive set and the primitives it forbids. An empty
+`prescribed` is legitimate (a refusal prescribes no host patch).
 
 | `lambda` | `prescribed` | `forbidden_primitives` |
 |---|---|---|
-| `both-aligned` | `bind` (plus `check` when `v_p=v_r=1`) | `impl` |
-| `obligation-sans-entry` | `impl` | `bind` (a forged repo entry id is a violation, not a style) |
-| `validity-gap` | `check` (with `bind`) | — |
-| `entry-sans-obligation` | `none` | `bind`, `impl` |
-| `procedure-conflict` | `record` | `bind`, `impl` |
+| `both-aligned` | `["bind"]` (add `"check"` when `v_p=v_r=1`) | `["impl"]` |
+| `obligation-sans-entry` | `["impl"]` | `["bind"]` (a forged repo entry id is a violation, not a style) |
+| `validity-gap` | `["bind", "check"]` | `[]` |
+| `validity-unassessed` | `["bind"]` | `["impl", "check"]` (no validity was derived) |
+| `entry-sans-obligation` | `[]` | `["bind", "impl"]` |
+| `procedure-conflict` | `["record"]` (report-side only; no host patch) | `["bind", "impl"]` |
+| `incongruent` / `insufficient-evidence` | `[]` (no card) | `["bind", "impl", "check"]` |
 
-`destroy` removes exactly the `prescribed` primitive; after removal the test
-must fail again. A patch on a `refuse` card that contains a forbidden
-primitive is invalid regardless of its text.
+For an `install` card, `test.destroy` names **one** element of `prescribed`; after
+removing it the test must fail again. For a `refuse` card, `destroy` is `n/a`
+because there is no host patch to remove. A patch on a `refuse` card that contains
+a forbidden primitive is invalid regardless of its text.
 
 ### Verification status
 
@@ -146,7 +183,7 @@ executed:
 |---|---|
 | `beats.fail_before` | `pass` / `fail` / `not-run` — `pass` means the frozen host failed the test before the edit, as required |
 | `beats.pass_after` | `pass` / `fail` / `not-run` |
-| `beats.destroy` | `pass` / `fail` / `not-run` — `pass` means removing the prescribed primitive turned the test red again; a beat that stays green is `fail` and voids the test |
+| `beats.destroy` | `pass` / `fail` / `not-run` — `pass` means removing the prescribed primitive named by `test.destroy` turned the test red again; a beat that stays green is `fail` and voids the test |
 | `evidence` | command + observed outcome per executed beat; empty when `not-run` |
 
 Card status: `e2e-verified` (all applicable beats executed with the expected
@@ -157,13 +194,18 @@ as delivered. For a `refuse` card, `e2e-verified` means the host was checked
 unchanged and the product is absent from the paper test set; `destroy` stays
 `n/a`.
 
-Priority orders `install` cards only: fix-wrongness (`validity-gap`, and a
-five-state `partial` on a question the host already answers), then
-honor-promise (a gap the host's own audit already admits), then
-`new-question`.
+A later build moves a card out of `contract-only` **only** by appending a build
+record (`report-contract.md` §Build records): date, host commit, the three
+commands and their observed outcomes. The alignment report is not edited in
+place; the ledger points at the latest record. An `e2e-verified` claim whose
+build record is missing is `contract-only`.
 
-All six labels stay in force on every work. A run that happens to hit only
-two of them does not narrow the table.
+Priority orders `install` cards only: fix-wrongness (`validity-gap`, and a
+`partial` gap on a question the host already answers), then honor-promise (a gap
+the host's own audit already admits), then `new-question`.
+
+The label table is closed (eight rows, two of which produce no card). A run that
+happens to hit only two of them does not narrow the table.
 
 ## Projection tables
 
