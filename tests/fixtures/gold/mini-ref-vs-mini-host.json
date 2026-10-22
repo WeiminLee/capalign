@@ -1,78 +1,99 @@
 {
-  "surfaces": {
-    "reference": "tests/fixtures/mini-ref",
-    "host": "tests/fixtures/mini-host",
-    "generated_at": "2026-10-15"
+ "surfaces": {
+  "reference": "tests/fixtures/mini-ref",
+  "host": "tests/fixtures/mini-host",
+  "generated_at": "2026-10-15"
+ },
+ "gaps": [
+  {
+   "ref_id": "force-constants",
+   "class": "missing",
+   "source_kind": "host-self-audit",
+   "evidence_kinds": [
+    "module"
+   ],
+   "note": "mini_ref.force_constants; no host counterpart; host AUDIT.md admits no FC pathway"
   },
-  "gaps": [
-    {
-      "ref_id": "force-constants",
-      "class": "missing",
-      "source_kind": "host-self-audit",
-      "evidence_kinds": ["module"],
-      "note": "mini_ref.force_constants; no host counterpart; host AUDIT.md admits no FC pathway"
-    },
-    {
-      "ref_id": "dynamical-matrix",
-      "class": "missing",
-      "source_kind": "host-self-audit",
-      "evidence_kinds": ["module"],
-      "note": "mini_ref.dynamical_matrix; host AUDIT.md admits no force-constant / dynamical-matrix pathway"
-    },
-    {
-      "ref_id": "phonon-dos",
-      "class": "missing",
-      "source_kind": "host-self-audit",
-      "evidence_kinds": ["module", "doc"],
-      "note": "mini_ref.dos + docs/band.md; host AUDIT.md admits no phonon DOS"
-    },
-    {
-      "ref_id": "band-structure",
-      "class": "missing",
-      "source_kind": "host-self-audit",
-      "evidence_kinds": ["doc", "cli"],
-      "note": "docs/band.md + phon-vib band CLI; host AUDIT.md admits no phonon dispersion"
-    },
-    {
-      "ref_id": "phonon-thermal-properties",
-      "class": "missing",
-      "source_kind": "host-self-audit",
-      "host_id": "heat-flow",
-      "note": "adjacent-but-different: host heat-flow (BTE lattice kappa) does NOT subsume Cv/F/S/ZPE — by strict subsume semantics (formal-foundations §2) this is missing, with the adjacent host capability recorded here; AUDIT.md explicitly admits no heat capacity"
-    },
-    {
-      "ref_id": "qha",
-      "class": "unknown",
-      "source_kind": "reference-contrast",
-      "evidence_kinds": ["doc"],
-      "note": "docs/qha.md claims the qha module which does NOT exist in source — evidence is low-confidence (doc-only, code absent); must NOT drive missing"
-    }
-  ],
-  "host_only": ["parse-structure", "fit-eos", "eos"],
-  "traps_asserted": [
-    "doc-claim-without-code -> unknown, not missing",
-    "adjacent thermal capability (heat-flow): adjacent-but-different is MISSING with a host note, not partial — partial requires strict subset coverage (subsume)",
-    "host AUDIT.md admitted gap -> source_kind host-self-audit",
-    "dependency fingerprint: numpy/spglib alone does not imply force-constant families without module/docs evidence"
-  ],
-  "log": [
-    {
-      "date": "2026-10-15",
-      "what": "phonon-thermal-properties class changed partial -> missing; source_kind unchanged (host-self-audit)",
-      "why": "E1 pilot F1: strict subsume semantics (formal-foundations §2) — heat-flow does not cover a strict subset of Cv/F/S/ZPE, so adjacent-but-different is missing + note, not partial",
-      "trigger": "judge-2 independent run disagreed; judge-1 and gold both used the loose adjacent=partial intuition"
-    },
-    {
-      "date": "2026-10-15",
-      "what": "force-constants / dynamical-matrix / phonon-dos / band-structure source_kind changed reference-contrast -> host-self-audit",
-      "why": "E1 pilot F2 doc'd the rule (inventory-heuristics §D.3: AUDIT-admitted gap must be tagged host-self-audit) but the gold was not amended for the four AUDIT-visible gaps — a golden-vs-rule residue that kept source-agreement at 2/6 (0.33) for judge-2; E4 mini-run independently reproduced the 0.33 and flagged it",
-      "trigger": "gold re-audit against AUDIT.md: it admits no Cv/F/S/ZPE, no phonon DOS/dispersion, no force-constant / dynamical-matrix pathway — all four reference capabilities are admitted by the host itself"
-    },
-    {
-      "date": "2026-10-16",
-      "what": "repo-arm gap rows unchanged; companion-paper + neighborhood live in gold/mini-companion-paper.json and gold/mini-neighborhood.json",
-      "why": "C3: paper-arm qha-protocol is high, repo-arm qha stays unknown (doc-claim-without-code). Neighborhood must not be merged into this table.",
-      "trigger": "recover_reference (§E) added to inventory_repo"
-    }
-  ]
+  {
+   "ref_id": "dynamical-matrix",
+   "class": "missing",
+   "source_kind": "host-self-audit",
+   "evidence_kinds": [
+    "module"
+   ],
+   "note": "mini_ref.dynamical_matrix; host AUDIT.md admits no force-constant / dynamical-matrix pathway"
+  },
+  {
+   "ref_id": "phonon-dos",
+   "class": "missing",
+   "source_kind": "host-self-audit",
+   "evidence_kinds": [
+    "module",
+    "doc"
+   ],
+   "note": "mini_ref.dos + docs/band.md; host AUDIT.md admits no phonon DOS"
+  },
+  {
+   "ref_id": "band-structure",
+   "class": "missing",
+   "source_kind": "host-self-audit",
+   "evidence_kinds": [
+    "doc",
+    "cli"
+   ],
+   "note": "docs/band.md + phon-vib band CLI; host AUDIT.md admits no phonon dispersion"
+  },
+  {
+   "ref_id": "phonon-thermal-properties",
+   "class": "missing",
+   "source_kind": "host-self-audit",
+   "host_id": "heat-flow",
+   "note": "adjacent-but-different: host heat-flow (BTE lattice kappa) does NOT subsume Cv/F/S/ZPE — by strict subsume semantics (formal-foundations §2) this is missing, with the adjacent host capability recorded here; AUDIT.md explicitly admits no heat capacity"
+  },
+  {
+   "ref_id": "qha",
+   "class": "unknown",
+   "source_kind": "reference-contrast",
+   "evidence_kinds": [
+    "doc"
+   ],
+   "note": "docs/qha.md claims the qha module which does NOT exist in source — evidence is low-confidence (doc-only, code absent); must NOT drive missing"
+  }
+ ],
+ "host_only": [
+  "parse-structure",
+  "fit-eos",
+  "eos"
+ ],
+ "traps_asserted": [
+  "doc-claim-without-code -> unknown, not missing",
+  "adjacent thermal capability (heat-flow): adjacent-but-different is MISSING with a host note, not partial — partial requires strict subset coverage (subsume)",
+  "host AUDIT.md admitted gap -> source_kind host-self-audit",
+  "dependency fingerprint: numpy/spglib alone does not imply force-constant families without module/docs evidence"
+ ],
+ "log": [
+  {
+   "date": "2026-10-15",
+   "what": "phonon-thermal-properties class changed partial -> missing; source_kind unchanged (host-self-audit)",
+   "why": "E1 pilot F1: strict subsume semantics (formal-foundations §2) — heat-flow does not cover a strict subset of Cv/F/S/ZPE, so adjacent-but-different is missing + note, not partial",
+   "trigger": "judge-2 independent run disagreed; judge-1 and gold both used the loose adjacent=partial intuition"
+  },
+  {
+   "date": "2026-10-15",
+   "what": "force-constants / dynamical-matrix / phonon-dos / band-structure source_kind changed reference-contrast -> host-self-audit",
+   "why": "E1 pilot F2 doc'd the rule (inventory-heuristics §D.3: AUDIT-admitted gap must be tagged host-self-audit) but the gold was not amended for the four AUDIT-visible gaps — a golden-vs-rule residue that kept source-agreement at 2/6 (0.33) for judge-2; E4 mini-run independently reproduced the 0.33 and flagged it",
+   "trigger": "gold re-audit against AUDIT.md: it admits no Cv/F/S/ZPE, no phonon DOS/dispersion, no force-constant / dynamical-matrix pathway — all four reference capabilities are admitted by the host itself"
+  },
+  {
+   "date": "2026-10-16",
+   "what": "repo-arm gap rows unchanged; companion-paper + neighborhood live in gold/mini-companion-paper.json and gold/mini-neighborhood.json",
+   "why": "C3: paper-arm qha-protocol is high, repo-arm qha stays unknown (doc-claim-without-code). Neighborhood must not be merged into this table.",
+   "trigger": "recover_reference (§E) added to inventory_repo"
+  },
+  {
+   "date": "2026-10-22",
+   "what": "added §What a skill is for (the bridge, not the guardrail) + the bridge-not-guardrail self-check (now 16); the test contract must exercise the bridge, and routing is part of the contract for skill cards",
+   "why": "the skill's own definition of what it places was missing: the repo stated only prohibitions ('not a gap', 'must not clone'), never what a skill carries. Learned from building mat-phase-field-kinetics, whose first draft was a guardrail. No gold class changes here — the fixture's cards already place real procedures (qha-protocol, thermal-expansion), and their fail_before was already about the host's missing procedure."
+  }
+ ]
 }

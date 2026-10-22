@@ -120,3 +120,11 @@ python3 research/tools/drift-meter.py <skills_dir> --registry reg.json --table
 # 验收 fixtures（指令式，零捆绑）
 # 按 tests/README.md 运行：inventory → align → 比对 gold/*.json
 ```
+
+## 2026-10-22 — 桥，不是护栏
+
+Layer-1 自检 14 → **16** 项。新增第 16 项「bridge, not guardrail」：每张 install 卡必须说清**没有这个落点时 agent 会做错什么**；内容以禁令为主的落点是错的。
+
+理由：把 FiPy 的能力面写成 `mat-phase-field-kinetics` 时发现，我第一版把 skill 写成了护栏（「不许声称材料性质」「不是 catalog」「未验证的不要用」）。但 skill 的存在理由是**桥**——装 agent 缺的**领域判断**（识别问题 / 选模型 / 尺度纪律 / 实测陷阱 / 怎么读结果），不是方程、不是 API、更不是禁令。仓库此前**没有一处正面定义 skill 该装什么**，本轮补上（`alignment-rules.md` §What a skill is for）。
+
+连带：`introduction-card.md` 加 §The contract must exercise the bridge（`fail_before` 是「agent 判错」而不是「入口不存在」；`pass_after` 的 prompt 不得点名 skill 与入口）；`methodology.md` 的 adaptation layer 加一条「宿主 agent 供不了什么」。

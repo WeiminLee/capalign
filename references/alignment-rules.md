@@ -23,8 +23,9 @@ cannot be validated is `unknown`, not `missing`.
 | class | definition | evidence required |
 |---|---|---|
 | `equivalent` | host capability covers the reference semantics, **including the same domain observable produced by a different calculator or Hamiltonian** (energy on FieldMat covers energy on MACE as `compute`; see §Scope) | host id is named in the report line |
-| `partial` | host covers a **strict subset** of the reference semantics; adjacent-but-different is NOT partial — an adjacent host capability that does not subsume the reference belongs in the gap's note as a near-miss, and the gap is `missing` (strict subsume semantics, cf. `formal-foundations.md` §2). A different Hamiltonian is **not** adjacent-but-different at the `compute` layer; it is `equivalent`. A domain-agent method (benchmark protocol, fine-tune, distill) on top of an existing observable is a separate capability and may still be `missing`. | host id + what is / is not covered, stated |
-| `missing` | reference capability with no host counterpart | **validated** reference evidence entries, ≥1 high/medium |
+| `partial` | host covers a **strict subset** of the reference semantics; adjacent-but-different is NOT partial — an adjacent host capability that does not subsume the reference belongs in the gap's note as a near-miss, and the gap is `missing` (strict subsume semantics, cf. `formal-foundations.md` §2). A different Hamiltonian is **not** adjacent-but-different at the `compute` layer; it is `equivalent`. A domain-agent method (benchmark protocol, fine-tune, distill) on top of an existing observable is a separate capability and may still be `missing` — unless its `host_need` is `none` (an adjacent-but-different method the agent can run and check locally is `agent-competence`). | host id + what is / is not covered, stated |
+| `missing` | reference capability with no host counterpart **and** `host_need` is not `none` | **validated** reference evidence entries, ≥1 high/medium, plus the named host need |
+| `agent-competence` | a standard method the agent can deliver against a standard library with `host_need: none`, and a **named local check** exists | the named check (analytic solution / conservation law / limit case) |
 | `host-only` | host capability with no reference counterpart | host evidence (informational) |
 | `unknown` | cannot be characterized from the inputs | never classified as `missing` |
 
@@ -67,6 +68,28 @@ plugin marketplaces, extra MCP servers, lockfile replay, per-environment
 bootstrap, token login, calculator codegen, framework wrappers. How an agent
 ships is not what this skill aligns.
 
+## Agent competence (the host is an agent, not a function table)
+
+The host's delivery capacity is **the agent plus its surface**. A library's
+function is therefore not automatically a host gap: a competent domain agent can
+write a standard method against a standard library. Before a row becomes
+`missing`, ask what the host must **own** for the capability to be deliverable —
+`data`, `credentials`, a `contract`, a `runner`, or a `verification` (a regime
+someone has checked). If the answer is `none` **and** the agent can check its own
+result locally (an analytic solution, a conservation law, a limit case), the row
+is `agent-competence`: recorded in the gap table, **not a gap**, and it carries no
+install card.
+
+This is the counterweight to counting a code library as a capability inventory. It
+is not "the agent knows the topic": the named local check is what separates
+competence from improvisation. A method with no local check, or whose delivery
+needs a calibrated coefficient the host does not have, stays a real gap.
+
+Examples of the boundary (not a lexicon): writing a diffusion solver and checking
+it against `erf` is `agent-competence`; claiming a decomposition length for an
+alloy without cited coefficients is not, because no local check makes that number
+assertable.
+
 A registry/roster of N models is at most one domain-agent `interface` (model
 selection), never N capabilities, and never a neighborhood.
 
@@ -81,6 +104,7 @@ them.
 | `install` | ask the placement questions below, then write the five placement fields and the three-beat test contract |
 | `refuse` | rule 7. `placement` is null. The host stays unchanged. Do not ask the questions below |
 | `ignore` | no card |
+| `agent-competence` | no card. The host already delivers it through the agent plus a standard library; there is nothing to place. The row stays in the gap table with its named local check |
 
 A `new-question` install card is ranked last. It records a suggestion. It is
 not alignment debt, and this run does not build it. Low-confidence evidence
@@ -111,7 +135,8 @@ refuse card:
    never-mechanical → agent judgment in the skill body. The recommendation names the
    layer; it does not design the constraint.
 5. **Never** — recommend a capability whose reference-side evidence is all
-   `confidence: low`; mark it `unknown` instead.
+   `confidence: low`; mark it `unknown` instead. Never open an install card for an
+   `agent-competence` row: the host already delivers it through the agent.
 6. **Host-owned** — the recommendation is a capability the **host would own** on
    its own skill/tool/runner surface after the reference *agent* is gone.
    - If the reference is a **scientific engine** (library/CLI whose deliverable
@@ -138,6 +163,10 @@ not a gap by itself.
 
 Ask, in order, before a row becomes `missing` or a recommendation:
 
+0. **What must the host own?** If the answer is `none` — a standard library
+   suffices and the agent can verify the result locally — the row is
+   `agent-competence`, not alignment debt. Do not mint a skill or a tool for a
+   textbook method the agent already performs with a local check.
 1. **Is this a question the host catalog already answers?** If no, it is not
    alignment debt. It is a decision to open a new question. Leave it outside
    the gap table, or record it as a boundary the host has not offered. The
@@ -170,6 +199,44 @@ command. Dynamic structure factor S(Q,ω), band unfolding, an MLP training
 dump, and extra DFT calculators are other questions or other engines. They
 stay outside.
 
+## What a skill is for (the bridge, not the guardrail)
+
+A skill is a **bridge**: it carries a domain method the host agent does not
+already have, so the agent can complete a task it would otherwise get wrong. It
+is not a guardrail, and a placement that reads as "do not do X" has been designed
+from the wrong end.
+
+The host is a capable general agent. It can write a standard equation, call a
+standard library, and read a docstring. So **the equation is not the capability**
+— writing it is not what the skill carries. What the agent cannot supply is the
+domain judgement around the equation:
+
+| what the skill carries | example |
+|---|---|
+| **recognising the problem** | "separates into two compositions" means a conserved field, which means Cahn-Hilliard — not an arbitrary choice between models |
+| **matching the model to the physics** | a second field (temperature, potential) changes the model, not a coefficient |
+| **scale discipline** | put 5–10 cells across the interface, or the morphology is the grid's answer; dimensionless versus physical |
+| **the measured traps** | the ones the literature does not warn about and a first attempt gets wrong |
+| **how a result is read** | what the convergence evidence is, what the model is a model *of*, which parameters are model parameters |
+
+That list is **finite and writable**, which is why one skill can carry a whole
+engine. "Teach the agent everything the engine can do" is not a goal a skill can
+meet, and it is not the goal: the agent's own competence covers the rest.
+
+**Two consequences for placement and for the card's test contract:**
+
+1. **A capability whose content is "do not do X" is not a skill.** Refusal is a
+   property of a card's `lambda`, not a body section. If a placement's body would
+   be mostly prohibitions, the placement is wrong — either the host already
+   answers the question (no card) or the content belongs in the validity slot.
+2. **The test contract has to exercise the bridge.** A fail-before/pass-after
+   pair that can be satisfied by reading the prompt back proves instruction
+   following, not capability transfer. The before state is the agent getting the
+   task wrong *without* the skill; the after state is the agent getting it right
+   *because* the body carried the missing judgement. A case whose prompt names the
+   skill, the entry point, and the required output in order is testing the
+   docstring, not the bridge.
+
 ## Skill boundary and tool duty
 
 A skill is one argument the catalog can select. A tool is one deterministic
@@ -178,8 +245,17 @@ callable. Bloat and fragmentation are the two failures of the same test
 
 ### One skill
 
+A skill is one **argument** the catalog can select and one **bridge** it can
+cross — see §What a skill is for above for what the bridge carries.
+
 - **One catalog trigger.** The description matches one question a user would
   ask. A second question asked under a different name is a different skill.
+  Write the description for the agent choosing between skills, not for a human
+  reader: name the **user question** it answers, and name the neighbours it must
+  not absorb (`Not for …`). The description decides whether the bridge is found;
+  it is **tested, not asserted**: a routing case puts the user's own words in the
+  prompt and checks the catalog selects this skill, and a negative case puts a
+  neighbouring question there and checks it does not.
 - **One input contract.** Extend only when the new observable uses an input
   the skill already accepts.
 - **One validity argument.** The body states when the number must not be

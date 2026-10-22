@@ -12,8 +12,9 @@ different pair, namespace the filename
 Every report opens with its own validity gate (Layer-1, `evaluation.md`). The block
 lists each check (sections, validated evidence, no-low-driven-missing, rule
 citations, source kinds, host-only tracked, neighborhood stratified, closing
-statement, determinism, host-owned placement, card routing, test contract) with
-`pass`/`fail` and a one-line reason. Any `fail` is reported verbatim — the report is
+statement, determinism, host-owned placement, card routing, test contract, slot
+evidence & fork, verification honesty, agent competence, bridge not guardrail)
+with `pass`/`fail` and a one-line reason. Any `fail` is reported verbatim — the report is
 then **not valid** and the run must be reworked, not delivered.
 
 ## Required sections
@@ -27,9 +28,11 @@ then **not valid** and the run must be reworked, not delivered.
    rows visibly marked) with evidence pointers. Repo runs split **repo projection**
    from **paper projection** when a companion paper was inventoried; do not merge.
 3. **Host inventory** — capability table with provenance (where each was found).
-4. **Gap table** — every **core** reference capability with class (`equivalent|partial|missing|unknown`),
-   **source kind** (`host self-audit|reference-contrast|domain inference`), matched host id
-   (when any), and evidence. `partial` rows state what is / is not covered. Paper-arm
+4. **Gap table** — every **core** reference capability with class (`equivalent|partial|missing|agent-competence|unknown`),
+   **source kind** (`host self-audit|reference-contrast|domain inference`), **host need**
+   (`none|data|contract|runner|verification`), matched host id (when any), and evidence.
+   `partial` rows state what is / is not covered. `agent-competence` rows name the local
+   check that makes the agent's own result trustworthy and carry **no card**. Paper-arm
    gaps, when present, are a second table, not extra rows in the repo-arm table.
    After the two tables, a **fork summary**: `paper_gaps`, `repo_gaps`, their
    `intersection`, and `jaccard` — one line, computed from the tables, never
@@ -60,7 +63,12 @@ then **not valid** and the run must be reworked, not delivered.
 ## Validity rules
 - Every non-`equivalent` row in the gap table must name the reference capability id;
   no orphan rows.
-- `missing` requires ≥1 high/medium-confidence reference evidence entry.
+- `missing` requires ≥1 high/medium-confidence reference evidence entry **and** a
+  `host_need` that is not `none`. A row whose host need is `none` is
+  `agent-competence`, never `missing`.
+- `agent-competence` requires a **named local check** (analytic solution,
+  conservation law, limit case). Without one, the row is `missing` or `unknown`,
+  not competence.
 - Every card slot is an object `{filled, span, quote}`; a `filled: 1` slot has a
   non-empty verbatim quote, and a slot that cannot be cited is `filled: 0`.
   `kappa: 1` only appears with `s` and `e` both filled.
@@ -101,7 +109,7 @@ then **not valid** and the run must be reworked, not delivered.
     "companion_paper": "...|null",
     "search_used": false
   },
-  "gaps": [{"ref_id": "...", "class": "...", "host_id": "...|null", "rule": "2|3|5|null", "layer": "core"}],
+  "gaps": [{"ref_id": "...", "class": "...", "host_need": "none|data|contract|runner|verification", "host_id": "...|null", "rule": "2|3|5|null", "layer": "core"}],
   "paper_projection_gaps": [],
   "neighborhood": {
     "kept": [{"id": "...", "relation": "sibling|cited-method|declared-related|official-docs", "class": "..."}],

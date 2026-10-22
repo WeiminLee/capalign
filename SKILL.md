@@ -106,15 +106,29 @@ file, is a boundary unless the host already offers that question. An honest
 refusal closes a boundary; labeling the other quantity as this one does not.
 
 Assign each in-bound reference capability a class from `references/alignment-rules.md`
-§Gap classification: `equivalent | partial | missing | host-only | unknown`, and
-tag it with a source kind: `host self-audit | reference-contrast | domain
+§Gap classification: `equivalent | partial | missing | agent-competence | host-only | unknown`,
+and tag it with a source kind: `host self-audit | reference-contrast | domain
 inference` (`methodology.md` Phase 3). Same domain observable on a different
-calculator is `equivalent`, not `missing`. `missing` requires ≥1 high/medium
-evidence entry — from **validated** evidence, not the raw comparison — and never
-from `low` entries; unverifiable gaps are `unknown`. Plumbing items never
-appear in the gap table.
+calculator is `equivalent`, not `missing`.
+
+**Ask what the host must own before calling anything missing.** Record
+`host_need` (`none|data|contract|runner|verification`). A standard method the
+agent can deliver against a standard library, with a **named local check** and
+`host_need: none`, is `agent-competence` — recorded, not a gap, no card. The host
+is an agent, not a function table; a library's module list is not a capability
+inventory (`capability-ir.md` granularity 9). `missing` requires ≥1 high/medium
+evidence entry — from **validated** evidence, not the raw comparison — **and** a
+`host_need` that is not `none`; unverifiable gaps are `unknown`. Plumbing items
+never appear in the gap table.
 
 ### 6. Card, then placement
+A card places a **bridge**: the domain judgement the host agent does not already
+have (`references/alignment-rules.md` §What a skill is for). The equation and the
+API are not the bridge — a general agent supplies those. Before writing an
+`install` card, name what the agent would get **wrong** without it; if the answer
+is "nothing, it just needs the command", the content belongs in a validity slot,
+not a body. A body that is mostly prohibitions is a guardrail, not a bridge, and
+the placement is wrong.
 Join the two projections by product (`references/introduction-card.md`). Do
 not merge the projection gap tables. Compute `lambda` from this work's slots
 only. Do not override it, and do not copy product names, targets, or validity
@@ -129,7 +143,9 @@ conflict.
 Only an `install` card enters the placement questions
 (`references/alignment-rules.md` §Placement): axis → tool-vs-script →
 new-skill-vs-extend → constraint ownership → never-low-evidence →
-**host-owned (rule 6)**. Fill `target`, `question`, `input`, `validity` plus
+**host-owned (rule 6)**. An `agent-competence` row gets **no card**: there is
+nothing to place, and minting one is how a library's module list becomes a fake
+surface. Fill `target`, `question`, `input`, `validity` plus
 `validity_owner`, and `forbidden`. Apply §Skill boundary and tool duty: do not
 put a second scientific argument in an existing skill body, and do not open a
 skill for a single-consumer postprocess or a render. The target is a host
@@ -151,7 +167,7 @@ Write `capability-alignment-report.md` (and `capability-alignment.json` IR)
 per `references/report-contract.md` — required sections, validity rules, and the
 closing statement verbatim. Before declaring the report final, run Layer-1
 self-check (`references/evaluation.md` §Layer 1): the report must open with the
-`self_check:` block, all 14 checks green, or the run is not valid and must be
+`self_check:` block, all 16 checks green, or the run is not valid and must be
 reworked.
 
 ## Outputs & validity
@@ -161,6 +177,9 @@ reworked.
   \(W\), namespace the filename (do not overwrite another pair — MatDiscovery
   already carried a phonopy report).
 - Every report line traces to an inventory entry; no fabricated capability names.
+- A capability the agent can deliver with a standard library and a named local
+  check is `agent-competence`, not a gap and not a card. Framework internals are
+  not capabilities.
 - Install cards cite a placement rule; refuse cards cite rule 7. A card
   without a rule is a stub. A card that keeps the reference repo/plugin/MCP as
   the host runtime is invalid (rule 6).

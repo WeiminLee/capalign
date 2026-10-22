@@ -26,6 +26,8 @@ silently fixed.
 | 12 | test contract | An `install` card has `fail_before`, `pass_after`, and `destroy`. A `refuse` card has `destroy: n/a` and a `pass_after` that states the host is unchanged. No `confidence: low` span drove an `install`. |
 | 13 | slot evidence & fork | Every card slot is `{filled, span, quote}`; `filled: 1` implies a non-empty verbatim quote; `kappa: 1` only with both `s` and `e` filled. `lambda` recomputed from the slots matches the card. `prescribed` / `forbidden_primitives` match the card-label table. The `fork` block is consistent with the two projection tables (`intersection`, `jaccard` recomputed, not hand-written). |
 | 14 | verification honesty | The Verification ledger exists and counts every card exactly once. Every card has a `verification` block; beats marked `pass` carry evidence. No `contract-only` or `failed` card's product is claimed as delivered anywhere in the report. |
+| 15 | agent competence | Every `agent-competence` row names a local check and has **no** card. No `missing` row carries `host_need: none`. Framework internals (mesh, solver backend, viewer, module tree) do not appear as capabilities. |
+| 16 | bridge, not guardrail | Every `install` card names what the agent gets **wrong** without the placement. No card's content is mostly prohibitions. Its `fail_before` is the agent's wrong judgement, not a missing entry point, and its `pass_after` prompt states the user's problem without naming the skill or the entry point. Skill cards carry a routing case. |
 
 Layer-1 failures mean the run is **not valid**, not "mostly done".
 
@@ -74,8 +76,8 @@ placement rule legitimately changes — amendments are recorded in the gold file
 Pass criteria: zero unlogged mismatches on all four fixtures **plus**
 `gold/mini-neighborhood.json`, `gold/mini-companion-paper.json`, and
 `gold/mini-introduction-cards.json`; Layer-1 self-check green on the mini-ref
-run (14 checks, including neighborhood stratified, host-owned placement,
-card routing, and test contract). Projection gap classes stay on their own
+run (the full check list, including neighborhood stratified, host-owned placement,
+card routing, test contract, and bridge-not-guardrail). Projection gap classes stay on their own
 gold files; the card gold does not replace them. That card gold is one
 instance. It exercises two of the six labels. `validity-gap`, `both-aligned`,
 and `procedure-conflict` stay in force on other works. Do not copy its

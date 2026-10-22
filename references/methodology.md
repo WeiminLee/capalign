@@ -57,8 +57,10 @@ them into evidence. (The first instance caught several false candidates this way
 §3.)
 
 ### Phase 3 — Gap classification with source tagging
-Assign each reference capability a class: `equivalent | partial | missing | host-only |
-unknown`. Additionally tag every gap with a **source kind**:
+Assign each reference capability a class: `equivalent | partial | missing | agent-competence |
+host-only | unknown`, and record `host_need` (`none|data|contract|runner|verification`) —
+what the host must **own**. `host_need: none` with a named local check is
+`agent-competence`, not debt. Additionally tag every gap with a **source kind**:
 
 - `host self-audit` — the host's own documents/roadmap already admit the gap.
 - `reference-contrast` — the reference has it, the host lacks it, neither documents it.
@@ -114,6 +116,12 @@ in a fixed closing statement.
   for every engine in that area; it enters only when this work states it. The same lexicon also names which
   verbs are domain-agent methods (benchmark a potential, fine-tune, distill) versus
   generic packaging (plugin, extra MCP, lockfiles). Another domain swaps this table.
+- **What the host agent cannot supply** (the skill's content): the domain judgement
+  that surrounds a method — problem recognition, model selection, scale discipline,
+  the measured traps, how a result is read. Not the equation and not the API, which
+  a general agent already has. `alignment-rules.md` §What a skill is for states this
+  as the bridge definition; it is what a placement must carry to be worth a card, and
+  what a test contract must exercise.
   The method provides the *action* (derive implied families from dependencies, mark
   them medium confidence until confirmed; drop packaging), not the table.
 - **Report dialect**: what the report is called, where it lands, and the JSON schema
@@ -145,3 +153,10 @@ method:
 4. `host-only` capabilities are reported too — the reverse gap is information, not noise.
 5. Cross-validation is mandatory before classification on every run, not just in the
    first instance.
+6. **A host agent already knows its domain's standard methods.** The unit of a gap
+   is what the host must **own** — data, a contract, a runner, a verified regime —
+   not what a library can compute. A method the agent can run against a standard
+   library and check locally is `agent-competence`, not debt; counting a code
+   library's modules as capabilities inflates the gap table and produces install
+   cards for textbook work. The named local check is what keeps this from
+   collapsing into "the agent knows it".

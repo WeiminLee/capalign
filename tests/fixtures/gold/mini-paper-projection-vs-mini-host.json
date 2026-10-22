@@ -1,48 +1,53 @@
 {
-  "surfaces": {
-    "reference": "tests/fixtures/mini-ref/papers/qha-mini-ref-2015.md",
-    "host": "tests/fixtures/mini-host",
-    "generated_at": "2026-10-16",
-    "layer": "core",
-    "relation": "companion-paper"
+ "surfaces": {
+  "reference": "tests/fixtures/mini-ref/papers/qha-mini-ref-2015.md",
+  "host": "tests/fixtures/mini-host",
+  "generated_at": "2026-10-16",
+  "layer": "core",
+  "relation": "companion-paper"
+ },
+ "gaps": [
+  {
+   "ref_id": "qha-protocol",
+   "class": "missing",
+   "source_kind": "reference-contrast",
+   "note": "Methods F(V,T) protocol is high; host has no QHA workflow; AUDIT.md does not name QHA"
   },
-  "gaps": [
-    {
-      "ref_id": "qha-protocol",
-      "class": "missing",
-      "source_kind": "reference-contrast",
-      "note": "Methods F(V,T) protocol is high; host has no QHA workflow; AUDIT.md does not name QHA"
-    },
-    {
-      "ref_id": "thermal-expansion",
-      "class": "missing",
-      "source_kind": "reference-contrast",
-      "host_id": "eos",
-      "note": "adjacent-but-different: eos Birch-Murnaghan E(V) does not subsume alpha(T) from F(V,T)"
-    },
-    {
-      "ref_id": "harmonic-validity",
-      "class": "missing",
-      "source_kind": "reference-contrast",
-      "note": "paper validity condition; placement skip (scientific soundness is out of scope)"
-    },
-    {
-      "ref_id": "mini-ref-package",
-      "class": "missing",
-      "source_kind": "reference-contrast",
-      "note": "companion package; same placement family as repo-arm tools"
-    }
-  ],
-  "traps_asserted": [
-    "paper-arm qha-protocol missing/high vs repo-arm qha unknown/low — C3 fork, do not merge",
-    "paper projection rows must not appear in the repo-arm gap table"
-  ],
-  "log": [
-    {
-      "date": "2026-10-16",
-      "what": "new gold: paper projection of recovered companion vs mini-host",
-      "why": "§E recovers W_paper into core; Gap(H, W_paper) is a second table",
-      "trigger": "recover_reference on mini-ref"
-    }
-  ]
+  {
+   "ref_id": "thermal-expansion",
+   "class": "missing",
+   "source_kind": "reference-contrast",
+   "host_id": "eos",
+   "note": "adjacent-but-different: eos Birch-Murnaghan E(V) does not subsume alpha(T) from F(V,T)"
+  },
+  {
+   "ref_id": "harmonic-validity",
+   "class": "missing",
+   "source_kind": "reference-contrast",
+   "note": "paper validity condition; placement skip (scientific soundness is out of scope)"
+  },
+  {
+   "ref_id": "mini-ref-package",
+   "class": "missing",
+   "source_kind": "reference-contrast",
+   "note": "companion package; same placement family as repo-arm tools"
+  }
+ ],
+ "traps_asserted": [
+  "paper-arm qha-protocol missing/high vs repo-arm qha unknown/low — C3 fork, do not merge",
+  "paper projection rows must not appear in the repo-arm gap table"
+ ],
+ "log": [
+  {
+   "date": "2026-10-16",
+   "what": "new gold: paper projection of recovered companion vs mini-host",
+   "why": "§E recovers W_paper into core; Gap(H, W_paper) is a second table",
+   "trigger": "recover_reference on mini-ref"
+  },
+  {
+   "date": "2026-10-22",
+   "what": "added §What a skill is for (the bridge, not the guardrail) + the bridge-not-guardrail self-check (now 16); the test contract must exercise the bridge, and routing is part of the contract for skill cards",
+   "why": "the skill's own definition of what it places was missing: the repo stated only prohibitions ('not a gap', 'must not clone'), never what a skill carries. Learned from building mat-phase-field-kinetics, whose first draft was a guardrail. No gold class changes here — the fixture's cards already place real procedures (qha-protocol, thermal-expansion), and their fail_before was already about the host's missing procedure."
+  }
+ ]
 }

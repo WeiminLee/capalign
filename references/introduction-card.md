@@ -55,6 +55,12 @@ question, and `new-question` otherwise. A `new-question` card may still be
 `install`. It is ranked last. Opening it is a human decision. It is not
 alignment debt, and this run does not build it.
 
+**`agent-competence` products get no card.** The host delivers them through the
+agent plus a standard library, and the row already names the local check that
+makes the result trustworthy. There is nothing to install; minting a card here is
+how a code library's module list turns into a fake surface (`alignment-rules.md`
+§Agent competence).
+
 ## Placement
 
 Ask the placement questions (`alignment-rules.md` §Placement) only when
@@ -93,6 +99,25 @@ The contract is text on the card. This run does not execute it.
 |---|---|
 | `install` | `fail_before`, `pass_after`, and `destroy` are each one clause. `destroy` names which prescribed piece is removed: the entry binding, the paper procedure, or the invalidation check |
 | `refuse` | `pass_after` states that the host is unchanged and that the product is absent from the paper's test set. `destroy` is `n/a` |
+
+### The contract must exercise the bridge, not the docstring
+
+An install card places a **bridge** (`alignment-rules.md` §What a skill is for):
+the domain judgement the host agent does not already have. A contract that can be
+satisfied by reading the prompt back tests instruction following, and a skill that
+passes only that has not been shown to carry anything.
+
+- **`fail_before` is the agent getting the task wrong without the skill** — not
+  "the entry point does not exist". Missing entry points are what `destroy` is
+  for; `fail_before` is about the agent's judgement.
+- **`pass_after` is the agent getting it right because the body carried the
+  missing judgement**, on a prompt that states the user's problem and nothing
+  more. If the prompt names the skill, the entry point, and the required output
+  in order, the case is testing the docstring.
+- **Routing is part of the contract when the card is a skill.** A case that gives
+  the user's own words and checks the catalog selects this skill (and a negative
+  case for the neighbouring question it must not absorb) is the only evidence that
+  the description works.
 
 ### Prescribed primitive (audit anchor)
 

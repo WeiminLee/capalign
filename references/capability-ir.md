@@ -22,7 +22,8 @@ this one shape. This is what makes alignment possible across heterogeneous sourc
         {"kind": "cli|module|doc|code|method|claim|tool-mention", "location": "path:line | section | URL | quote"}
       ],
       "confidence": "high|medium|low",    // low = inferred, must be flagged in the report
-      "layer": "core|neighborhood"        // inherit surface.layer if omitted
+      "layer": "core|neighborhood",       // inherit surface.layer if omitted
+      "host_need": ["none"]               // none|data|contract|runner|verification; see §Host need
     }
   ]
 }
@@ -39,6 +40,23 @@ this one shape. This is what makes alignment possible across heterogeneous sourc
 | `data` | dataset/format produced | tables/figures/products | numbers/benchmarks | a data artifact |
 | `interface` | API / file format | IO contract | a format | a transport / MCP server |
 | `concept` | design principle | theory/approximation | a claim/opinion | a scientific-decision rule |
+
+## Host need
+
+What the host must own for this capability to be deliverable, given that the
+host's capacity is **the agent plus its surface**:
+
+| value | the host must supply |
+|---|---|
+| `none` | nothing beyond a standard library the agent can call; the agent has a local correctness check |
+| `data` | a dataset, database, catalog, or calibrated coefficient the agent cannot synthesize |
+| `contract` | a declared artifact, a persisted output, or a reproducible record the user relies on |
+| `runner` | credentials, remote compute, a task lifecycle, or a job handle |
+| `verification` | a regime someone has checked — measured traps, a validated model, a known-good implementation |
+
+`none` is not "the agent knows the topic". It requires the named local check
+(`alignment-rules.md` §Agent competence). A non-empty `host_need` is what makes a
+row a real gap.
 
 ## Normalization rules
 1. Capabilities are **semantic units**, not file counts: a repo with 200 functions and 12
@@ -87,3 +105,11 @@ this one shape. This is what makes alignment possible across heterogeneous sourc
    `compute` capability. Class `equivalent` if the host already produces that
    quantity. A distinct domain method on top of that quantity (adsorption-energy
    protocol, fine-tune, distill) stays its own `workflow`.
+9. **A library is inventoried as workflows, not as a module tree.** A capability
+   is a procedure a user runs ("spinodal decomposition", "dendritic growth"),
+   not a module, class, or CLI subcommand. Modules and entry points are
+   `evidence` pointers for the workflow they serve. Framework internals — mesh,
+   linear-solver backend, viewer, file I/O, term algebra — are not capabilities
+   at all, the same way a database driver is not a database feature. Counting a
+   library's modules as capabilities inflates a host gap table with methods the
+   agent already knows.

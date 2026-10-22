@@ -14,15 +14,19 @@ IR (see `capability-ir.md`).
    grep -rn "^\[project.scripts\]\|console_scripts\|\[bin\]\|bin/" <repo> --include="*.toml" --include="*.json" -l 2>/dev/null
    find <repo> -maxdepth 2 -name "*.py" -path "*/src/*" | head; find <repo> -maxdepth 2 -type d -not -path "*/node_modules*" -not -path "*/.git*"
    ```
-   Capability boundaries = package top-level modules + CLI entry points +
-   documented user commands + **reference-side `skills/*/SKILL.md`** when the
-   repo ships an agent skill pack. Merge a skill with the CLI/docs verb it
-   wraps (oh-my-mlip `skills/run` ≡ `oh_my_mlip.run` ≡ howto/use-a-model — one
-   capability, several evidence pointers). **One user-reachable verb per
-   capability; nothing finer.** A registry/roster of N models or frameworks is
-   **one** domain-agent `interface` at most, not N capabilities (F7; a 20-model
-   hub → one selection interface). Hub install of that roster is plumbing, not
-   a verb.
+   Capability boundaries are **workflows a user runs**, not the module tree:
+   documented user commands, docs feature pages, examples that state a
+   procedure, and **reference-side `skills/*/SKILL.md`** when the repo ships an
+   agent skill pack. Package top-level modules and CLI entry points are
+   **evidence pointers** for the workflow they serve, not capabilities in
+   themselves (`capability-ir.md` granularity 9). Merge a skill with the
+   CLI/docs verb it wraps (oh-my-mlip `skills/run` ≡ `oh_my_mlip.run` ≡
+   howto/use-a-model — one capability, several evidence pointers). **One
+   user-reachable procedure per capability; nothing finer.** Framework internals
+   (mesh, solver backend, viewer, term algebra, file I/O) are not capabilities.
+   A registry/roster of N models or frameworks is **one** domain-agent
+   `interface` at most, not N capabilities (F7; a 20-model hub → one selection
+   interface). Hub install of that roster is plumbing, not a verb.
 2. **Dependency fingerprint** — read the manifest dependencies; map the
    domain-relevant ones to implied capability families (e.g., a phonon code may
    imply force-constants / dynamical-matrix / DOS / thermal-properties; a DFT
