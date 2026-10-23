@@ -1,0 +1,53 @@
+{
+  "note": "Gold for mini-retire. Same input contains a valid upgrade, a valid retire, and an invalid retire; only the invalid one is a violation.",
+  "input": "tests/fixtures/mini-retire/portfolio-input.json",
+  "expected_good_lifecycle": [
+    {
+      "action": "upgrade",
+      "target": "eos-old",
+      "sources": [
+        "eos-new"
+      ],
+      "probe_remap": {
+        "q-eos-old": "eos-new"
+      }
+    },
+    {
+      "action": "retire",
+      "target": "qha-old",
+      "sources": []
+    }
+  ],
+  "expected_bad_lifecycle": {
+    "action": "retire",
+    "target": "heat-flow",
+    "violations": [
+      "heat-flow still delivers live obligation lattice-kappa; retire requires no live obligation",
+      "heat-flow: cannot retire while retained probes depend on it: ['q-heat-flow']",
+      "live obligation lattice-kappa has no deliverer after the lifecycle plan"
+    ]
+  },
+  "expected_exit_code": 1,
+  "metrics": {
+    "entry_count": 4,
+    "duplicate_count": 0,
+    "hard_conflict_count": 0,
+    "orphan_count": 1,
+    "portfolio_coverage": 1.0
+  },
+  "traps_asserted": [
+    "upgrade requires a product/check/regime superset",
+    "retire of an unreachable entry is allowed",
+    "retire of the live last deliverer of lattice-kappa is rejected",
+    "retire is also rejected while a retained probe depends on the entry",
+    "good lifecycle actions before the bad one are still checked and pass"
+  ],
+  "log": [
+    {
+      "date": "2026-10-23",
+      "what": "new gold: mini-retire lifecycle input and violations",
+      "why": "acceptance trap for upgrade superset and lifecycle safety (no live obligation or retained probe loses its deliverer)",
+      "trigger": "references/portfolio-admission.md; Layer-1 checks 19-21"
+    }
+  ]
+}

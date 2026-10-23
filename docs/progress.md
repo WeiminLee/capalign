@@ -1,5 +1,11 @@
 # 项目进展 — cap-align（能力对齐 skill + 论文实证）
 
+> 更新：2026-10-23。组合准入与融合已落码（见文末
+> 「2026-10-23 — 组合准入与融合落码」）：`SKILL.md` 第 7 步、
+> `references/portfolio-admission.md`、schema `portfolio` 块、Layer-1 19–21、
+> `research/tools/portfolio-model.py`、`mini-library` / `mini-retire` fixtures。
+> 工作流 8→9 步，Layer-1 18→21 项。E5/E6 未跑，真实宿主上的组合效果未测量。
+>
 > 更新：2026-10-22。槽位改**三态**（`1 | 0 | "unknown"` + `provenance` + `why_empty` /
 > `why_unknown`）：读不到的论文不再被当成"论文没写"，`s`/`e` 为 unknown 的产品落成
 > `insufficient-evidence`（**不建卡**，差距行 `unknown`），`v` 未知则 install 但只判
@@ -77,7 +83,7 @@
 
 | 资产 | 位置 | 状态 |
 |---|---|---|
-| skill 本体（8 步工作流 + 自检门） | `SKILL.md` | 已定；§E + 材料范围 + 引入卡片（规则 7 拒绝）+ 宿主自有落点（规则 6）+ 盲盘纪律与 κ 步骤（2026-10-19 三）+ 验证账本（2026-10-19 四）+ 槽位三态与 `host_need_note`（2026-10-22）；Layer-1 现为 **18 项** |
+| skill 本体（9 步工作流 + 自检门） | `SKILL.md` | 已定；§E + 材料范围 + 引入卡片（规则 7 拒绝）+ 宿主自有落点（规则 6）+ 盲盘纪律与 κ 步骤（2026-10-19 三）+ 验证账本（2026-10-19 四）+ 槽位三态与 `host_need_note`（2026-10-22）+ 组合准入（2026-10-23）；Layer-1 现为 **21 项** |
 | 方法论 / 评估 / IR / 对齐规则 / 报告契约 | `references/` | F1/F2/F3 三条 pilot 缺陷已全部落码 |
 | 验收 fixtures（mini-ref/host/paper/blog + 邻域 gold） | `tests/fixtures/` | gold 与规则同步；有效跑例 `runs/2026-10-16-e-neighborhood/` |
 | 真实跑：oh-my-mlip × MatDiscovery | `research/runs/oh-my-mlip-vs-matdiscovery/` | 暴露 F4–F9 并回写规则。F10（wrap 参考 hub 不是对齐）在该跑之后钉进 skill；该报告的 wrap 建议视为历史，不回写 |
@@ -148,3 +154,153 @@ Layer-1 新增第 **16** 项「bridge, not guardrail」：每张 install 卡必�
 理由：把 FiPy 的能力面写成 `mat-phase-field-kinetics` 时发现，我第一版把 skill 写成了护栏（「不许声称材料性质」「不是 catalog」「未验证的不要用」）。但 skill 的存在理由是**桥**——装 agent 缺的**领域判断**（识别问题 / 选模型 / 尺度纪律 / 实测陷阱 / 怎么读结果），不是方程、不是 API、更不是禁令。仓库此前**没有一处正面定义 skill 该装什么**，本轮补上（`alignment-rules.md` §What a skill is for）。
 
 连带：`introduction-card.md` 加 §The contract must exercise the bridge（`fail_before` 是「agent 判错」而不是「入口不存在」；`pass_after` 的 prompt 不得点名 skill 与入口）；`methodology.md` 的 adaptation layer 加一条「宿主 agent 供不了什么」。
+
+## 2026-10-23 — 组合准入与生命周期：研究沉淀（先于落码）
+
+**动机。** 能力单元一直新增；宿主在完成时固定。行级 \(\lambda\) 决定「这一行改不改」，但宿主是一个有描述、有路由、互相竞争的**能力组合**。新增一条行级正确的卡，仍可能让宿主选错。
+
+**研究结论（全部为他人测量，不是我们的结果）。**
+
+- 伤害主要来自**选择**，不是上下文：Skill Shadowing（2605.24050）202-skill 库通过率最多降 21%，其中最多 68% 归因于 shadowing，context overhead 与零不可分。
+- 选择准确率随库大小**非线性相变**，由语义混淆驱动：Single-Agent Skills（2601.04748）给出 capacity threshold + interference 的 scaling law；分层路由可恢复。
+- 工具侧同构：RAG-MCP（2505.03275）<30 候选 >90% → 11,100 候选 13.6%；Tool-Space Interference（Microsoft 2026）1,470 个 MCP server、775 个重名、最大 256 tools、部分模型最多 −85%。
+- 生命周期不能按日程：Library Drift（2605.19576）**过早退休 −1.9pp**；治理配方 0.258→0.584。SkillOps（2605.13716）已有 merge/repair/retire/add_validator，但触发是库内健康。
+- 生成侧最近邻：Repo-To-Skill（2609.02749）1,000 repos → 5,353 verified skills，construction record 保留证据/检查/缺口；验证是「能跑」。我们多的是宿主相对义务、作废条件、拒绝与组合准入。
+- 保留的评估形状可借 MCCL（2610.29357）的四门：preservation → access → utilization → effect。
+
+**设计增量（见 [`../research/portfolio-lifecycle.md`](../research/portfolio-lifecycle.md)）。**
+
+1. 宿主扩为 \(H=(P_H,K_H,\Sigma_H,\rho_H,\beta_H)\)：条目、选择策略、预算。
+2. 准入门是**集合谓词**：行条件 + 保留探针 + 组合冲突 \(\kappa_H\) + 预算 + 无 live obligation 失去最后交付者。
+3. **非组合命题**：在干扰项超加的声明模型下，逐条安全不封闭于并集。两条各自安全的卡可以联合遮蔽一个保留条目。
+4. **生命周期即可达性 GC**：`bind/author/extend/add_validator/merge/demote/upgrade/downgrade/retire/quarantine/refuse`；retire 只对无 live obligation 的条目；merge 必须覆盖双方 live obligations 且降低干扰。这解释 −1.9pp。
+5. **指标**：retention、shadowing risk（代理，不叫测量）、interference、context tax、portfolio coverage、orphan、churn。
+6. **实验**：E5 组合准入（四臂）；E6 生命周期 replay；E7 机制复现（可选）。E5 是 C4 的证据，E6 是 C5 的证据。
+
+**文稿落点。**
+
+- 新研究笔记 `research/portfolio-lifecycle.md`（引用、设计、实验、改动清单）。
+- 中文设计稿 `docs/portfolio-and-lifecycle.md`（对象、准入门、可达性、指标、实验、落码清单）。
+- `research/related-work.md` 增 L2b（shadowing / scaling law / drift / SkillsVote / MUSE / misevolution / MCCL / Repo-To-Skill / Paper2Agent / tool-selection）。
+- `docs/acl-paper-design.md` 增 §1.5（C4/C5 provisional + claim scope）、§2 六行邻居、§3 E5/E6、§4 限制 (8)。
+- `README.md` 加「设计增量，未落码」提示。
+- **`SKILL.md` / `references/` / `tests/` 未改**；落码清单见研究笔记 §6（P1–P3）。工作流将从 8 步变 9 步，Layer-1 从 18 项变 21 项。
+
+**下一步优先级。**
+
+| 优先级 | 事项 | 依赖 |
+|---|---|---|
+| 1 | EΔ（不变，仍是 C1/C3 命门） | phonopy methods → \(W_p\) |
+| 2 | `references/portfolio-admission.md`（`docs/portfolio-and-lifecycle.md` 已建） | 本轮笔记审阅 |
+| 3 | 落码 step 7 + schema + 3 项自检 | 设计定稿 |
+| 4 | `mini-library` / `mini-retire` fixture + gold | 落码 |
+| 5 | `research/tools/portfolio-model.py`（纯 stdlib，可达性校验） | fixture |
+| 6 | E5；E6 视时间 | 宿主库 + harness |
+
+## 2026-10-23 — 组合准入与融合落码
+
+把上一节的设计落成契约、schema、工具与 fixture。行级 \(\lambda\)、\(\kappa\)、
+六态差距和报告结语不变；不写经验数字。
+
+**文件。**
+
+- `SKILL.md`：新增第 7 步「Portfolio admission」；报告与自检拆成第 8/9 步；
+  Layer-1 改为 21 项；References 增 `references/portfolio-admission.md`。
+- `references/portfolio-admission.md`：作用域、宿主组合 \(H\)、条目签名
+  \(\sigma\)、九种融合关系、决策树、关系→动作表、merge 语义、14 个动作、
+  探针与集合测试、可达性、指标、禁止项。
+- `references/report-schema.json`：顶层 `portfolio`（host_entries / probes /
+  set_test / lifecycle / metrics）与卡片级 `portfolio`（relation /
+  relation_evidence / action / target_entry / retention_probes / conflict /
+  merge / rollback）。
+- `references/report-contract.md`、`references/evaluation.md`、
+  `references/quick-decisions.md`：Portfolio 节、检查 19–21、八项决策。
+- `research/tools/portfolio-model.py` + `research/tools/test_portfolio_model.py`：
+  纯 stdlib 的声明一致性检查器；不执行宿主、不跑探针。
+- `tests/fixtures/mini-library/`、`tests/fixtures/mini-retire/`：融合关系、
+  联合遮蔽、merge/retire/upgrade 的合成陷阱与 gold。
+- `docs/portfolio-and-lifecycle.md` §5.1、`research/portfolio-lifecycle.md`
+  §2.5.1：融合设计定稿；`merge` 判据改为「同产物、同做法、同有效域」的真重复。
+
+**行为变化。** 工作流 8→9 步；Layer-1 18→21 项（19 组合覆盖、20 融合一致、
+21 生命周期安全）。有 `install` 卡时必须过组合准入；只有 `refuse` 卡时仍写空
+`portfolio` 块。
+
+**验证。** `python3 -m unittest research/tools/test_portfolio_model.py -v`：
+21 项全过。`mini-library/portfolio-input.json` 以联合遮蔽
+（`0.3 - 0.2 - 0.2 = -0.1`）退出 1；`portfolio-input-gated.json`（demote `qha`）
+退出 0；`mini-retire/portfolio-input.json` 以 `lattice-kappa` 失去最后交付者
+退出 1，而它前面的 upgrade 与 `qha-old` retire 通过。
+
+**复审修正。** 独立复审后补齐：卡片级 `upgrade` 用条目实值检查产物/检查/
+有效域超集与目标保留探针；生命周期 `merge` 要求真重复、双方 test contract、
+重映射保留探针并取有效域交集；`deliver`/`validity` 探针带 `card_id`，一条
+探针不能再服务多个候选；`demote` 的 id 必须是真实候选；指标按
+「冻结宿主条目数 / 无 live obligation 且无保留探针的宿主条目 / 含 demoted
+的可交付条目」重新定义；决策树改为与谓词表同一读取顺序。图 JSON 已改九步，
+PNG/HTML/drawio 仍为旧八步示意，已在 README 标注待重绘。
+
+**未跑。** E5（组合准入四臂）、E6（生命周期 replay）、真实宿主上的 retention /
+shadowing 均未跑；fixtures 是合成陷阱，不是测量。`portfolio-model.py` 只检查
+声明之间的一致性，不能替代宿主上的探针执行。C4/C5 因此是
+implemented, unmeasured。
+
+## 2026-10-23 — 融合策略 v2：证据阶梯、硬覆盖与提交门
+
+依据 [`skill-merge-retire-survey.md`](skill-merge-retire-survey.md) §1.1–1.3，
+把 merge 从“字段并集”升级为**可审计的删除**。所有数字仍是他人的测量；
+cap-align 不新增经验结论，E5/E6 仍未跑。
+
+**设计增量。**
+
+- **证据阶梯（SkillZip Pro）。** 每条删除恰好一条 witness：W1 字面包含 ≻
+  W2 覆盖 witness ≻ W3 受限蕴含。挂不上就否决；同一条目两条 witness 也算错。
+  源条目本身（`entry:<card_id>`）是必须交代的删除。W3 不允许删除
+  obligation、output field 或带 prohibition/exemption/output 标记的单元。
+- **锁定残差。** 解析/证不了的单元逐字保留（`unit`、`reason`、`verbatim`），
+  不得删除；失败模式是压缩不足，不是静默丢失。
+- **硬 surface 覆盖。** trigger / workflow edge / tool requirement /
+  obligation / output field 的双方并集必须等于
+  `coverage ∪ removed_units ∪ locked_residual`；coverage 不能声明两边都没有的
+  单元。
+- **提交门（SkillGLoW）。** 双方保留探针都进 `recall_probes`，逐条声明；
+  任一 `passed: false` 否决。
+- **交互门（SkillSmith）。** `interaction.beta < -0.15` 必须附扩展回归检查与
+  证据；`beta: 0` 表示未估计，不是已证明独立。
+- **never-inflate。** 合并后 surface token 不得高于合并前；否则退回 no-op /
+  split / demote。
+- **证据等级诚实。** `evidence_level ∈ {constructive, model, statistical}`；
+  `statistical` 必须带 `causal_evidence = {design: randomized, n_trials > 0}`。
+- **关系图边型（SkillOps）。** 九关系折叠为
+  dependency / compatibility / redundancy / alternative；只有 redundancy
+  （duplicate）可 merge。
+- **不引入。** SkillGLoW 的整轮提交是执行语义，cap-align 只记 rollback；
+  SkillSmith 的合并没有回滚，我们把 rollback 设为准入前置条件。
+
+**落码。**
+
+- `references/portfolio-admission.md` §5–6：边型映射、merge 结构条件、
+  §6.2 证据阶梯、§6.3 硬覆盖、§6.4 提交门、§6.5 交互、§6.6 never-inflate、
+  §6.7 rollback。
+- `references/report-schema.json`：`portfolioSurface`、`portfolioMerge`；
+  entry 与 card-level `merge` 复用同一 `$ref`。
+- `references/report-contract.md`、`references/evaluation.md`（检查 20）、
+  `references/quick-decisions.md`（决策 6）：同步 merge block 与失败条件。
+- `research/tools/portfolio-model.py`：新增 `check_merge_evidence`，由 `run`
+  聚合；校验 witness 一一对应、W3 禁用面、locked residual、surface 覆盖、
+  recall 门、交互门、证据等级、never-inflate。
+- `research/tools/test_portfolio_model.py`：新增 12 项测试（33 项全过）。
+- `tests/fixtures/mini-library/`：`eos` 与 `eos-dup` 增 surface；`eos-dup`
+  增完整 merge block；gold 增 `merge_evidence_asserted` 与 trap；两个 arm
+  同步。
+- `docs/portfolio-and-lifecycle.md` §5.1、`research/portfolio-lifecycle.md`
+  §2.5.1：设计论证与综述引用。
+
+**验证。** 33/33 单测通过；add-all 仍只以联合遮蔽
+（`0.3 - 0.2 - 0.2 = -0.1`）退出 1；gated 退出 0；mini-retire 仍以三条
+生命周期违规退出 1。merge block 缺失或畸形现在是 violation，不再回退到
+相似度。
+
+**边界。** 结构检查只证明没有**已知的**静默丢失，不证明模型读合并文本后的
+行为不变；后者要在宿主上跑探针。E5/E6 未跑，C4/C5 仍是
+implemented, unmeasured。

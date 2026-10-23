@@ -15,6 +15,8 @@ runner: the tests run **through the skill's own workflow**, exactly as in produc
 | `mini-host/` (2 skills + registry + AUDIT.md) | provenance scanning; `host-self-audit` tagging |
 | `mini-paper.md` | single-mention → `low`; hard software deps → `tool`; published data → `data` |
 | `mini-blog.md` | named command → `tool`; recipe → `workflow` medium; bare opinion → `concept` low |
+| `mini-library/` | all nine fusion relations; duplicate vs variant vs hard-conflict; same procedure/different regime → `partial`; description overlap is not duplication; merge preserves both test contracts and carries the fail-closed evidence block (witness ladder, hard surface coverage, locked residual, recall gate, interaction gate, never-inflate); two individually safe cards jointly shadow `heat-flow` |
+| `mini-retire/` | upgrade superset; retire an unreachable entry is allowed; retiring the live last deliverer of `lattice-kappa` is rejected |
 | `runs/2026-10-16-e-neighborhood/` | **historical** worked example (written under 9 Layer-1 checks, pre-`arms` / pre-tri-state); not current gold. `runs/judge-1/` is an older pilot, also not gold. |
 
 ## How to run (host agent, instruction-driven)
@@ -34,8 +36,21 @@ runner: the tests run **through the skill's own workflow**, exactly as in produc
    — paper-arm gaps: gold/mini-paper-projection-vs-mini-host.json
    — neighborhood keep/reject: gold/mini-neighborhood.json
    — introduction cards: gold/mini-introduction-cards.json
+   — portfolio plans: mini-library/gold/portfolio-plan.json, mini-retire/gold/portfolio-plan.json
    worked example (historical): tests/fixtures/runs/2026-10-16-e-neighborhood/
 ```
+
+Portfolio tool (research check, not a bundled skill runner):
+
+```bash
+python3 research/tools/portfolio-model.py tests/fixtures/mini-library/portfolio-input.json --json
+python3 research/tools/portfolio-model.py tests/fixtures/mini-library/portfolio-input-gated.json --json
+python3 research/tools/portfolio-model.py tests/fixtures/mini-retire/portfolio-input.json --json
+```
+
+Expected: the add-all input exits 1 with the joint-shadow violation; the gated
+input exits 0; the retire input exits 1 with the bad-retire violation while the
+good lifecycle actions pass.
 
 Compare rules: `class` and `source_kind` must match gold exactly; `host_id` where
 gold names one; the `traps_asserted` list must all hold; slot `state`/`provenance`
@@ -44,9 +59,11 @@ rule change — the latter requires a `log:` entry in the gold file (what change
 when).
 
 Pass = zero unlogged mismatches on all fixtures plus the neighborhood /
-companion-paper / unreachable-paper / introduction-card golds, and Layer-1
-self-check green on the mini-ref runs (**18 checks**, including unknown handling,
-host-need discipline, extend routing, and slot evidence & fork).
+companion-paper / unreachable-paper / introduction-card / portfolio-plan golds,
+zero violations on the gold-valid portfolio plans, the named violations on the
+bad plans, and Layer-1 self-check green on the mini-ref runs (**21 checks**,
+including unknown handling, host-need discipline, extend routing, slot evidence &
+fork, and the three portfolio checks).
 
 ## When to run
 

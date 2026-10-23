@@ -11,12 +11,12 @@ different pair, namespace the filename
 ## Mandatory header: `self_check:`
 
 Every report opens with its own validity gate (Layer-1, `evaluation.md`). The block
-lists each of the **18** checks (sections, validated evidence, no-low-driven-missing,
+lists each of the **21** checks (sections, validated evidence, no-low-driven-missing,
 rule citations, source kinds, host-only tracked, closing statement, determinism,
 neighborhood stratified, host-owned placement, card routing, test contract, slot
 evidence & fork, verification honesty, agent competence, bridge not guardrail,
-unknown handling, host-need discipline) with `pass` / `fail` / `not-checkable` and a
-one-line reason. Any `fail` is reported verbatim — the report is then **not valid**
+unknown handling, host-need discipline, portfolio coverage, fusion consistency,
+lifecycle safety) with `pass` / `fail` / `not-checkable` and a one-line reason. Any `fail` is reported verbatim — the report is then **not valid**
 and the run must be reworked, not delivered. `not-checkable` is allowed only where
 the input makes the check impossible (live-network determinism); it is never a pass.
 
@@ -64,7 +64,38 @@ claim, not a verification.
    `validity-unassessed` card installs with `prescribed: ["bind"]`, states
    `validity: unknown (not assessed)`, and prescribes no `check`. A
    `confidence: low` span is called out and never drives `install`.
-6. **Verification ledger** — every card's `verification.status` in one table,
+6. **Portfolio admission** — required whenever at least one card is `install`; a run with
+   only refusals emits an empty block. It contains:
+   - **Host entries** table: id, question, products, pre/postconditions, regime
+     (claim + tags), procedure, checks, provenance, optional `surface` (triggers,
+     workflow edges, tool requirements, obligations, output fields), and whether
+     a test contract exists. Fields are declared, not inferred from descriptions.
+   - **Relations and actions** table: card id, `target_entry`, relation, the
+     witness booleans that establish it, action, products added/preserved, regime
+     change, conflict, and merge block. `merge` is only for `duplicate`;
+     description overlap alone never justifies it.
+   - **Probes** table: `qid`, owner, kind (`route|deliver|validity`), declared
+     expected result, and `retained`. Probes are declared before results.
+   - **Set test**: retained probes with margin, per-card contributions, score,
+     pass/fail; new probes; \(\kappa_H\) conflicts; budget before/after/limit and
+     demoted ids; overall verdict and reason. The joint arithmetic is
+     `margin + Σ probe_effects`; a negative score fails. Demoted candidates do not
+     contribute.
+   - **Lifecycle plan**: action, target, sources, reason, probes, rollback.
+     `retire` only for an entry with no live obligation and no retained probe;
+     `upgrade` only for a product/check/regime superset; `merge` preserves both
+     test contracts, all live obligations, and provenance, and carries the
+     fail-closed merge evidence block (§Merge evidence below).
+   - **Budget delta and metrics**: entry count, duplicate count, hard-conflict
+     count, orphan count, portfolio coverage. Retention, interference, context
+     tax, and churn are reported separately when measured; do not collapse them
+     into one score.
+
+   One paragraph must state that the plan is **advice only**: it was not executed,
+   no host file was edited, no probe was run, and a `demote`d entry is not part of
+   the default surface.
+
+7. **Verification ledger** — every card's `verification.status` in one table,
    with counts: how many `e2e-verified`, how many `contract-only`, how many
    `failed`. A `contract-only` card is a written test that has never been
    executed; the report must say so in plain words and must not claim its
@@ -73,12 +104,12 @@ claim, not a verification.
    when every card is `contract-only`. When a later build record exists, the
    ledger points at it and derives the status from it; the card block is not
    rewritten.
-7. **Host-only section** (informational) — capabilities the host has beyond the reference.
-8. **Neighborhood** — required on every run (empty for paper/blog). Lists kept items
+8. **Host-only section** (informational) — capabilities the host has beyond the reference.
+9. **Neighborhood** — required on every run (empty for paper/blog). Lists kept items
    (`relation`, lightweight inventory, gap class), rejected candidates (reason),
    search budget used, and `unresolved` neighborhood seeds. Neighborhood rows must
    not be copied into the core gap table. Companion paper is core, not listed here.
-9. **Unresolved** — `unknown` gaps and why (unreachable / unparsable / offline /
+10. **Unresolved** — `unknown` gaps and why (unreachable / unparsable / offline /
    source not consulted — including "host failure statistics not read" when
    applicable; `search-required-offline` when a named seed needed web-search and
    none was available). Every `state: "unknown"` slot is listed here with its
@@ -140,6 +171,41 @@ not promote the card.
   (`paper_gaps` ∩ `repo_gaps` = `intersection`; Jaccard over their union);
   it never contradicts them. When `surfaces.arms.blind` is false, the fork is
   marked `contaminated` and is not a measurement.
+- Every `install` card carries a `portfolio` block with `relation`,
+  `relation_evidence`, `action`, `target_entry`, and `retention_probes`. The
+  relation→action pair must be in the allowed table. `duplicate` requires
+  `same_product && same_procedure && same_regime`; `variant` requires
+  `regime_overlap: false`; `hard-conflict` requires `regime_overlap: true`.
+  Description overlap alone never justifies `merge`.
+- The top-level `portfolio` block exists even when there is no install card; in
+  that case `host_entries` and `probes` may be empty, but `set_test`, `lifecycle`,
+  and `metrics` are still present.
+- `retire` names an entry with no live obligation and no retained probe;
+  `upgrade` names a product/check/regime superset; `merge` preserves both test
+  contracts, all live obligations, and provenance. A `merge`/`upgrade` candidate
+  carries the target's retained probes in `retention_probes`; the upgrade
+  superset is checked against the entry records, not only the witness booleans.
+  A `demote`d entry is not counted as part of the default surface for the set
+  test, but remains callable for coverage.
+- A card whose action is `merge` carries a non-null `merge` block:
+  `witnesses` (`unit`, `kind ∈ {W1,W2,W3}`, `evidence`), `removed_units`
+  (including `entry:<card_id>`), `locked_residual` (`unit`, `reason`,
+  `verbatim`), `coverage` (the five surface classes), `recall_probes`,
+  `interaction` (`beta`, `checked`, optional `evidence`), `evidence_level`
+  (`constructive|model|statistical`), and `surface_tokens_before/after`.
+  Every removed unit has exactly one witness; W3 never deletes an obligation or
+  an output/prohibition/exemption unit; the union of both sides' surface units
+  equals coverage ∪ removed ∪ locked; both sides' retained probes and the
+  candidate's own `deliver`/`validity` probes are in the recall gate and none
+  observed failing; `beta < -0.15` requires an extended
+  regression check with evidence; `surface_tokens_after` is not greater than
+  before; `statistical` requires randomized causal evidence. A missing or
+  malformed block is a violation, not a reason to fall back to similarity.
+- Each `deliver` (and `validity`) probe names the candidate it belongs to in
+  `card_id`; a probe owned by the target entry cannot stand in for several
+  candidates.
+- The portfolio section is advice only. No host edit, merge, install, or probe
+  execution may be reported as done.
 - Install cards cite a placement-rule number; refuse cards cite rule 7. A card
   without a rule is a stub.
 - Install cards are **host-owned** (`alignment-rules.md` §Placement 6): `target`
@@ -215,9 +281,53 @@ host already has; the skill ships no runner.
         "status": "e2e-verified|contract-only|failed",
         "beats": {"fail_before": "pass|fail|not-run", "pass_after": "pass|fail|not-run", "destroy": "pass|fail|not-run|n/a"},
         "evidence": "command + observed outcome per executed beat; empty when not-run"
+      },
+      "portfolio": {
+        "relation": "covered|partial|duplicate|variant|hard-conflict|subsumes|subsumed|adjacent|unrelated",
+        "relation_evidence": {"same_product": false, "same_procedure": false, "same_regime": false, "regime_overlap": false, "regime_subset": false, "checks_missing": false, "question_overlap": true, "products_superset": false, "checks_superset": false, "regime_superset": false, "products_subset": false, "checks_subset": false},
+        "action": "no-op|bind|author|extend|add_validator|merge|demote|upgrade|downgrade|retire|quarantine|refuse|split|new-entry",
+        "target_entry": "...|null",
+        "retention_probes": ["..."],
+        "conflict": null,
+        "merge": {
+          "witnesses": [{"unit": "entry:...", "kind": "W1|W2|W3", "evidence": "..."}],
+          "removed_units": ["entry:..."],
+          "locked_residual": [{"unit": "...", "reason": "...", "verbatim": "..."}],
+          "coverage": {"triggers": [], "workflow_edges": [], "tool_requirements": [], "obligations": [], "output_fields": []},
+          "recall_probes": ["..."],
+          "interaction": {"beta": 0.0, "checked": false, "evidence": "..."},
+          "evidence_level": "constructive|model|statistical",
+          "surface_tokens_before": 0,
+          "surface_tokens_after": 0
+        },
+        "rollback": "..."
       }
     }
   ],
+  "portfolio": {
+    "host_entries": [{
+      "id": "...", "question": "...", "products": ["..."],
+      "preconditions": ["..."], "postconditions": ["..."],
+      "regime": {"claim": "...", "tags": ["..."]},
+      "procedure": "...", "checks": ["..."], "provenance": ["..."],
+      "test_contract": {"fail_before": "...|null", "pass_after": "...", "destroy": "..."}
+    }],
+    "probes": [{"qid": "...", "text": "...", "owner": "...", "card_id": "...|null", "expected": "...", "kind": "route|deliver|validity", "retained": true}],
+    "set_test": {
+      "retained_probes": [{
+        "qid": "...", "owner": "...", "margin": 0.3,
+        "contributions": [{"card_id": "...", "delta": -0.2}],
+        "score": 0.1, "passed": true
+      }],
+      "new_probes": [{"qid": "...", "owner": "...", "passed": true}],
+      "conflicts": [{"a": "...", "b": "...", "kind": "procedure|regime|precondition|env", "evidence": "..."}],
+      "budget": {"context_tokens_before": 0, "context_tokens_after": 0, "limit": 0, "demoted": []},
+      "passed": true,
+      "reason": "..."
+    },
+    "lifecycle": [{"action": "...", "target": "...|null", "sources": ["..."], "reason": "...", "probes": ["..."], "rollback": "..."}],
+    "metrics": {"entry_count": 0, "duplicate_count": 0, "hard_conflict_count": 0, "orphan_count": 0, "portfolio_coverage": 1.0}
+  },
   "fork": {
     "paper_gaps": ["product ids that are gaps on the paper projection"],
     "repo_gaps": ["product ids that are gaps on the repo projection"],

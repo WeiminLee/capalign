@@ -82,6 +82,35 @@ SciCoQA 的三种差异 ≈ 本文标签里的做法冲突 / 义务缺入口 / �
 
 **软肋（主动披露）。** (a) 若 EΔ 实测残差接近零，分叉动机塌——EΔ 是第一优先级的原因。(b) Faithful 不覆盖补丁生成质量；动作细化（§算子 4.1）把 Faithful 变成 \(\pi\in\mathrm{Adm}(\lambda)\) 的静态审计，缓解但未消除。(c) 别把六标签当卖点——头条永远是分叉与拒绝。
 
+### 1.5 第二层：组合准入与生命周期（2026-10-23，**implemented, not yet measured**）
+
+> 完整研究笔记、数字与引用见
+> [`../research/portfolio-lifecycle.md`](../research/portfolio-lifecycle.md)。
+> 这一节只写进 ACL 写作包的增量。C4 已有可运行的准入流程与静态检查器，
+> C5 已有可运行的生命周期计划；E5/E6 仍未跑，因此不写保留率、遮蔽率或
+> 库健康的经验结论。
+
+**为什么加。** 行级 \(\lambda\) 回答「这一行改不改」。已部署宿主不是行集合，是有描述、有路由、互相竞争的**能力组合**。2026 证据一致：库变大伤的是**选择**，不是上下文。
+
+- Skill Shadowing（2605.24050）：202-skill 库通过率最多降 **21%**；分解后 **68%** 归因于选错（shadowing），context overhead 与零不可分。
+- Single-Agent Skills（2601.04748）：选择准确率随库大小**非线性相变**，由语义混淆而非单纯数量驱动；分层路由可恢复。
+- RAG-MCP（2505.03275）：候选 <30 时 >90%，11,100 时 **13.6%**。
+- Library Drift（2605.19576）：**过早退休 −1.9pp**；治理配方 0.258→0.584。
+
+**主张加一句（不改头条）。**
+
+> 一个交付的数只有在「论文定义了这个量、且运行在该量的作废条件内执行了这个定义」时才算数——**并且，新能力准入后，宿主仍然选得中、交得出它原有的能力。**
+
+短句：**green is not the paper's result; correct is not yet admissible.**
+
+**C4 — Portfolio admission（implemented, unmeasured）。** 行级正确不等于宿主安全；准入是**集合**谓词。两条各自安全的卡可以联合遮蔽一个保留条目；原因是对描述的语义干扰，不是 token 长度。给出：(i) 探针格式（route / deliver / validity，声明式、保留、不执行）；(ii) 准入谓词（行条件 + 集合条件 + \(\kappa_H\) 组合冲突 + 预算）；(iii) 非组合命题（在 2601.04748 的干扰模型下，逐条安全不封闭于并集）；(iv) E5 协议。落地在 `SKILL.md` 第 7 步、`references/portfolio-admission.md`、`report-schema.json`，静态检查器为 `research/tools/portfolio-model.py`。**不声称**新 scaling law；law 是别人的；E5 未跑，不写保留率或遮蔽率的实测数字。
+
+**C5 — Evidence-gated lifecycle（implemented, unmeasured）。** `merge / retire / upgrade / downgrade / demote / quarantine` 由「\(\lambda\) + 组合证据」选择，不由日程选择。保留不变量：**没有一条 live obligation 失去最后一个交付者**（reachability）。这正好解释 Library Drift 的 −1.9pp：过早退休违反 liveness。生命周期计划已可运行（同一步骤与检查器中的 lifecycle 检查）；E6 未跑，所以不写库健康的经验结论。融合一侧另加**可审计删除**：每条被删单元一条 W1/W2/W3 witness，义务与输出禁用 W3，surface 硬覆盖或逐字锁定残差，双方保留探针过 recall 门；merge 被明确标为 structural claim，没有随机化证据不得标 statistical。这把「合并是否安全」与「合并是否更好」分开，后者留给 E6。
+
+**与 C1–C3 的关系。** C4 不是新方法，是同一个 \(\lambda\) 在集合层的闭包条件；C5 是把 \(\lambda\) 的动作表从「一次引入」延到「多次引入后的库」。三条老贡献不动。若页数紧，C5 折进 C4 的「维护」一段。
+
+**现在不要写进贡献表的话。** 「我们在材料宿主上测到了 shadowing」——没有；宿主 37 skills，低于 202 的测量区间。「context 是瓶颈」——证据相反。「我们提出 scaling law」——不是。「定期退休更好」——Library Drift 的 −1.9pp 反例。
+
 ---
 
 ## 2. Related Work 对照表（论文可贴）
@@ -100,6 +129,15 @@ SciCoQA 的三种差异 ≈ 本文标签里的做法冲突 / 义务缺入口 / �
 | SkillFoundry | arXiv:2604.03964 | Compile resources → **new** skills | Gaps relative to **this** \(H\); type must choose the edit | Scientific resources → skills | Untyped generation is a **baseline**, not the method |
 | BIV / SkillConsist / DCI | 2026 skill/MCP audits | Package vs **its own** implementation | Incoming \(W\) vs deployed \(H\) | Drift / inconsistency language | Intra-artifact audit ≠ host-relative typed intro |
 | Skill Coverage | arXiv:2606.20659 | Trajectory vs a skill’s **own** constraints | Coverage of external work \(W\) (paper vs repo projections) | Word “coverage” | Different axis; name carefully in text |
+| **Skill Shadowing** | arXiv:2605.24050 | How much a larger library hurts; selection vs context | Which incoming capability may enter, and what **set test** licenses it | Skills, library growth, pass rate | They measure degradation; we gate admission with external evidence |
+| **Single-Agent Skills** | arXiv:2601.04748 | Scaling law of selection vs library size | Use semantic interference as an **admission cost** | Capacity threshold, confusability | Their law is the model; our object is a scientific work → host portfolio |
+| **Library Drift** | arXiv:2605.19576 | Why self-evolving libraries stagnate; governance recipe | Each retire/merge justified by an **external obligation**, not outcome logs alone | Lifecycle, retirement | They evolve from outcomes; we gate on paper-defined obligations and validity |
+| **SkillOps / Dynamic Agent Skills** | 2605.13716 / 2607.10113 | Library-internal merge / repair / retire / prune | Same actions, but triggered by a dual-encoded \(W\) and host-relative \(\lambda\) | Lifecycle operators | No incoming paper+repo, no validity, no portfolio admission test |
+| **SkillZip / SkillZip Pro** | 2608.11079 / 2608.30785 | Structural compression of skill contracts; hard coverage; W1/W2/W3 deletion witnesses | Merge only true duplicates, with a witness per deletion and a locked residual | Compression, merge safety | They compress skill text; we gate admission of an external work, and merge is a structural claim, not measured behavior |
+| **SkillGLoW** | 2609.02217 | Procedure-clustered global priors; held-out recall commit gate | Recall gate on **retained host probes** before a merge lands | Merge commit, evidence | They re-cluster skills; we neither cluster nor rewrite, and the gate is static |
+| **SkillSmith** | 2606.01314 | Lineage crossover; interaction matrix \(\hat\beta_{ij}<-0.15\) | Negative-interaction gate plus a mandatory rollback | Merge, interaction | They merge without rollback; ours is fail-closed and rollback-preconditioned |
+| **Repo-To-Skill (DisCo)** | arXiv:2609.02749 | Distil 1,000 repos → 5k verified skills in a global library | Decide what **this** host should admit; refuse; validity | Source → verified skill | Their verification is “it runs”; ours is “the paper’s number under the paper’s invalidation conditions” + host selection |
+| **MCCL** | arXiv:2610.29357 | Four-gate retention for agent memory | Four-gate analogue for capabilities; reachability invariant | Retention under interference | Memory state, not a host capability portfolio |
 
 **写作纪律。** 不要借 SciCoQA 的六种 ML 流水线类别词表。不要把「更好的检测器」写成贡献。第一段 Related Work 用上表前两行（SciCoQA + SA-Bench 或 LMR）把差分说完。
 
@@ -118,6 +156,8 @@ SciCoQA 的三种差异 ≈ 本文标签里的做法冲突 / 义务缺入口 / �
 | **E2′** | \(I\) vs \(W_{\mathrm{rap}}\) vs \(P_{\mathrm{aper}}\) vs write-directly（+ 打乱 \(\pi\)） | 有效；命题 2–5 的经验对应 | 旧 E2 协议偏「按报告装配涨分」；**typed 对照 TODO** | 同一批人标单元上四臂；按标签拆开报 FI/Miss/\(t_v\) |
 | **Fast** | 到测试变绿的调用/改动 | 「更快」 | **TODO** | 与 write-directly 同任务比 call count（及可选人工改动次数） |
 | **Testable** | 改前红 → 改后绿 → 删规定动作再红 | 「更可信」 | 合同已写；**批量测量 TODO** | 报 destroy 后仍绿的比例（测试写错率） |
+| **E5** | 逐行加 vs 组合准入，保留探针是否掉 | C4（implemented, unmeasured） | **TODO 未跑**；协议见 `portfolio-lifecycle.md` §4 | 同一宿主库（20–40 条目）四臂：add-all / oracle / portfolio-gated / refuse-new；报 retention、新能力 pass、probe flip、interference |
+| **E6** | 连续引入 5–8 个工作后库是否还健康 | C5（implemented, unmeasured） | **TODO 未跑**；可作 follow-up | 四臂：no-lifecycle / retire-only / merge-only / reachability-gated；报 pass@1、coverage、size、orphan |
 
 命名：文中可用 EΔ / E1 / E2；与旧 `experiments.md` 冲突处以**本节指标为准**，旧五态 IRR 降为仪器附录。
 
@@ -158,6 +198,8 @@ SciCoQA 的三种差异 ≈ 本文标签里的做法冲突 / 义务缺入口 / �
 - [ ] E2′：四臂 + \(\pi\)；分 λ 报 FI/Miss/\(t_v\)
 - [ ] Fast：与 write-directly 对齐的 call-count 表
 - [ ] Testable：destroy-test 误报率
+- [ ] E5：组合准入四臂 + 保留探针；宿主 37 skills 低于 202，须用声明式 distractor 扩到 knee 以上并写明
+- [ ] E6（可选，C5 的实证）：5–8 个工作 replay；没有就不写 C5 经验结论
 - [ ] （可选，Main 加分）第二可盘点宿主或第二计算领域，**同一套 λ 一字不改**
 
 ---
@@ -168,7 +210,7 @@ SciCoQA 的三种差异 ≈ 本文标签里的做法冲突 / 义务缺入口 / �
 
 **English (draft).**
 
-> **Limitations.** (1) *Unrun residual measurement.* Multi-work EΔ quantifying \(\Delta(W_p,W_r)\) beyond illustrative phonopy / mini-ref slots is not yet complete; dual-encoding remains partially hypothetical until that table exists. (2) *Annotation reliability.* Existing classification agreement is a same-model three-judge pilot, not human IRR; Id and \(\kappa\) require human protocols before claims of calibrated labeling. (3) *Faithful patches.* Counting theorems assume edits realize the operator table; we do not prove that a given LLM writes such patches—experiments must report both green-rate and destroy-test failures. (4) *Domain scope.* Public product names, dual encodings of one process, and an enumerable host surface must co-hold; we do not claim arbitrary chat agents. (5) *Neighbor metrics.* We do not compete on SciCoQA detection recall or on paper→code execution accuracy (SA-Bench / LMR-BENCH / SciReplicate). (6) *Intra-package drift* numbers are decomposition context, not headline results. (7) *Contamination risk* in pilot judging (methodology prose entering context) requires line-bounded reads in the released protocol.
+> **Limitations.** (1) *Unrun residual measurement.* Multi-work EΔ quantifying \(\Delta(W_p,W_r)\) beyond illustrative phonopy / mini-ref slots is not yet complete; dual-encoding remains partially hypothetical until that table exists. (2) *Annotation reliability.* Existing classification agreement is a same-model three-judge pilot, not human IRR; Id and \(\kappa\) require human protocols before claims of calibrated labeling. (3) *Faithful patches.* Counting theorems assume edits realize the operator table; we do not prove that a given LLM writes such patches—experiments must report both green-rate and destroy-test failures. (4) *Domain scope.* Public product names, dual encodings of one process, and an enumerable host surface must co-hold; we do not claim arbitrary chat agents. (5) *Neighbor metrics.* We do not compete on SciCoQA detection recall or on paper→code execution accuracy (SA-Bench / LMR-BENCH / SciReplicate). (6) *Intra-package drift* numbers are decomposition context, not headline results. (7) *Contamination risk* in pilot judging (methodology prose entering context) requires line-bounded reads in the released protocol. (8) *Portfolio effects unmeasured.* C4 is a protocol and a set predicate until E5 runs; the current materials host (~37 skills) is below the 202-skill regime where shadowing is measured, so E5 must scale with declared distractors. C5 is a design plus a worked example unless E6 runs. We borrow the scaling law (2601.04748) and the shadowing decomposition (2605.24050); we do not claim either.
 
 **中文要点（勿删）。**
 

@@ -2,7 +2,7 @@
 
 Status: protocol v0.1 (2026-10-15). Instantiated on the mini fixtures — see
 `e4-run-mini.md` (measured) and `e4-calibration.md` (curve sketch). Runs through
-the **skill's own workflow** (`SKILL.md` steps 1–7), zero-bundle: host shell +
+the **skill's own workflow** (`SKILL.md` steps 1–9; this protocol was written when it was 1–7), zero-bundle: host shell +
 `python3` stdlib only. Nothing in this protocol touches the gold fixtures or the
 rule files in `references/`.
 

@@ -1,0 +1,235 @@
+{
+  "host": {
+    "entries": [
+      {
+        "id": "eos-old",
+        "question": "equation of state from E(V)",
+        "products": [
+          "eos-fit"
+        ],
+        "preconditions": [
+          "E(V) points"
+        ],
+        "postconditions": [
+          "V0/B0"
+        ],
+        "regime": {
+          "claim": "0K, harmonic",
+          "tags": [
+            "0K",
+            "harmonic"
+          ]
+        },
+        "procedure": "birch-murnaghan-3",
+        "checks": [
+          "eos-residual"
+        ],
+        "provenance": [
+          "tests/fixtures/mini-retire"
+        ],
+        "test_contract": {
+          "fail_before": "eos-old is absent before admission",
+          "pass_after": "eos-old produces its declared product",
+          "destroy": "remove eos-old's prescribed primitive; the product is absent"
+        }
+      },
+      {
+        "id": "eos-new",
+        "question": "equation of state and elastic constants",
+        "products": [
+          "eos-fit",
+          "eos-elastic"
+        ],
+        "preconditions": [
+          "E(V) points"
+        ],
+        "postconditions": [
+          "V0/B0",
+          "elastic constants"
+        ],
+        "regime": {
+          "claim": "0K, harmonic, finite-T",
+          "tags": [
+            "0K",
+            "harmonic",
+            "finite-T"
+          ]
+        },
+        "procedure": "birch-murnaghan-3-finite-T",
+        "checks": [
+          "eos-residual",
+          "eos-elastic-check"
+        ],
+        "provenance": [
+          "tests/fixtures/mini-retire"
+        ],
+        "test_contract": {
+          "fail_before": "eos-new is absent before admission",
+          "pass_after": "eos-new produces its declared product",
+          "destroy": "remove eos-new's prescribed primitive; the product is absent"
+        }
+      },
+      {
+        "id": "qha-old",
+        "question": "thermal expansion from F(V,T)",
+        "products": [
+          "thermal-expansion"
+        ],
+        "preconditions": [
+          "volume grid"
+        ],
+        "postconditions": [
+          "thermal expansion"
+        ],
+        "regime": {
+          "claim": "quasi-harmonic",
+          "tags": [
+            "quasi-harmonic"
+          ]
+        },
+        "procedure": "qha-fvt",
+        "checks": [
+          "qha-convergence"
+        ],
+        "provenance": [
+          "tests/fixtures/mini-retire"
+        ],
+        "test_contract": {
+          "fail_before": "qha-old is absent before admission",
+          "pass_after": "qha-old produces its declared product",
+          "destroy": "remove qha-old's prescribed primitive; the product is absent"
+        }
+      },
+      {
+        "id": "heat-flow",
+        "question": "lattice thermal conductivity",
+        "products": [
+          "lattice-kappa"
+        ],
+        "preconditions": [
+          "phonon frequencies"
+        ],
+        "postconditions": [
+          "kappa(T)"
+        ],
+        "regime": {
+          "claim": "bulk, T>=300K",
+          "tags": [
+            "bulk",
+            "T>=300K"
+          ]
+        },
+        "procedure": "bte",
+        "checks": [
+          "bte-convergence"
+        ],
+        "provenance": [
+          "tests/fixtures/mini-retire"
+        ],
+        "test_contract": {
+          "fail_before": "heat-flow is absent before admission",
+          "pass_after": "heat-flow produces its declared product",
+          "destroy": "remove heat-flow's prescribed primitive; the product is absent"
+        }
+      }
+    ],
+    "budget": {
+      "context_tokens_before": 8000,
+      "context_tokens_after": 7600,
+      "limit": 13000
+    }
+  },
+  "candidates": [],
+  "plan": {
+    "accepted": [],
+    "demoted": []
+  },
+  "probes": [
+    {
+      "qid": "q-eos-old",
+      "text": "which entry fits E(V)?",
+      "owner": "eos-old",
+      "expected": "eos-fit",
+      "kind": "route",
+      "retained": true,
+      "margin": 0.5
+    },
+    {
+      "qid": "q-eos-new",
+      "text": "which entry fits E(V) and gives elastic constants?",
+      "owner": "eos-new",
+      "expected": "eos-fit",
+      "kind": "route",
+      "retained": true,
+      "margin": 0.5
+    },
+    {
+      "qid": "q-heat-flow",
+      "text": "which entry computes kappa(T)?",
+      "owner": "heat-flow",
+      "expected": "lattice-kappa",
+      "kind": "route",
+      "retained": true,
+      "margin": 0.4
+    },
+    {
+      "qid": "q-qha-old",
+      "text": "which entry gives thermal expansion?",
+      "owner": "qha-old",
+      "expected": "thermal-expansion",
+      "kind": "route",
+      "retained": false,
+      "margin": 0.0
+    }
+  ],
+  "obligations": [
+    {
+      "id": "eos-fit",
+      "live": true
+    },
+    {
+      "id": "eos-elastic",
+      "live": true
+    },
+    {
+      "id": "lattice-kappa",
+      "live": true
+    },
+    {
+      "id": "thermal-expansion",
+      "live": false
+    }
+  ],
+  "lifecycle": [
+    {
+      "action": "upgrade",
+      "target": "eos-old",
+      "sources": [
+        "eos-new"
+      ],
+      "reason": "eos-new delivers a superset of eos-old's products, checks, and regime",
+      "probes": [
+        "q-eos-old"
+      ],
+      "rollback": "restore eos-old and its retained probe mapping"
+    },
+    {
+      "action": "retire",
+      "target": "qha-old",
+      "sources": [],
+      "reason": "orphan entry: no live obligation and no retained probe",
+      "probes": [],
+      "rollback": "restore qha-old"
+    },
+    {
+      "action": "retire",
+      "target": "heat-flow",
+      "sources": [],
+      "reason": "bad arm: heat-flow is still the deliverer of a live obligation",
+      "probes": [
+        "q-heat-flow"
+      ],
+      "rollback": "restore heat-flow"
+    }
+  ]
+}

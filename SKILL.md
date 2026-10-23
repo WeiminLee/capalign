@@ -177,15 +177,40 @@ On every card, write the test contract from `introduction-card.md`. Do not
 execute it. Order install cards with the stated priority judgment
 (`methodology.md` Phase 5: fix-wrongness > honor-promise > extend-surface).
 
-### 7. Report & self-check
+### 7. Portfolio admission
+Run this step whenever at least one card is `install`. Freeze the host portfolio
+(entries, descriptions, declared products/checks/regimes, route probes, budget).
+For each install card, classify its relation to every existing entry using
+`references/portfolio-admission.md` §Relation taxonomy; choose the lifecycle
+action from the relation→action table; declare the retention probes before
+looking at any outcome; then run the set test in the report (not on the host).
+A card that passes row-level λ but breaks a retained probe is not admissible.
+On failure, try `merge` with the nearest true duplicate, then `demote` out of the
+default router; if neither works, defer admission (no lifecycle action for this
+card, recorded in Unresolved). Never silently accept the break. A `merge` must
+carry the fail-closed evidence block in `references/portfolio-admission.md` §6:
+one witness per removed unit (W1/W2/W3), hard surface coverage or verbatim locked
+residual, both sides' recall probes, the negative-interaction gate, and the
+never-inflate check. No witness means no merge, regardless of similarity. A hard
+conflict (`hard-conflict`) is recorded and quarantined; do not pick a side. This
+step emits a plan only. It does not edit, merge, install, or execute.
+
+### 8. Report
 Write `capability-alignment-report.md` (and `capability-alignment.json` IR)
 per `references/report-contract.md` — required sections, validity rules, and the
-closing statement verbatim. Before declaring the report final, run Layer-1
-self-check (`references/evaluation.md` §Layer 1): the report must open with the
-`self_check:` block, all **18** checks green, or the run is not valid and must
-be reworked. Then run the independent re-check on the frozen artifacts
-(schema, slot recompute, card routing); if no isolated context is available,
-record `independent_check: not-available` and do not present the self-check as
+closing statement verbatim. When at least one card is `install`, the report
+includes the Portfolio section: host entries, relations and actions, probes, set
+test, lifecycle plan, budget delta, and rollback.
+
+### 9. Self-check
+Before declaring the report final, run Layer-1 self-check
+(`references/evaluation.md` §Layer 1): the report must open with the
+`self_check:` block, all **21** checks green, or the run is not valid and must
+be reworked. Checks 19–21 are mandatory when at least one card is `install`; a
+run with only refusals still emits an empty `portfolio` block. Then run the
+independent re-check on the frozen artifacts (schema, slot recompute, card
+routing); if no isolated context is available, record
+`independent_check: not-available` and do not present the self-check as
 verification.
 
 ## Outputs & validity
@@ -220,12 +245,13 @@ verification.
   conflict.
 
 ## References
-- [Quick decisions — the seven decisions a live run needs, in order](references/quick-decisions.md)
+- [Quick decisions — the eight decisions a live run needs, in order](references/quick-decisions.md)
 - [Methodology — generic method; the phonopy ↔ MatDiscovery run is its validating instance](references/methodology.md)
 - [Evaluation — per-run self-check + fixture acceptance tests](references/evaluation.md)
 - [Inventory heuristics](references/inventory-heuristics.md)
 - [Capability IR](references/capability-ir.md)
 - [Alignment & placement rules](references/alignment-rules.md)
 - [Introduction card — lambda, install or refuse, test contract](references/introduction-card.md)
+- [Portfolio admission — fusion relations, probes, set test, lifecycle plan](references/portfolio-admission.md)
 - [Report contract](references/report-contract.md)
 - [Report JSON schema](references/report-schema.json)

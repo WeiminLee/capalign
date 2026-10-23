@@ -36,7 +36,7 @@
 相对于已有宿主做证据门控判定。skill 是该判定过程的测量仪器；贡献是双编码规格、
 宿主相对判定、参考条件化覆盖——「闭环」是仪器形状，不是创新点。
 
-![cap-align 执行过程：三种参考物输入 → 八步工作流（盘点参考 → 盘点宿主 → 归一化 → 验证 → 分类 → 落点 → 报告 → 自检）→ 输出报告与 IR。图为 archify 交互图](images/cap-align-principle.png)
+![cap-align 执行过程：三种参考物输入 → 九步工作流（盘点参考 → 盘点宿主 → 归一化 → 验证 → 分类 → 落点 → 组合准入 → 报告 → 自检）→ 输出报告与 IR。图为旧版八步 archify 交互图，待重绘；正文以九步为准](images/cap-align-principle.png)
 
 ---
 
@@ -44,7 +44,7 @@
 
 ```
 cap-align/
-├── SKILL.md                 # skill 本体：frontmatter + 八步工作流（含交叉验证与报告自检）
+├── SKILL.md                 # skill 本体：frontmatter + 九步工作流（含交叉验证、组合准入与报告自检）
 ├── references/              # 规则与契约（methodology / IR / alignment / inventory / report/evaluation）
 ├── tests/                   # 验收 fixtures（mini-ref / mini-host / mini-paper / mini-blog + gold 金标）
 ├── research/                # 论文与实证（formal-foundations / experiments / runs / tools）
@@ -54,7 +54,7 @@ cap-align/
 
 | 资产 | 位置 | 职责 |
 |---|---|---|
-| skill 本体 | `SKILL.md` | 八步工作流 + 输出契约 |
+| skill 本体 | `SKILL.md` | 九步工作流 + 输出契约 |
 | 方法论（三层纪律） | `references/methodology.md` | 通用方法（七阶段）→ 可插拔适配层 → 实例 |
 | 中间表示 IR | `references/capability-ir.md` | 统一 schema、类型词表、归一化与粒度边界 |
 | 对齐/落点规则 | `references/alignment-rules.md` | 六态差距 × 三来源、范围（材料模拟 / 材料 agent / plumbing）、引入卡片、落点六问、宿主 doctrine 优先 |
@@ -75,7 +75,7 @@ cap-align/
 | 论文文本（paper） | `capability-alignment.json`（IR 机器可读伴侣） |
 | 博客/文稿（blog） | 逐条可溯源：每条能力带 evidence 指针，每条落点推荐引用规则号 |
 
-### 3.2 八步工作流（SKILL.md，顺序执行）
+### 3.2 九步工作流（SKILL.md，顺序执行）
 
 1. **盘点参考物** — 按参考物种类套用启发式（repo：CLI 入口 + 顶层模块 + 文档功能页
    + 依赖指纹，然后按 §E 回收配套论文与有界邻域：本地种子 → 主页 → 必要时
@@ -96,8 +96,13 @@ cap-align/
 6. **引入卡片，再落点** — 两侧按产物并成一张卡（`references/introduction-card.md`）。
    标签由槽位算出。只有 `install` 才套落点六问（见 §4.4）；`refuse` 引用规则 7，
    不写技能名，成功是宿主不改。测试合同写在同一张卡上，这一轮不执行。
-7. **撰写报告** — 按 report-contract 的必需章节组织，结尾固定结语。
-8. **报告自检门** — 跑 Layer-1 十二项自检（含邻域分层、宿主自有落点、卡片路由、测试合同），
+7. **组合准入** — 宿主本身是技能/工具库时，冻结条目与探针，判定九种融合关系，
+   映射到允许的动作，跑保留探针的集合测试与可达性检查；`merge` 另过证据阶梯
+   （逐删除 witness、硬 surface 覆盖、锁定残差、双方 recall 门、交互门、
+   never-inflate）；只出计划，不执行。
+8. **撰写报告** — 按 report-contract 的必需章节组织，结尾固定结语。
+9. **报告自检门** — 跑 Layer-1 二十一项自检（含邻域分层、宿主自有落点、卡片路由、
+   测试合同、unknown 处理、host_need 举证、组合覆盖/融合一致/生命周期安全），
    `self_check:` 头块必须全绿，否则整轮无效、回炉重做。
 
 ### 3.3 产出物示例形状（IR）
@@ -184,7 +189,7 @@ cap-align/
 | 防线 | 机制 | 失败后果 |
 |---|---|---|
 | 交叉验证门（Phase 2） | 分类前必须先验证；E1 首跑 ~25 个疑缺口里 grep 杀掉 4 个假缺口（Grüneisen、群速度实为已有；α 是 partial 不是 missing） | 假缺口进表 = 错误产品 |
-| Layer-1 自检门（每跑强制） | 报告头块 `self_check:`，18 项检查（章节齐全 / 证据已验证 / 无 low 推 missing / 规则引用 / 来源标签 / host-only 在场 / 结语精确 / 重跑确定性 / 邻域分层 / 宿主自有落点 / 卡片路由 / 测试合同 / 槽位证据与分叉一致 / 验证诚实性 / agent 能力边界 / 桥而非护栏 / unknown 处理 / host_need 举证）；另设**独立复核**一节（另起上下文复跑机械子集，计为 `independent_check`） | **任一 fail = 整轮无效**，不是"基本完成" |
+| Layer-1 自检门（每跑强制） | 报告头块 `self_check:`，21 项检查（章节齐全 / 证据已验证 / 无 low 推 missing / 规则引用 / 来源标签 / host-only 在场 / 结语精确 / 重跑确定性 / 邻域分层 / 宿主自有落点 / 卡片路由 / 测试合同 / 槽位证据与分叉一致 / 验证诚实性 / agent 能力边界 / 桥而非护栏 / unknown 处理 / host_need 举证 / 组合覆盖 / 融合一致 / 生命周期安全）；另设**独立复核**一节（另起上下文复跑机械子集，计为 `independent_check`） | **任一 fail = 整轮无效**，不是"基本完成" |
 | Layer-2 金标验收（装机或改规则时） | mini-ref / mini-host / mini-paper / mini-blog 四组 fixture + 手算 gold；零捆绑、无测试框架，径直跑 skill 自己的工作流比对 | 与 gold 的**未登记**差异 = 回归，需裁决修复或登记规则变更 |
 
 ### 4.6 零捆绑怎么落地
@@ -260,7 +265,7 @@ phonopy ↔ MatDiscovery：19 个缺口、A–E 成本分档、三次"防伪缺�
 
 ## 6. 当前状态与开放边界
 
-**已落地**（2026-10-15，8 commits，HEAD `bea0c8b`）：八步工作流 + 自检门定稿；
+**已落地**（2026-10-15，8 commits，HEAD `bea0c8b`；当时为八步工作流，现为九步）：工作流 + 自检门定稿；
 F1/F2/F3 三条 pilot 缺陷全部落码；四组 fixture 与 gold 同步；E1–E4 均有首轮结果；
 论文核心稿与三张 archify 正稿已交付。
 
@@ -276,5 +281,5 @@ F1/F2/F3 三条 pilot 缺陷全部落码；四组 fixture 与 gold 同步；E1�
 
 ---
 
-*配图为 image-gen 概念渲染；论文用 archify 正稿（`docs/figures/*.html`/`*.svg`）*
+*配图为 image-gen 概念渲染，仍为旧八步示意；`docs/figures/cap-align-execution.workflow.json` 已更新为九步，HTML/PNG/drawio 待重绘。论文用 archify 正稿（`docs/figures/*.html`/`*.svg`）*
 *以 `self_check:` 头块全绿为准；引用以 references/ 各契约文件为准。*

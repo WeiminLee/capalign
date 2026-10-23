@@ -39,14 +39,28 @@ rules are in the reference files named at each line.
    upstream scientific engine is allowed, report its license).
    (`alignment-rules.md` §Placement.)
 
-6. **What proves the card?** Three beats: `fail_before` = the agent's wrong
+6. **Which portfolio action?** Freeze host entries and probes. Classify the card
+   as covered / partial / duplicate / variant / hard-conflict / subsumes /
+   subsumed / adjacent / unrelated. Map to the allowed action in §5 of
+   `portfolio-admission.md` (all 14, e.g. no-op / add_validator / merge / split /
+   quarantine / upgrade / extend / new-entry / downgrade / demote / retire /
+   refuse / bind / author). Run the retained-probe set test;
+   if it breaks, try merge → demote → defer. Description overlap is a shadowing
+   signal, not a duplicate. A merge needs the fail-closed evidence block: one
+   witness per removed unit (W3 never on obligations/outputs), hard surface
+   coverage or verbatim locked residual, both sides' recall probes, no negative
+   interaction left unchecked, no surface-token inflation. No witness = no
+   merge, regardless of similarity. (`portfolio-admission.md` §6.)
+
+7. **What proves the card?** Three beats: `fail_before` = the agent's wrong
    judgement without the skill (not a missing entry point); `pass_after` = right
    on a prompt that does not name the skill or entry point; `destroy` = remove
    the prescribed primitive named by the card and the test turns red. Skill cards and extend cards
    also need routing cases (positive + must-not-absorb negative).
    (`introduction-card.md` §Test contract.)
 
-7. **What must never be skipped?** Unknown handling, host-need evidence, the
-   tri-state slot recompute, the fork recompute, verification honesty, and the
-   independent re-check. All 18 checks are in `evaluation.md`; validity rules and
-   the JSON shape are in `report-contract.md` / `report-schema.json`.
+8. **What must never be skipped?** Unknown handling, host-need evidence, the
+   tri-state slot recompute, the fork recompute, verification honesty, the
+   portfolio set test, and the independent re-check. All 21 checks are in
+   `evaluation.md`; validity rules and the JSON shape are in `report-contract.md`
+   / `report-schema.json`.

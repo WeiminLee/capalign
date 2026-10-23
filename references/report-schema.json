@@ -7,6 +7,7 @@
     "surfaces",
     "gaps",
     "cards",
+    "portfolio",
     "fork",
     "unresolved"
   ],
@@ -524,6 +525,103 @@
                 "type": "string"
               }
             }
+          },
+          "portfolio": {
+            "type": "object",
+            "required": [
+              "relation",
+              "relation_evidence",
+              "action",
+              "target_entry",
+              "retention_probes"
+            ],
+            "properties": {
+              "relation": {
+                "enum": [
+                  "covered",
+                  "partial",
+                  "duplicate",
+                  "variant",
+                  "hard-conflict",
+                  "subsumes",
+                  "subsumed",
+                  "adjacent",
+                  "unrelated"
+                ]
+              },
+              "relation_evidence": {
+                "type": "object",
+                "required": [
+                  "same_product",
+                  "same_procedure",
+                  "same_regime",
+                  "regime_overlap",
+                  "regime_subset",
+                  "checks_missing",
+                  "question_overlap",
+                  "products_superset",
+                  "checks_superset",
+                  "regime_superset",
+                  "products_subset",
+                  "checks_subset"
+                ],
+                "additionalProperties": {
+                  "type": "boolean"
+                }
+              },
+              "action": {
+                "enum": [
+                  "no-op",
+                  "bind",
+                  "author",
+                  "extend",
+                  "add_validator",
+                  "merge",
+                  "demote",
+                  "upgrade",
+                  "downgrade",
+                  "retire",
+                  "quarantine",
+                  "refuse",
+                  "split",
+                  "new-entry"
+                ]
+              },
+              "target_entry": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "retention_probes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "conflict": {
+                "type": [
+                  "object",
+                  "null"
+                ]
+              },
+              "surface": {
+                "$ref": "#/$defs/portfolioSurface"
+              },
+              "merge": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/portfolioMerge"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "rollback": {
+                "type": "string"
+              }
+            }
           }
         },
         "allOf": [
@@ -563,8 +661,94 @@
                 }
               }
             }
+          },
+          {
+            "if": {
+              "properties": {
+                "action": {
+                  "const": "install"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "portfolio"
+              ]
+            }
           }
         ]
+      }
+    },
+    "portfolio": {
+      "type": "object",
+      "required": [
+        "host_entries",
+        "probes",
+        "set_test",
+        "lifecycle",
+        "metrics"
+      ],
+      "properties": {
+        "host_entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/portfolioEntry"
+          }
+        },
+        "probes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/portfolioProbe"
+          }
+        },
+        "set_test": {
+          "$ref": "#/$defs/portfolioSetTest"
+        },
+        "lifecycle": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/portfolioLifecycle"
+          }
+        },
+        "metrics": {
+          "type": "object",
+          "required": [
+            "entry_count",
+            "duplicate_count",
+            "hard_conflict_count",
+            "orphan_count",
+            "portfolio_coverage"
+          ],
+          "properties": {
+            "entry_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "duplicate_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "hard_conflict_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "orphan_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "portfolio_coverage": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "additionalProperties": {
+            "type": [
+              "number",
+              "boolean"
+            ]
+          }
+        }
       }
     },
     "fork": {
@@ -820,6 +1004,595 @@
         },
         "evidence": {
           "type": "string"
+        }
+      }
+    },
+    "portfolioEntry": {
+      "type": "object",
+      "required": [
+        "id",
+        "question",
+        "products",
+        "preconditions",
+        "postconditions",
+        "regime",
+        "procedure",
+        "checks",
+        "provenance"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "question": {
+          "type": "string",
+          "minLength": 1
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "preconditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "postconditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "regime": {
+          "type": "object",
+          "required": [
+            "claim",
+            "tags"
+          ],
+          "properties": {
+            "claim": {
+              "type": "string",
+              "minLength": 1
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "procedure": {
+          "type": "string",
+          "minLength": 1
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "provenance": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "surface": {
+          "$ref": "#/$defs/portfolioSurface"
+        },
+        "description": {
+          "type": "string"
+        },
+        "test_contract": {
+          "type": "object",
+          "required": [
+            "fail_before",
+            "pass_after",
+            "destroy"
+          ],
+          "properties": {
+            "fail_before": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "pass_after": {
+              "type": "string"
+            },
+            "destroy": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "portfolioSurface": {
+      "type": "object",
+      "properties": {
+        "triggers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "workflow_edges": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tool_requirements": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "obligations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "output_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "portfolioMerge": {
+      "type": "object",
+      "required": [
+        "witnesses",
+        "removed_units",
+        "locked_residual",
+        "coverage",
+        "recall_probes",
+        "interaction",
+        "evidence_level",
+        "surface_tokens_before",
+        "surface_tokens_after"
+      ],
+      "properties": {
+        "witnesses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "unit",
+              "kind",
+              "evidence"
+            ],
+            "properties": {
+              "unit": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "enum": [
+                  "W1",
+                  "W2",
+                  "W3"
+                ]
+              },
+              "evidence": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "removed_units": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "locked_residual": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "unit",
+              "reason",
+              "verbatim"
+            ],
+            "properties": {
+              "unit": {
+                "type": "string",
+                "minLength": 1
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "verbatim": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "coverage": {
+          "type": "object",
+          "required": [
+            "triggers",
+            "workflow_edges",
+            "tool_requirements",
+            "obligations",
+            "output_fields"
+          ],
+          "properties": {
+            "triggers": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "workflow_edges": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "tool_requirements": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "obligations": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "output_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "recall_probes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "interaction": {
+          "type": "object",
+          "required": [
+            "beta",
+            "checked"
+          ],
+          "properties": {
+            "beta": {
+              "type": "number"
+            },
+            "checked": {
+              "type": "boolean"
+            },
+            "evidence": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "evidence_level": {
+          "enum": [
+            "constructive",
+            "model",
+            "statistical"
+          ]
+        },
+        "causal_evidence": {
+          "type": "object",
+          "properties": {
+            "design": {
+              "type": "string"
+            },
+            "n_trials": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "additionalProperties": false
+        },
+        "surface_tokens_before": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "surface_tokens_after": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "portfolioProbe": {
+      "type": "object",
+      "required": [
+        "qid",
+        "text",
+        "owner",
+        "expected",
+        "kind",
+        "retained"
+      ],
+      "properties": {
+        "qid": {
+          "type": "string",
+          "minLength": 1
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expected": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "route",
+            "deliver",
+            "validity"
+          ]
+        },
+        "retained": {
+          "type": "boolean"
+        },
+        "card_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "portfolioSetTest": {
+      "type": "object",
+      "required": [
+        "retained_probes",
+        "new_probes",
+        "conflicts",
+        "budget",
+        "passed",
+        "reason"
+      ],
+      "properties": {
+        "retained_probes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "qid",
+              "owner",
+              "margin",
+              "contributions",
+              "score",
+              "passed"
+            ],
+            "properties": {
+              "qid": {
+                "type": "string"
+              },
+              "owner": {
+                "type": "string"
+              },
+              "margin": {
+                "type": "number"
+              },
+              "contributions": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "card_id",
+                    "delta"
+                  ],
+                  "properties": {
+                    "card_id": {
+                      "type": "string"
+                    },
+                    "delta": {
+                      "type": "number"
+                    }
+                  }
+                }
+              },
+              "score": {
+                "type": "number"
+              },
+              "passed": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "new_probes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "qid",
+              "owner",
+              "passed"
+            ],
+            "properties": {
+              "qid": {
+                "type": "string"
+              },
+              "owner": {
+                "type": "string"
+              },
+              "passed": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "conflicts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "a",
+              "b",
+              "kind",
+              "evidence"
+            ],
+            "properties": {
+              "a": {
+                "type": "string"
+              },
+              "b": {
+                "type": "string"
+              },
+              "kind": {
+                "enum": [
+                  "procedure",
+                  "regime",
+                  "precondition",
+                  "env"
+                ]
+              },
+              "evidence": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "budget": {
+          "type": "object",
+          "required": [
+            "context_tokens_before",
+            "context_tokens_after",
+            "limit",
+            "demoted"
+          ],
+          "properties": {
+            "context_tokens_before": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "context_tokens_after": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "demoted": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "passed": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "portfolioLifecycle": {
+      "type": "object",
+      "required": [
+        "action",
+        "target",
+        "sources",
+        "reason",
+        "probes",
+        "rollback"
+      ],
+      "properties": {
+        "action": {
+          "enum": [
+            "no-op",
+            "bind",
+            "author",
+            "extend",
+            "add_validator",
+            "merge",
+            "demote",
+            "upgrade",
+            "downgrade",
+            "retire",
+            "quarantine",
+            "refuse",
+            "split",
+            "new-entry"
+          ]
+        },
+        "target": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "probes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rollback": {
+          "type": "string",
+          "minLength": 1
+        },
+        "merge": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/portfolioMerge"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "conflict": {
+          "type": [
+            "object",
+            "null"
+          ]
         }
       }
     }

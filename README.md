@@ -6,7 +6,9 @@
 
 **框架无关 · 可插拔 · 零捆绑** 的 agent skill。
 
-![cap-align 执行过程：参考物（repo / paper / blog）→ 八步工作流（①盘点参考 ②盘点宿主 ③归一化 IR ④交叉验证 ⑤分类+来源 ⑥落点 ⑦报告 ⑧自检门）→ 输出报告与 IR](docs/images/cap-align-principle.png)
+![cap-align 执行过程：参考物（repo / paper / blog）→ 九步工作流（①盘点参考 ②盘点宿主 ③归一化 IR ④交叉验证 ⑤分类+来源 ⑥卡片与落点 ⑦组合准入 ⑧报告 ⑨自检门）→ 输出报告与 IR。图为旧版八步示意，待重绘；流程以九步为准](docs/images/cap-align-principle.png)
+
+> 注：概念图仍为旧版八步示意，尚未重绘；工作流与自检门以正文的九步 / 21 项为准。
 
 ---
 
@@ -37,6 +39,20 @@ cap-align 解决一个具体问题：
 
 **它不做什么**：不运行参考工具本身、不替你实现缺口、不把参考 agent 嵌进宿主、不做脱离"能力面"框架的通用摘要。
 
+> **2026-10-23 组合准入已落码（E5/E6 未跑）。** 当宿主本身是一个技能/工具库时，
+> 行级 \(\lambda\) 之外还要过**组合准入**：语义干扰、保留探针、组合冲突
+> \(\kappa_H\)、预算，以及 `merge/retire/upgrade/downgrade/demote` 生命周期。
+> 实现见 `SKILL.md` 第 7 步与
+> [`references/portfolio-admission.md`](references/portfolio-admission.md)，
+> 机器可读契约见 `references/report-schema.json`，静态检查器见
+> [`research/tools/portfolio-model.py`](research/tools/portfolio-model.py)，
+> 验收 fixture 见 `tests/fixtures/mini-library/` 与
+> `tests/fixtures/mini-retire/`。工作流现为 9 步，Layer-1 现为 21 项。
+> `merge` 另走**证据阶梯**：每条删除一条 witness（W1/W2/W3），义务与输出
+> 禁止 W3，surface 硬覆盖，不可解析单元逐字进锁定残差，双方保留探针先过
+> recall 门；无 witness 即否决。这些是结构检查，不是行为测量。
+> E5/E6 未跑；组合准入的效果没有在真实宿主上测量。
+
 ---
 
 ## 能做什么
@@ -47,7 +63,7 @@ cap-align 解决一个具体问题：
 | **paper** — 论文文本 | `capability-alignment.json`（IR 机器可读伴侣，与报告同源） |
 | **blog** — 博客 / 文稿 | 同上一套；每条能力带原文引文为证 |
 
-**八步工作流**（详见 `SKILL.md`）：
+**九步工作流**（详见 `SKILL.md`）：
 
 | # | 步骤 | 一句话 |
 |---|---|---|
@@ -57,8 +73,9 @@ cap-align 解决一个具体问题：
 | 4 | 交叉验证 | **验证先于分类**：比对表只是假设，grep 宿主代码、读产物 spec 才是证据 |
 | 5 | 分类 + 来源 | 六态差距（含 `agent-competence`）× 三来源（宿主自审 / 参考对比 / 领域推断） |
 | 6 | 卡片，再落点 | 两侧按产物并成引入卡片。只有 `install` 才进入落点六问；`refuse` 引用规则 7，宿主不改。测试合同写在卡片上，这一轮不执行 |
-| 7 | 报告 | 按报告契约的必需章节组织 |
-| 8 | 自检门 | `self_check:` 18 项检查（含邻域分层、宿主自有落点、卡片路由、测试合同、agent 能力边界、**桥而非护栏**、**unknown 处理**、**host_need 举证**），任一 fail = 整轮无效、回炉；再做一次独立复核 |
+| 7 | 组合准入 | 冻结宿主条目与探针；判九种融合关系，选生命周期动作；先声明保留探针，再做集合测试（联合遮蔽、`κ_H`、预算、可达性）。只出计划，不改宿主 |
+| 8 | 报告 | 按报告契约的必需章节组织；有 `install` 卡时含 Portfolio 节与回滚 |
+| 9 | 自检门 | `self_check:` 21 项检查（含邻域分层、宿主自有落点、卡片路由、测试合同、agent 能力边界、**桥而非护栏**、**unknown 处理**、**host_need 举证**、**组合覆盖 / 融合一致 / 生命周期安全**），任一 fail = 整轮无效、回炉；再做一次独立复核 |
 
 ---
 
@@ -129,7 +146,7 @@ python3 research/tools/drift-meter.py <skills_dir> --registry reg.json --table
 | 对齐边界 | 对齐停在宿主已经在回答的问题上：这个数会不会悄悄错。不是参考软件的菜单。另一类问题、另一种计算器或文件格式，不是缺口。诚实拒绝算边界划清；算了别的数却标成这个数，不算 |
 | 引入卡片 | 一个可索要的产物一张卡。标签只由槽位算出，不绑定某种材料方法。问法、输入、作废条件从当前这篇工作里抄。`install` 才写落点五格和三拍测试；`refuse` 的成功是宿主不改。两张投影差距表仍然分开 |
 | 落点六问 | 只问 `install` 卡：axis（skill / tool / plugin）→ tool vs script → 新 skill vs 扩既有 → 约束归属 → never → 宿主自有（不 wrap 参考 agent）。一个 skill 是一条 catalog 问法、一份输入、一套「何时不能信」；臃肿是正文里的第二套论证，不是能力条数。tool 做确定性计算或渲染，单消费者后处理留在该 skill 的脚本 |
-| 报告 + 自检 | 报告头块 18 项自检（含邻域分层、宿主自有落点、卡片路由、测试合同、验证诚实性、unknown 处理、host_need 举证、桥而非护栏）；同输入（冻结的参考文献、搜索响应与宿主快照）重跑必须产出相同差距表和相同卡片 |
+| 报告 + 自检 | 报告头块 21 项自检（含邻域分层、宿主自有落点、卡片路由、测试合同、验证诚实性、unknown 处理、host_need 举证、桥而非护栏、组合覆盖、融合一致、生命周期安全）；同输入（冻结的参考文献、搜索响应与宿主快照）重跑必须产出相同差距表和相同卡片 |
 
 三个设计纪律（`references/methodology.md`）：
 
@@ -198,7 +215,7 @@ skill 支持 blog 作为第三编码；论文主文钉 paper / repo。
 
 ```
 cap-align/
-├── SKILL.md            # skill 本体：八步工作流 + 自检门
+├── SKILL.md            # skill 本体：九步工作流 + 自检门
 ├── references/         # 规则与契约：methodology / IR / alignment / inventory / evaluation / report
 ├── tests/              # 验收 fixtures：mini-ref / mini-host / mini-paper / mini-blog + gold 金标
 ├── research/           # 论文与实证：formal-foundations / experiments / runs / tools

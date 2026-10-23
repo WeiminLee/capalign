@@ -52,7 +52,20 @@ audit, skill coverage, and paper–code discrepancy. The 2026-02 SoK remark that
 - **Externalization in LLM Agents** — arXiv:2604.08224. Capabilities externalized into
   memory / skills / protocols / harness; capability-as-infrastructure thesis.
 - **SkillOps: Managing LLM Agent Skill Libraries as Self-Maintaining Software
-  Ecosystems** — arXiv:2605.13716. Skill technical debt; library lifecycle.
+  Ecosystems** — arXiv:2605.13716. Skill technical debt; library lifecycle;
+  typed HSEG relation graph, redundancy-edge merge candidates, field-level patch,
+  validator insertion as the highest-value single maintenance action.
+- **SkillZip / SkillZip Pro / Tan et al. (structural compression)** —
+  arXiv:2608.11079 / arXiv:2608.30785 / arXiv:2608.05604. Typed skill contracts,
+  MDL minimization, hard coverage, locked residual, and the W1/W2/W3 deletion
+  witness ladder. Evidence-free compression loses exemption rules; cap-align
+  imports the witness ladder and coverage constraints, not the compression claim.
+- **SkillGLoW** — arXiv:2609.02217. Procedure-clustered global priors with a
+  held-out recall commit gate (anchor −0.02). cap-align keeps the gate idea but
+  checks declared recall probes statically; it does not cluster or rewrite skills.
+- **SkillSmith** — arXiv:2606.01314. Lineage crossover and an interaction matrix
+  \(\hat\beta_{ij}<-0.15\) feeding merge/retirement. cap-align imports the
+  negative-interaction gate and adds the rollback precondition SkillSmith lacks.
 - **SKILLFOUNDRY** — arXiv:2604.03964. Heterogeneous scientific resources → verified
   skills; generation-centric, no host alignment, no gap table. Closest generation
   neighbour: they melt modalities into skills; we keep paper/repo as two encodings
@@ -78,6 +91,58 @@ audit, skill coverage, and paper–code discrepancy. The 2026-02 SoK remark that
 - **Packaged, But Not Portable** — arXiv:2609.23809. Conforming to Agent Plugins v1.0.0
   is rare and insufficient; form ≠ content.
 - **A Survey of Agent Skills / Procedural Infrastructure** — C. Yang, preprint 2026.
+
+### L2b — Library growth, selection interference, and lifecycle (2026-10)
+
+- **More Skills, Worse Agents? Skill Shadowing** — arXiv:2605.24050. A 202-skill
+  library cuts pass rate by up to 21%; decomposition attributes up to 68% of the
+  drop to **skill shadowing** (wrong selection), with context overhead
+  indistinguishable from zero. Their object is a library growing by unioning
+  bundles; ours is admission of an external work. We borrow the decomposition and
+  the probe idea, not the headline.
+- **When Single-Agent with Skills Replace Multi-Agent Systems and When They Fail**
+  — arXiv:2601.04748. Selection accuracy follows a non-linear scaling law with a
+  capacity threshold and a **semantic interference** term; hierarchical routing
+  restores accuracy. The formal support for non-compositional admission
+  (`research/portfolio-lifecycle.md` §2.4). We use their law; we do not claim it.
+- **Library Drift** — arXiv:2605.19576. Unbounded accumulation causes retrieval
+  degradation and false-positive injection; governance recipe lifts pass@1
+  0.258→0.584 over 100 rounds; **premature retirement −1.9pp**. The empirical
+  case for reachability-gated retirement.
+- **SkillsVote** — arXiv:2605.18401. Lifecycle governance over collection,
+  recommendation, attribution, evolution; million-scale corpus profiled for
+  environment, quality, verifiability. Experience-side; no incoming \(W\).
+- **MUSE-Autoskill** — arXiv:2605.27366. Creation / memory / management /
+  evaluation / refinement; +15.2pp on SkillsBench. Self-evolution from tasks.
+- **Practice Makes Unsafe: Skill Misevolution** — arXiv:2608.12851. Unsafe
+  procedures persist inside otherwise useful skills (525 tasks, 25 episodes).
+  Why admission needs evidence *before* practice, not only outcome logs.
+- **Memory-Centric Continual Learning** — arXiv:2610.29357. Three-axis taxonomy
+  (substrates / assets / policies), inner state loop + outer policy loop, and a
+  **four-gate retention cascade** (preservation, access, utilization, effect).
+  The evaluation shape we transplant to capability retention.
+- **Repo-To-Skill: Distilling GitHub Repositories Into AI4AI Skills** —
+  arXiv:2609.02749. 5,353 verified skills from 1,000 repositories; skill graphs
+  with routing / dependency / composition edges; construction record keeps
+  evidence, checks, unresolved gaps; no skill without verification. Gains under a
+  fixed backbone: MLE-bench +134.3%, PaperBench +34.4%, FrontierCS +9.2%,
+  PassNet +14.0%. Closest generation neighbour: they distil sources into a global
+  library; we decide what *this* host should admit, with refusal and validity.
+- **Paper2Agent** — Nature, s41586-026-11044-y (2026). Paper + code → MCP server →
+  chat agent; generated tests refine robustness. Creates a new agent around the
+  paper; does not align an existing host.
+- **Tool-selection scale**: **RAG-MCP** (arXiv:2505.03275; >90% at <30 candidates
+  → 13.6% at 11,100), **How Many Tools** (arXiv:2605.24660; shortlist depth as the
+  object, chance-corrected), **Tool-Space Interference** (Microsoft Research
+  2026; 1,470 servers, 775 name collisions, largest server 256 tools, large tool
+  spaces up to −85% for some models), **Tool-Surface Compression** (2026;
+  2,500 endpoints = 1.17M tokens vs search+execute ≈1k). Together: the bottleneck
+  is interface/selection, not only context length.
+- **Progressive Disclosure** — arXiv:2607.17598. Controlled study of on-demand
+  skill loading; the timing axis behind `demote`.
+- **Learning to Rewrite Tool Descriptions** — arXiv:2602.20426. Description
+  quality as a reliability lever; supports treating \(d_i\) as an admission
+  object, not prose.
 
 ## L3 — Claim verification, audit, and trust (direct neighbors)
 

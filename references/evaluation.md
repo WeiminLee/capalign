@@ -6,14 +6,14 @@ but deterministic enough that "the skill works" is checkable by any host.
 
 ## Layer 1 — per-run self-check (mandatory, before the report is final)
 
-Before `capability-alignment-report.md` is considered final, run these **18** checks
+Before `capability-alignment-report.md` is considered final, run these **21** checks
 on it. Any failure is reported in the report's own header (`self_check:` block),
 never silently fixed. `not-checkable` is allowed only where the input makes the
 check impossible, and it is never a pass.
 
 | # | check | assertion |
 |---|---|---|
-| 1 | sections | report contains all required sections (`report-contract.md`): surfaces (including `host_sync`, `arms`, `independent_check`, `reference_license`), reference inventory, host inventory, gap table, introduction cards, verification ledger, host-only, neighborhood, unresolved |
+| 1 | sections | report contains all required sections (`report-contract.md`): surfaces (including `host_sync`, `arms`, `independent_check`, `reference_license`), reference inventory, host inventory, gap table, introduction cards, portfolio (when install cards exist), verification ledger, host-only, neighborhood, unresolved |
 | 2 | validated evidence | every `missing` row has ≥1 high/medium evidence entry that came from **validation** (cross-validation step), not the raw comparison — evidence pointers must point at host/reference artifacts (paths/quotes), and the report records the validation command + result (the term searched, the hits, how each was read) |
 | 3 | no low-driven missing | no `missing` row's evidence is all `confidence: low`; such gaps are `unknown` |
 | 4 | rule citations | every install card cites a placement-rule number from `alignment-rules.md`; every refuse card cites rule 7; a card without a rule is a stub |
@@ -31,6 +31,13 @@ check impossible, and it is never a pass.
 | 16 | bridge, not guardrail | Every `install` card names what the agent gets **wrong** without the placement. No card's content is mostly prohibitions. Its `fail_before` is the agent's wrong judgement, not a missing entry point, and its `pass_after` prompt states the user's problem without naming the skill or the entry point. Skill cards carry a positive and a negative routing case; `extend:` cards carry the existing-skill positive case and the must-not-absorb negative case. |
 | 17 | unknown handling | No card was produced from a `state: "unknown"` `s` or `e`; such products are `unknown` in the gap table and in Unresolved. No `0` was used for a source that was never inspected. An unreachable paper did not turn into `entry-sans-obligation` or `validity-gap`. |
 | 18 | host-need discipline | Every `missing` row has a non-empty `host_need_note`; every `verification` need names the regime, the missing check, and the owning layer; every `agent-competence` row names its local check. No `missing` row has `host_need: none`. |
+| 19 | portfolio coverage | Every `install` card has `portfolio.relation` and `action`; every host entry has a route probe; every live obligation has at least one deliverer; a set test exists whenever two or more cards target adjacent entries or one entry's description. A run with only refusals still has an empty `portfolio` block. |
+| 20 | fusion consistency | The relation→action pair is in the allowed table. `duplicate` has `same_product && same_procedure && same_regime`; `variant` has `regime_overlap: false`; `hard-conflict` has `regime_overlap: true`. `merge` preserves both test contracts, all live obligations, and provenance, and carries the fail-closed merge block: one witness per removed unit (W3 never deletes an obligation/output/prohibition unit), hard surface coverage or verbatim locked residual, both sides' recall probes with no observed failure, `beta < -0.15` gated by an extended check, no surface-token inflation, and no `statistical` claim without randomized evidence. Description overlap alone never justifies `merge`. `covered` is not the gap-table `equivalent`. |
+| 21 | lifecycle safety | `retire` is used only for an entry with no live obligation and no retained probe; `upgrade` only for a product/check/regime superset with the old probes retained on the source; `demote` keeps explicit invocation; no live obligation loses its last deliverer; probes were declared before results. |
+
+Checks 19–21 are mandatory for every run with at least one `install` card. For a
+run with only refusals, `portfolio.host_entries` and `portfolio.probes` may be
+empty, but the `portfolio` block must exist and checks 19–21 are not applicable.
 
 Layer-1 failures mean the run is **not valid**, not "mostly done".
 
@@ -59,6 +66,8 @@ human/agent against the gold.
 | `mini-host/` | a tiny host surface: two skills (`heat-flow`, `eos`), two tools, plus an audit note admitting a missing heat-capacity capability | host-self-audit source kind; `partial` vs `missing` adjacency (heat-flow ⊄ thermal-properties) |
 | `mini-paper.md` | a condensed paper excerpt: explicit method steps, one software dependency (ASE), one reusable dataset, one single-mention term | methods→steps decomposition; hard `tool`/`data` extraction; single-mention → `low` |
 | `mini-blog.md` | a how-to post: one named command, one step-by-step recipe, one opinion | recipe→`workflow`, command→`tool`, bare opinion→`concept` `low` |
+| `mini-library/` | a tiny host library with `eos` and `heat-flow`; ten candidate cards covering all nine relations | duplicate vs variant vs hard-conflict; same procedure/different regime → `partial`; description overlap is not duplication; merge preserves both contracts; joint shadow by two individually safe cards |
+| `mini-retire/` | a host library with an old entry, its upgrade source, an orphan, and a live heat-flow entry | upgrade superset; retire an unreachable entry is allowed; retiring the last deliverer of a live obligation is rejected |
 
 ### Gold answers (`tests/fixtures/gold/…json`)
 
@@ -67,7 +76,10 @@ Each fixture pair has `gold-<ref>-vs-<host>.json` with the expected gap table
 **no card** for `insufficient-evidence`), and expected host-only set. Gold is the
 hand-computed answer at the time the fixture was written; it may be amended when a
 placement rule legitimately changes — amendments are recorded in the gold file's
-`log:` array (what changed, why, when).
+`log:` array (what changed, why, when). Portfolio golds
+(`mini-library/gold/portfolio-plan.json`, `mini-retire/gold/portfolio-plan.json`)
+record the expected relation/action per candidate and the set-test reason; they
+are checked with `research/tools/portfolio-model.py`.
 
 ### How to run (zero-bundle)
 
@@ -76,7 +88,7 @@ placement rule legitimately changes — amendments are recorded in the gold file
    or provide the host surface file directly (`inventory_host [surface.json]`).
    Repo runs must execute §E against `neighborhood-search-double.json` (no live
    network).
-2. Run the alignment workflow (SKILL.md steps 1–7) normally.
+2. Run the alignment workflow (SKILL.md steps 1–9) normally.
 3. Compare the produced gap table to the gold file, entry by entry. Also compare
    companion-paper inventory to `gold/mini-companion-paper.json`, paper-arm gaps
    to `gold/mini-paper-projection-vs-mini-host.json`, neighborhood keep/reject to
@@ -93,9 +105,14 @@ placement rule legitimately changes — amendments are recorded in the gold file
    (ids, types, confidence).
 
 Pass criteria: zero unlogged mismatches on all fixtures plus the neighborhood /
-companion-paper / unreachable-paper / introduction-card golds, and Layer-1 green
-on the mini-ref runs (all 18 checks, including unknown handling, host-need
-discipline, extend routing, and the bridge-not-guardrail check).
+companion-paper / unreachable-paper / introduction-card / portfolio-plan golds, and
+Layer-1 green on the mini-ref runs (all 21 checks, including unknown handling,
+host-need discipline, extend routing, the bridge-not-guardrail check, and the
+portfolio checks).
+
+`research/tools/portfolio-model.py` is a **research-tool check**, not a bundled
+skill runner. It validates declared relations, merge/retire safety, probes, and
+budget on the JSON inputs; the skill remains runnable without it.
 
 ### What this deliberately does NOT do
 

@@ -1,0 +1,854 @@
+{
+  "host": {
+    "entries": [
+      {
+        "id": "eos",
+        "question": "equation of state from E(V)",
+        "products": [
+          "eos-fit"
+        ],
+        "preconditions": [
+          "E(V) points"
+        ],
+        "postconditions": [
+          "V0/B0"
+        ],
+        "regime": {
+          "claim": "0K, harmonic",
+          "tags": [
+            "0K",
+            "harmonic"
+          ]
+        },
+        "procedure": "birch-murnaghan-3",
+        "checks": [
+          "eos-residual"
+        ],
+        "provenance": [
+          "tests/fixtures/mini-library"
+        ],
+        "test_contract": {
+          "fail_before": "eos is absent before admission",
+          "pass_after": "eos produces its declared product",
+          "destroy": "remove eos's prescribed primitive; the product is absent"
+        },
+        "surface": {
+          "triggers": [
+            "equation of state from E(V)"
+          ],
+          "workflow_edges": [
+            "read E(V) -> fit EOS"
+          ],
+          "tool_requirements": [
+            "numpy"
+          ],
+          "obligations": [
+            "report V0/B0 only inside the 0K harmonic regime"
+          ],
+          "output_fields": [
+            "V0",
+            "B0"
+          ]
+        }
+      },
+      {
+        "id": "heat-flow",
+        "question": "lattice thermal conductivity",
+        "products": [
+          "lattice-kappa"
+        ],
+        "preconditions": [
+          "phonon frequencies"
+        ],
+        "postconditions": [
+          "kappa(T)"
+        ],
+        "regime": {
+          "claim": "bulk, T>=300K",
+          "tags": [
+            "bulk",
+            "T>=300K"
+          ]
+        },
+        "procedure": "bte",
+        "checks": [
+          "bte-convergence"
+        ],
+        "provenance": [
+          "tests/fixtures/mini-library"
+        ],
+        "test_contract": {
+          "fail_before": "heat-flow is absent before admission",
+          "pass_after": "heat-flow produces its declared product",
+          "destroy": "remove heat-flow's prescribed primitive; the product is absent"
+        }
+      }
+    ],
+    "budget": {
+      "context_tokens_before": 12000,
+      "context_tokens_after": 12500,
+      "limit": 13000
+    }
+  },
+  "candidates": [
+    {
+      "card_id": "qha",
+      "relation": "adjacent",
+      "relation_evidence": {
+        "same_product": false,
+        "same_procedure": false,
+        "same_regime": false,
+        "regime_overlap": false,
+        "regime_subset": false,
+        "checks_missing": false,
+        "question_overlap": true,
+        "products_superset": false,
+        "checks_superset": false,
+        "regime_superset": false,
+        "products_subset": false,
+        "checks_subset": false
+      },
+      "action": "new-entry",
+      "target_entry": "eos",
+      "products": [
+        "thermal-expansion"
+      ],
+      "preconditions": [
+        "declared input"
+      ],
+      "postconditions": [
+        "declared output"
+      ],
+      "regime": {
+        "claim": "quasi-harmonic",
+        "tags": [
+          "quasi-harmonic"
+        ]
+      },
+      "procedure": "qha-fvt",
+      "checks": [
+        "qha-convergence"
+      ],
+      "provenance": [
+        "tests/fixtures/mini-library"
+      ],
+      "has_validity": false,
+      "retention_probes": [
+        "q-eos-route"
+      ],
+      "probe_effects": {
+        "q-heat-flow-route": -0.2
+      },
+      "test_contract": {
+        "fail_before": "qha is absent before admission",
+        "pass_after": "qha produces its declared product",
+        "destroy": "remove qha's prescribed primitive; the product is absent"
+      },
+      "rollback": "remove qha; restore the host surface"
+    },
+    {
+      "card_id": "eos-covered",
+      "relation": "covered",
+      "relation_evidence": {
+        "same_product": true,
+        "same_procedure": true,
+        "same_regime": false,
+        "regime_overlap": false,
+        "regime_subset": true,
+        "checks_missing": false,
+        "question_overlap": false,
+        "products_superset": false,
+        "checks_superset": false,
+        "regime_superset": false,
+        "products_subset": false,
+        "checks_subset": false
+      },
+      "action": "no-op",
+      "target_entry": "eos",
+      "products": [
+        "eos-fit"
+      ],
+      "preconditions": [
+        "declared input"
+      ],
+      "postconditions": [
+        "declared output"
+      ],
+      "regime": {
+        "claim": "0 K",
+        "tags": [
+          "0K"
+        ]
+      },
+      "procedure": "birch-murnaghan-3",
+      "checks": [
+        "eos-residual"
+      ],
+      "provenance": [
+        "tests/fixtures/mini-library"
+      ],
+      "has_validity": false,
+      "retention_probes": [],
+      "probe_effects": {},
+      "test_contract": {
+        "fail_before": "eos-covered is absent before admission",
+        "pass_after": "eos-covered produces its declared product",
+        "destroy": "remove eos-covered's prescribed primitive; the product is absent"
+      },
+      "rollback": "remove eos-covered; restore the host surface"
+    },
+    {
+      "card_id": "eos-partial",
+      "relation": "partial",
+      "relation_evidence": {
+        "same_product": true,
+        "same_procedure": true,
+        "same_regime": false,
+        "regime_overlap": false,
+        "regime_subset": false,
+        "checks_missing": true,
+        "question_overlap": false,
+        "products_superset": false,
+        "checks_superset": false,
+        "regime_superset": false,
+        "products_subset": false,
+        "checks_subset": false
+      },
+      "action": "add_validator",
+      "target_entry": "eos",
+      "products": [
+        "eos-fit"
+      ],
+      "preconditions": [
+        "declared input"
+      ],
+      "postconditions": [
+        "declared output"
+      ],
+      "regime": {
+        "claim": "0K, harmonic",
+        "tags": [
+          "0K",
+          "harmonic"
+        ]
+      },
+      "procedure": "birch-murnaghan-3",
+      "checks": [],
+      "provenance": [
+        "tests/fixtures/mini-library"
+      ],
+      "has_validity": false,
+      "retention_probes": [],
+      "probe_effects": {},
+      "test_contract": {
+        "fail_before": "eos-partial is absent before admission",
+        "pass_after": "eos-partial produces its declared product",
+        "destroy": "remove eos-partial's prescribed primitive; the product is absent"
+      },
+      "rollback": "remove eos-partial; restore the host surface"
+    },
+    {
+      "card_id": "eos-dup",
+      "relation": "duplicate",
+      "relation_evidence": {
+        "same_product": true,
+        "same_procedure": true,
+        "same_regime": true,
+        "regime_overlap": false,
+        "regime_subset": true,
+        "checks_missing": false,
+        "question_overlap": false,
+        "products_superset": false,
+        "checks_superset": false,
+        "regime_superset": false,
+        "products_subset": false,
+        "checks_subset": false
+      },
+      "action": "merge",
+      "target_entry": "eos",
+      "products": [
+        "eos-fit"
+      ],
+      "preconditions": [
+        "declared input"
+      ],
+      "postconditions": [
+        "declared output"
+      ],
+      "regime": {
+        "claim": "0K, harmonic",
+        "tags": [
+          "0K",
+          "harmonic"
+        ]
+      },
+      "procedure": "birch-murnaghan-3",
+      "checks": [
+        "eos-residual"
+      ],
+      "provenance": [
+        "tests/fixtures/mini-library"
+      ],
+      "has_validity": false,
+      "retention_probes": [
+        "q-eos-route",
+        "q-eos-dup-deliver"
+      ],
+      "probe_effects": {},
+      "test_contract": {
+        "fail_before": "eos-dup is absent before admission",
+        "pass_after": "eos-dup produces its declared product",
+        "destroy": "remove eos-dup's prescribed primitive; the product is absent"
+      },
+      "rollback": "remove eos-dup; restore the host surface",
+      "surface": {
+        "triggers": [
+          "equation of state from E(V)"
+        ],
+        "workflow_edges": [
+          "read E(V) -> fit EOS"
+        ],
+        "tool_requirements": [
+          "numpy"
+        ],
+        "obligations": [
+          "report V0/B0 only inside the 0K harmonic regime"
+        ],
+        "output_fields": [
+          "V0",
+          "B0"
+        ]
+      },
+      "merge": {
+        "witnesses": [
+          {
+            "unit": "entry:eos-dup",
+            "kind": "W1",
+            "evidence": "the candidate repeats eos's product, procedure, and regime; only the source id differs"
+          }
+        ],
+        "removed_units": [
+          "entry:eos-dup"
+        ],
+        "locked_residual": [],
+        "coverage": {
+          "triggers": [
+            "equation of state from E(V)"
+          ],
+          "workflow_edges": [
+            "read E(V) -> fit EOS"
+          ],
+          "tool_requirements": [
+            "numpy"
+          ],
+          "obligations": [
+            "report V0/B0 only inside the 0K harmonic regime"
+          ],
+          "output_fields": [
+            "V0",
+            "B0"
+          ]
+        },
+        "recall_probes": [
+          "q-eos-route",
+          "q-eos-dup-deliver"
+        ],
+        "interaction": {
+          "beta": 0.0,
+          "checked": false
+        },
+        "evidence_level": "constructive",
+        "surface_tokens_before": 420,
+        "surface_tokens_after": 260
+      }
+    },
+    {
+      "card_id": "eos-new",
+      "relation": "subsumes",
+      "relation_evidence": {
+        "same_product": true,
+        "same_procedure": false,
+        "same_regime": false,
+        "regime_overlap": false,
+        "regime_subset": false,
+        "checks_missing": false,
+        "question_overlap": false,
+        "products_superset": true,
+        "checks_superset": true,
+        "regime_superset": true,
+        "products_subset": false,
+        "checks_subset": false
+      },
+      "action": "upgrade",
+      "target_entry": "eos",
+      "products": [
+        "eos-fit",
+        "eos-elastic"
+      ],
+      "preconditions": [
+        "declared input"
+      ],
+      "postconditions": [
+        "declared output"
+      ],
+      "regime": {
+        "claim": "0K, harmonic, finite-T",
+        "tags": [
+          "0K",
+          "harmonic",
+          "finite-T"
+        ]
+      },
+      "procedure": "birch-murnaghan-3-finite-T",
+      "checks": [
+        "eos-residual",
+        "eos-elastic-check"
+      ],
+      "provenance": [
+        "tests/fixtures/mini-library"
+      ],
+      "has_validity": false,
+      "retention_probes": [
+        "q-eos-route"
+      ],
+      "probe_effects": {},
+      "test_contract": {
+        "fail_before": "eos-new is absent before admission",
+        "pass_after": "eos-new produces its declared product",
+        "destroy": "remove eos-new's prescribed primitive; the product is absent"
+      },
+      "rollback": "remove eos-new; restore the host surface"
+    },
+    {
+      "card_id": "eos-subsumed",
+      "relation": "subsumed",
+      "relation_evidence": {
+        "same_product": true,
+        "same_procedure": false,
+        "same_regime": false,
+        "regime_overlap": false,
+        "regime_subset": true,
+        "checks_missing": false,
+        "question_overlap": false,
+        "products_superset": false,
+        "checks_superset": false,
+        "regime_superset": false,
+        "products_subset": true,
+        "checks_subset": true
+      },
+      "action": "no-op",
+      "target_entry": "eos",
+      "products": [
+        "eos-fit"
+      ],
+      "preconditions": [
+        "declared input"
+      ],
+      "postconditions": [
+        "declared output"
+      ],
+      "regime": {
+        "claim": "0K",
+        "tags": [
+          "0K"
+        ]
+      },
+      "procedure": "birch-murnaghan-3",
+      "checks": [
+        "eos-residual"
+      ],
+      "provenance": [
+        "tests/fixtures/mini-library"
+      ],
+      "has_validity": false,
+      "retention_probes": [],
+      "probe_effects": {},
+      "test_contract": {
+        "fail_before": "eos-subsumed is absent before admission",
+        "pass_after": "eos-subsumed produces its declared product",
+        "destroy": "remove eos-subsumed's prescribed primitive; the product is absent"
+      },
+      "rollback": "remove eos-subsumed; restore the host surface"
+    },
+    {
+      "card_id": "kappa-bte-lowT",
+      "relation": "partial",
+      "relation_evidence": {
+        "same_product": true,
+        "same_procedure": true,
+        "same_regime": false,
+        "regime_overlap": false,
+        "regime_subset": false,
+        "checks_missing": false,
+        "question_overlap": false,
+        "products_superset": false,
+        "checks_superset": false,
+        "regime_superset": false,
+        "products_subset": false,
+        "checks_subset": false
+      },
+      "action": "split",
+      "target_entry": "heat-flow",
+      "products": [
+        "lattice-kappa"
+      ],
+      "preconditions": [
+        "declared input"
+      ],
+      "postconditions": [
+        "declared output"
+      ],
+      "regime": {
+        "claim": "bulk, T<300K",
+        "tags": [
+          "bulk",
+          "T<300K"
+        ]
+      },
+      "procedure": "bte",
+      "checks": [
+        "bte-convergence"
+      ],
+      "provenance": [
+        "tests/fixtures/mini-library"
+      ],
+      "has_validity": false,
+      "retention_probes": [],
+      "probe_effects": {
+        "q-heat-flow-route": -0.2
+      },
+      "test_contract": {
+        "fail_before": "kappa-bte-lowT is absent before admission",
+        "pass_after": "kappa-bte-lowT produces its declared product",
+        "destroy": "remove kappa-bte-lowT's prescribed primitive; the product is absent"
+      },
+      "rollback": "remove kappa-bte-lowT; restore the host surface"
+    },
+    {
+      "card_id": "kappa-slack-lowT",
+      "relation": "variant",
+      "relation_evidence": {
+        "same_product": true,
+        "same_procedure": false,
+        "same_regime": false,
+        "regime_overlap": false,
+        "regime_subset": false,
+        "checks_missing": false,
+        "question_overlap": false,
+        "products_superset": false,
+        "checks_superset": false,
+        "regime_superset": false,
+        "products_subset": false,
+        "checks_subset": false
+      },
+      "action": "split",
+      "target_entry": "heat-flow",
+      "products": [
+        "lattice-kappa"
+      ],
+      "preconditions": [
+        "declared input"
+      ],
+      "postconditions": [
+        "declared output"
+      ],
+      "regime": {
+        "claim": "bulk, T<100K",
+        "tags": [
+          "bulk",
+          "T<100K"
+        ]
+      },
+      "procedure": "slack",
+      "checks": [
+        "slack-convergence"
+      ],
+      "provenance": [
+        "tests/fixtures/mini-library"
+      ],
+      "has_validity": false,
+      "retention_probes": [],
+      "probe_effects": {},
+      "test_contract": {
+        "fail_before": "kappa-slack-lowT is absent before admission",
+        "pass_after": "kappa-slack-lowT produces its declared product",
+        "destroy": "remove kappa-slack-lowT's prescribed primitive; the product is absent"
+      },
+      "rollback": "remove kappa-slack-lowT; restore the host surface"
+    },
+    {
+      "card_id": "kappa-slack-bulk",
+      "relation": "hard-conflict",
+      "relation_evidence": {
+        "same_product": true,
+        "same_procedure": false,
+        "same_regime": false,
+        "regime_overlap": true,
+        "regime_subset": false,
+        "checks_missing": false,
+        "question_overlap": false,
+        "products_superset": false,
+        "checks_superset": false,
+        "regime_superset": false,
+        "products_subset": false,
+        "checks_subset": false
+      },
+      "action": "quarantine",
+      "target_entry": "heat-flow",
+      "products": [
+        "lattice-kappa"
+      ],
+      "preconditions": [
+        "declared input"
+      ],
+      "postconditions": [
+        "declared output"
+      ],
+      "regime": {
+        "claim": "bulk, T>=300K",
+        "tags": [
+          "bulk",
+          "T>=300K"
+        ]
+      },
+      "procedure": "slack",
+      "checks": [
+        "slack-convergence"
+      ],
+      "provenance": [
+        "tests/fixtures/mini-library"
+      ],
+      "has_validity": false,
+      "retention_probes": [],
+      "probe_effects": {},
+      "test_contract": {
+        "fail_before": "kappa-slack-bulk is absent before admission",
+        "pass_after": "kappa-slack-bulk produces its declared product",
+        "destroy": "remove kappa-slack-bulk's prescribed primitive; the product is absent"
+      },
+      "rollback": "remove kappa-slack-bulk; restore the host surface"
+    },
+    {
+      "card_id": "band-structure",
+      "relation": "unrelated",
+      "relation_evidence": {
+        "same_product": false,
+        "same_procedure": false,
+        "same_regime": false,
+        "regime_overlap": false,
+        "regime_subset": false,
+        "checks_missing": false,
+        "question_overlap": false,
+        "products_superset": false,
+        "checks_superset": false,
+        "regime_superset": false,
+        "products_subset": false,
+        "checks_subset": false
+      },
+      "action": "new-entry",
+      "target_entry": null,
+      "products": [
+        "band-gap"
+      ],
+      "preconditions": [
+        "declared input"
+      ],
+      "postconditions": [
+        "declared output"
+      ],
+      "regime": {
+        "claim": "0K, bulk",
+        "tags": [
+          "0K",
+          "bulk"
+        ]
+      },
+      "procedure": "dft-bands",
+      "checks": [
+        "band-convergence"
+      ],
+      "provenance": [
+        "tests/fixtures/mini-library"
+      ],
+      "has_validity": false,
+      "retention_probes": [],
+      "probe_effects": {},
+      "test_contract": {
+        "fail_before": "band-structure is absent before admission",
+        "pass_after": "band-structure produces its declared product",
+        "destroy": "remove band-structure's prescribed primitive; the product is absent"
+      },
+      "rollback": "remove band-structure; restore the host surface"
+    }
+  ],
+  "plan": {
+    "accepted": [
+      "qha",
+      "eos-covered",
+      "eos-partial",
+      "eos-dup",
+      "eos-new",
+      "eos-subsumed",
+      "kappa-bte-lowT",
+      "kappa-slack-lowT",
+      "band-structure"
+    ],
+    "demoted": [
+      "qha"
+    ]
+  },
+  "probes": [
+    {
+      "qid": "q-eos-route",
+      "text": "which entry fits E(V)?",
+      "owner": "eos",
+      "expected": "eos-fit",
+      "kind": "route",
+      "retained": true,
+      "margin": 0.5
+    },
+    {
+      "qid": "q-heat-flow-route",
+      "text": "which entry computes kappa(T)?",
+      "owner": "heat-flow",
+      "expected": "lattice-kappa",
+      "kind": "route",
+      "retained": true,
+      "margin": 0.3
+    },
+    {
+      "qid": "q-qha-route",
+      "text": "which entry gives thermal expansion?",
+      "owner": "qha",
+      "expected": "thermal-expansion",
+      "kind": "route",
+      "retained": true,
+      "margin": 0.5
+    },
+    {
+      "qid": "q-kappa-lowT-route",
+      "text": "which entry gives low-T kappa?",
+      "owner": "kappa-bte-lowT",
+      "expected": "lattice-kappa",
+      "kind": "route",
+      "retained": true,
+      "margin": 0.4
+    },
+    {
+      "qid": "q-kappa-slack-route",
+      "text": "which entry gives Slack low-T kappa?",
+      "owner": "kappa-slack-lowT",
+      "expected": "lattice-kappa",
+      "kind": "route",
+      "retained": true,
+      "margin": 0.4
+    },
+    {
+      "qid": "q-band-route",
+      "text": "which entry gives a band gap?",
+      "owner": "band-structure",
+      "expected": "band-gap",
+      "kind": "route",
+      "retained": true,
+      "margin": 0.5
+    },
+    {
+      "qid": "q-eos-new-route",
+      "text": "which entry gives eos-fit and elastic constants?",
+      "owner": "eos-new",
+      "expected": "eos-fit",
+      "kind": "route",
+      "retained": true,
+      "margin": 0.5
+    },
+    {
+      "qid": "q-qha-deliver",
+      "text": "deliver thermal expansion",
+      "owner": "qha",
+      "expected": "thermal-expansion",
+      "kind": "deliver",
+      "retained": true,
+      "margin": 0.5,
+      "card_id": "qha"
+    },
+    {
+      "qid": "q-eos-partial-deliver",
+      "text": "deliver eos-fit through the validator",
+      "owner": "eos",
+      "expected": "eos-fit",
+      "kind": "deliver",
+      "retained": true,
+      "margin": 0.5,
+      "card_id": "eos-partial"
+    },
+    {
+      "qid": "q-eos-dup-deliver",
+      "text": "deliver eos-fit after the merge",
+      "owner": "eos",
+      "expected": "eos-fit",
+      "kind": "deliver",
+      "retained": true,
+      "margin": 0.5,
+      "card_id": "eos-dup"
+    },
+    {
+      "qid": "q-eos-new-deliver",
+      "text": "deliver eos-fit and eos-elastic",
+      "owner": "eos-new",
+      "expected": "eos-fit",
+      "kind": "deliver",
+      "retained": true,
+      "margin": 0.5,
+      "card_id": "eos-new"
+    },
+    {
+      "qid": "q-kappa-bte-deliver",
+      "text": "deliver low-T lattice kappa",
+      "owner": "kappa-bte-lowT",
+      "expected": "lattice-kappa",
+      "kind": "deliver",
+      "retained": true,
+      "margin": 0.4,
+      "card_id": "kappa-bte-lowT"
+    },
+    {
+      "qid": "q-kappa-slack-deliver",
+      "text": "deliver Slack low-T kappa",
+      "owner": "kappa-slack-lowT",
+      "expected": "lattice-kappa",
+      "kind": "deliver",
+      "retained": true,
+      "margin": 0.4,
+      "card_id": "kappa-slack-lowT"
+    },
+    {
+      "qid": "q-band-deliver",
+      "text": "deliver a band gap",
+      "owner": "band-structure",
+      "expected": "band-gap",
+      "kind": "deliver",
+      "retained": true,
+      "margin": 0.5,
+      "card_id": "band-structure"
+    }
+  ],
+  "obligations": [
+    {
+      "id": "eos-fit",
+      "live": true
+    },
+    {
+      "id": "eos-elastic",
+      "live": true
+    },
+    {
+      "id": "lattice-kappa",
+      "live": true
+    },
+    {
+      "id": "thermal-expansion",
+      "live": true
+    }
+  ],
+  "lifecycle": []
+}

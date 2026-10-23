@@ -2,38 +2,196 @@
   "schema_version": 2,
   "diagram_type": "workflow",
   "meta": {
-    "title": "cap-align 能力对齐 · 八步执行过程",
+    "title": "cap-align 能力对齐 · 九步执行过程",
     "locale": "zh-CN",
-    "quality_profile": "showcase"
+    "quality_profile": "showcase",
+    "figure_todo": "JSON is nine steps / 21 checks; cap-align-execution.html, the PNG, and the drawio are still the old eight-step render and need regeneration."
   },
   "lanes": [
-    { "id": "inputs", "label": "输入 · 参考物" },
-    { "id": "p1", "label": "1–4 · 盘点 → 归一 → 验证" },
-    { "id": "p2", "label": "5–8 · 分类 → 落点 → 报告 → 自检" },
-    { "id": "p3", "label": "交付" }
+    {
+      "id": "inputs",
+      "label": "输入 · 参考物"
+    },
+    {
+      "id": "p1",
+      "label": "1–4 · 盘点 → 归一 → 验证"
+    },
+    {
+      "id": "p2",
+      "label": "5–8 · 分类 → 落点 → 准入 → 报告"
+    },
+    {
+      "id": "p3",
+      "label": "9 · 自检 → 交付"
+    }
   ],
   "nodes": [
-    { "id": "input", "lane": "inputs", "col": 0, "type": "external", "label": "参考物 Reference", "sublabel": "repo · paper · blog", "width": 164 },
-    { "id": "invent-ref", "lane": "p1", "col": 0, "type": "backend", "label": "1 · 盘点参考物", "sublabel": "CLI · 模块 · 文档 · 指纹", "width": 164 },
-    { "id": "invent-host", "lane": "p1", "col": 1, "type": "backend", "label": "2 · 盘点宿主面", "sublabel": "自动扫描 · 自审 · 兜底", "width": 164 },
-    { "id": "normalize", "lane": "p1", "col": 2, "type": "backend", "label": "3 · 归一化到能力 IR", "sublabel": "类型 · 证据 · 置信度", "width": 164 },
-    { "id": "validate", "lane": "p1", "col": 3, "type": "backend", "label": "4 · 交叉验证疑缺口", "sublabel": "grep 宿主 · 读产物 spec", "tag": "验证先于分类", "width": 164 },
-    { "id": "classify", "lane": "p2", "col": 3, "type": "backend", "label": "5 · 差距分类 + 来源", "sublabel": "五态 × 三来源", "width": 164 },
-    { "id": "recommend", "lane": "p2", "col": 2, "type": "backend", "label": "6 · 逐缺口落点建议", "sublabel": "skill / tool / 扩既有 / runner / 跳过", "width": 164 },
-    { "id": "report", "lane": "p2", "col": 1, "type": "backend", "label": "7 · 撰写对齐报告", "sublabel": "必需章节 · 固定结语", "width": 164 },
-    { "id": "self-check", "lane": "p2", "col": 0, "type": "security", "label": "8 · Layer-1 自检门", "sublabel": "self_check · 8 项", "tag": "任一 fail 整轮无效", "width": 164 },
-    { "id": "output", "lane": "p3", "col": 0, "type": "database", "label": "输出交付", "sublabel": "报告 + 机器可读 IR", "width": 164 }
+    {
+      "id": "input",
+      "lane": "inputs",
+      "col": 0,
+      "type": "external",
+      "label": "参考物 Reference",
+      "sublabel": "repo · paper · blog",
+      "width": 164
+    },
+    {
+      "id": "invent-ref",
+      "lane": "p1",
+      "col": 0,
+      "type": "backend",
+      "label": "1 · 盘点参考物",
+      "sublabel": "CLI · 模块 · 文档 · 指纹",
+      "width": 164
+    },
+    {
+      "id": "invent-host",
+      "lane": "p1",
+      "col": 1,
+      "type": "backend",
+      "label": "2 · 盘点宿主面",
+      "sublabel": "自动扫描 · 自审 · 兜底",
+      "width": 164
+    },
+    {
+      "id": "normalize",
+      "lane": "p1",
+      "col": 2,
+      "type": "backend",
+      "label": "3 · 归一化到能力 IR",
+      "sublabel": "类型 · 证据 · 置信度",
+      "width": 164
+    },
+    {
+      "id": "validate",
+      "lane": "p1",
+      "col": 3,
+      "type": "backend",
+      "label": "4 · 交叉验证疑缺口",
+      "sublabel": "grep 宿主 · 读产物 spec",
+      "tag": "验证先于分类",
+      "width": 164
+    },
+    {
+      "id": "classify",
+      "lane": "p2",
+      "col": 3,
+      "type": "backend",
+      "label": "5 · 差距分类 + 来源",
+      "sublabel": "五态 × 三来源",
+      "width": 164
+    },
+    {
+      "id": "recommend",
+      "lane": "p2",
+      "col": 2,
+      "type": "backend",
+      "label": "6 · 逐缺口落点建议",
+      "sublabel": "skill / tool / 扩既有 / runner / 跳过",
+      "width": 164
+    },
+    {
+      "id": "report",
+      "lane": "p2",
+      "col": 0,
+      "type": "backend",
+      "label": "8 · 撰写对齐报告",
+      "sublabel": "必需章节 · 固定结语",
+      "width": 164
+    },
+    {
+      "id": "portfolio",
+      "lane": "p2",
+      "col": 1,
+      "type": "backend",
+      "label": "7 · 组合准入",
+      "sublabel": "关系 · merge 证据 · 集合测试 · 可达性",
+      "tag": "只出计划，不执行",
+      "width": 164
+    },
+    {
+      "id": "self-check",
+      "lane": "p3",
+      "col": 1,
+      "type": "security",
+      "label": "9 · Layer-1 自检门",
+      "sublabel": "self_check · 21 项",
+      "tag": "任一 fail 整轮无效",
+      "width": 164
+    },
+    {
+      "id": "output",
+      "lane": "p3",
+      "col": 0,
+      "type": "database",
+      "label": "输出交付",
+      "sublabel": "报告 + 机器可读 IR",
+      "width": 164
+    }
   ],
   "edges": [
-    { "id": "e-in-s1", "from": "input", "to": "invent-ref", "role": "main" },
-    { "id": "e-s1-s2", "from": "invent-ref", "to": "invent-host", "role": "main" },
-    { "id": "e-s2-s3", "from": "invent-host", "to": "normalize", "role": "main" },
-    { "id": "e-s3-s4", "from": "normalize", "to": "validate", "role": "main" },
-    { "id": "e-s4-s5", "from": "validate", "to": "classify", "label": "仅已证实的进分类", "role": "main" },
-    { "id": "e-s5-s6", "from": "classify", "to": "recommend", "role": "main" },
-    { "id": "e-s6-s7", "from": "recommend", "to": "report", "role": "main" },
-    { "id": "e-s7-s8", "from": "report", "to": "self-check", "role": "main" },
-    { "id": "e-s8-out", "from": "self-check", "to": "output", "label": "全绿才交付", "role": "main" }
+    {
+      "id": "e-in-s1",
+      "from": "input",
+      "to": "invent-ref",
+      "role": "main"
+    },
+    {
+      "id": "e-s1-s2",
+      "from": "invent-ref",
+      "to": "invent-host",
+      "role": "main"
+    },
+    {
+      "id": "e-s2-s3",
+      "from": "invent-host",
+      "to": "normalize",
+      "role": "main"
+    },
+    {
+      "id": "e-s3-s4",
+      "from": "normalize",
+      "to": "validate",
+      "role": "main"
+    },
+    {
+      "id": "e-s4-s5",
+      "from": "validate",
+      "to": "classify",
+      "label": "仅已证实的进分类",
+      "role": "main"
+    },
+    {
+      "id": "e-s5-s6",
+      "from": "classify",
+      "to": "recommend",
+      "role": "main"
+    },
+    {
+      "id": "e-s6-p",
+      "from": "recommend",
+      "to": "portfolio",
+      "role": "main"
+    },
+    {
+      "id": "e-p-s8",
+      "from": "portfolio",
+      "to": "report",
+      "role": "main"
+    },
+    {
+      "id": "e-s8-s9",
+      "from": "report",
+      "to": "self-check",
+      "role": "main"
+    },
+    {
+      "id": "e-s9-out",
+      "from": "self-check",
+      "to": "output",
+      "label": "全绿才交付",
+      "role": "main"
+    }
   ],
   "cards": [
     {
@@ -49,7 +207,7 @@
       "dot": "violet",
       "title": "验证与治理",
       "items": [
-        "Layer-1 自检：8 项检查，任一 fail 整轮无效",
+        "Layer-1 自检：21 项检查，任一 fail 整轮无效",
         "Layer-2 金标：fixtures + gold，零未登记差异",
         "同输入重跑，差距表必须逐项一致"
       ]

@@ -1,0 +1,155 @@
+{
+  "note": "Gold for mini-library. Relations/actions are declared evidence, not inferred from text. Do not copy these ids onto another work.",
+  "inputs": {
+    "add_all": "tests/fixtures/mini-library/portfolio-input.json",
+    "gated": "tests/fixtures/mini-library/portfolio-input-gated.json"
+  },
+  "expected_relations_actions": {
+    "qha": {
+      "relation": "adjacent",
+      "action": "new-entry",
+      "target_entry": "eos"
+    },
+    "eos-covered": {
+      "relation": "covered",
+      "action": "no-op",
+      "target_entry": "eos"
+    },
+    "eos-partial": {
+      "relation": "partial",
+      "action": "add_validator",
+      "target_entry": "eos"
+    },
+    "eos-dup": {
+      "relation": "duplicate",
+      "action": "merge",
+      "target_entry": "eos"
+    },
+    "eos-new": {
+      "relation": "subsumes",
+      "action": "upgrade",
+      "target_entry": "eos"
+    },
+    "eos-subsumed": {
+      "relation": "subsumed",
+      "action": "no-op",
+      "target_entry": "eos"
+    },
+    "kappa-bte-lowT": {
+      "relation": "partial",
+      "action": "split",
+      "target_entry": "heat-flow"
+    },
+    "kappa-slack-lowT": {
+      "relation": "variant",
+      "action": "split",
+      "target_entry": "heat-flow"
+    },
+    "kappa-slack-bulk": {
+      "relation": "hard-conflict",
+      "action": "quarantine",
+      "target_entry": "heat-flow"
+    },
+    "band-structure": {
+      "relation": "unrelated",
+      "action": "new-entry",
+      "target_entry": null
+    }
+  },
+  "set_test_add_all": {
+    "passed": false,
+    "violations": [
+      "joint shadow on q-heat-flow-route: 0.3 - 0.2 - 0.2 = -0.1"
+    ],
+    "reason": "joint shadow on q-heat-flow-route: 0.3 - 0.2 - 0.2 = -0.1",
+    "demoted": []
+  },
+  "set_test_gated": {
+    "passed": true,
+    "violations": [],
+    "reason": "all retained probes pass; budget within limit",
+    "demoted": [
+      "qha"
+    ],
+    "retained_probe_scores": {
+      "q-heat-flow-route": 0.1
+    }
+  },
+  "metrics_add_all": {
+    "entry_count": 2,
+    "duplicate_count": 1,
+    "hard_conflict_count": 1,
+    "orphan_count": 0,
+    "portfolio_coverage": 1.0
+  },
+  "metrics_gated": {
+    "entry_count": 2,
+    "duplicate_count": 1,
+    "hard_conflict_count": 1,
+    "orphan_count": 0,
+    "portfolio_coverage": 1.0
+  },
+  "unit_only_cases": [
+    "kappa-slack-bulk with split is the wrong action for a hard conflict",
+    "eos-dup with merge missing one test contract is rejected",
+    "eos-partial with merge is rejected: partial is not duplicate, and description overlap is not a duplication witness",
+    "a merge with a removed unit but no witness is rejected",
+    "W3 cannot delete an obligation or an output field even when a checker claims entailment",
+    "a surface unit absent from coverage, removed_units, and locked_residual is a silent drop",
+    "a locked residual without verbatim text is rejected",
+    "negative interaction beta without an extended regression check is rejected",
+    "surface_tokens_after > surface_tokens_before is rejected",
+    "statistical evidence_level without randomized n_trials is rejected"
+  ],
+  "traps_asserted": [
+    "all nine relations are exercised; partial appears twice (checks_missing and regime missing)",
+    "duplicate is same product + same procedure + same regime",
+    "variant requires disjoint regimes; overlapping regimes with different procedures is hard-conflict",
+    "description overlap alone never justifies merge",
+    "merge preserves both test contracts, live obligations, checks, and provenance",
+    "two individually safe cards jointly shadow heat-flow's route; one-at-a-time admission would miss it",
+    "demoting qha removes its contribution and lowers portfolio coverage, it does not silently pass",
+    "merge evidence is fail-closed: every removed unit has exactly one witness",
+    "merge coverage equals the union of both surfaces minus witnessed removals and verbatim locked residual",
+    "both sides' retained probes replay before the merge commits"
+  ],
+  "log": [
+    {
+      "date": "2026-10-23",
+      "what": "new gold: mini-library add-all and gated portfolio arms",
+      "why": "acceptance trap for the nine fusion relations, merge safety, joint shadow arithmetic, and budget/demote behavior",
+      "trigger": "references/portfolio-admission.md; Layer-1 checks 19-21"
+    },
+    {
+      "date": "2026-10-23",
+      "what": "added the fail-closed merge evidence block to eos-dup",
+      "why": "the fixture now exercises W1/W2/W3 witnessing, hard surface coverage, locked residual, the recall commit gate, interaction gating, never-inflate, and evidence-level honesty",
+      "trigger": "docs/skill-merge-retire-survey.md §1.1-1.3; references/portfolio-admission.md §6"
+    }
+  ],
+  "merge_evidence_asserted": {
+    "card": "eos-dup",
+    "removed_units": [
+      "entry:eos-dup"
+    ],
+    "witness_kinds": [
+      "W1"
+    ],
+    "surface_classes": [
+      "triggers",
+      "workflow_edges",
+      "tool_requirements",
+      "obligations",
+      "output_fields"
+    ],
+    "recall_probes": [
+      "q-eos-route",
+      "q-eos-dup-deliver"
+    ],
+    "evidence_level": "constructive",
+    "surface_tokens": {
+      "before": 420,
+      "after": 260
+    }
+  }
+}

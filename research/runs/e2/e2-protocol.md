@@ -11,7 +11,7 @@ neutral-domain instance swaps only the parameter table.
   compares it against two baselines.
 - Experiment spec: `research/experiments.md` §E2 (three arms, effort equalized,
   success + gain-per-effort, SoK +16.2pp anchor).
-- Method: `SKILL.md` workflow (steps 1–7) — the experiment is a **first-class
+- Method: `SKILL.md` workflow (steps 1–9; this protocol was written when it was 1–7) — the experiment is a **first-class
   user of the artifact**, not a custom harness.
 
 ---
@@ -95,7 +95,7 @@ find "$REF/doc" -maxdepth 1 \( -name "*.md" -o -name "*.rst" \) ! -name conf.py 
 
 ### Phase 2 — Alignment report (the input arm (a) acts on)
 
-Run the cap-align workflow (SKILL.md steps 1–7) on reference = phonopy repo,
+Run the cap-align workflow (SKILL.md steps 1–9; written when it was 1–7) on reference = phonopy repo,
 host = MatDiscovery surface *or* pin the existing case-study record
 (`references/methodology.md` §3 records the first instance: 19 gaps, 3 false
 catches; the full record lives outside this repo and its location is pinned

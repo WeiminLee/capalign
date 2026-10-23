@@ -103,6 +103,31 @@
     },
     "evidence": "",
     "note": "skill run ends at the card; contract written, never executed"
+   },
+   "portfolio": {
+    "relation": "adjacent",
+    "relation_evidence": {
+     "same_product": false,
+     "same_procedure": false,
+     "same_regime": false,
+     "regime_overlap": false,
+     "regime_subset": false,
+     "checks_missing": false,
+     "question_overlap": true,
+     "products_superset": false,
+     "checks_superset": false,
+     "regime_superset": false,
+     "products_subset": false,
+     "checks_subset": false
+    },
+    "action": "new-entry",
+    "target_entry": "eos",
+    "retention_probes": [
+     "q-eos-route"
+    ],
+    "conflict": null,
+    "merge": null,
+    "rollback": "remove new-skill:qha; eos unchanged"
    }
   },
   {
@@ -175,6 +200,26 @@
     },
     "evidence": "",
     "note": "skill run ends at the card; contract written, never executed"
+   },
+   "portfolio": {
+    "relation": "unrelated",
+    "relation_evidence": {
+     "same_product": false,
+     "same_procedure": false,
+     "same_regime": false,
+     "regime_overlap": false,
+     "regime_subset": false,
+     "checks_missing": false,
+     "question_overlap": false,
+     "products_superset": false,
+     "checks_superset": false,
+     "regime_superset": false,
+     "products_subset": false,
+     "checks_subset": false
+    },
+    "action": "no-op",
+    "target_entry": null,
+    "retention_probes": []
    }
   },
   {
@@ -247,6 +292,26 @@
     },
     "evidence": "",
     "note": "skill run ends at the card; contract written, never executed"
+   },
+   "portfolio": {
+    "relation": "unrelated",
+    "relation_evidence": {
+     "same_product": false,
+     "same_procedure": false,
+     "same_regime": false,
+     "regime_overlap": false,
+     "regime_subset": false,
+     "checks_missing": false,
+     "question_overlap": false,
+     "products_superset": false,
+     "checks_superset": false,
+     "regime_superset": false,
+     "products_subset": false,
+     "checks_subset": false
+    },
+    "action": "no-op",
+    "target_entry": null,
+    "retention_probes": []
    }
   },
   {
@@ -319,6 +384,26 @@
     },
     "evidence": "",
     "note": "skill run ends at the card; contract written, never executed"
+   },
+   "portfolio": {
+    "relation": "unrelated",
+    "relation_evidence": {
+     "same_product": false,
+     "same_procedure": false,
+     "same_regime": false,
+     "regime_overlap": false,
+     "regime_subset": false,
+     "checks_missing": false,
+     "question_overlap": false,
+     "products_superset": false,
+     "checks_superset": false,
+     "regime_superset": false,
+     "products_subset": false,
+     "checks_subset": false
+    },
+    "action": "no-op",
+    "target_entry": null,
+    "retention_probes": []
    }
   },
   {
@@ -391,6 +476,26 @@
     },
     "evidence": "",
     "note": "skill run ends at the card; contract written, never executed"
+   },
+   "portfolio": {
+    "relation": "unrelated",
+    "relation_evidence": {
+     "same_product": false,
+     "same_procedure": false,
+     "same_regime": false,
+     "regime_overlap": false,
+     "regime_subset": false,
+     "checks_missing": false,
+     "question_overlap": false,
+     "products_superset": false,
+     "checks_superset": false,
+     "regime_superset": false,
+     "products_subset": false,
+     "checks_subset": false
+    },
+    "action": "no-op",
+    "target_entry": null,
+    "retention_probes": []
    }
   },
   {
@@ -463,6 +568,26 @@
     },
     "evidence": "",
     "note": "skill run ends at the card; contract written, never executed"
+   },
+   "portfolio": {
+    "relation": "unrelated",
+    "relation_evidence": {
+     "same_product": false,
+     "same_procedure": false,
+     "same_regime": false,
+     "regime_overlap": false,
+     "regime_subset": false,
+     "checks_missing": false,
+     "question_overlap": false,
+     "products_superset": false,
+     "checks_superset": false,
+     "regime_superset": false,
+     "products_subset": false,
+     "checks_subset": false
+    },
+    "action": "no-op",
+    "target_entry": null,
+    "retention_probes": []
    }
   }
  ],
@@ -501,6 +626,12 @@
    "what": "slots migrated from {filled} to tri-state {state, provenance, span, quote, why_empty}; card rule migrated from string to integer array; prescribed migrated from a single string to a primitive array",
    "why": "a source that could not be inspected must not be read as 0 (unknown handling); provenance makes the paper/repo arm explicit",
    "trigger": "introduction-card.md tri-state slots; report-contract.md; Layer-1 checks 13 and 17; Layer-1 is now 18"
+  },
+  {
+   "date": "2026-10-23",
+   "what": "card-level portfolio block added to every card; qha is adjacent/new-entry and the refuse cards are unrelated/no-op",
+   "why": "report-contract.md now requires the relation-to-action block for install cards; row-level lambda, action, and placement did not change",
+   "trigger": "references/portfolio-admission.md; Layer-1 checks 19-21"
   }
  ]
 }
